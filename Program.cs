@@ -51,8 +51,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configurar el pipeline
-if (app.Environment.IsDevelopment())
-{
+
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(options =>
@@ -60,7 +59,7 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
         options.RoutePrefix = string.Empty; // Swagger en la raíz
     });
-}
+
 
 app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigins");
