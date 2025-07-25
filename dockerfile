@@ -21,4 +21,4 @@ COPY --from=build /app/out .
 EXPOSE 80
 
 # Comando para ejecutar la aplicación
-ENTRYPOINT ["dotnet", "PROY_BACK_QBD.dll"]
+ENTRYPOINT ["dotnet", "Proy_back_QBD.dll"]
