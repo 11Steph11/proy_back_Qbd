@@ -28,8 +28,8 @@ public class TrabajadorController : ControllerBase
     public async Task<IActionResult> CrearTrabajador([FromBody] TrabajadorCreateRequest request)
     {
         Trabajador trabajador = _mapper.Map<Trabajador>(request);
-        int? id = await _trabajadorService.RegistrarTrabajadorAsync(trabajador);
-        UserLoginResponse response = new UserLoginResponse();
+        int? id = await _trabajadorService.RegistrarTrabajadorAsync(trabajador);        
+        TrabajadorCreateResponse response = new TrabajadorCreateResponse();
         response.Id = id;
         return Ok(response);
     }

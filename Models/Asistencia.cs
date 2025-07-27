@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proy_back_QBD.Models
 {
-    
+
     [Table("asistencias")]
     public class Asistencia
     {
@@ -13,16 +13,20 @@ namespace Proy_back_QBD.Models
         public int? Id { get; set; }  // Puede ser nulo
 
         [Column("fecha_creacion")]
-        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo        
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateOnly? FechaCreacion { get; set; }  // Puede ser nulo        
         [Column("tipo_horario")]
         public string? TipoHorario { get; set; }  // Puede ser nulo
         [Column("hora_asignada")]
-        public TimeSpan? HoraAsignada { get; set; }  // Puede ser nulo
+        public TimeOnly? HoraAsignada { get; set; }  // Puede ser nulo
         [Column("hora_marcada")]
-        public TimeSpan? HoraMarcada { get; set; }  // Puede ser nulo
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public TimeOnly? HoraMarcada { get; set; }  // Puede ser nulo
         [Column("tiempo_atraso")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeSpan? TiempoAtraso { get; set; }  // Puede ser nulo
         [Column("tiempo_extra")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeSpan? TiempoExtra { get; set; }  // Puede ser nulo
         public string? Observacion { get; set; }  // Puede ser nulo
         [ForeignKey("IdTrabajador")]
