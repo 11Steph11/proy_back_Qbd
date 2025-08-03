@@ -18,6 +18,7 @@ namespace Proy_back_QBD.Repository
         public async Task<Usuario?> ObtenerIdAsync(string dni)
         {
             var usuario = await _context.Usuarios
+            .Include(a => a.Tipo)
             .FirstOrDefaultAsync(a => a.DNI.Equals(dni));
             return usuario;
         }

@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }  // Puede ser nulo
+        public int Id { get; set; }  // Puede ser nulo
 
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

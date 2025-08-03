@@ -2,6 +2,8 @@ using Proy_back_QBD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Response;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace Proy_back_QBD.Repository
 {
@@ -12,21 +14,22 @@ namespace Proy_back_QBD.Repository
         {
             _context = context;
         }
-        public async Task<AsistenciaCreateResponse?> RegistrarAsync(Asistencia asistencia)
-        {
-            _context.Asistencias.AddAsync(asistencia);
-            await _context.SaveChangesAsync();
-            AsistenciaCreateResponse response = new AsistenciaCreateResponse();
-            response.HoraMarcada = asistencia.HoraMarcada ?? TimeOnly.FromDateTime(DateTime.Now);
-            if (asistencia.HoraAsignada.HasValue)
-            {
-                var diferencia = response.HoraMarcada - asistencia.HoraAsignada.Value;
 
-                // Asignar la diferencia a la propiedad de la entidad Asistencia
-                response.Diferencia = diferencia; 
-            }
-            response.Id = asistencia.Id;
-            return response;
+        public async Task<List<Asistencia>?> ObtenerAsistenciasByIdAsync(string dni, int ano, int mes)
+        {
+            DateOnly Fecha = new DateOnly(ano, mes, 1);
+            List<Asistencia> asistencia = await _context.Asistencias            
+            .Include(a => a.Trabajador)
+            .Where(a => a.Trabajador.DNI.Equals(dni) && a.FechaCreacion >= Fecha)
+            .ToListAsync();            
+            return asistencia;
+        }
+
+        public async Task<Asistencia?> RegistrarAsync(Asistencia asistencia)
+        {
+            _context.Asistencias.Add(asistencia);
+            await _context.SaveChangesAsync();
+            return asistencia;
         }
 
     }

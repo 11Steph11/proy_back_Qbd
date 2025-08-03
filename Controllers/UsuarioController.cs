@@ -26,6 +26,7 @@ public class UsuarioController : ControllerBase
         var usuario = await _userService.ValidarLoginUserAsync(request.DNI, request.Contrasena);
         UserLoginResponse response = new UserLoginResponse();
         response.Id = usuario.Id;        
+        response.TipoUsuario = usuario.Tipo.Nombre;        
         return Ok(response);
     }
 }

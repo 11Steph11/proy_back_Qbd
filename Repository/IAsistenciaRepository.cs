@@ -6,6 +6,7 @@ namespace Proy_back_QBD.Repository
 {
     public interface IAsistenciaRepository
     {
-        Task<AsistenciaCreateResponse?> RegistrarAsync(Asistencia asistencia);
+        Task<List<Asistencia>?> ObtenerAsistenciasByIdAsync(string dni, int ano, int mes);
+        Task<Asistencia?> RegistrarAsync(Asistencia asistencia);
     }
 }

@@ -27,7 +27,18 @@ public class AsistenciaController : ControllerBase
     public async Task<IActionResult> CrearAsistencia([FromBody] AsistenciaCreateRequest request)
     {
         Asistencia asistencia = _mapper.Map<Asistencia>(request);
-        AsistenciaCreateResponse? response = await _asistenciaService.RegistrarAsistenciaAsync(asistencia);        
+        AsistenciaCreateResponse response = await _asistenciaService.RegistrarAsistenciaAsync(asistencia);
         return Ok(response);
+    }
+
+    [HttpPost]
+    [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaCreateResponse))]
+    public async Task<IActionResult> ObtenerAsistenciaByDNI([FromBody] AsistenciaByDNIRequest request)
+    {
+        // Validar que el mes sea válido (de 1 a 12)
+
+        // Devolver la respuesta en formato JSON
+        return Ok();
+
     }
 }

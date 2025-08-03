@@ -5,6 +5,7 @@ namespace Proy_back_QBD.Services
 {
     public interface IAsistenciaService
     {
+        // Task<AsistenciaByDNIResponse?> ObtenerAsistenciasByIdAsync(string dni, int año, string mes);
         Task<AsistenciaCreateResponse?> RegistrarAsistenciaAsync(Asistencia asistencia);
     }
 }
