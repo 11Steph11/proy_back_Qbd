@@ -1,6 +1,10 @@
 using Proy_back_QBD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Proy_back_QBD.Dto.Response;
+using Microsoft.EntityFrameworkCore;
+using Proy_back_QBD.Dto;
 
 namespace Proy_back_QBD.Services
 {
@@ -14,9 +18,25 @@ namespace Proy_back_QBD.Services
             _authService = authService;
         }
 
-        public Task<Employee?> AutoFilled(string code)
+        public async Task<EmployeeFilledRes?> AutoFilled(EmployeeFilledReq request)
         {
-            throw new NotImplementedException();
+            if (request == null)
+            {
+                return null;
+            }
+            var response = await _context.Employees
+            .Where(u => u.Codigo.Equals(request.Codigo))
+            .Select(a => new EmployeeFilledRes
+            {
+                Dni = a.DNI,
+                NombreCompleto = $"{a.Nombres} {a.ApellidoPaterno} {a.ApellidoMaterno}",
+                HoraAsignada = request.TipoAsistencia == "ALMUERZO" ? a.HoraAlmuerzo :
+                request.TipoAsistencia == "REGRESO" ? a.HoraRegreso :
+                request.TipoAsistencia == "SALIDA" ? a.HoraSalida :
+                request.TipoAsistencia == "ENTRADA" ? a.HoraEntrada : null
+            })
+            .FirstOrDefaultAsync();
+            return response;
         }
 
         public async Task<int?> RegistrarTrabajadorAsync(Employee trabajador)
