@@ -9,22 +9,22 @@ namespace Proy_back_QBD.Controllers;
 
 [ApiController]
 [Route("usuario")]
-public class UsuarioController : ControllerBase
+public class UserController : ControllerBase
 {
 
     private readonly IUserService _userService;
 
-    public UsuarioController(IUserService userService)
+    public UserController(IUserService userService)
     {
         _userService = userService;
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(UserLoginResponse))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(UserLoginRes))]
     public async Task<IActionResult> ValidarCredenciales([FromBody] UserLoginRequest request)
     {
         var usuario = await _userService.ValidarLoginUserAsync(request.DNI, request.Contrasena);
-        UserLoginResponse response = new UserLoginResponse();
+        UserLoginRes response = new UserLoginRes();
         response.NombreCompleto = $"{usuario.Nombres} {usuario.ApellidoPaterno} {usuario.ApellidoMaterno}";        
         response.Rol = usuario.Tipo.Nombre;        
         response.Sede = usuario.Sede.Nombre;        

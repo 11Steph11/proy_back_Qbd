@@ -8,7 +8,7 @@ namespace Proy_back_QBD.Dto.Response
         public TimeOnly HoraRegreso { get; set; }
         public TimeOnly HoraSalida { get; set; }
     }
-    public class AsistenciaByDNIResponse
+    public class AttendanceByDNIRes
     {
         public string? Nombre { get; set; }
         public List<FechaConHoras>? ListaAsistencia { get; set; }

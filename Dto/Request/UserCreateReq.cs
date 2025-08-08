@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Request
 {
-    public class UserCreateRequest
+    public class UserCreateReq
     {
         public string? Contrasena { get; set; }  // Puede ser nulo        
         public string? Nombres { get; set; }  // Puede ser nulo

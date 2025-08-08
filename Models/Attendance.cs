@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
 
     [Table("asistencias")]
-    public class Asistencia
+    public class Attendance
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -30,7 +30,7 @@ namespace Proy_back_QBD.Models
         public TimeSpan? TiempoExtra { get; set; }  // Puede ser nulo
         public string? Observacion { get; set; }  // Puede ser nulo
         [ForeignKey("IdTrabajador")]
-        public Trabajador? Trabajador { get; set; }  // Puede ser nulo
+        public Employee? Trabajador { get; set; }  // Puede ser nulo
         [Column("id_trabajador")]
         public int? IdTrabajador { get; set; }  // Puede ser nulo
     }

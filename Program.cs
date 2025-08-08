@@ -5,24 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Proy_back_QBD.Profiles;
 using Proy_back_QBD.Services;
-using Proy_back_QBD.Repository;
 Env.Load(); // Cargar variables de entorno desde el archivo .env
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(cfg =>
 {
-    cfg.AddProfile<TrabajadorMappingProfile>();  // Registra tu perfil explícitamente
-    cfg.AddProfile<SedeMappingProfile>();  // Registra tu perfil explícitamente
-    cfg.AddProfile<AsistenciaMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<EmployeeMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<RegionMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<AttendanceMappingProfile>();  // Registra tu perfil explícitamente
 });
-builder.Services.AddScoped<ITrabajadorRepository, TrabajadorRepository>();
-builder.Services.AddScoped<ITrabajadorService, TrabajadorService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ISedeRepository, SedeRepository>();
-builder.Services.AddScoped<ISedeService, SedeService>();
-builder.Services.AddScoped<IAsistenciaRepository, AsistenciaRepository>();
-builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
+builder.Services.AddScoped<IRegionService, RegionService>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<AuthService>();
 // Configurar servicios
 builder.Services.AddControllers();

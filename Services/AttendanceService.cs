@@ -2,13 +2,14 @@ using Proy_back_QBD.Models;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Proy_back_QBD.Services
 {
-    public class AsistenciaService : IAsistenciaService
+    public class AttendanceService : IAttendanceService
     {
         private readonly ApiContext _context;
-        public AsistenciaService(ApiContext context)
+        public AttendanceService(ApiContext context)
         {
             _context = context;
         }
@@ -28,16 +29,16 @@ namespace Proy_back_QBD.Services
 
         // }
 
-        public async Task<AsistenciaCreateResponse?> RegistrarAsistenciaAsync(Asistencia asistencia)
+        public async Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Attendance asistencia)
         {
 
             if (asistencia == null)
             {
                 return null;
             }
-            AsistenciaCreateResponse response = new AsistenciaCreateResponse();
+            AttendanceCreateRes response = new AttendanceCreateRes();
 
-            _context.Asistencias.Add(asistencia);
+            _context.Attendances.Add(asistencia);
             await _context.SaveChangesAsync();
 
             response.HoraMarcada = asistencia.HoraMarcada ?? TimeOnly.FromDateTime(DateTime.Now);

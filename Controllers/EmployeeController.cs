@@ -11,25 +11,25 @@ namespace Proy_back_QBD.Controllers;
 
 [ApiController]
 [Route("trabajador")]
-public class TrabajadorController : ControllerBase
+public class EmployeeController : ControllerBase
 {
 
-    private readonly ITrabajadorService _trabajadorService;
+    private readonly IEmployeeService _trabajadorService;
     private readonly IMapper _mapper;
 
-    public TrabajadorController(ITrabajadorService userService, IMapper mapper)
+    public EmployeeController(IEmployeeService userService, IMapper mapper)
     {
         _trabajadorService = userService;
         _mapper = mapper;
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(UserLoginResponse))]
-    public async Task<IActionResult> CrearTrabajador([FromBody] TrabajadorCreateRequest request)
+    [SwaggerResponse(200, "Operación exitosa", typeof(UserLoginRes))]
+    public async Task<IActionResult> CrearTrabajador([FromBody] EmployeeCreateReq request)
     {
-        Trabajador trabajador = _mapper.Map<Trabajador>(request);
+        Employee trabajador = _mapper.Map<Employee>(request);
         int? id = await _trabajadorService.RegistrarTrabajadorAsync(trabajador);        
-        TrabajadorCreateResponse response = new TrabajadorCreateResponse();
+        EmployeeCreateRes response = new EmployeeCreateRes();
         response.Id = id;
         return Ok(response);
     }

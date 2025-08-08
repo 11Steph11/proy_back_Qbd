@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Response
 {
-    public class TrabajadorCreateResponse
+    public class EmployeeFilledRes
     {
         public int? Id { get; set; }
     }

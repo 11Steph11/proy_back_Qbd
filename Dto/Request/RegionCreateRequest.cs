@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
     
 
-    public class SedeCreateRequest
+    public class RegionCreateRequest
     {
         public string? Nombre { get; set; }  // Puede ser nulo                
         public string? Direccion { get; set; }  // Puede ser nulo               

@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Response
 {
-    public class SedeCreateResponse
+    public class RegionCreateRes
     {
         public int? Id { get; set; }
     }

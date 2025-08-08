@@ -10,24 +10,24 @@ namespace Proy_back_QBD.Controllers;
 
 [ApiController]
 [Route("asistencia")]
-public class AsistenciaController : ControllerBase
+public class AttendanceController : ControllerBase
 {
 
-    private readonly IAsistenciaService _asistenciaService;
+    private readonly IAttendanceService _asistenciaService;
     private readonly IMapper _mapper;
 
-    public AsistenciaController(IAsistenciaService userService, IMapper mapper)
+    public AttendanceController(IAttendanceService userService, IMapper mapper)
     {
         _asistenciaService = userService;
         _mapper = mapper;
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaCreateResponse))]
-    public async Task<IActionResult> CrearAsistencia([FromBody] AsistenciaCreateRequest request)
+    [SwaggerResponse(200, "Operación exitosa", typeof(AttendanceCreateRes))]
+    public async Task<IActionResult> CrearAsistencia([FromBody] AttendanceCreateReq request)
     {
-        Asistencia asistencia = _mapper.Map<Asistencia>(request);
-        AsistenciaCreateResponse response = await _asistenciaService.RegistrarAsistenciaAsync(asistencia);
+        Attendance asistencia = _mapper.Map<Attendance>(request);
+        AttendanceCreateRes response = await _asistenciaService.RegistrarAsistenciaAsync(asistencia);
         return Ok(response);
     }
 

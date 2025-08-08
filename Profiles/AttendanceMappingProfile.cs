@@ -5,12 +5,13 @@ using Proy_back_QBD.Models; // Asegúrate de incluir el espacio de nombres corre
 
 namespace Proy_back_QBD.Profiles
 {
-    public class SedeMappingProfile : Profile
+    public class AttendanceMappingProfile : Profile
     {
-        public SedeMappingProfile()
+        public AttendanceMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<SedeCreateRequest, Sede>();
+            CreateMap<AttendanceCreateReq, Attendance>();
+            CreateMap<AttendanceByDNIReq, Attendance>();
             // Otros mapeos si es necesario
         }
     }

@@ -13,9 +13,9 @@ namespace Proy_back_QBD.Services
             _context = context;
             _authService = authService;
         }
-        public async Task<Usuario?> ValidarLoginUserAsync(string dni, string contrasena)
+        public async Task<User?> ValidarLoginUserAsync(string dni, string contrasena)
         {
-            var usuario = await _context.Usuarios
+            var usuario = await _context.Users
             .Include(a => a.Tipo)
             .Include(a => a.Sede)
             .FirstOrDefaultAsync(a => a.DNI.Equals(dni));
