@@ -12,6 +12,7 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }  // Puede ser nulo 
         public string? Contrasena { get; set; }  // Puede ser nulo        
+        public string? Codigo { get; set; }  // Puede ser nulo
         public string? Nombres { get; set; }  // Puede ser nulo
         [Column("apellido_paterno")]
         public string? ApellidoPaterno { get; set; }  // Puede ser nulo

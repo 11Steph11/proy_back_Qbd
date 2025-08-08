@@ -1,16 +1,16 @@
 using Proy_back_QBD.Models;
 using Microsoft.AspNetCore.Mvc;
-using Proy_back_QBD.Repository;
+using Proy_back_QBD.Data;
 
 namespace Proy_back_QBD.Services
 {
     public class TrabajadorService : ITrabajadorService
     {
-        private readonly ITrabajadorRepository _trabajadorRepository;
         private readonly AuthService _authService;
-        public TrabajadorService(ITrabajadorRepository trabajadorRepository, AuthService authService)
+        private readonly ApiContext _context;
+        public TrabajadorService(ApiContext context, AuthService authService)
         {
-            _trabajadorRepository = trabajadorRepository;
+            _context = context;
             _authService = authService;
         }
         public async Task<int?> RegistrarTrabajadorAsync(Trabajador trabajador)
@@ -20,7 +20,8 @@ namespace Proy_back_QBD.Services
                 return null;
             }
             trabajador.Contrasena = _authService.HashPassword(trabajador.Contrasena);
-            await _trabajadorRepository.RegistrarAsync(trabajador);
+            _context.Trabajadores.AddAsync(trabajador);
+            await _context.SaveChangesAsync();
             return trabajador.Id;
         }
     }

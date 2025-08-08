@@ -1,15 +1,15 @@
 using Proy_back_QBD.Models;
 using Microsoft.AspNetCore.Mvc;
-using Proy_back_QBD.Repository;
+using Proy_back_QBD.Data;
 
 namespace Proy_back_QBD.Services
 {
     public class SedeService : ISedeService
     {
-        private readonly ISedeRepository _sedeRepository;
-        public SedeService(ISedeRepository sedeRepository)
+        private readonly ApiContext _context;
+        public SedeService(ApiContext context)
         {
-            _sedeRepository = sedeRepository;
+            _context = context;
         }
         public async Task<int?> RegistrarSedeAsync(Sede sede)
         {
@@ -17,7 +17,8 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            await _sedeRepository.RegistrarAsync(sede);
+            await _context.Sedes.AddAsync(sede);
+            await _context.SaveChangesAsync();
             return sede.Id;
         }
     }
