@@ -10,7 +10,9 @@ namespace Proy_back_QBD.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
         public int? Id { get; set; }
+        [Column("nombre")]
         public string? Nombre { get; set; }  
     }
 

@@ -10,8 +10,8 @@ namespace Proy_back_QBD.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
         public int Id { get; set; }  // Puede ser nulo
-
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateOnly? FechaCreacion { get; set; }  // Puede ser nulo        
@@ -28,6 +28,7 @@ namespace Proy_back_QBD.Models
         [Column("tiempo_extra")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeSpan? TiempoExtra { get; set; }  // Puede ser nulo
+        [Column("observacion")]
         public string? Observacion { get; set; }  // Puede ser nulo
         [ForeignKey("IdTrabajador")]
         public Employee? Trabajador { get; set; }  // Puede ser nulo
