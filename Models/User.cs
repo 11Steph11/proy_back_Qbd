@@ -13,7 +13,8 @@ namespace Proy_back_QBD.Models
         [Column("id")]
         public int? Id { get; set; }  // Puede ser nulo 
         [Column("contrasena")]
-        public string? Contrasena { get; set; }  // Puede ser nulo        
+        [Required]
+        public required string Contrasena { get; set; }  // Puede ser nulo        
         [Column("codigo")]
         public string? Codigo { get; set; }  // Puede ser nulo
         [Column("nombres")]

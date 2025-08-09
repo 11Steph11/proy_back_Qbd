@@ -7,7 +7,7 @@ namespace Proy_back_QBD.Models
 {
     
     [Table("trabajadores")]
-    public class Employee:User 
+    public class Trabajador:User 
     {
         [Column("hora_entrada")]
         public TimeSpan? HoraEntrada{ get; set; }  // Puede ser nulo

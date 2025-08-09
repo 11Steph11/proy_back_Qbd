@@ -31,7 +31,7 @@ namespace Proy_back_QBD.Models
         [Column("observacion")]
         public string? Observacion { get; set; }  // Puede ser nulo
         [ForeignKey("IdTrabajador")]
-        public Employee? Trabajador { get; set; }  // Puede ser nulo
+        public Trabajador? Trabajador { get; set; }  // Puede ser nulo
         [Column("id_trabajador")]
         public int? IdTrabajador { get; set; }  // Puede ser nulo
     }

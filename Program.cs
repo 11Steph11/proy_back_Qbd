@@ -10,12 +10,12 @@ Env.Load(); // Cargar variables de entorno desde el archivo .env
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(cfg =>
 {
-    cfg.AddProfile<EmployeeMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<TrabajadorMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<RegionMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<AttendanceMappingProfile>();  // Registra tu perfil explícitamente
 });
 
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<ITrabajadorService, TrabajadorService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRegionService, RegionService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
