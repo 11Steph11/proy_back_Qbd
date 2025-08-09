@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Profiles
         public RegionMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<RegionCreateRequest, Region>();
+            CreateMap<RegionCreateRequest, Sede>();
             // Otros mapeos si es necesario
         }
     }

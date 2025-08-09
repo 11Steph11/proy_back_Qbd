@@ -4,6 +4,6 @@ namespace Proy_back_QBD.Services
 {
     public interface IRegionService
     {
-        Task<int?> RegistrarSedeAsync(Region sede);
+        Task<int?> RegistrarSedeAsync(Sede sede);
     }
 }

@@ -9,12 +9,12 @@ namespace Proy_back_QBD.Controllers;
 
 [ApiController]
 [Route("usuario")]
-public class UserController : ControllerBase
+public class UsuarioController : ControllerBase
 {
 
     private readonly IUserService _userService;
 
-    public UserController(IUserService userService)
+    public UsuarioController(IUserService userService)
     {
         _userService = userService;
     }

@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
     
     [Table("tipos_usuarios")]
-    public class UserType
+    public class UsuarioTipo
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

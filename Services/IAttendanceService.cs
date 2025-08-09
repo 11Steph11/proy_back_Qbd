@@ -6,6 +6,6 @@ namespace Proy_back_QBD.Services
     public interface IAttendanceService
     {
         // Task<AsistenciaByDNIResponse?> ObtenerAsistenciasByIdAsync(string dni, int año, string mes);
-        Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Attendance asistencia);
+        Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia);
     }
 }

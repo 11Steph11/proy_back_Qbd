@@ -10,8 +10,8 @@ namespace Proy_back_QBD.Profiles
         public AttendanceMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<AttendanceCreateReq, Attendance>();
-            CreateMap<AttendanceByDNIReq, Attendance>();
+            CreateMap<AttendanceCreateReq, Asistencia>();
+            CreateMap<AttendanceByDNIReq, Asistencia>();
             // Otros mapeos si es necesario
         }
     }

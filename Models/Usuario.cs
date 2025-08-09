@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
 
     [Table("usuarios")]
-    public class User
+    public class Usuario
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,14 +24,14 @@ namespace Proy_back_QBD.Models
         [Column("apellido_materno")]
         public string? ApellidoMaterno { get; set; }  // Puede ser nulo
         [ForeignKey("IdTipo")]
-        public UserType? Tipo { get; set; }  // Puede ser nulo
+        public UsuarioTipo? Tipo { get; set; }  // Puede ser nulo
         [Column("id_tipo")]
         public int? IdTipo { get; set; }  // Puede ser nulo
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateOnly? FechaCreacion { get; set; }  // Puede ser nulo
         [ForeignKey("IdCreador")]
-        public User? Creador { get; set; }  // Puede ser nulo
+        public Usuario? Creador { get; set; }  // Puede ser nulo
         [Column("id_creador")]
         public int? IdCreador { get; set; }  // Puede ser nulo
         [Column("dni")]
@@ -39,7 +39,7 @@ namespace Proy_back_QBD.Models
         [Column("cmp")]
         public string? CMP { get; set; }  // Puede ser nulo
         [ForeignKey("IdSede")]
-        public Region? Sede { get; set; }  // Puede ser nulo
+        public Sede? Sede { get; set; }  // Puede ser nulo
         [Column("id_sede")]
         public int? IdSede { get; set; }  // Puede ser nulo
     }

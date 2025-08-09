@@ -4,7 +4,7 @@ namespace Proy_back_QBD.Services
 {
     public interface IUserService
     {
-        Task<User?> ValidarLoginUserAsync(string dni, string contrasena);
+        Task<Usuario?> ValidarLoginUserAsync(string dni, string contrasena);
         
     }
 }

@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Response
 {
-    public class TrabajadorListarRes
+    public class TrabListarRes
     {
         public int? Total { get; set; }
         public List<ListaTrabajadores>? ListaTrabajadores {get; set;}

@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
     
     [Table("sedes")]
-    public class Region
+    public class Sede
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,7 +17,7 @@ namespace Proy_back_QBD.Models
         [Column("direccion")]
         public string? Direccion { get; set; }  // Puede ser nulo               
         [ForeignKey("IdUsuario")]
-        public User? Usuario { get; set; }  // Puede ser nulo                
+        public Usuario? Usuario { get; set; }  // Puede ser nulo                
         [Column("id_usuario")]
         public int? IdUsuario { get; set; }  // Puede ser nulo      
         [Column("telefono")]

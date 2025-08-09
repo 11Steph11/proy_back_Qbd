@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
 
     [Table("asistencias")]
-    public class Attendance
+    public class Asistencia
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

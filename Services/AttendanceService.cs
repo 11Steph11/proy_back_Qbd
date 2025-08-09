@@ -29,7 +29,7 @@ namespace Proy_back_QBD.Services
 
         // }
 
-        public async Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Attendance asistencia)
+        public async Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia)
         {
 
             if (asistencia == null)

@@ -26,7 +26,7 @@ public class AttendanceController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(AttendanceCreateRes))]
     public async Task<IActionResult> CrearAsistencia([FromBody] AttendanceCreateReq request)
     {
-        Attendance asistencia = _mapper.Map<Attendance>(request);
+        Asistencia asistencia = _mapper.Map<Asistencia>(request);
         AttendanceCreateRes response = await _asistenciaService.RegistrarAsistenciaAsync(asistencia);
         return Ok(response);
     }
