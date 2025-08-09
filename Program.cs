@@ -14,6 +14,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<RegionMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<AttendanceMappingProfile>();  // Registra tu perfil explícitamente
 });
+
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRegionService, RegionService>();

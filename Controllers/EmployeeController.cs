@@ -29,25 +29,37 @@ public class EmployeeController : ControllerBase
     public async Task<IActionResult> CrearTrabajador([FromBody] EmployeeCreateReq request)
     {
         Employee trabajador = _mapper.Map<Employee>(request);
-        int? id = await _employeeService.RegistrarTrabajadorAsync(trabajador);
-        EmployeeCreateRes response = new EmployeeCreateRes();
-        response.Id = id;
-        return Ok(response);
+        int? id = await _employeeService.CreateEmployeeService(trabajador);
+        return Ok("Usuario Creado");
     }
     [HttpGet("{codigo}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(EmployeeFilledRes))]
     public async Task<IActionResult> AutoFilledByCode(string codigo, [FromQuery] string tipoAsistencia)
     {
-        EmployeeFilledReq request = new EmployeeFilledReq
+        if (tipoAsistencia == null)
         {
-            Codigo = codigo,
-            TipoAsistencia = tipoAsistencia
-        };
-        EmployeeFilledRes? response = await _employeeService.AutoFilled(request);
+            return BadRequest("No envió tipo asistencia");
+        }
+        EmployeeFilledRes? response = await _employeeService.AutoFilledService(codigo, tipoAsistencia);
         if (response == null)
         {
-            return BadRequest("Error");
+            return BadRequest("No se encontró");
         }
         return Ok(response);
+    }
+    [HttpPut("{id}")]
+    [SwaggerResponse(200, "Operación exitosa")]
+    public async Task<IActionResult> ActualizarTrabajador(int id, [FromBody] EmployeeUpdateReq? request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Invalido");
+        }
+        int? idEmployee = await _employeeService.Actualizar(id, request);
+        if (idEmployee == null)
+        {
+            return NotFound("No se encontró");
+        }
+        return Ok($"{idEmployee} ha sido actualizado");
     }
 }
