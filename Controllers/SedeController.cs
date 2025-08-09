@@ -10,25 +10,25 @@ namespace Proy_back_QBD.Controllers;
 
 [ApiController]
 [Route("sede")]
-public class RegionController : ControllerBase
+public class SedeController : ControllerBase
 {
 
-    private readonly IRegionService _sedeService;
+    private readonly ISedeService _sedeService;
     private readonly IMapper _mapper;
 
-    public RegionController(IRegionService userService, IMapper mapper)
+    public SedeController(ISedeService userService, IMapper mapper)
     {
         _sedeService = userService;
         _mapper = mapper;
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(RegionCreateRes))]
-    public async Task<IActionResult> CrearSede([FromBody] RegionCreateRequest request)
+    [SwaggerResponse(200, "Operación exitosa", typeof(SedeCreateRes))]
+    public async Task<IActionResult> CrearSede([FromBody] SedeCreateRequest request)
     {
         Sede sede = _mapper.Map<Sede>(request);
         int? id = await _sedeService.RegistrarSedeAsync(sede);
-        RegionCreateRes response = new RegionCreateRes();
+        SedeCreateRes response = new SedeCreateRes();
         response.Id = id;
         return Ok(response);
     }

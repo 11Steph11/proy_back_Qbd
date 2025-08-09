@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Proy_back_QBD.Services
 {
-    public class AttendanceService : IAttendanceService
+    public class AsistenciaService : IAsistenciaService
     {
         private readonly ApiContext _context;
-        public AttendanceService(ApiContext context)
+        public AsistenciaService(ApiContext context)
         {
             _context = context;
         }
@@ -29,16 +29,16 @@ namespace Proy_back_QBD.Services
 
         // }
 
-        public async Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia)
+        public async Task<AsistenciaCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia)
         {
 
             if (asistencia == null)
             {
                 return null;
             }
-            AttendanceCreateRes response = new AttendanceCreateRes();
+            AsistenciaCreateRes response = new AsistenciaCreateRes();
 
-            _context.Attendances.Add(asistencia);
+            _context.Asistencias.Add(asistencia);
             await _context.SaveChangesAsync();
 
             response.HoraMarcada = asistencia.HoraMarcada ?? TimeOnly.FromDateTime(DateTime.Now);

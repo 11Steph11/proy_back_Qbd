@@ -3,9 +3,9 @@ using Proy_back_QBD.Models;
 
 namespace Proy_back_QBD.Services
 {
-    public interface IAttendanceService
+    public interface IAsistenciaService
     {
         // Task<AsistenciaByDNIResponse?> ObtenerAsistenciasByIdAsync(string dni, int año, string mes);
-        Task<AttendanceCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia);
+        Task<AsistenciaCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia);
     }
 }

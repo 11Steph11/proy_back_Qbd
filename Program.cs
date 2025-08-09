@@ -11,14 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<TrabajadorMappingProfile>();  // Registra tu perfil explícitamente
-    cfg.AddProfile<RegionMappingProfile>();  // Registra tu perfil explícitamente
-    cfg.AddProfile<AttendanceMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<SedeMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<AsistenciaMappingProfile>();  // Registra tu perfil explícitamente
 });
 
 builder.Services.AddScoped<ITrabajadorService, TrabajadorService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRegionService, RegionService>();
-builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+builder.Services.AddScoped<ISedeService, SedeService>();
+builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
 builder.Services.AddScoped<AuthService>();
 // Configurar servicios
 builder.Services.AddControllers();

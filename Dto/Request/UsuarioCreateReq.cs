@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Request
 {
-    public class UserModifyReq
+    public class UsuarioCreateReq
     {
         public string? DNI { get; set; }  // Puede ser nulo
         public string? CMP { get; set; }  // Puede ser nulo
@@ -11,5 +11,6 @@ namespace Proy_back_QBD.Dto.Request
         public int? IdTipo { get; set; }  // Puede ser nulo
         public int? IdCreador { get; set; }  // Puede ser nulo
         public int? IdSede { get; set; }  // Puede ser nulo
+
     }
 }

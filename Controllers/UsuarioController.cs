@@ -20,11 +20,11 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(UserLoginRes))]
-    public async Task<IActionResult> ValidarCredenciales([FromBody] UserLoginRequest request)
+    [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginRes))]
+    public async Task<IActionResult> ValidarCredenciales([FromBody] UsuarioLoginReq request)
     {
         var usuario = await _userService.ValidarLoginUserAsync(request.DNI, request.Contrasena);
-        UserLoginRes response = new UserLoginRes();
+        UsuarioLoginRes response = new UsuarioLoginRes();
         response.NombreCompleto = $"{usuario.Nombres} {usuario.ApellidoPaterno} {usuario.ApellidoMaterno}";        
         response.Rol = usuario.Tipo.Nombre;        
         response.Sede = usuario.Sede.Nombre;        

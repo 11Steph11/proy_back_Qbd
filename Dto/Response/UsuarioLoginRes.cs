@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Response
 {
-    public class UserLoginRes
+    public class UsuarioLoginRes
     {
         public string? NombreCompleto { get; set; }
         public string? Rol { get; set; }

@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Request
 {
-    public class TrabajadorCreateReq:UserCreateReq
+    public class TrabajadorCreateReq:UsuarioCreateReq
     {
         public TimeSpan? HoraEntrada { get; set; }  // Puede ser nulo
         public TimeSpan? HoraAlmuerzo { get; set; }  // Puede ser nulo

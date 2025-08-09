@@ -25,7 +25,7 @@ public class TrabajadorController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(UserLoginRes))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginRes))]
     public async Task<IActionResult> CrearTrabajador([FromBody] TrabajadorCreateReq request)
     {
         if (request == null)

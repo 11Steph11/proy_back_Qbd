@@ -4,10 +4,10 @@ using Proy_back_QBD.Data;
 
 namespace Proy_back_QBD.Services
 {
-    public class RegionService : IRegionService
+    public class SedeService : ISedeService
     {
         private readonly ApiContext _context;
-        public RegionService(ApiContext context)
+        public SedeService(ApiContext context)
         {
             _context = context;
         }
@@ -17,7 +17,7 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            await _context.Regions.AddAsync(sede);
+            await _context.Sedes.AddAsync(sede);
             await _context.SaveChangesAsync();
             return sede.Id;
         }

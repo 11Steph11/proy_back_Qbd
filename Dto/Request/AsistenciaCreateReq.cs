@@ -6,7 +6,7 @@ namespace Proy_back_QBD.Models
 {
 
 
-    public class AttendanceCreateReq
+    public class AsistenciaCreateReq
     {
         public string? TipoHorario { get; set; }  // Puede ser nulo
         public TimeOnly? HoraAsignada { get; set; }  // Puede ser nulo

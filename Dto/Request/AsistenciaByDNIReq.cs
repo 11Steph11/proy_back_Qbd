@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Proy_back_QBD.Dto.Request
 {
-    public class AttendanceByDNIReq
+    public class AsistenciaByDNIReq
     {
         [Required]
         public string? DNI { get; set; }
