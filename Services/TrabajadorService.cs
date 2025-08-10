@@ -22,11 +22,11 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<TrabRellenarByCodRes?> Rellenar(string codigo, string tipoAsistencia)
+        public async Task<TrabajadorRellenarByCodRes?> Rellenar(string codigo, string tipoAsistencia)
         {
             var response = await _context.Trabajador
             .Where(u => u.Codigo.Equals(codigo))
-            .Select(a => new TrabRellenarByCodRes
+            .Select(a => new TrabajadorRellenarByCodRes
             {
                 Dni = a.DNI,
                 NombreCompleto = $"{a.Nombres} {a.ApellidoPaterno} {a.ApellidoMaterno}",
@@ -111,7 +111,7 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return id;
         }
-        public async Task<TrabListarRes> Listar()
+        public async Task<TrabajadorListarRes> Listar()
         {
             List<ListaTrabajadores> listEmployee = await _context.Trabajador
             .Select(a => new ListaTrabajadores()
@@ -125,7 +125,7 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            TrabListarRes response = new TrabListarRes
+            TrabajadorListarRes response = new TrabajadorListarRes
             {
                 Total = listEmployee.Count(),
                 ListaTrabajadores = listEmployee

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 
 namespace Proy_back_QBD.Data
@@ -17,7 +18,14 @@ namespace Proy_back_QBD.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
+        }
+        public async Task<List<FechaConHoras>> ObtenerAsistenciasAsync(string a, int b, int c)
+        {
+            // ExecuteSqlRawAsync no devuelve el resultado directamente, así que usamos FromSql para obtener el valor
+            var response = await Database.SqlQueryRaw<FechaConHoras>("SELECT * FROM obtener_horarios_trabajador({0}, {1}, {2})", a, b, c)
+                .ToListAsync();
+            return response;
         }
     }
 }

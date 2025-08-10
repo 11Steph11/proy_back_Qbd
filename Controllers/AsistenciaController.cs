@@ -26,19 +26,31 @@ public class AsistenciaController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaCreateRes))]
     public async Task<IActionResult> CrearAsistencia([FromBody] AsistenciaCreateReq request)
     {
+        if (request == null)
+        {
+            return BadRequest("Datos de asistencia no proporcionados");
+        }
+
         Asistencia asistencia = _mapper.Map<Asistencia>(request);
-        AsistenciaCreateRes response = await _asistenciaService.RegistrarAsistenciaAsync(asistencia);
+        AsistenciaCreateRes? response = await _asistenciaService.Registrar(asistencia);
+        if (response == null)
+        {
+            return BadRequest("Error al crear la asistencia");
+        }
         return Ok(response);
     }
 
-    // [HttpGet]
-    // [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaCreateResponse))]
-    // public async Task<IActionResult> ObtenerAsistenciaByCodigo([FromBody] AsistenciaByDNIRequest request)
-    // {
-    //     // Validar que el mes sea válido (de 1 a 12)
-    //     // Devolver la respuesta en formato JSON
-    //     return Ok();
-    // }
+    [HttpPost("codigo/{codigo}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByCodigoRes))]
+    public async Task<IActionResult> ObtenerAsistenciaByCodigo(string codigo , [FromBody] AsistenciaByCodigoReq request)
+    {
+        if (request == null || string.IsNullOrEmpty(codigo))
+        {
+            return BadRequest("Código de asistencia no proporcionado");
+        }
+        AsistenciaByCodigoRes? response = await _asistenciaService.ListarPorCodigo(codigo, request.Año, request.Mes);
+        return Ok(response);
+    }
 
     
 }

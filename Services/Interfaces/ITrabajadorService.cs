@@ -10,8 +10,8 @@ namespace Proy_back_QBD.Services
         Task<int?> Crear(Trabajador trabajador);
         Task<int?> Actualizar(int id, TrabajadorUpdateReq request);
         Task<int?> Eliminar(int id);
-        Task<TrabListarRes?> Listar();
-        Task<TrabRellenarByCodRes?> Rellenar(string codigo, string tipoAsistencia);
+        Task<TrabajadorListarRes?> Listar();
+        Task<TrabajadorRellenarByCodRes?> Rellenar(string codigo, string tipoAsistencia);
         Task<TrabRellenarByIdRes?> Rellenar(int id);
     }
 }

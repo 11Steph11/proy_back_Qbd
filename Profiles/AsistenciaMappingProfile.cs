@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Profiles
         {
             // Mapeo entre ApoderadoCreate y Apoderado
             CreateMap<AsistenciaCreateReq, Asistencia>();
-            CreateMap<AsistenciaByDNIReq, Asistencia>();
+            CreateMap<AsistenciaByCodigoReq, Asistencia>();
             // Otros mapeos si es necesario
         }
     }

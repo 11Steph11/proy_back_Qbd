@@ -1,6 +1,6 @@
 namespace Proy_back_QBD.Dto.Response
 {
-    public class TrabRellenarByCodRes
+    public class TrabajadorRellenarByCodRes
     {
         public string? Dni { get; set; }
         public string? NombreCompleto { get; set; }

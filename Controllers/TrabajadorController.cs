@@ -67,14 +67,14 @@ public class TrabajadorController : ControllerBase
         return Ok($"{idEmployee} ha sido eliminado");
     }
     [HttpGet("codigo/{codigo}")]
-    [SwaggerResponse(200, "Operación exitosa", typeof(TrabRellenarByCodRes))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(TrabajadorRellenarByCodRes))]
     public async Task<IActionResult> RellenarPorCodigo(string codigo, [FromQuery] string tipoAsistencia)
     {
         if (tipoAsistencia == null)
         {
             return BadRequest("No envió tipo asistencia");
         }
-        TrabRellenarByCodRes? response = await _trabajadorService.Rellenar(codigo, tipoAsistencia);
+        TrabajadorRellenarByCodRes? response = await _trabajadorService.Rellenar(codigo, tipoAsistencia);
         if (response == null)
         {
             return BadRequest("No se encontró");
@@ -83,10 +83,10 @@ public class TrabajadorController : ControllerBase
     }
 
     [HttpGet()]
-    [SwaggerResponse(200, "Operación exitosa", typeof(TrabListarRes))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(TrabajadorListarRes))]
     public async Task<IActionResult> ListarTrabajadores()
     {
-        TrabListarRes response = await _trabajadorService.Listar();
+        TrabajadorListarRes response = await _trabajadorService.Listar();
         if (response == null)
         {
             return BadRequest("No se encontró");
@@ -94,7 +94,7 @@ public class TrabajadorController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("Id/{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(TrabRellenarByIdRes))]
     public async Task<IActionResult> RellenarPorId(int id)
     {

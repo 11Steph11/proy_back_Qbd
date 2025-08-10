@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Data;
 using Microsoft.EntityFrameworkCore;
+using Proy_back_QBD.Dto.Request;
 
 namespace Proy_back_QBD.Services
 {
@@ -14,22 +15,39 @@ namespace Proy_back_QBD.Services
             _context = context;
         }
 
-        // DateOnly Fecha = new DateOnly(ano, mes, 1);
-        //     List<Asistencia> asistencia = await _context.Asistencias            
-        //     .Include(a => a.Trabajador)
-        //     .Where(a => a.Trabajador.DNI.Equals(dni) && a.FechaCreacion >= Fecha)
-        //     .ToListAsync();            
-        //     return asistencia;
+        public async Task<AsistenciaByCodigoRes?> ListarPorCodigo(string codigo, int año, int mes)
+        {
+            if (string.IsNullOrEmpty(codigo) || año <= 0 || mes <= 0 || mes > 12)
+            {
+                return null;
+            }
 
-        // public async Task<AsistenciaByDNIResponse?> ObtenerAsistenciasByIdAsync(string dni, int año, string mes)
-        // {
-        //     List<Asistencia>? lista = await _asistenciaRepository.ObtenerAsistenciasByIdAsync(idTrabajador);
+            List<FechaConHoras>? lista = await _context.ObtenerAsistenciasAsync(codigo, año, mes);
+            if (lista == null || lista.Count == 0)
+            {
+                return null;
+            }
+            AsistenciaByCodigoRes? response = await _context.Trabajador
+                .Where(x => x.Codigo == codigo)
+                .Select(x => new AsistenciaByCodigoRes
+                {
+                    NombreCompleto = $"{x.Nombres} {x.ApellidoPaterno} {x.ApellidoMaterno}",
+                    Entrada = x.HoraEntrada,
+                    Almuerzo = x.HoraAlmuerzo,
+                    Regreso = x.HoraRegreso,
+                    Salida = x.HoraSalida
+                }).FirstOrDefaultAsync();
 
-        //     return ;
+            if (response == null)
+            {
+                return null;
+            }
+            response.Asistencias = lista;
+            return response;
+        }
 
-        // }
 
-        public async Task<AsistenciaCreateRes?> RegistrarAsistenciaAsync(Asistencia asistencia)
+        public async Task<AsistenciaCreateRes?> Registrar(Asistencia asistencia)
         {
 
             if (asistencia == null)
