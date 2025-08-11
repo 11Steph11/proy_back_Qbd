@@ -24,16 +24,17 @@ namespace Proy_back_QBD.Services
 
         public async Task<TrabajadorRellenarByCodAsistRes?> Rellenar(string codigo, string tipoAsistencia)
         {
+            string tipo = tipoAsistencia.ToUpper();
             var response = await _context.Trabajadores
             .Where(u => u.Codigo.Equals(codigo))
             .Select(a => new TrabajadorRellenarByCodAsistRes
             {
                 Dni = a.CMP,
                 NombreCompleto = a.Datos,
-                HoraAsignada = tipoAsistencia == "ALMUERZO" ? a.HoraAlmuerzo :
-                tipoAsistencia == "REGRESO" ? a.HoraRegreso :
-                tipoAsistencia == "SALIDA" ? a.HoraSalida :
-                tipoAsistencia == "ENTRADA" ? a.HoraEntrada : null
+                HoraAsignada = tipo == "ALMUERZO" ? a.HoraAlmuerzo :
+                tipo == "REGRESO" ? a.HoraRegreso :
+                tipo == "SALIDA" ? a.HoraSalida :
+                tipo == "ENTRADA" ? a.HoraEntrada : null
             })
             .FirstOrDefaultAsync();
             if (response == null)
@@ -70,7 +71,9 @@ namespace Proy_back_QBD.Services
 
         public async Task<string?> Actualizar(string codigo, TrabajadorUpdateReq request)
         {
-            Trabajadores? trabajador = await _context.Trabajadores.FindAsync(codigo);
+            Trabajadores? trabajador = await _context.Trabajadores
+            .Where(u => u.Codigo.Equals(codigo))
+            .FirstOrDefaultAsync();
             if (trabajador == null)
             {
                 return null;
@@ -90,6 +93,7 @@ namespace Proy_back_QBD.Services
         public async Task<string?> Crear(TrabajadorCreateReq request)
         {
             Trabajadores? trabajador = _mapper.Map<Trabajadores>(request);
+            trabajador.CMP = request.DNICMP;
             await _context.Trabajadores.AddAsync(trabajador);
             await _context.SaveChangesAsync();
             return request.Codigo;
@@ -97,7 +101,9 @@ namespace Proy_back_QBD.Services
 
         public async Task<string?> Eliminar(string codigo)
         {
-            Trabajadores? employee = await _context.Trabajadores.FindAsync(codigo);
+            Trabajadores? employee = await _context.Trabajadores
+            .Where(u => u.Codigo.Equals(codigo))
+            .FirstOrDefaultAsync();
             if (employee == null)
             {
                 return null;
@@ -106,7 +112,7 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return codigo;
         }
-        public async Task<TrabajadorListarRes> Listar()
+        public async Task<TrabajadorListarRes?> Listar()
         {
             List<ListaTrabajadores> listEmployee = await _context.Trabajadores
             .Select(a => new ListaTrabajadores()

@@ -7,8 +7,12 @@ namespace Proy_back_QBD.Dto.Response
         public string? NombreCompleto { get; set; }
         public string? Rol { get; set; }
         public string? Sede { get; set; }
-        public int? IdUsuario { get; set; }
-        [NotMapped]
+    }
+    public class UsuarioLoginDataRes
+    {
+        public string? NombreCompleto { get; set; }
+        public string? Rol { get; set; }
+        public string? Sede { get; set; }
         public string? Contrasena { get; set; }
     }
 }

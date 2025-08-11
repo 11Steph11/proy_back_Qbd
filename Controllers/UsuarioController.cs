@@ -19,7 +19,7 @@ public class UsuarioController : ControllerBase
         _userService = userService;
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginRes))]
     public async Task<IActionResult> ValidarCredenciales([FromBody] UsuarioLoginReq request)
     {

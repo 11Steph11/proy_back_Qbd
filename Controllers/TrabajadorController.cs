@@ -39,7 +39,7 @@ public class TrabajadorController : ControllerBase
         }
         return Ok($"Usuario {codigo} ha sido Creado");
     }
-    [HttpPut("{id}")]
+    [HttpPut("codigo/{codigo}")]
     [SwaggerResponse(200, "Operación exitosa")]
     public async Task<IActionResult> ActualizarTrabajador(string codigo, [FromBody] TrabajadorUpdateReq? request)
     {
@@ -54,7 +54,7 @@ public class TrabajadorController : ControllerBase
         }
         return Ok($"{idEmployee} ha sido actualizado");
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("codigo/{codigo}")]
     [SwaggerResponse(200, "Operación exitosa")]
     public async Task<IActionResult> EliminarTrabajador(string codigo)
     {
@@ -65,7 +65,7 @@ public class TrabajadorController : ControllerBase
         }
         return Ok($"{idEmployee} ha sido eliminado");
     }
-    [HttpGet("codigo/{codigo}")]
+    [HttpGet("fill/asist/{codigo}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(TrabajadorRellenarByCodAsistRes))]
     public async Task<IActionResult> RellenarPorCodigo(string codigo, [FromQuery] string tipoAsistencia)
     {
@@ -85,7 +85,7 @@ public class TrabajadorController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(TrabajadorListarRes))]
     public async Task<IActionResult> ListarTrabajadores()
     {
-        TrabajadorListarRes response = await _trabajadorService.Listar();
+        TrabajadorListarRes? response = await _trabajadorService.Listar();
         if (response == null)
         {
             return BadRequest("No se encontró");
@@ -93,7 +93,7 @@ public class TrabajadorController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("Id/{id}")]
+    [HttpGet("fill/gest/{codigo}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(TrabRellenarByCodGestRes))]
     public async Task<IActionResult> RellenarPorId(string codigo)
     {

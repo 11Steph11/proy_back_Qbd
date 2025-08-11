@@ -7,21 +7,25 @@ namespace Proy_back_QBD.Models
 
     public class Pacientes
     {
-        public string? Numero { get; set; } 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }  // Puede ser nulo
+        public string? Numero { get; set; }
         [Column("Nombres_Apellidos")]
-        public string? NombresApellidos { get; set; } 
-        public string? Direccion { get; set; } 
+        public string? NombresApellidos { get; set; }
+        public string? Direccion { get; set; }
         [Column("Fecha_Ncto")]
-        public DateOnly? FechaNacimiento { get; set; } 
-        public string? Telefono { get; set; } 
+        public DateOnly? FechaNacimiento { get; set; }
+        public string? Telefono { get; set; }
         [Column("DniA")]
-        public string? DniApoderado { get; set; }  
-        public string? Apoderado { get; set; } 
+        public string? DniApoderado { get; set; }
+        public string? Apoderado { get; set; }
         [Column("Fecha_Creacion")]
-        public DateTime? FechaCreacion { get; set; }  
-        public string? Usuario { get; set; }  
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime? FechaCreacion { get; set; }
+        public string? Usuario { get; set; }
         [Column("Condicion_Fecha")]
-        public string? CondicionFecha { get; set; }  
+        public string? CondicionFecha { get; set; }
     }
 
 }

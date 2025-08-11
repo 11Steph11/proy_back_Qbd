@@ -8,6 +8,9 @@ namespace Proy_back_QBD.Models
 
     public class Trabajadores
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }  // Puede ser nulo
         public string? Codigo { get; set; }  // Puede ser nulo        
         public string? CMP { get; set; }  // Puede ser nulo        
         public string? Datos { get; set; }  // Puede ser nulo        
@@ -20,6 +23,7 @@ namespace Proy_back_QBD.Models
         [Column("Hora_Salida")]
         public TimeOnly? HoraSalida { get; set; }  // Puede ser nulo
         [Column("Fecha_Creacion")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime? FechaCreacion { get; set; }  // Puede ser nulo
         public string? Usuario { get; set; }  // Puede ser nulo      
         [ForeignKey("IdSede")]

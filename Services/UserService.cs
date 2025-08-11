@@ -16,28 +16,35 @@ namespace Proy_back_QBD.Services
         }
         public async Task<UsuarioLoginRes?> ValidarLoginUserAsync(string usuario, string contrasena)
         {
-            
 
-            UsuarioLoginRes? response = await _context.Usuarios
-            .Include(a => a.Trabajadores)
-            .Include(a => a.Trabajadores.Sedes)
-            .Where(a => a.Usuario == usuario)
-            .Select(a => new UsuarioLoginRes
-            {
-                NombreCompleto = a.Trabajadores.Datos,
-                Rol = a.Trabajadores.Rol,
-                Contrasena = a.Password,
-                Sede = a.Trabajadores.Sedes.Sede,
-            })
-            .FirstOrDefaultAsync();
-            if (response == null)
-            {
-                return null;
-            }
-            if (!_authService.VerifyPassword(contrasena, response.Contrasena))
+
+            UsuarioLoginDataRes? data = await (from u in _context.Usuarios
+                                               join t in _context.Trabajadores on u.Usuario equals t.Codigo
+                                               join s in _context.Sedes on t.IdSede equals s.Id
+                                               where u.Usuario == usuario
+                                               select new UsuarioLoginDataRes
+                                               {
+                                                   NombreCompleto = t.Datos,
+                                                   Rol = t.Rol,
+                                                   Contrasena = u.Password,
+                                                   Sede = s.Sede
+                                               })
+                                   .FirstOrDefaultAsync();
+            if (data == null)
             {
                 return null;
             }
+
+            if (!_authService.VerifyPassword(contrasena, data.Contrasena))
+            {
+                return null;
+            }
+            UsuarioLoginRes response = new UsuarioLoginRes
+            {
+                NombreCompleto = data.NombreCompleto,
+                Rol = data.Rol,
+                Sede = data.Sede,
+            };
             return response;
         }
     }

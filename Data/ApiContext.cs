@@ -16,8 +16,6 @@ namespace Proy_back_QBD.Data
         public DbSet<Usuarios> Usuarios { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
         }
         public async Task<List<FechaConHoras>> ObtenerAsistenciasAsync(string a, int b, int c)
         {
