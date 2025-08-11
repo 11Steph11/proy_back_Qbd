@@ -10,8 +10,8 @@ namespace Proy_back_QBD.Profiles
         public TrabajadorMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<TrabajadorCreateReq, Trabajador>();
-            CreateMap<TrabajadorUpdateReq, Trabajador>();            
+            CreateMap<TrabajadorCreateReq, Trabajadores>();
+            CreateMap<TrabajadorUpdateReq, Trabajadores>();            
             // Otros mapeos si es necesario
         }
     }

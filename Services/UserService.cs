@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
+using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 
 namespace Proy_back_QBD.Services
@@ -13,22 +14,31 @@ namespace Proy_back_QBD.Services
             _context = context;
             _authService = authService;
         }
-        public async Task<Usuario?> ValidarLoginUserAsync(string dni, string contrasena)
+        public async Task<UsuarioLoginRes?> ValidarLoginUserAsync(string usuario, string contrasena)
         {
-            var usuario = await _context.Usuarios
-            .Include(a => a.Tipo)
-            .Include(a => a.Sede)
-            .FirstOrDefaultAsync(a => a.DNI.Equals(dni));
             
-            if (usuario == null)
+
+            UsuarioLoginRes? response = await _context.Usuarios
+            .Include(a => a.Trabajadores)
+            .Include(a => a.Trabajadores.Sedes)
+            .Where(a => a.Usuario == usuario)
+            .Select(a => new UsuarioLoginRes
+            {
+                NombreCompleto = a.Trabajadores.Datos,
+                Rol = a.Trabajadores.Rol,
+                Contrasena = a.Password,
+                Sede = a.Trabajadores.Sedes.Sede,
+            })
+            .FirstOrDefaultAsync();
+            if (response == null)
             {
                 return null;
             }
-            if (!_authService.VerifyPassword(contrasena, usuario.Contrasena))
+            if (!_authService.VerifyPassword(contrasena, response.Contrasena))
             {
                 return null;
             }
-            return usuario;
+            return response;
         }
     }
 }

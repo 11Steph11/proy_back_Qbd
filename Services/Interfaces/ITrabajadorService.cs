@@ -7,11 +7,11 @@ namespace Proy_back_QBD.Services
 {
     public interface ITrabajadorService
     {
-        Task<int?> Crear(Trabajador trabajador);
-        Task<int?> Actualizar(int id, TrabajadorUpdateReq request);
-        Task<int?> Eliminar(int id);
+        Task<string?> Crear(TrabajadorCreateReq trabajador);
+        Task<string?> Actualizar(string id, TrabajadorUpdateReq request);
+        Task<string?> Eliminar(string id);
         Task<TrabajadorListarRes?> Listar();
-        Task<TrabajadorRellenarByCodRes?> Rellenar(string codigo, string tipoAsistencia);
-        Task<TrabRellenarByIdRes?> Rellenar(int id);
+        Task<TrabajadorRellenarByCodAsistRes?> Rellenar(string codigo, string tipoAsistencia);
+        Task<TrabRellenarByCodGestRes?> Rellenar(string codigo);
     }
 }

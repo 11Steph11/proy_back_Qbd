@@ -22,14 +22,14 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<TrabajadorRellenarByCodRes?> Rellenar(string codigo, string tipoAsistencia)
+        public async Task<TrabajadorRellenarByCodAsistRes?> Rellenar(string codigo, string tipoAsistencia)
         {
-            var response = await _context.Trabajador
+            var response = await _context.Trabajadores
             .Where(u => u.Codigo.Equals(codigo))
-            .Select(a => new TrabajadorRellenarByCodRes
+            .Select(a => new TrabajadorRellenarByCodAsistRes
             {
-                Dni = a.DNI,
-                NombreCompleto = $"{a.Nombres} {a.ApellidoPaterno} {a.ApellidoMaterno}",
+                Dni = a.CMP,
+                NombreCompleto = a.Datos,
                 HoraAsignada = tipoAsistencia == "ALMUERZO" ? a.HoraAlmuerzo :
                 tipoAsistencia == "REGRESO" ? a.HoraRegreso :
                 tipoAsistencia == "SALIDA" ? a.HoraSalida :
@@ -43,24 +43,20 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<TrabRellenarByIdRes?> Rellenar(int id)
+        public async Task<TrabRellenarByCodGestRes?> Rellenar(string codigo)
         {
-            TrabRellenarByIdRes? response = await _context.Trabajador
-            .Where(u => u.Id == id)
-            .Select(a => new TrabRellenarByIdRes
+            TrabRellenarByCodGestRes? response = await _context.Trabajadores
+            .Where(u => u.Codigo.Equals(codigo))
+            .Select(a => new TrabRellenarByCodGestRes
             {
                 Codigo = a.Codigo,
-                Dni = a.DNI,
-                Cmp = a.CMP,
-                Nombres = a.Nombres,
-                ApellidoPaterno = a.ApellidoPaterno,
-                ApellidoMaterno = a.ApellidoMaterno,
+                DniCmp = a.CMP,
+                Datos = a.Datos,
                 HoraEntrada = a.HoraEntrada,
                 HoraAlmuerzo = a.HoraAlmuerzo,
                 HoraRegreso = a.HoraRegreso,
                 HoraSalida = a.HoraSalida,
                 IdSede = a.IdSede,
-                Contrasena = a.Contrasena
             })
             .FirstOrDefaultAsync();
 
@@ -72,53 +68,51 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<int?> Actualizar(int id, TrabajadorUpdateReq request)
+        public async Task<string?> Actualizar(string codigo, TrabajadorUpdateReq request)
         {
-            Trabajador? employee = await _context.Trabajador.FindAsync(id);
+            Trabajadores? trabajador = await _context.Trabajadores.FindAsync(codigo);
+            if (trabajador == null)
+            {
+                return null;
+            }
+            trabajador.Codigo = request.Codigo;
+            trabajador.CMP = request.DNICMP;
+            trabajador.Datos = request.Datos;
+            trabajador.HoraEntrada = request.HoraEntrada;
+            trabajador.HoraAlmuerzo = request.HoraAlmuerzo;
+            trabajador.HoraRegreso = request.HoraRegreso;
+            trabajador.HoraSalida = request.HoraSalida;
+            trabajador.IdSede = request.IdSede;
+            await _context.SaveChangesAsync();
+            return trabajador.Codigo;
+        }
+
+        public async Task<string?> Crear(TrabajadorCreateReq request)
+        {
+            Trabajadores? trabajador = _mapper.Map<Trabajadores>(request);
+            await _context.Trabajadores.AddAsync(trabajador);
+            await _context.SaveChangesAsync();
+            return request.Codigo;
+        }
+
+        public async Task<string?> Eliminar(string codigo)
+        {
+            Trabajadores? employee = await _context.Trabajadores.FindAsync(codigo);
             if (employee == null)
             {
                 return null;
             }
-            employee.DNI = request.DNI;
-            employee.CMP = request.CMP;
-            employee.Nombres = request.Nombres;
-            employee.ApellidoPaterno = request.ApellidoPaterno;
-            employee.ApellidoMaterno = request.ApellidoMaterno;
-            employee.Contrasena = _authService.HashPassword(request.Contrasena);
-            employee.IdTipo = request.IdTipo;
-            employee.IdCreador = request.IdCreador;
-            employee.IdSede = request.IdSede;
+            _context.Trabajadores.Remove(employee);
             await _context.SaveChangesAsync();
-            return employee.Id;
-        }
-
-        public async Task<int?> Crear(Trabajador request)
-        {
-            request.Contrasena = _authService.HashPassword(request.Contrasena);
-            await _context.Trabajador.AddAsync(request);
-            await _context.SaveChangesAsync();
-            return request.Id;
-        }
-
-        public async Task<int?> Eliminar(int id)
-        {
-            Trabajador? employee = await _context.Trabajador.FindAsync(id);
-            if (employee == null)
-            {
-                return null;
-            }
-            _context.Trabajador.Remove(employee);
-            await _context.SaveChangesAsync();
-            return id;
+            return codigo;
         }
         public async Task<TrabajadorListarRes> Listar()
         {
-            List<ListaTrabajadores> listEmployee = await _context.Trabajador
+            List<ListaTrabajadores> listEmployee = await _context.Trabajadores
             .Select(a => new ListaTrabajadores()
             {
                 Codigo = a.Codigo,
-                Id = a.Id,
-                Descripcion = $"{a.Nombres} {a.ApellidoPaterno} {a.ApellidoMaterno}"
+                Descripcion = a.Datos
             })
             .ToListAsync();
             if (listEmployee == null)

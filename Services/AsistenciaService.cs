@@ -27,11 +27,11 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            AsistenciaByCodigoRes? response = await _context.Trabajador
+            AsistenciaByCodigoRes? response = await _context.Trabajadores
                 .Where(x => x.Codigo == codigo)
                 .Select(x => new AsistenciaByCodigoRes
                 {
-                    NombreCompleto = $"{x.Nombres} {x.ApellidoPaterno} {x.ApellidoMaterno}",
+                    NombreCompleto = x.Datos,
                     Entrada = x.HoraEntrada,
                     Almuerzo = x.HoraAlmuerzo,
                     Regreso = x.HoraRegreso,

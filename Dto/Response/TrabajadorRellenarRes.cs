@@ -1,23 +1,22 @@
 namespace Proy_back_QBD.Dto.Response
 {
-    public class TrabajadorRellenarByCodRes
+    public class TrabajadorRellenarByCodAsistRes
     {
         public string? Dni { get; set; }
         public string? NombreCompleto { get; set; }
-        public TimeSpan? HoraAsignada { get; set; }
+        public TimeOnly? HoraAsignada { get; set; }
     }
-    public class TrabRellenarByIdRes
+    public class TrabRellenarByCodGestRes
     {
         public string? Codigo { get; set; }
-        public string? Dni { get; set; }
-        public string? Cmp { get; set; }
-        public string? Nombres { get; set; }
+        public string? DniCmp { get; set; }
+        public string? Datos { get; set; }
         public string? ApellidoPaterno { get; set; }
         public string? ApellidoMaterno { get; set; }
-        public TimeSpan? HoraEntrada { get; set; }
-        public TimeSpan? HoraAlmuerzo { get; set; }
-        public TimeSpan? HoraRegreso { get; set; }
-        public TimeSpan? HoraSalida { get; set; }
+        public TimeOnly? HoraEntrada { get; set; }
+        public TimeOnly? HoraAlmuerzo { get; set; }
+        public TimeOnly? HoraRegreso { get; set; }
+        public TimeOnly? HoraSalida { get; set; }
         public int? IdSede { get; set; }
         public string? Contrasena { get; set; }
     }

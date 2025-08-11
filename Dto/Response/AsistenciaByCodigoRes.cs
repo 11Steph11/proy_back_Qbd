@@ -22,10 +22,10 @@ namespace Proy_back_QBD.Dto.Response
     public class AsistenciaByCodigoRes
     {
         public string? NombreCompleto { get; set; }
-        public TimeSpan? Entrada { get; set; }
-        public TimeSpan? Almuerzo { get; set; }
-        public TimeSpan? Regreso { get; set; }
-        public TimeSpan? Salida { get; set; }
+        public TimeOnly? Almuerzo { get; set; }
+        public TimeOnly? Entrada { get; set; }
+        public TimeOnly? Regreso { get; set; }
+        public TimeOnly? Salida { get; set; }
         public List<FechaConHoras>? Asistencias { get; set; }
     }
 }

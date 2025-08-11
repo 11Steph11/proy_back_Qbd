@@ -1,10 +1,10 @@
-using Proy_back_QBD.Models;
+using Proy_back_QBD.Dto.Response;
 
 namespace Proy_back_QBD.Services
 {
     public interface IUserService
     {
-        Task<Usuario?> ValidarLoginUserAsync(string dni, string contrasena);
+        Task<UsuarioLoginRes?> ValidarLoginUserAsync(string dni, string contrasena);
         
     }
 }

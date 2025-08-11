@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Services
         {
             _context = context;
         }
-        public async Task<int?> RegistrarSedeAsync(Sede sede)
+        public async Task<int?> RegistrarSedeAsync(Sedes sede)
         {
             if (sede == null)
             {

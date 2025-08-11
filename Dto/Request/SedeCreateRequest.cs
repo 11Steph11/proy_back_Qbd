@@ -8,10 +8,13 @@ namespace Proy_back_QBD.Models
 
     public class SedeCreateRequest
     {
-        public string? Nombre { get; set; }  // Puede ser nulo                
+        public string? Sede { get; set; }  // Puede ser nulo                
         public string? Direccion { get; set; }  // Puede ser nulo               
-        public int? IdUsuario { get; set; }  // Puede ser nulo      
+        public string? DNI { get; set; }  // Puede ser nulo      
+        public string? Responsable { get; set; }  // Puede ser nulo                                   
         public string? Telefono { get; set; }  // Puede ser nulo                                   
+        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo                                   
+        public string? Usuario { get; set; }  // Puede ser nulo                                   
     }
 
 }
