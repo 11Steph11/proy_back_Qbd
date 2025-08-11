@@ -56,7 +56,7 @@ namespace Proy_back_QBD.Services
             }
             AsistenciaCreateRes response = new AsistenciaCreateRes();
 
-            _context.Asistencias.Add(asistencia);
+            _context.Asistencia.Add(asistencia);
             await _context.SaveChangesAsync();
 
             response.HoraMarcada = asistencia.HoraMarcada ?? TimeOnly.FromDateTime(DateTime.Now);

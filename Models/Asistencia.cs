@@ -13,9 +13,9 @@ namespace Proy_back_QBD.Models
         public string? Tipo { get; set; }  // Puede ser nulo
         public string? Codigo { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]        
-        [Column("hora_asignada")]
+        [Column("Hora_Asignada")]
         public TimeOnly? HoraAsignada { get; set; }  // Puede ser nulo
-        [Column("hora_marcada")]
+        [Column("Hora_Marcada")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeOnly? HoraMarcada { get; set; }  // Puede ser nulo
         [Column("Tiempo_Atraso")]

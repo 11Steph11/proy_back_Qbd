@@ -4,19 +4,16 @@ namespace Proy_back_QBD.Dto.Response
 {
     public class FechaConHoras
     {
-        [Column("id_trabajador")]
-        public int? IdTrabajador { get; set; }
-        [Column("numero")]
+        public int? Codigo { get; set; }
         public int? Numero { get; set; }
-        [Column("dia")]
         public string? Dia { get; set; }
-        [Column("hora_entrada")]
+        [Column("Hora_Entrada")]
         public string? HoraEntrada { get; set; }
-        [Column("hora_almuerzo")]
+        [Column("Hora_Almuerzo")]
         public string? HoraAlmuerzo { get; set; }
-        [Column("hora_regreso")]
+        [Column("Hora_Regreso")]
         public string? HoraRegreso { get; set; }
-        [Column("hora_salida")]
+        [Column("Hora_Salida")]
         public string? HoraSalida { get; set; }
     }
     public class AsistenciaByCodigoRes
