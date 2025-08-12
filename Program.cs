@@ -13,12 +13,14 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<TrabajadorMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<SedeMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<AsistenciaMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<PacienteMappingProfile>();  // Registra tu perfil explícitamente
 });
 
 builder.Services.AddScoped<ITrabajadorService, TrabajadorService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISedeService, SedeService>();
 builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
+builder.Services.AddScoped<IPacienteService,PacienteService>();
 builder.Services.AddScoped<AuthService>();
 // Configurar servicios
 builder.Services.AddControllers();

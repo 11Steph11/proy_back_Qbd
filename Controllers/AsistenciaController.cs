@@ -6,6 +6,7 @@ using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
 using AutoMapper;
+using System.Diagnostics;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
@@ -30,8 +31,13 @@ public class AsistenciaController : ControllerBase
         {
             return BadRequest("Datos de asistencia no proporcionados");
         }
-
-        Asistencia asistencia = _mapper.Map<Asistencia>(request);
+        Debug.WriteLine(request);
+        Asistencia asistencia = new Asistencia();
+        asistencia.Tipo = request.Tipo;
+        asistencia.Codigo = request.Codigo;
+        asistencia.HoraAsignada = request.HoraAsignada;
+        asistencia.Observacion = request.Observacion;
+        Debug.WriteLine(asistencia);
         AsistenciaCreateRes? response = await _asistenciaService.Registrar(asistencia);
         if (response == null)
         {

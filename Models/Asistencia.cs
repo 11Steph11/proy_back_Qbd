@@ -12,13 +12,13 @@ namespace Proy_back_QBD.Models
         public int Id { get; set; }  // Puede ser nulo
         public string? Tipo { get; set; }  // Puede ser nulo
         public string? Codigo { get; set; }  // Puede ser nulo
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]        
         [Column("Hora_Asignada")]
         public TimeOnly? HoraAsignada { get; set; }  // Puede ser nulo
         [Column("Hora_Marcada")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeOnly? HoraMarcada { get; set; }  // Puede ser nulo
         [Column("Tiempo_Atraso")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeOnly? TiempoAtraso { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("Tiempo_Extra")]
@@ -26,7 +26,7 @@ namespace Proy_back_QBD.Models
         public string? Observacion { get; set; }  // Puede ser nulo
         [Column("Fecha_Creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateOnly? FechaCreacion { get; set; }  // Puede ser nulo        
+        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo        
         public string? Usuario { get; set; }  // Puede ser nulo        
     }
 

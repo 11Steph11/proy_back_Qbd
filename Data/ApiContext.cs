@@ -14,6 +14,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Sedes> Sedes { get; set; }  // Para la tabla de secciones
         public DbSet<Trabajadores> Trabajadores { get; set; }  // Para la tabla de secciones
         public DbSet<Usuarios> Usuarios { get; set; }  // Para la tabla de secciones
+        public DbSet<Pacientes> Pacientes { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }

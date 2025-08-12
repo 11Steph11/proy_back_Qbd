@@ -4,7 +4,7 @@ namespace Proy_back_QBD.Dto.Response
 {
     public class FechaConHoras
     {
-        public int? Codigo { get; set; }
+        public string? Codigo { get; set; }
         public int? Numero { get; set; }
         public string? Dia { get; set; }
         [Column("Hora_Entrada")]
