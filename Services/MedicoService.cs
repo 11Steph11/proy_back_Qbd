@@ -19,14 +19,18 @@ namespace Proy_back_QBD.Services
 
         public async Task<string?> CrearMedico(MedicoCreateReq request)
         {
-            if (request == null)
+            bool existe = await _context.Medicos
+                .AnyAsync(p => p.Cmp == request.Cmp);
+            if (existe)
             {
-                return null;
+                return "El médico ya existe.";
             }
             Medicos medico = _mapper.Map<Medicos>(request);
             await _context.Medicos.AddAsync(medico);
-            return $"{medico.Id} fue creado";        
+            await _context.SaveChangesAsync();
+            return $"{medico.Id} fue creado";
         }
+        
 
     }
 }
