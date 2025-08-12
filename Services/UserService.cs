@@ -27,6 +27,7 @@ namespace Proy_back_QBD.Services
                                                    NombreCompleto = t.Datos,
                                                    Rol = t.Rol,
                                                    Sede = s.Sede,
+                                                   Contrasena = u.Password,
                                                    Usuario = u.Usuario
                                                })
                                    .FirstOrDefaultAsync();
@@ -44,6 +45,7 @@ namespace Proy_back_QBD.Services
                 NombreCompleto = data.NombreCompleto,
                 Rol = data.Rol,
                 Sede = data.Sede,
+                Usuario = data.Usuario
             };
             return response;
         }
