@@ -17,7 +17,7 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<int?> CrearMedico(MedicoCreateReq request)
+        public async Task<string?> CrearMedico(MedicoCreateReq request)
         {
             if (request == null)
             {
@@ -25,7 +25,7 @@ namespace Proy_back_QBD.Services
             }
             Medicos medico = _mapper.Map<Medicos>(request);
             await _context.Medicos.AddAsync(medico);
-            return medico.Id;        
+            return $"{medico.Id} fue creado";        
         }
 
     }

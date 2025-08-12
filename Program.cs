@@ -14,6 +14,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<SedeMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<AsistenciaMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<PacienteMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<MedicoMappingProfile>();  // Registra tu perfil explícitamente
 });
 
 builder.Services.AddScoped<ITrabajadorService, TrabajadorService>();
