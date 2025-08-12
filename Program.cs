@@ -21,8 +21,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISedeService, SedeService>();
 builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
 builder.Services.AddScoped<IPacienteService,PacienteService>();
+builder.Services.AddScoped<IMedicoService,MedicoService>();
 builder.Services.AddScoped<AuthService>();
-// Configurar servicios
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

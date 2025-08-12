@@ -23,7 +23,12 @@ public class UsuarioController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginRes))]
     public async Task<IActionResult> ValidarCredenciales([FromBody] UsuarioLoginReq request)
     {
-        var usuario = await _userService.ValidarLoginUserAsync(request.Usuario, request.Contrasena);
+        if (request == null || request.Usuario == null || request.Contrasena == null)
+        {
+            return BadRequest("Datos mal enviados");
+        }
+        UsuarioLoginRes? usuario = await _userService.ValidarLoginUserAsync(request.Usuario, request.Contrasena);
+
         return Ok(usuario);
     }
 }

@@ -26,8 +26,8 @@ namespace Proy_back_QBD.Services
                                                {
                                                    NombreCompleto = t.Datos,
                                                    Rol = t.Rol,
-                                                   Contrasena = u.Password,
-                                                   Sede = s.Sede
+                                                   Sede = s.Sede,
+                                                   Usuario = u.Usuario
                                                })
                                    .FirstOrDefaultAsync();
             if (data == null)
