@@ -26,7 +26,7 @@ public class SedeController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(SedeCreateRes))]
     public async Task<IActionResult> CrearSede([FromBody] SedeCreateRequest request)
     {
-        Sedes sede = _mapper.Map<Sedes>(request);
+        Sede sede = _mapper.Map<Sede>(request);
         int? id = await _sedeService.RegistrarSedeAsync(sede);
         SedeCreateRes response = new SedeCreateRes();
         response.Id = id;

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Proy_back_QBD.Models
 {
     [Table("Pacientes")]
-    public class Pacientes
+    public class Paciente
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

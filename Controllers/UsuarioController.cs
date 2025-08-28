@@ -20,14 +20,14 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPost("login")]
-    [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginRes))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginDataRes))]
     public async Task<IActionResult> ValidarCredenciales([FromBody] UsuarioLoginReq request)
     {
         if (request == null || request.Usuario == null || request.Contrasena == null)
         {
             return BadRequest("Datos mal enviados");
         }
-        UsuarioLoginRes? usuario = await _userService.ValidarLoginUserAsync(request.Usuario, request.Contrasena);
+        UsuarioLoginDataRes? usuario = await _userService.ValidarLoginUserAsync(request.Usuario, request.Contrasena);
 
         return Ok(usuario);
     }

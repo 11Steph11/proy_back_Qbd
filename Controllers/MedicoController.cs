@@ -15,8 +15,6 @@ public class MedicoController : ControllerBase
 {
 
     private readonly IMedicoService _medicoService;
-    private readonly IMapper _mapper;
-
     public MedicoController(IMedicoService medicoService)
     {
         _medicoService = medicoService;
@@ -29,9 +27,19 @@ public class MedicoController : ControllerBase
         {
             return BadRequest("Datos incorrectos");
         }
-        string? msg = await _medicoService.CrearMedico(request);
+        string? msg = await _medicoService.Crear(request);
 
         return Ok(msg);
     }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> ModificarMedico(int id, [FromBody] MedicoUpdateReq request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        string? msg = await _medicoService.Modificar(id, request);
 
+        return Ok(msg);
+    }
 }

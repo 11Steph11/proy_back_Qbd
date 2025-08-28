@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Profiles
         public PacienteMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<PacienteCreateReq, Pacientes>();
+            CreateMap<PacienteCreateReq, Paciente>();
             // Otros mapeos si es necesario
         }
     }

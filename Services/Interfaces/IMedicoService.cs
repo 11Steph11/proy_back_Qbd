@@ -5,7 +5,8 @@ namespace Proy_back_QBD.Services
 {
     public interface IMedicoService
     {
-       Task<string?> CrearMedico(MedicoCreateReq request);
+       Task<string?> Crear(MedicoCreateReq request);
+       Task<string?> Modificar(int id, MedicoUpdateReq request);
         
     }
 }

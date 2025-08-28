@@ -4,6 +4,6 @@ namespace Proy_back_QBD.Services
 {
     public interface ISedeService
     {
-        Task<int?> RegistrarSedeAsync(Sedes sede);
+        Task<int?> RegistrarSedeAsync(Sede sede);
     }
 }

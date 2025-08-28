@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Profiles
         public SedeMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<SedeCreateRequest, Sedes>();
+            CreateMap<SedeCreateRequest, Sede>();
             // Otros mapeos si es necesario
         }
     }

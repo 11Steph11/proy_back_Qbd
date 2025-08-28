@@ -39,6 +39,7 @@ public class TrabajadorController : ControllerBase
         }
         return Ok($"Usuario {codigo} ha sido Creado");
     }
+    
     [HttpPut("codigo/{codigo}")]
     [SwaggerResponse(200, "Operación exitosa")]
     public async Task<IActionResult> ActualizarTrabajador(string codigo, [FromBody] TrabajadorUpdateReq? request)

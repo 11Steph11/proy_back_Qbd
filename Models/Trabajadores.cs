@@ -27,7 +27,7 @@ namespace Proy_back_QBD.Models
         public DateTime? FechaCreacion { get; set; }  // Puede ser nulo
         public string? Usuario { get; set; }  // Puede ser nulo      
         [ForeignKey("IdSede")]
-        public Sedes? Sedes { get; set; }  // Puede ser nulo       
+        public Sede? Sedes { get; set; }  // Puede ser nulo       
         [Column("Id_Sede")]
         public int? IdSede { get; set; }  // Puede ser nulo       
         public string? Rol { get; set; }  // Puede ser nulo       

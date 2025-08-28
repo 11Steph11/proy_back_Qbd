@@ -11,10 +11,10 @@ namespace Proy_back_QBD.Data
         }
         // DbSets actualizados a las clases correctas
         public DbSet<Asistencia> Asistencia { get; set; }
-        public DbSet<Sedes> Sedes { get; set; }  // Para la tabla de secciones
+        public DbSet<Sede> Sedes { get; set; }  // Para la tabla de secciones
         public DbSet<Trabajadores> Trabajadores { get; set; }  // Para la tabla de secciones
-        public DbSet<Usuarios> Usuarios { get; set; }  // Para la tabla de secciones
-        public DbSet<Pacientes> Pacientes { get; set; }  // Para la tabla de secciones
+        public DbSet<Usuario> Usuarios { get; set; }  // Para la tabla de secciones
+        public DbSet<Paciente> Pacientes { get; set; }  // Para la tabla de secciones
         public DbSet<Medicos> Medicos { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -18,7 +18,7 @@ namespace Proy_back_QBD.Services
         }
         public async Task<string?> Crear(PacienteCreateReq request)
         {
-            Pacientes paciente = _mapper.Map<Pacientes>(request);
+            Paciente paciente = _mapper.Map<Paciente>(request);
             bool existe = await _context.Pacientes
                 .AnyAsync(p => p.DNI == request.DNI);
             if (existe)

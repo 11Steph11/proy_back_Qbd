@@ -14,39 +14,28 @@ namespace Proy_back_QBD.Services
             _context = context;
             _authService = authService;
         }
-        public async Task<UsuarioLoginRes?> ValidarLoginUserAsync(string usuario, string contrasena)
+        public async Task<UsuarioLoginDataRes?> ValidarLoginUserAsync(string usuario, string contrasena)
         {
 
 
-            UsuarioLoginDataRes? data = await (from u in _context.Usuarios
-                                               join t in _context.Trabajadores on u.Usuario equals t.Codigo
-                                               join s in _context.Sedes on t.IdSede equals s.Id
-                                               where u.Usuario == usuario
-                                               select new UsuarioLoginDataRes
-                                               {
-                                                   NombreCompleto = t.Datos,
-                                                   Rol = t.Rol,
-                                                   Sede = s.Sede,
-                                                   Contrasena = u.Password,
-                                                   Usuario = u.Usuario
-                                               })
-                                   .FirstOrDefaultAsync();
-            if (data == null)
+            UsuarioLoginDataRes? response = await _context.Usuarios
+            .Include(a => a.Persona)
+            .Include(a => a.Persona.Sede)
+            .Include(a => a.Tipo)
+            .Select(a => new UsuarioLoginDataRes
+            {
+                NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
+                TipoUsuario = a.Tipo.Nombre,
+                TipoId = a.Tipo.Id,
+                Sede = a.Persona.Sede.Nombre,
+                Id = a.Id,
+            })
+            .FirstOrDefaultAsync();
+            if (response == null)
             {
                 return null;
             }
 
-            if (!_authService.VerifyPassword(contrasena, data.Contrasena))
-            {
-                return null;
-            }
-            UsuarioLoginRes response = new UsuarioLoginRes
-            {
-                NombreCompleto = data.NombreCompleto,
-                Rol = data.Rol,
-                Sede = data.Sede,
-                Usuario = data.Usuario
-            };
             return response;
         }
     }

@@ -62,7 +62,6 @@ var app = builder.Build();
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-        options.RoutePrefix = string.Empty; // Swagger en la raíz
     });
 
 

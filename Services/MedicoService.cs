@@ -17,7 +17,7 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<string?> CrearMedico(MedicoCreateReq request)
+        public async Task<string?> Crear(MedicoCreateReq request)
         {
             bool existe = await _context.Medicos
                 .AnyAsync(p => p.Cmp == request.Cmp);
@@ -31,6 +31,21 @@ namespace Proy_back_QBD.Services
             return $"{medico.Id} fue creado";
         }
         
-
+        public async Task<string?> Modificar(int id, MedicoUpdateReq request)
+        {
+            
+            Medicos? medico = await _context.Medicos.FindAsync(id);
+            if (medico ==null)
+            {
+                return "no se encontró";
+            }
+            medico.Cmp = request.Cmp;
+            medico.Datos = request.Datos;
+            medico.Especialidad = request.Especialidad;
+            medico.NumeroEspecialidad = request.NumeroEspecialidad;
+            medico.Usuario = request.Usuario;
+            await _context.SaveChangesAsync();
+            return $"{id} fue actualizado";        
+        }
     }
 }
