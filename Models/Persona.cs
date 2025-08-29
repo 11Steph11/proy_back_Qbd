@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Proy_back_QBD.Models
 {
@@ -18,7 +19,6 @@ namespace Proy_back_QBD.Models
         public string? ApellidoPaterno { get; set; }  // Puede ser nulo
         [Column("apellido_materno")]
         public string? ApellidoMaterno { get; set; }  // Puede ser nulo
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_nacimiento")]
         public DateOnly? FechaNacimiento { get; set; }  // Puede ser nulo
         [Column("dni")]
@@ -34,6 +34,7 @@ namespace Proy_back_QBD.Models
         [Column("modificador")]
         public int? Modificador { get; set; }  // Puede ser nulo
         [ForeignKey("SedeId")]
+        [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo
         [Column("sede_id")]
         public int? SedeId { get; set; }  // Puede ser nulo

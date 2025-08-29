@@ -23,28 +23,28 @@ public class AsistenciaController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaCreateRes))]
-    public async Task<IActionResult> CrearAsistencia([FromBody] AsistenciaCreateReq request)
-    {
-        if (request == null)
-        {
-            return BadRequest("Datos de asistencia no proporcionados");
-        }
-        Debug.WriteLine(request);
-        Asistencia asistencia = new Asistencia();
-        asistencia.Tipo = request.Tipo;
-        asistencia.Codigo = request.Codigo;
-        asistencia.HoraAsignada = request.HoraAsignada;
-        asistencia.Observacion = request.Observacion;
-        Debug.WriteLine(asistencia);
-        AsistenciaCreateRes? response = await _asistenciaService.Registrar(asistencia);
-        if (response == null)
-        {
-            return BadRequest("Error al crear la asistencia");
-        }
-        return Ok(response);
-    }
+    // [HttpPost]
+    // [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaCreateRes))]
+    // public async Task<IActionResult> CrearAsistencia([FromBody] AsistenciaCreateReq request)
+    // {
+    //     if (request == null)
+    //     {
+    //         return BadRequest("Datos de asistencia no proporcionados");
+    //     }
+    //     Debug.WriteLine(request);
+    //     Asistencia asistencia = new Asistencia();
+    //     asistencia.Tipo = request.Tipo;
+    //     asistencia.Codigo = request.Codigo;
+    //     asistencia.HoraAsignada = request.HoraAsignada;
+    //     asistencia.Observacion = request.Observacion;
+    //     Debug.WriteLine(asistencia);
+    //     AsistenciaCreateRes? response = await _asistenciaService.Registrar(asistencia);
+    //     if (response == null)
+    //     {
+    //         return BadRequest("Error al crear la asistencia");
+    //     }
+    //     return Ok(response);
+    // }
 
     [HttpPost("codigo/{codigo}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByCodigoRes))]

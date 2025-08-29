@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -27,8 +28,16 @@ public class UsuarioController : ControllerBase
         {
             return BadRequest("Datos mal enviados");
         }
-        UsuarioLoginDataRes? usuario = await _userService.ValidarLoginUserAsync(request.Usuario, request.Contrasena);
+        UsuarioLoginDataRes? usuario = await _userService.ValidarLogin(request.Usuario, request.Contrasena);
 
+        return Ok(usuario);
+    }
+    [HttpPost("crear")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(Usuario))]
+    public async Task<IActionResult> CrearUsuario([FromBody] UsuarioCreate request)
+    {
+        Usuario? usuario = await _userService.Crear(request);
+        
         return Ok(usuario);
     }
 }

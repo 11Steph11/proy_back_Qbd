@@ -11,6 +11,7 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }  // Puede ser nulo
         public string? Tipo { get; set; }  // Puede ser nulo
+        [Column("codigo")]
         public string? Codigo { get; set; }  // Puede ser nulo
         [Column("Hora_Asignada")]
         public TimeOnly? HoraAsignada { get; set; }  // Puede ser nulo

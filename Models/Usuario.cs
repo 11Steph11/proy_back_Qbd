@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Proy_back_QBD.Models
 {
@@ -8,15 +9,14 @@ namespace Proy_back_QBD.Models
     [Table("usuarios")]
     public class Usuario
     {
-        [Column("codigo")]
-        public string? Codigo { get; set; }  // Puede ser nulo
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
-        public int? Id { get; set; }  // Puede ser nulo 
+        public int Id { get; set; }  // Puede ser nulo 
         [Column("contrasena")]
         public string? Contrasena { get; set; }  // Puede ser nulo        
         [ForeignKey("TipoId")]
+        [JsonIgnore]
         public TipoUsuario? Tipo { get; set; }  // Puede ser nulo
         [Column("tipo_id")]
         public int? TipoId { get; set; }  // Puede ser nulo
