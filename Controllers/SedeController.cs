@@ -24,12 +24,10 @@ public class SedeController : ControllerBase
 
     [HttpPost]
     [SwaggerResponse(200, "Operación exitosa", typeof(SedeCreateRes))]
-    public async Task<IActionResult> CrearSede([FromBody] SedeCreateRequest request)
+    public async Task<IActionResult> CrearSede([FromBody] SedeCreateReq request)
     {
         Sede sede = _mapper.Map<Sede>(request);
-        int? id = await _sedeService.RegistrarSedeAsync(sede);
-        SedeCreateRes response = new SedeCreateRes();
-        response.Id = id;
+        Sede? response = await _sedeService.RegistrarSede(sede);
         return Ok(response);
     }
 }

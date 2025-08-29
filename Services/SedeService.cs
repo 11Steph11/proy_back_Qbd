@@ -11,15 +11,11 @@ namespace Proy_back_QBD.Services
         {
             _context = context;
         }
-        public async Task<int?> RegistrarSedeAsync(Sede sede)
+        public async Task<Sede?> RegistrarSede(Sede sede)
         {
-            if (sede == null)
-            {
-                return null;
-            }
             await _context.Sedes.AddAsync(sede);
             await _context.SaveChangesAsync();
-            return sede.Id;
+            return sede;
         }
     }
 }
