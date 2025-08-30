@@ -19,7 +19,6 @@ namespace Proy_back_QBD.Dto.Request
         public string? ApellidoMaterno { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
          public string? Dni { get; set; }
-        public DateTime? FechaModificacion { get; set; }
         public int? Modificador { get; set; }
         public int? SedeId { get; set; }
         public int? Telefono { get; set; }
