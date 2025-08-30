@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Services
     public class UserService : IUserService
     {
         private readonly ApiContext _context;
-        private readonly IMapper   _mapper;
+        private readonly IMapper _mapper;
         public UserService(ApiContext context, IMapper mapper)
         {
             _context = context;
@@ -68,12 +68,12 @@ namespace Proy_back_QBD.Services
             Usuario? usuario = await _context.Usuarios
             .Include(a => a.Persona)
             .FirstOrDefaultAsync(a => a.Id == id);
-            _mapper.Map(request,usuario); 
-            _mapper.Map(request,usuario.Persona); 
+            _mapper.Map(request, usuario);
+            _mapper.Map(request, usuario.Persona);
             await _context.SaveChangesAsync();
             return usuario;
         }
- 
+
         public async Task<List<UsuarioListaRes>?> Listar()
         {
             List<UsuarioListaRes>? response = await _context.Usuarios
@@ -83,14 +83,14 @@ namespace Proy_back_QBD.Services
             .Select(a => new UsuarioListaRes
             {
                 Id = a.Id,
-                Contrasena = a.Contrasena,                
+                Contrasena = a.Contrasena,
                 HorarioEntrada = a.HorarioEntrada,
                 HorarioAlmuerzo = a.HorarioAlmuerzo,
                 HorarioRegreso = a.HorarioRegreso,
                 HorarioSalida = a.HorarioSalida,
                 Cmp = a.Cmp,
                 TipoUsuario = a.Tipo.Nombre,
-                PersonaI = new PersonaListaRes
+                PersonaRes = new PersonaListaRes
                 {
                     Id = a.Persona.Id,
                     NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
@@ -104,6 +104,38 @@ namespace Proy_back_QBD.Services
                 }
             })
             .ToListAsync();
+            return response;
+        }
+        public async Task<UsuarioByIdRes?> ObtenerById(int id)
+        {
+            UsuarioByIdRes? response = await _context.Usuarios
+            .Where(a => a.Id == id)
+            .Include(a => a.Tipo)
+            .Include(a => a.Persona.Sede)
+            .Select(a => new UsuarioByIdRes
+            {
+                Id = a.Id,
+                Contrasena = a.Contrasena,
+                HorarioEntrada = a.HorarioEntrada,
+                HorarioAlmuerzo = a.HorarioAlmuerzo,
+                HorarioRegreso = a.HorarioRegreso,
+                HorarioSalida = a.HorarioSalida,
+                Cmp = a.Cmp,
+                TipoUsuario = a.Tipo.Nombre,
+                PersonaRes = new PersonaByIdRes
+                {
+                    Id = a.Persona.Id,
+                    NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
+                    Nombres = a.Persona.Nombres,
+                    ApellidoPaterno = a.Persona.ApellidoPaterno,
+                    ApellidoMaterno = a.Persona.ApellidoMaterno,
+                    FechaNacimiento = a.Persona.FechaNacimiento,
+                    Dni = a.Persona.Dni,
+                    Sede = a.Persona.Sede.Nombre,
+                    Telefono = a.Persona.Telefono,
+                }
+            })
+            .FirstOrDefaultAsync();
             return response;
         }
     }

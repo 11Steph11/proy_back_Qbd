@@ -11,5 +11,6 @@ namespace Proy_back_QBD.Services
         Task<Usuario?> Eliminar(int id); 
         Task<Usuario?> Actualizar(int id, UsuarioUpdateReq request);
         Task<List<UsuarioListaRes>?> Listar();
+        Task<UsuarioByIdRes?> ObtenerById(int id);
     }
 }

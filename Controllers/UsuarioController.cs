@@ -13,7 +13,7 @@ namespace Proy_back_QBD.Controllers;
 public class UsuarioController : ControllerBase
 {
 
-    private readonly IUserService   _userService;
+    private readonly IUserService _userService;
 
     public UsuarioController(IUserService userService)
     {
@@ -62,6 +62,13 @@ public class UsuarioController : ControllerBase
     public async Task<IActionResult> ObtenerUsuarios()
     {
         List<UsuarioListaRes>? usuario = await _userService.Listar();
+        return Ok(usuario);
+    }
+    [HttpGet("{id}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioByIdRes))]
+    public async Task<IActionResult> ObtenerUsuariosPorId(int id)
+    {
+        UsuarioByIdRes? usuario = await _userService.ObtenerById(id);
         return Ok(usuario);
     }
 }

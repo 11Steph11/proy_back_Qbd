@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Proy_back_QBD.Dto.Response
 {
     public class PersonaListaRes
-    {  
+    {
         public int? Id { get; set; }
         public string? NombreCompleto { get; set; }
         public string? Nombres { get; set; }
@@ -13,5 +13,8 @@ namespace Proy_back_QBD.Dto.Response
         public string? Dni { get; set; }
         public string? Sede { get; set; }
         public string? Telefono { get; set; }
-    }
+    } 
+    public class PersonaByIdRes:PersonaListaRes
+    {  
+    } 
 }
