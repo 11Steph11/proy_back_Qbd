@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<PersonaMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<UsuarioMappingProfile>();  
     cfg.AddProfile<SedeMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<AsistenciaMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<PacienteMappingProfile>();  // Registra tu perfil explícitamente

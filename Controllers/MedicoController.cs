@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
-using Proy_back_QBD.Models;
+using Proy_back_QBD.Request;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
 

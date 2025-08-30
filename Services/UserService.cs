@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
-using Proy_back_QBD.Models;
+using Proy_back_QBD.Request;
 
 namespace Proy_back_QBD.Services
 {
     public class UserService : IUserService
     {
         private readonly ApiContext _context;
-        private readonly IMapper _mapper;
+        private readonly IMapper   _mapper;
         public UserService(ApiContext context, IMapper mapper)
         {
             _context = context;
@@ -40,7 +40,7 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-        public async Task<Usuario?> Crear(UsuarioCreate request)
+        public async Task<Usuario?> Crear(UsuarioCreateReq request)
         {
             Persona persona = _mapper.Map<Persona>(request);
             await _context.Personas.AddAsync(persona);
@@ -48,6 +48,28 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             usuario.PersonaId = persona.Id;
             await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync();
+            return usuario;
+        }
+        public async Task<Usuario?> Eliminar(int id)
+        {
+            Usuario? usuario = await _context.Usuarios.FirstOrDefaultAsync(a => a.Id == id);
+            if (usuario == null)
+            {
+                return null;
+            }
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+            return usuario;
+        }
+
+        public async Task<Usuario?> Actualizar(int id, UsuarioUpdateReq request)
+        {
+            Usuario? usuario = await _context.Usuarios
+            .Include(a => a.Persona)
+            .FirstOrDefaultAsync(a => a.Id == id);
+            _mapper.Map(request,usuario); 
+            _mapper.Map(request,usuario.Persona); 
             await _context.SaveChangesAsync();
             return usuario;
         }

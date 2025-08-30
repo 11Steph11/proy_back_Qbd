@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Proy_back_QBD.Models
+namespace Proy_back_QBD.Request
 {
 
 
@@ -13,5 +13,11 @@ namespace Proy_back_QBD.Models
         public TimeOnly? HoraAsignada { get; set; }  // Puede ser nulo
         public string? Observacion { get; set; }  // Puede ser nulo
     }
-
+    public class AsistenciaByCodigoReq
+    {
+        [Required]
+        public int Año { get; set; }
+        [Required]
+        public int Mes { get; set; }
+    }
 }

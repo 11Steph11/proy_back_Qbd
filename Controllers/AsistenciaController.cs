@@ -1,4 +1,4 @@
-using Proy_back_QBD.Models;
+using Proy_back_QBD.Request;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Request;

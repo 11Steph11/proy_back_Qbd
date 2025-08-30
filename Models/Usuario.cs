@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Proy_back_QBD.Models
+namespace Proy_back_QBD.Request
 {
 
     [Table("usuarios")]
@@ -44,11 +44,6 @@ namespace Proy_back_QBD.Models
         public TimeOnly? HorarioAlmuerzo { get; set; }  // Puede ser nulo
         [Column("horario_regreso")]
         public TimeOnly? HorarioRegreso { get; set; }  // Puede ser nulo
-
-        public static implicit operator Usuario(List<Usuario> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

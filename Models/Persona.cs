@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Proy_back_QBD.Models
+namespace Proy_back_QBD.Request
 {
 
     [Table("personas")]
