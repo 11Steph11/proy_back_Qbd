@@ -73,5 +73,38 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return usuario;
         }
+ 
+        public async Task<List<UsuarioListaRes>?> Listar()
+        {
+            List<UsuarioListaRes>? response = await _context.Usuarios
+            .Where(a => a.TipoId != 1)
+            .Include(a => a.Tipo)
+            .Include(a => a.Persona.Sede)
+            .Select(a => new UsuarioListaRes
+            {
+                Id = a.Id,
+                Contrasena = a.Contrasena,                
+                HorarioEntrada = a.HorarioEntrada,
+                HorarioAlmuerzo = a.HorarioAlmuerzo,
+                HorarioRegreso = a.HorarioRegreso,
+                HorarioSalida = a.HorarioSalida,
+                Cmp = a.Cmp,
+                TipoUsuario = a.Tipo.Nombre,
+                PersonaI = new PersonaListaRes
+                {
+                    Id = a.Persona.Id,
+                    NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
+                    Nombres = a.Persona.Nombres,
+                    ApellidoPaterno = a.Persona.ApellidoPaterno,
+                    ApellidoMaterno = a.Persona.ApellidoMaterno,
+                    FechaNacimiento = a.Persona.FechaNacimiento,
+                    Dni = a.Persona.Dni,
+                    Sede = a.Persona.Sede.Nombre,
+                    Telefono = a.Persona.Telefono,
+                }
+            })
+            .ToListAsync();
+            return response;
+        }
     }
 }

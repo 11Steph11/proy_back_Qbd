@@ -8,7 +8,8 @@ namespace Proy_back_QBD.Services
     {
         Task<UsuarioLoginDataRes?> ValidarLogin(string usuario, string contrasena);
         Task<Usuario?> Crear(UsuarioCreateReq request);
-        Task<Usuario?> Eliminar(int id);
+        Task<Usuario?> Eliminar(int id); 
         Task<Usuario?> Actualizar(int id, UsuarioUpdateReq request);
+        Task<List<UsuarioListaRes>?> Listar();
     }
 }
