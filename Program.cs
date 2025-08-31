@@ -20,7 +20,7 @@ builder.Services.AddAutoMapper(cfg =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISedeService, SedeService>();
-// builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
+builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
 builder.Services.AddScoped<IPacienteService,PacienteService>();
 builder.Services.AddScoped<IMedicoService,MedicoService>();
 builder.Services.AddControllers();

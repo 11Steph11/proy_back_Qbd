@@ -1,6 +1,7 @@
 using Proy_back_QBD.Request;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Data;
+using Proy_back_QBD.Models;
 
 namespace Proy_back_QBD.Services
 {

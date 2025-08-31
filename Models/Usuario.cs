@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Proy_back_QBD.Request
+namespace Proy_back_QBD.Models
 {
 
     [Table("usuarios")]
@@ -44,6 +44,9 @@ namespace Proy_back_QBD.Request
         public TimeOnly? HorarioAlmuerzo { get; set; }  // Puede ser nulo
         [Column("horario_regreso")]
         public TimeOnly? HorarioRegreso { get; set; }  // Puede ser nulo
+        [Column("codigo")]
+        public string? Codigo { get; set; }
+        
     }
 
 }

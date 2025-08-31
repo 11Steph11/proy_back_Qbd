@@ -1,71 +1,97 @@
-// using Proy_back_QBD.Models;
-// using Microsoft.AspNetCore.Mvc;
-// using Proy_back_QBD.Dto.Response;
-// using Proy_back_QBD.Data;
-// using Microsoft.EntityFrameworkCore;
-// using Proy_back_QBD.Dto.Request;
+using Microsoft.AspNetCore.Mvc;
+using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Data;
+using Microsoft.EntityFrameworkCore;
+using Proy_back_QBD.Dto.Request;
+using Proy_back_QBD.Models;
+using AutoMapper;
+using Proy_back_QBD.Request;
 
-// namespace Proy_back_QBD.Services
-// {
-//     public class AsistenciaService : IAsistenciaService
-//     {
-//         private readonly ApiContext _context;
-//         public AsistenciaService(ApiContext context)
-//         {
-//             _context = context;
-//         }
+namespace Proy_back_QBD.Services
+{
+    public class AsistenciaService : IAsistenciaService
+    {
+        private readonly ApiContext _context;
+        private readonly IMapper _mapper;
+        public AsistenciaService(ApiContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+            
+        }
 
-//         public async Task<AsistenciaByCodigoRes?> ListarPorCodigo(string codigo, int año, int mes)
-//         {
-//             if (string.IsNullOrEmpty(codigo) || año <= 0 || mes <= 0 || mes > 12)
-//             {
-//                 return null;
-//             }
+        // public async Task<AsistenciaByCodigoRes?> ListarPorCodigo(string codigo, int año, int mes)
+        // {
+        //     if (string.IsNullOrEmpty(codigo) || año <= 0 || mes <= 0 || mes > 12)
+        //     {
+        //         return null;
+        //     }
 
-//             List<FechaConHoras>? lista = await _context.ObtenerAsistenciasAsync(codigo, año, mes);
-//             if (lista == null || lista.Count == 0)
-//             {
-//                 return null;
-//             }
-//             // AsistenciaByCodigoRes? response = await _context.Personas
-//             //     .Select(x => new AsistenciaByCodigoRes
-//             //     {
-//             //         NombreCompleto = x.Datos,
-//             //         Entrada = x.HoraEntrada,
-//             //         Almuerzo = x.HoraAlmuerzo,
-//             //         Regreso = x.HoraRegreso,
-//             //         Salida = x.HoraSalida
-//             //     }).FirstOrDefaultAsync();
+        //     List<FechaConHoras>? lista = await _context.ObtenerAsistenciasAsync(codigo, año, mes);
+        //     if (lista == null || lista.Count == 0)
+        //     {
+        //         return null;
+        //     }
+        //     AsistenciaByCodigoRes? response = await _context.Personas
+        //         .Select(x => new AsistenciaByCodigoRes
+        //         {
+        //             NombreCompleto = x.Datos,
+        //             Entrada = x.HoraEntrada,
+        //             Almuerzo = x.HoraAlmuerzo,
+        //             Regreso = x.HoraRegreso,
+        //             Salida = x.HoraSalida
+        //         }).FirstOrDefaultAsync();
 
-//             if (response == null)
-//             {
-//                 return null;
-//             }
-//             response.Asistencias = lista;
-//             return response;
-//         }
+        //     if (response == null)
+        //     {
+        //         return null;
+        //     }
+        //     response.Asistencias = lista;
+        //     return response;
+        // }
 
 
-//         public async Task<AsistenciaCreateRes?> Registrar(Asistencia asistencia)
-//         {
+        public async Task<Asistencia?> Registrar(AsistenciaCreateReq request)
+        {
+            string? tipoAsistencia = request.Tipo;
+            if (tipoAsistencia == null)
+            {
+                return null;
+            }
+            TimeOnly? horaAsignada = await _context.Usuarios
+            .Where(a => a.Id == request.Creador)
+            .Select(a =>tipoAsistencia.Equals("entrada")
+                ? a.HorarioEntrada     // Si es "entrada", selecciona HorarioEntrada
+                : (tipoAsistencia.Equals("salida")
+                    ? a.HorarioSalida   // Si es "salida", selecciona HorarioSalida
+                    : null // Si no es ni "entrada" ni "salida", devuelve el valor por defecto
+                  )).FirstOrDefaultAsync();
+            if (horaAsignada==null)
+            {
+                return null;
+            }
+            TimeSpan diferencia;
+            TimeOnly horaMarcada =TimeOnly.FromDateTime(DateTime.Now);
+            Asistencia asistencia = _mapper.Map<Asistencia>(request);
+            diferencia = (TimeSpan)(horaAsignada - horaMarcada);
+            if (tipoAsistencia.Equals("entrada") && horaMarcada > horaAsignada)
+            {
+                asistencia.TiempoAtraso = diferencia;
+            }else{
+                asistencia.TiempoExtra = diferencia;
+            }
+            if (tipoAsistencia.Equals("salida") && horaMarcada > horaAsignada)
+            {
+                asistencia.TiempoExtra = diferencia;
+            }else{
+                asistencia.TiempoAtraso = diferencia;
+            }
+            asistencia.HoraMarcada = horaMarcada;
+            asistencia.HoraAsignada = horaAsignada;
+            _context.Asistencias.Add(asistencia);
+            await _context.SaveChangesAsync();
+            return asistencia;
+        }
 
-//             if (asistencia == null)
-//             {
-//                 return null;
-//             }
-//             AsistenciaCreateRes response = new AsistenciaCreateRes();
-
-//             _context.Asistencia.Add(asistencia);
-//             await _context.SaveChangesAsync();
-
-//             response.HoraMarcada = asistencia.HoraMarcada ?? TimeOnly.FromDateTime(DateTime.Now);
-//             if (asistencia.HoraAsignada.HasValue)
-//             {
-//                 var diferencia = response.HoraMarcada - asistencia.HoraAsignada.Value;
-//                 response.Diferencia = diferencia;
-//             }
-//             return response;
-//         }
-
-//     }
-// }
+    }
+}

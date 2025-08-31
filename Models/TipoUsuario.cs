@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Proy_back_QBD.Request
+namespace Proy_back_QBD.Models
 {
 
     [Table("tipos_usuario")]

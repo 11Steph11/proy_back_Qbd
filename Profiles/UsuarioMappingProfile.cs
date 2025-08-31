@@ -1,6 +1,7 @@
 // ApoderadoMappingProfile.cs
 using AutoMapper;
 using Proy_back_QBD.Dto.Request;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Request; // Asegúrate de incluir el espacio de nombres correcto
 
 namespace Proy_back_QBD.Profiles
@@ -18,10 +19,9 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.Persona, options => options.Ignore())
             .ForMember(a => a.PersonaId, options => options.Ignore())
             ;
-             CreateMap<UsuarioUpdateReq, Persona>()
+             CreateMap<UsuarioCreateReq, Usuario>()
             .ForMember(a => a.Id, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
-            .ForMember(a => a.Creador, options => options.Ignore())
             ;
             // Otros mapeos si es necesario
         }

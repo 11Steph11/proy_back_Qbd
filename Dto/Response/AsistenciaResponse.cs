@@ -2,7 +2,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proy_back_QBD.Dto.Response
 {
-    public class FechaConHoras
+    public class AsistenciaCreateRes
+    {
+        public TimeOnly? HoraMarcada { get; set; }
+        public TimeSpan? Diferencia { get; set; }
+    }
+
+     public class FechaConHoras
     {
         public string? Codigo { get; set; }
         public int? Numero { get; set; }

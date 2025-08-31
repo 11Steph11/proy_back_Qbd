@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Request;
 
 namespace Proy_back_QBD.Services
@@ -42,11 +43,12 @@ namespace Proy_back_QBD.Services
         }
         public async Task<Usuario?> Crear(UsuarioCreateReq request)
         {
-            Persona persona = _mapper.Map<Persona>(request);
+            Persona persona = _mapper.Map<Persona>(request.PersonaRequest);
             await _context.Personas.AddAsync(persona);
-            Usuario usuario = _mapper.Map<Usuario>(request);
             await _context.SaveChangesAsync();
+            Usuario usuario = _mapper.Map<Usuario>(request);
             usuario.PersonaId = persona.Id;
+            usuario.Codigo = $"{persona.Nombres.Substring(0,1).ToUpper()}{persona.ApellidoPaterno.Substring(0,1).ToUpper()}{persona.ApellidoMaterno.Substring(0,1).ToUpper()}-{usuario.TipoId}-{persona.SedeId}";
             await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync();
             return usuario;
@@ -69,7 +71,8 @@ namespace Proy_back_QBD.Services
             .Include(a => a.Persona)
             .FirstOrDefaultAsync(a => a.Id == id);
             _mapper.Map(request, usuario);
-            _mapper.Map(request, usuario.Persona);
+            usuario.Codigo = $"{usuario.Persona.Nombres.Substring(0,1).ToUpper()}{usuario.Persona.ApellidoPaterno.Substring(0,1).ToUpper()}{usuario.Persona.ApellidoMaterno.Substring(0,1).ToUpper()}-{usuario.TipoId}-{usuario.Persona.SedeId}";
+            _mapper.Map(request.PersonaRequest, usuario.Persona);
             await _context.SaveChangesAsync();
             return usuario;
         }
@@ -90,6 +93,7 @@ namespace Proy_back_QBD.Services
                 HorarioSalida = a.HorarioSalida,
                 Cmp = a.Cmp,
                 TipoUsuario = a.Tipo.Nombre,
+                Codigo = a.Codigo,
                 PersonaRes = new PersonaListaRes
                 {
                     Id = a.Persona.Id,
@@ -122,6 +126,7 @@ namespace Proy_back_QBD.Services
                 HorarioSalida = a.HorarioSalida,
                 Cmp = a.Cmp,
                 TipoUsuario = a.Tipo.Nombre,
+                Codigo = a.Codigo,
                 PersonaRes = new PersonaByIdRes
                 {
                     Id = a.Persona.Id,

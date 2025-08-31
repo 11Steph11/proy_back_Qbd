@@ -6,6 +6,7 @@ using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
 using AutoMapper;
+using Proy_back_QBD.Models;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
