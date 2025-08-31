@@ -6,6 +6,7 @@ using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Models;
 using AutoMapper;
 using Proy_back_QBD.Request;
+using System.Diagnostics;
 
 namespace Proy_back_QBD.Services
 {
@@ -70,23 +71,27 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            TimeSpan diferencia;
-            TimeOnly horaMarcada =TimeOnly.FromDateTime(DateTime.Now);
+            TimeSpan diferencia;            
+            DateTime horaAsignada2 =DateTime.Today.Add(horaAsignada.GetValueOrDefault().ToTimeSpan());
+            DateTime horaMarcada =DateTime.Now;
             Asistencia asistencia = _mapper.Map<Asistencia>(request);
-            diferencia = (TimeSpan)(horaAsignada - horaMarcada);
-            if (tipoAsistencia.Equals("entrada") && horaMarcada > horaAsignada)
+            diferencia = (horaAsignada2 - horaMarcada).Duration();
+            Debug.WriteLine(diferencia);
+            if (tipoAsistencia.Equals("entrada") && horaMarcada > horaAsignada2)
             {
                 asistencia.TiempoAtraso = diferencia;
-            }else{
+            }
+            else
+            {
                 asistencia.TiempoExtra = diferencia;
             }
-            if (tipoAsistencia.Equals("salida") && horaMarcada > horaAsignada)
+            if (tipoAsistencia.Equals("salida") && horaMarcada > horaAsignada2)
             {
                 asistencia.TiempoExtra = diferencia;
             }else{
                 asistencia.TiempoAtraso = diferencia;
             }
-            asistencia.HoraMarcada = horaMarcada;
+            asistencia.HoraMarcada = TimeOnly.FromDateTime(horaMarcada);
             asistencia.HoraAsignada = horaAsignada;
             _context.Asistencias.Add(asistencia);
             await _context.SaveChangesAsync();
