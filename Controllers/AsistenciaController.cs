@@ -40,9 +40,9 @@ public class AsistenciaController : ControllerBase
         return Ok(response);
     }
     /// <summary>
-    /// Obtiene las asistencias agrupadas por día para un usuario específico.
+    /// Obtiene las asistencias agrupadas por día dentro de un mes para un usuario específico.
     /// </summary>
-    [HttpPost("/{id}")]
+    [HttpPost("{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByIdRes))]
     public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id, [FromBody] AsistenciaByIdReq request)
     {

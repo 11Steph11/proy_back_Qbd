@@ -97,7 +97,7 @@ namespace Proy_back_QBD.Services
                 PersonaRes = new PersonaListaRes
                 {
                     Id = a.Persona.Id,
-                    NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
+                     
                     Nombres = a.Persona.Nombres,
                     ApellidoPaterno = a.Persona.ApellidoPaterno,
                     ApellidoMaterno = a.Persona.ApellidoMaterno,

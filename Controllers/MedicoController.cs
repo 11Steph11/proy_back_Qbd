@@ -21,25 +21,26 @@ public class MedicoController : ControllerBase
     }
 
     [HttpPost]
+    [SwaggerResponse(200,"Creacion exitosa",typeof(MedicoCreateResponse))]
     public async Task<IActionResult> CrearMedico([FromBody] MedicoCreateReq request)
     {
         if (request == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        string? msg = await _medicoService.Crear(request);
+        MedicoCreateResponse? response = await _medicoService.Crear(request);
 
-        return Ok(msg);
+        return Ok(response);
     }
-    [HttpPut("{id}")]
-    public async Task<IActionResult> ModificarMedico(int id, [FromBody] MedicoUpdateReq request)
-    {
-        if (request == null)
-        {
-            return BadRequest("Datos incorrectos");
-        }
-        string? msg = await _medicoService.Modificar(id, request);
+    // [HttpPut("{id}")]
+    // public async Task<IActionResult> ModificarMedico(int id, [FromBody] MedicoUpdateReq request)
+    // {
+    //     if (request == null)
+    //     {
+    //         return BadRequest("Datos incorrectos");
+    //     }
+    //     string? msg = await _medicoService.Modificar(id, request);
 
-        return Ok(msg);
-    }
+    //     return Ok(msg);
+    // }
 }

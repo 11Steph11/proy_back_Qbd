@@ -11,7 +11,9 @@ namespace Proy_back_QBD.Profiles
         public MedicoMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<MedicoCreateReq, Medicos>();
+            CreateMap<MedicoCreateReq, Medico>()
+            .ForMember(a => a.PersonaFk, o => o.Ignore())
+            ;
             // Otros mapeos si es necesario
         }
     }
