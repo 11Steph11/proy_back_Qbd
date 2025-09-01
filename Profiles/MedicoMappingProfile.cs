@@ -14,6 +14,7 @@ namespace Proy_back_QBD.Profiles
             CreateMap<MedicoCreateReq, Medico>()
             .ForMember(a => a.PersonaFk, o => o.Ignore())
             ;
+            CreateMap<MedicoUpdateReq, Medico>();
             // Otros mapeos si es necesario
         }
     }

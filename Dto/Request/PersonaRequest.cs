@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Proy_back_QBD.Dto.Request
 {
     public class PersonaCreateReq
@@ -12,15 +14,9 @@ namespace Proy_back_QBD.Dto.Request
         public int? SedeId { get; set; }
         public int? Telefono { get; set; }
     }
-    public class PersonaUpdateReq
+    public class PersonaUpdateReq:PersonaCreateReq
     {
-        public string? Nombres { get; set; }
-        public string? ApellidoPaterno { get; set; }
-        public string? ApellidoMaterno { get; set; }
-        public DateOnly? FechaNacimiento { get; set; }
-         public string? Dni { get; set; }
-        public int? Modificador { get; set; }
-        public int? SedeId { get; set; }
-        public int? Telefono { get; set; }
+        [JsonIgnore]
+        public int? Creador { get; set; }
     }
 }

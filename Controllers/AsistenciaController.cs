@@ -11,7 +11,7 @@ using Proy_back_QBD.Models;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
-[Route("asistencia")]
+[Route("api/asistencia")]
 public class AsistenciaController : ControllerBase
 {
 
@@ -40,7 +40,7 @@ public class AsistenciaController : ControllerBase
         return Ok(response);
     }
     /// <summary>
-    /// Obtiene las asistencias agrupadas por día dentro de un mes para un usuario específico.
+    /// Obtiene las asistencias agrupadas por día dentro de una fecha para un usuario específico.
     /// </summary>
     [HttpPost("{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByIdRes))]

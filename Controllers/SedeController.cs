@@ -10,7 +10,7 @@ using Proy_back_QBD.Models;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
-[Route("sede")]
+[Route("api/sede")]
 public class SedeController : ControllerBase
 {
 

@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
-[Route("paciente")]
+[Route("api/paciente")]
 public class PacienteController : ControllerBase
 {
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Request;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
@@ -10,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
-[Route("medico")]
+[Route("api/medico")]
 public class MedicoController : ControllerBase
 {
 
@@ -21,7 +22,7 @@ public class MedicoController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200,"Creacion exitosa",typeof(MedicoCreateResponse))]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(MedicoCreateResponse))]
     public async Task<IActionResult> CrearMedico([FromBody] MedicoCreateReq request)
     {
         if (request == null)
@@ -32,15 +33,36 @@ public class MedicoController : ControllerBase
 
         return Ok(response);
     }
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> ModificarMedico(int id, [FromBody] MedicoUpdateReq request)
-    // {
-    //     if (request == null)
-    //     {
-    //         return BadRequest("Datos incorrectos");
-    //     }
-    //     string? msg = await _medicoService.Modificar(id, request);
+    [HttpPut("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(MedicoUpdateResponse))]
+    public async Task<IActionResult> ModificarMedico(int id, [FromBody] MedicoUpdateReq request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        MedicoUpdateResponse? response = await _medicoService.Actualizar(id, request);
 
-    //     return Ok(msg);
-    // }
+        return Ok(response);
+    }
+    [HttpDelete("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(Medico))]
+    public async Task<IActionResult> EliminarMedico(int id)
+    {
+        if (id == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        Medico? response = await _medicoService.Eliminar(id);
+
+        return Ok(response);
+    }
+    [HttpGet]
+    [SwaggerResponse(200,"Creacion exitosa",typeof(List<MedicoFindAllResponse?>))]
+    public async Task<IActionResult> ObtenerMedicos()
+    {
+        List<MedicoFindAllResponse?> response = await _medicoService.Obtener();
+
+        return Ok(response);
+    }
 }

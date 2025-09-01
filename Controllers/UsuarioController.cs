@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
-[Route("usuario")]
+[Route("api/usuario")]
 public class UsuarioController : ControllerBase
 {
 

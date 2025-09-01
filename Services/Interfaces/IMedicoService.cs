@@ -7,7 +7,9 @@ namespace Proy_back_QBD.Services
     public interface IMedicoService
     {
        Task<MedicoCreateResponse?> Crear(MedicoCreateReq request);
-    //    Task<string?> Modificar(int id, MedicoUpdateReq request);
+       Task<MedicoUpdateResponse?> Actualizar(int id, MedicoUpdateReq request);
+       Task<Medico?> Eliminar(int id);
+       Task<List<MedicoFindAllResponse?>> Obtener();
         
     }
 }

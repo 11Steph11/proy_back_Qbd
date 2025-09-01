@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Services
 
         public async Task<MedicoCreateResponse?> Crear(MedicoCreateReq request)
         {
-            Persona persona = _mapper.Map<Persona>(request.PersonaRequest);
+            Persona persona = _mapper.Map<Persona>(request.PersonaCReq);
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
             MedicoCreateResponse response = new MedicoCreateResponse();
@@ -39,21 +39,48 @@ namespace Proy_back_QBD.Services
             return response;
         }
         
-        // public async Task<string?> Modificar(int id, MedicoUpdateReq request)
-        // {
+        public async Task<MedicoUpdateResponse?> Actualizar(int id, MedicoUpdateReq request)
+        {
+            MedicoUpdateResponse response = new MedicoUpdateResponse();
+            Medico? medico = await _context.Medicos.FindAsync(id);
+            if (medico ==null)
+            {
+                response.Msg = "no se encontró";
+                return response;
+            }
+            _mapper.Map(request ,medico);
+            response.Msg ="Medico Actualizado";
+            response.MedicoRes =medico;
+            await _context.SaveChangesAsync();
+            return response;        
+        }
+        public async Task<Medico?> Eliminar(int id)
+        {
+            Medico? medico = await _context.Medicos.FindAsync(id);
+            _context.Remove(medico);
+            await _context.SaveChangesAsync();
+            return medico;        
+        }
+
+        public async Task<List<MedicoFindAllResponse?>> Obtener()
+        {
+            List<MedicoFindAllResponse>? response = await _context.Medicos
+            .Include(a => a.Especialidad)
+            .Include(a => a.PersonaFk)
+            .Select(a => new MedicoFindAllResponse
+            {
+                EspecialidadFk = a.Especialidad.Nombre,
+                NumeroEspecialidad = a.NumeroEspecialidad,
+                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.ApellidoPaterno} {a.PersonaFk.ApellidoMaterno}",
+                Cmp = a.Cmp
+            })
+            .ToListAsync();
             
-        //     Medicos? medico = await _context.Medicos.FindAsync(id);
-        //     if (medico ==null)
-        //     {
-        //         return "no se encontró";
-        //     }
-        //     medico.Cmp = request.Cmp;
-        //     medico.Datos = request.Datos;
-        //     medico.Especialidad = request.Especialidad;
-        //     medico.NumeroEspecialidad = request.NumeroEspecialidad;
-        //     medico.Usuario = request.Usuario;
-        //     await _context.SaveChangesAsync();
-        //     return $"{id} fue actualizado";        
-        // }
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
+        }
     }
 }
