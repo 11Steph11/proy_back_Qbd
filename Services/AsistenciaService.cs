@@ -7,6 +7,7 @@ using Proy_back_QBD.Models;
 using AutoMapper;
 using Proy_back_QBD.Request;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Proy_back_QBD.Services
 {
@@ -18,38 +19,58 @@ namespace Proy_back_QBD.Services
         {
             _context = context;
             _mapper = mapper;
-            
+
         }
 
-        // public async Task<AsistenciaByCodigoRes?> ListarPorCodigo(string codigo, int año, int mes)
-        // {
-        //     if (string.IsNullOrEmpty(codigo) || año <= 0 || mes <= 0 || mes > 12)
-        //     {
-        //         return null;
-        //     }
+        public async Task<AsistenciaByIdRes?> ObtenerPorId(int id, int año, int mes)
+        {
+            if (id == null || año <= 0 || mes <= 0 || mes > 12)
+            {
+                return null;
+            }
+            DateTime? fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
+            var lista = await _context.Asistencias
+                .Where(a => a.Creador == id && a.FechaCreacion >= fechaFiltro)
+                .GroupBy(a => a.FechaCreacion.Value.Date)
+                .Select(g => new FechaConHoras
+                {
+                    Dia = g.Key.ToString("dddd", new CultureInfo("es-ES")),
 
-        //     List<FechaConHoras>? lista = await _context.ObtenerAsistenciasAsync(codigo, año, mes);
-        //     if (lista == null || lista.Count == 0)
-        //     {
-        //         return null;
-        //     }
-        //     AsistenciaByCodigoRes? response = await _context.Personas
-        //         .Select(x => new AsistenciaByCodigoRes
-        //         {
-        //             NombreCompleto = x.Datos,
-        //             Entrada = x.HoraEntrada,
-        //             Almuerzo = x.HoraAlmuerzo,
-        //             Regreso = x.HoraRegreso,
-        //             Salida = x.HoraSalida
-        //         }).FirstOrDefaultAsync();
+                    HoraEntrada = g.Where(x => x.Tipo == "entrada")
+                       .OrderBy(x => x.HoraMarcada)
+                       .Select(x => x.HoraMarcada.ToString())
+                       .FirstOrDefault(),
 
-        //     if (response == null)
-        //     {
-        //         return null;
-        //     }
-        //     response.Asistencias = lista;
-        //     return response;
-        // }
+                    HoraSalida = g.Where(x => x.Tipo == "salida")
+                      .OrderByDescending(x => x.HoraMarcada)
+                      .Select(x => x.HoraMarcada.ToString())
+                      .FirstOrDefault(),
+                })
+                .ToListAsync();
+            if (lista == null || lista.Count == 0)
+            {
+                return null;
+            }
+
+            AsistenciaByIdRes? response = await _context.Usuarios
+                .Include(a => a.Persona)
+                .Select(a => new AsistenciaByIdRes
+                {
+                    NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
+                    Entrada = a.HorarioEntrada,
+                    Salida = a.HorarioSalida,
+                    Almuerzo = a.HorarioAlmuerzo,
+                    Regreso = a.HorarioRegreso,
+                    Asistencias = lista
+                }).FirstOrDefaultAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
+            response.Asistencias = lista;
+            return response;
+        }
 
 
         public async Task<Asistencia?> Registrar(AsistenciaCreateReq request)
@@ -61,19 +82,19 @@ namespace Proy_back_QBD.Services
             }
             TimeOnly? horaAsignada = await _context.Usuarios
             .Where(a => a.Id == request.Creador)
-            .Select(a =>tipoAsistencia.Equals("entrada")
+            .Select(a => tipoAsistencia.Equals("entrada")
                 ? a.HorarioEntrada     // Si es "entrada", selecciona HorarioEntrada
                 : (tipoAsistencia.Equals("salida")
                     ? a.HorarioSalida   // Si es "salida", selecciona HorarioSalida
                     : null // Si no es ni "entrada" ni "salida", devuelve el valor por defecto
                   )).FirstOrDefaultAsync();
-            if (horaAsignada==null)
+            if (horaAsignada == null)
             {
                 return null;
             }
-            TimeSpan diferencia;            
-            DateTime horaAsignada2 =DateTime.Today.Add(horaAsignada.GetValueOrDefault().ToTimeSpan());
-            DateTime horaMarcada =DateTime.Now;
+            TimeSpan diferencia;
+            DateTime horaAsignada2 = DateTime.Today.Add(horaAsignada.GetValueOrDefault().ToTimeSpan());
+            DateTime horaMarcada = DateTime.Now;
             Asistencia asistencia = _mapper.Map<Asistencia>(request);
             diferencia = (horaAsignada2 - horaMarcada).Duration();
             Debug.WriteLine(diferencia);
@@ -88,7 +109,9 @@ namespace Proy_back_QBD.Services
             if (tipoAsistencia.Equals("salida") && horaMarcada > horaAsignada2)
             {
                 asistencia.TiempoExtra = diferencia;
-            }else{
+            }
+            else
+            {
                 asistencia.TiempoAtraso = diferencia;
             }
             asistencia.HoraMarcada = TimeOnly.FromDateTime(horaMarcada);

@@ -40,17 +40,18 @@ public class AsistenciaController : ControllerBase
         return Ok(response);
     }
 
-    // [HttpPost("codigo/{codigo}")]
-    // [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByCodigoRes))]
-    // public async Task<IActionResult> ObtenerAsistenciaByCodigo(string codigo , [FromBody] AsistenciaByCodigoReq request)
-    // {
-    //     if (request == null || string.IsNullOrEmpty(codigo))
-    //     {
-    //         return BadRequest("Código de asistencia no proporcionado");
-    //     }
-    //     AsistenciaByCodigoRes? response = await _asistenciaService.ListarPorCodigo(codigo, request.Año, request.Mes);
-    //     return Ok(response);
-    // }
+    [HttpPost("/{id}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByIdRes))]
+    public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id , [FromBody] AsistenciaByIdReq request)
+    {
+        if (request == null || id == null)
+        {
+            return BadRequest("Código de asistencia o id no proporcionado");
+        }
+        
+        AsistenciaByIdRes? response = await _asistenciaService.ObtenerPorId(id, request.Año, request.Mes);
+        return Ok(response);
+    }
 
     
 }
