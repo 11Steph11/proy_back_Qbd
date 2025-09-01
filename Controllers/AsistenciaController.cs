@@ -39,19 +39,21 @@ public class AsistenciaController : ControllerBase
         }
         return Ok(response);
     }
-
+    /// <summary>
+    /// Obtiene las asistencias agrupadas por día para un usuario específico.
+    /// </summary>
     [HttpPost("/{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByIdRes))]
-    public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id , [FromBody] AsistenciaByIdReq request)
+    public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id, [FromBody] AsistenciaByIdReq request)
     {
         if (request == null || id == null)
         {
             return BadRequest("Código de asistencia o id no proporcionado");
         }
-        
+
         AsistenciaByIdRes? response = await _asistenciaService.ObtenerPorId(id, request.Año, request.Mes);
         return Ok(response);
     }
 
-    
+
 }

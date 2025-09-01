@@ -5,13 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Proy_back_QBD.Profiles;
 using Proy_back_QBD.Services;
+using System.Reflection;
 Env.Load(); // Cargar variables de entorno desde el archivo .env
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<PersonaMappingProfile>();  // Registra tu perfil explícitamente
-    cfg.AddProfile<UsuarioMappingProfile>();  
+    cfg.AddProfile<UsuarioMappingProfile>();
     cfg.AddProfile<SedeMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<AsistenciaMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<PacienteMappingProfile>();  // Registra tu perfil explícitamente
@@ -21,11 +22,16 @@ builder.Services.AddAutoMapper(cfg =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISedeService, SedeService>();
 builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
-builder.Services.AddScoped<IPacienteService,PacienteService>();
-builder.Services.AddScoped<IMedicoService,MedicoService>();
+builder.Services.AddScoped<IPacienteService, PacienteService>();
+builder.Services.AddScoped<IMedicoService, MedicoService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 // Configurar conexión a PostgreSQL
 var configuration = builder.Configuration;
@@ -56,12 +62,13 @@ var app = builder.Build();
 
 // Configurar el pipeline
 
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-    });
+app.UseDeveloperExceptionPage();
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+});
 
 
 app.UseHttpsRedirection();
