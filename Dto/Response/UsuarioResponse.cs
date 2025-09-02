@@ -26,7 +26,7 @@ namespace Proy_back_QBD.Dto.Response
         public TimeOnly? HorarioAlmuerzo { get; set; }
         public TimeOnly? HorarioRegreso { get; set; }
         public string? Cmp { get; set; }
-        public PersonaListaRes? PersonaRes { get; set; }
+        public PersonaRes? PersonaRes { get; set; }
         public string? TipoUsuario { get; set; }
         public string? Codigo { get; set; }
     }
@@ -39,7 +39,7 @@ namespace Proy_back_QBD.Dto.Response
         public TimeOnly? HorarioAlmuerzo { get; set; }
         public TimeOnly? HorarioRegreso { get; set; }
         public string? Cmp { get; set; }
-        public PersonaByIdRes? PersonaRes { get; set; }
+        public PersonaRes? PersonaRes { get; set; }
         public string? TipoUsuario { get; set; }
         public string? Codigo { get; set; }
     }

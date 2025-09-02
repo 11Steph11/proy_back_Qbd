@@ -94,10 +94,9 @@ namespace Proy_back_QBD.Services
                 Cmp = a.Cmp,
                 TipoUsuario = a.Tipo.Nombre,
                 Codigo = a.Codigo,
-                PersonaRes = new PersonaListaRes
+                PersonaRes = new PersonaRes
                 {
-                    Id = a.Persona.Id,
-                     
+                    Id = a.Persona.Id,                     
                     Nombres = a.Persona.Nombres,
                     ApellidoPaterno = a.Persona.ApellidoPaterno,
                     ApellidoMaterno = a.Persona.ApellidoMaterno,
@@ -127,10 +126,9 @@ namespace Proy_back_QBD.Services
                 Cmp = a.Cmp,
                 TipoUsuario = a.Tipo.Nombre,
                 Codigo = a.Codigo,
-                PersonaRes = new PersonaByIdRes
+                PersonaRes = new PersonaRes
                 {
                     Id = a.Persona.Id,
-                    NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
                     Nombres = a.Persona.Nombres,
                     ApellidoPaterno = a.Persona.ApellidoPaterno,
                     ApellidoMaterno = a.Persona.ApellidoMaterno,

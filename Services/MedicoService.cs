@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Services
     public class MedicoService : IMedicoService
     {
         private readonly ApiContext _context;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
         public MedicoService(ApiContext context, IMapper mapper)
         {
             _context = context;
@@ -28,7 +28,7 @@ namespace Proy_back_QBD.Services
                 .AnyAsync(p => p.Cmp == request.Cmp);
             if (existe)
             {
-                response.Msg ="Ya existe este CMP";
+                response.Msg = "Ya existe este CMP";
                 return response;
             }
             Medico medico = _mapper.Map<Medico>(request);
@@ -38,28 +38,31 @@ namespace Proy_back_QBD.Services
             response.MedicoRes = medico;
             return response;
         }
-        
+
         public async Task<MedicoUpdateResponse?> Actualizar(int id, MedicoUpdateReq request)
         {
             MedicoUpdateResponse response = new MedicoUpdateResponse();
             Medico? medico = await _context.Medicos.FindAsync(id);
-            if (medico ==null)
+            if (medico == null)
             {
                 response.Msg = "no se encontró";
                 return response;
             }
-            _mapper.Map(request ,medico);
-            response.Msg ="Medico Actualizado";
-            response.MedicoRes =medico;
+            _mapper.Map(request, medico);
+            response.Msg = "Medico Actualizado";
+            response.MedicoRes = medico;
             await _context.SaveChangesAsync();
-            return response;        
+            return response;
         }
         public async Task<Medico?> Eliminar(int id)
         {
-            Medico? medico = await _context.Medicos.FindAsync(id);
+            Medico? medico = await _context.Medicos
+            .Include(a => a.Especialidad)
+            .Include(a => a.PersonaFk)
+            .FirstOrDefaultAsync(a => a.Id == id);
             _context.Remove(medico);
             await _context.SaveChangesAsync();
-            return medico;        
+            return medico;
         }
 
         public async Task<List<MedicoFindAllResponse?>> Obtener()
@@ -75,7 +78,29 @@ namespace Proy_back_QBD.Services
                 Cmp = a.Cmp
             })
             .ToListAsync();
-            
+
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
+        }
+        public async Task<MedicoFindIdResponse?> ObtenerById(int id)
+        {
+            MedicoFindIdResponse? response = await _context.Medicos
+            .Include(a => a.Especialidad)
+            .Include(a => a.PersonaFk)
+            .Where(a => a.Id == id)
+            .Select(a => new MedicoFindIdResponse
+            {
+                Id = a.Id,
+                EspecialidadId = a.EspecialidadId,
+                NumeroEspecialidad = a.NumeroEspecialidad,
+                PersonaFk = _mapper.Map<PersonaRes>(a.PersonaFk),
+                Cmp = a.Cmp,
+            })
+            .FirstAsync();
+             
             if (response == null)
             {
                 return null;

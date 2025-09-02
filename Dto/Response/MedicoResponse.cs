@@ -21,4 +21,14 @@ namespace Proy_back_QBD.Dto.Response
         public string? Msg { get; set; }  // Puede ser nulo      
         public Medico? MedicoRes { get; set; }
     }
+
+    public class MedicoFindIdResponse
+    {
+        public int? Id { get; set; }  // Puede ser nulo
+        public int? EspecialidadId { get; set; }
+        public string? NumeroEspecialidad { get; set; }
+        public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
+        public string? Cmp { get; set; }
+    }
+    
 }

@@ -1,6 +1,7 @@
 // ApoderadoMappingProfile.cs
 using AutoMapper;
 using Proy_back_QBD.Dto.Request;
+using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Request; // Asegúrate de incluir el espacio de nombres correcto
 
@@ -22,6 +23,7 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
             .ForMember(a => a.Sede, options => options.Ignore())
             ;
+            CreateMap<Persona, PersonaRes>();
         }
     }
 

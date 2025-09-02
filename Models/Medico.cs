@@ -13,14 +13,12 @@ namespace Proy_back_QBD.Models
         [Column("id")]
         public int? Id { get; set; }  // Puede ser nulo
         [ForeignKey("EspecialidadId")]
-        [JsonIgnore]
         public Especialidad? Especialidad { get; set; }
         [Column("especialidad_id")]
         public int? EspecialidadId { get; set; }  // Puede ser nulo     
         [Column("numero_especialidad")]
         public string? NumeroEspecialidad { get; set; }
         [ForeignKey("PersonaId")]
-        [JsonIgnore]
         public Persona? PersonaFk { get; set; }  // Puede ser nulo
         [Column("persona_id")]
         public int? PersonaId { get; set; }  // Puede ser nulo
