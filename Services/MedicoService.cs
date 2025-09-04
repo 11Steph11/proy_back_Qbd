@@ -20,10 +20,11 @@ namespace Proy_back_QBD.Services
 
         public async Task<MedicoCreateResponse?> Crear(MedicoCreateReq request)
         {
+            MedicoCreateResponse response = new MedicoCreateResponse();
             Persona persona = _mapper.Map<Persona>(request.PersonaCReq);
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
-            MedicoCreateResponse response = new MedicoCreateResponse();
+            Medico medico = _mapper.Map<Medico>(request);
             bool existe = await _context.Medicos
                 .AnyAsync(p => p.Cmp == request.Cmp);
             if (existe)
@@ -31,8 +32,8 @@ namespace Proy_back_QBD.Services
                 response.Msg = "Ya existe este CMP";
                 return response;
             }
-            Medico medico = _mapper.Map<Medico>(request);
-            medico.Id = persona.Id;
+            
+            medico.PersonaId = persona.Id; 
             await _context.Medicos.AddAsync(medico);
             await _context.SaveChangesAsync();
             response.Msg = "Creado Exitosamente";
