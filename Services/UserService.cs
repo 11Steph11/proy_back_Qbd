@@ -25,6 +25,7 @@ namespace Proy_back_QBD.Services
             .Include(a => a.Persona)
             .Include(a => a.Persona.Sede)
             .Include(a => a.Tipo)
+            .Where(a => a.Codigo.Equals(usuario) && a.Contrasena.Equals(contrasena))
             .Select(a => new UsuarioLoginDataRes
             {
                 NombreCompleto = $"{a.Persona.Nombres} {a.Persona.ApellidoPaterno} {a.Persona.ApellidoMaterno}",
