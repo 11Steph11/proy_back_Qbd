@@ -58,7 +58,6 @@ namespace Proy_back_QBD.Services
         public async Task<Medico?> Eliminar(int id)
         {
             Medico? medico = await _context.Medicos
-            .Include(a => a.Especialidad)
             .Include(a => a.PersonaFk)
             .FirstOrDefaultAsync(a => a.Id == id);
             _context.Remove(medico);

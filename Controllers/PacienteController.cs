@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -39,6 +40,26 @@ public class PacienteController : ControllerBase
             return BadRequest("Datos incorrectos");
         }
         PacienteUpdateResponse? response = await _pacienteService.Actualizar(id, request);
+
+        return Ok(response);
+    }
+    [HttpDelete("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(Paciente))]
+    public async Task<IActionResult> EliminarPaciente(int id)
+    {
+        if (id == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        Paciente? response = await _pacienteService.Eliminar(id);
+
+        return Ok(response);
+    }
+    [HttpGet]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(List<PacienteFindAllResponse?>))]
+    public async Task<IActionResult> ObtenerPacientes()
+    {
+        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener();
 
         return Ok(response);
     }

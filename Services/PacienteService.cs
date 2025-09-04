@@ -60,12 +60,32 @@ namespace Proy_back_QBD.Services
 
         public async Task<Paciente?> Eliminar(int id)
         {
-            throw new NotImplementedException();
+            Paciente? paciente = await _context.Pacientes
+           .Include(a => a.PersonaFk)
+           .FirstOrDefaultAsync(a => a.Id == id);
+            _context.Remove(paciente);
+            await _context.SaveChangesAsync();
+            return paciente;
         }
 
         public async Task<List<PacienteFindAllResponse?>> Obtener()
         {
-            throw new NotImplementedException();
+            List<PacienteFindAllResponse>? response = await _context.Pacientes
+            .Include(a => a.PersonaFk)
+            .Select(a => new PacienteFindAllResponse
+            {
+                Id = a.Id,
+                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.ApellidoPaterno} {a.PersonaFk.ApellidoMaterno}",
+                Apoderado = a.Apoderado,
+                DniApoderado = a.DniApoderado,
+            })
+            .ToListAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
         }
 
         public async Task<PacienteFindIdResponse?> ObtenerById(int id)

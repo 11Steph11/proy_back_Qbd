@@ -7,6 +7,8 @@ namespace Proy_back_QBD.Dto.Response
     {
         public int? Id { get; set; }
         public string? NombreCompleto { get; set; }
+        public string? Apoderado { get; set; }
+        public string? DniApoderado { get; set; }
     }
     public class PacienteCreateResponse
     {
