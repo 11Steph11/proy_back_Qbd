@@ -73,7 +73,7 @@ namespace Proy_back_QBD.Services
         }
 
 
-        public async Task<Asistencia?> Registrar(AsistenciaCreateReq request)
+        public async Task<Asistencia?> Crear(AsistenciaCreateReq request)
         {
             string? tipoAsistencia = request.Tipo;
             if (tipoAsistencia == null)

@@ -32,6 +32,7 @@ namespace Proy_back_QBD.Services
                 return response;
             }
             Medico medico = _mapper.Map<Medico>(request);
+            medico.Id = persona.Id;
             await _context.Medicos.AddAsync(medico);
             await _context.SaveChangesAsync();
             response.Msg = "Creado Exitosamente";
@@ -100,7 +101,7 @@ namespace Proy_back_QBD.Services
                 Cmp = a.Cmp,
             })
             .FirstAsync();
-             
+
             if (response == null)
             {
                 return null;

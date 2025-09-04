@@ -32,7 +32,7 @@ public class AsistenciaController : ControllerBase
         {
             return BadRequest("Datos de asistencia no proporcionados");
         }
-        Asistencia? response = await _asistenciaService.Registrar(request);
+        Asistencia? response = await _asistenciaService.Crear(request);
         if (response == null)
         {
             return BadRequest("Error al crear la asistencia");

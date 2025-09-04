@@ -6,7 +6,6 @@ namespace Proy_back_QBD.Dto.Request
     {
         public int? EspecialidadId { get; set; }  // Puede ser nulo      
         public string? NumeroEspecialidad { get; set; }  // Puede ser nulo      
-        public int? PersonaId { get; set; }  // Puede ser nulo      
         public int? Creador { get; set; }  // Puede ser nulo    
         public PersonaCreateReq? PersonaCReq { get; set; }  // Puede ser nulo    
         public int? Modificador { get; set; }  // Puede ser nulo       

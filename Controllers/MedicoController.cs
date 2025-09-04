@@ -35,7 +35,7 @@ public class MedicoController : ControllerBase
     }
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(MedicoUpdateResponse))]
-    public async Task<IActionResult> ModificarMedico(int id, [FromBody] MedicoUpdateReq request)
+    public async Task<IActionResult> ActualizarMedico(int id, [FromBody] MedicoUpdateReq request)
     {
         if (request == null)
         {
