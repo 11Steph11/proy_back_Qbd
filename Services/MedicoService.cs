@@ -75,7 +75,7 @@ namespace Proy_back_QBD.Services
             {
                 EspecialidadFk = a.Especialidad.Nombre,
                 NumeroEspecialidad = a.NumeroEspecialidad,
-                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.ApellidoPaterno} {a.PersonaFk.ApellidoMaterno}",
+                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.Apellidos}",
                 Cmp = a.Cmp
             })
             .ToListAsync();

@@ -75,7 +75,7 @@ namespace Proy_back_QBD.Services
             .Select(a => new PacienteFindAllResponse
             {
                 Id = a.Id,
-                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.ApellidoPaterno} {a.PersonaFk.ApellidoMaterno}",
+                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.Apellidos}",
                 Apoderado = a.Apoderado,
                 DniApoderado = a.DniApoderado,
             })
