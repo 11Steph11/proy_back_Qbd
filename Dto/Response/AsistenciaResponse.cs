@@ -11,10 +11,10 @@ namespace Proy_back_QBD.Dto.Response
      public class FechaConHoras
     {
         public string? Dia { get; set; }
-        [Column("Hora_Entrada")]
         public string? HoraEntrada { get; set; }
-        [Column("Hora_Salida")]
         public string? HoraSalida { get; set; }
+        public string? HoraAlmuerzo { get; set; }
+        public string? HoraRegreso { get; set; }
     }
     public class AsistenciaByIdRes
     {

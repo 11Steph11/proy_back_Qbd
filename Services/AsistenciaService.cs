@@ -36,12 +36,20 @@ namespace Proy_back_QBD.Services
                 {
                     Dia = g.Key.ToString("dddd", new CultureInfo("es-ES")),
 
-                    HoraEntrada = g.Where(x => x.Tipo == "entrada")
+                    HoraEntrada = g.Where(x => x.Tipo.Equals("entrada"))
                        .OrderBy(x => x.HoraMarcada)
                        .Select(x => x.HoraMarcada.ToString())
                        .FirstOrDefault(),
 
-                    HoraSalida = g.Where(x => x.Tipo == "salida")
+                    HoraSalida = g.Where(x => x.Tipo.Equals("salida"))
+                      .OrderByDescending(x => x.HoraMarcada)
+                      .Select(x => x.HoraMarcada.ToString())
+                      .FirstOrDefault(),
+                    HoraAlmuerzo = g.Where(x => x.Tipo.Equals("almuerzo"))
+                      .OrderByDescending(x => x.HoraMarcada)
+                      .Select(x => x.HoraMarcada.ToString())
+                      .FirstOrDefault(),
+                    HoraRegreso = g.Where(x => x.Tipo.Equals("regreso"))
                       .OrderByDescending(x => x.HoraMarcada)
                       .Select(x => x.HoraMarcada.ToString())
                       .FirstOrDefault(),
@@ -86,7 +94,13 @@ namespace Proy_back_QBD.Services
                 ? a.HorarioEntrada     // Si es "entrada", selecciona HorarioEntrada
                 : (tipoAsistencia.Equals("salida")
                     ? a.HorarioSalida   // Si es "salida", selecciona HorarioSalida
+                    : (tipoAsistencia.Equals("almuerzo")
+                    ? a.HorarioAlmuerzo   // Si es "salida", selecciona HorarioSalida
+                    : (tipoAsistencia.Equals("regreso")
+                    ? a.HorarioRegreso   // Si es "salida", selecciona HorarioSalida
                     : null // Si no es ni "entrada" ni "salida", devuelve el valor por defecto
+                  ) // Si no es ni "entrada" ni "salida", devuelve el valor por defecto
+                  ) // Si no es ni "entrada" ni "salida", devuelve el valor por defecto
                   )).FirstOrDefaultAsync();
             if (horaAsignada == null)
             {
@@ -98,24 +112,26 @@ namespace Proy_back_QBD.Services
             Asistencia asistencia = _mapper.Map<Asistencia>(request);
             diferencia = (horaAsignada2 - horaMarcada).Duration();
             Debug.WriteLine(diferencia);
-            if (tipoAsistencia.Equals("entrada") && horaMarcada > horaAsignada2)
+            if (tipoAsistencia.Trim().ToUpper().Equals("ENTRADA") && horaMarcada > horaAsignada2)
             {
                 asistencia.TiempoAtraso = diferencia;
             }
             else
             {
-                asistencia.TiempoExtra = diferencia;
+                asistencia.TiempoAtraso = null;
             }
-            if (tipoAsistencia.Equals("salida") && horaMarcada > horaAsignada2)
+            
+            if (tipoAsistencia.Trim().ToUpper().Equals("SALIDA") && horaMarcada > horaAsignada2)
             {
                 asistencia.TiempoExtra = diferencia;
             }
             else
             {
-                asistencia.TiempoAtraso = diferencia;
+                asistencia.TiempoExtra = null;
             }
             asistencia.HoraMarcada = TimeOnly.FromDateTime(horaMarcada);
             asistencia.HoraAsignada = horaAsignada;
+            asistencia.Modificador = asistencia.Creador;
             _context.Asistencias.Add(asistencia);
             await _context.SaveChangesAsync();
             return asistencia;

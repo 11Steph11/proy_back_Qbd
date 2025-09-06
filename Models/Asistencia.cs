@@ -28,6 +28,8 @@ namespace Proy_back_QBD.Models
         public DateTime? FechaCreacion { get; set; }  // Puede ser nulo        
         [Column("creador")]
         public int? Creador { get; set; }  // Puede ser nulo        
+        [Column("modificador")]
+        public int? Modificador { get; set; }  // Puede ser nulo     
     }
 
 }

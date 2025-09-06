@@ -16,7 +16,7 @@ public class AsistenciaController : ControllerBase
 {
 
     private readonly IAsistenciaService _asistenciaService;
-    private readonly IMapper _mapper;
+    private readonly IMapper _mapper; 
 
     public AsistenciaController(IAsistenciaService userService, IMapper mapper)
     {
