@@ -32,6 +32,7 @@ namespace Proy_back_QBD.Services
                 TipoUsuario = a.Tipo.Nombre,
                 TipoId = a.Tipo.Id,
                 Sede = a.Persona.Sede.Nombre,
+                SedeId = a.Persona.Sede.Id,
                 Id = a.Id,
             })
             .FirstOrDefaultAsync();

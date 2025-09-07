@@ -15,6 +15,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? TipoUsuario { get; set; }
         public int? TipoId { get; set; }
         public string? Sede { get; set; }
+        public int? SedeId { get; set; }
         public int? Id { get; set; }
     }
     public class UsuarioListaRes

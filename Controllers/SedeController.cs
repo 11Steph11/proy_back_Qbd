@@ -28,7 +28,7 @@ public class SedeController : ControllerBase
     public async Task<IActionResult> CrearSede([FromBody] SedeCreateReq request)
     {
         Sede sede = _mapper.Map<Sede>(request);
-        Sede? response = await _sedeService.RegistrarSede(sede);
+        Sede? response = await _sedeService.Crear(sede);
         return Ok(response);
     }
 }

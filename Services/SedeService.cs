@@ -12,7 +12,7 @@ namespace Proy_back_QBD.Services
         {
             _context = context;
         }
-        public async Task<Sede?> RegistrarSede(Sede sede)
+        public async Task<Sede?> Crear(Sede sede)
         {
             await _context.Sedes.AddAsync(sede);
             await _context.SaveChangesAsync();

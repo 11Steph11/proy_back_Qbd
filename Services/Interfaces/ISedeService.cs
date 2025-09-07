@@ -5,6 +5,10 @@ namespace Proy_back_QBD.Services
 {
     public interface ISedeService
     {
-        Task<Sede?> RegistrarSede(Sede sede);
+        Task<Sede?> Crear(Sede request);
+        // Task<SedeUpdateResponse?> Actualizar(int id, SedeUpdateReq request);
+        // Task<Sede?> Eliminar(int id);
+        // Task<List<SedeFindAllResponse?>> Obtener();
+        // Task<SedeFindIdResponse?> ObtenerById(int id);
     }
 }
