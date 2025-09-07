@@ -42,14 +42,14 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             Paciente paciente = _mapper.Map<Paciente>(request);
             bool existe = await _context.Pacientes
-                .AnyAsync(p => p.PersonaFk.Dni == request.PersonaFk.Dni);
+                .AnyAsync(p => p.Persona.Dni == request.PersonaFk.Dni);
             if (existe)
             {
                 response.Msg = "El paciente ya existe.";
                 return response;
             }
             paciente.PersonaId = persona.Id;
-
+            paciente.ModificadorId = paciente.CreadorId;
             response.PacienteRes = paciente;
             response.Msg = "Paciente creado exitosamente.";
             _context.Pacientes.Add(paciente);
@@ -61,7 +61,7 @@ namespace Proy_back_QBD.Services
         public async Task<Paciente?> Eliminar(int id)
         {
             Paciente? paciente = await _context.Pacientes
-           .Include(a => a.PersonaFk)
+           .Include(a => a.Persona)
            .FirstOrDefaultAsync(a => a.Id == id);
             _context.Remove(paciente);
             await _context.SaveChangesAsync();
@@ -71,11 +71,11 @@ namespace Proy_back_QBD.Services
         public async Task<List<PacienteFindAllResponse?>> Obtener()
         {
             List<PacienteFindAllResponse>? response = await _context.Pacientes
-            .Include(a => a.PersonaFk)
+            .Include(a => a.Persona)
             .Select(a => new PacienteFindAllResponse
             {
                 Id = a.Id,
-                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.Apellidos}",
+                NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
                 Apoderado = a.Apoderado,
                 DniApoderado = a.DniApoderado,
             })

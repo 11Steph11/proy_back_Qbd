@@ -30,7 +30,7 @@ namespace Proy_back_QBD.Services
             }
             DateTime? fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
             var lista = await _context.Asistencias
-                .Where(a => a.Creador == id && a.FechaCreacion >= fechaFiltro)
+                .Where(a => a.CreadorId == id && a.FechaCreacion >= fechaFiltro)
                 .GroupBy(a => a.FechaCreacion.Value.Date)
                 .Select(g => new FechaConHoras
                 {
@@ -89,7 +89,7 @@ namespace Proy_back_QBD.Services
                 return null;
             }
             TimeOnly? horaAsignada = await _context.Usuarios
-            .Where(a => a.Id == request.Creador)
+            .Where(a => a.Id == request.CreadorId)
             .Select(a => tipoAsistencia.Equals("entrada")
                 ? a.HorarioEntrada     // Si es "entrada", selecciona HorarioEntrada
                 : (tipoAsistencia.Equals("salida")
@@ -131,7 +131,7 @@ namespace Proy_back_QBD.Services
             }
             asistencia.HoraMarcada = TimeOnly.FromDateTime(horaMarcada);
             asistencia.HoraAsignada = horaAsignada;
-            asistencia.Modificador = asistencia.Creador;
+            asistencia.ModificadorId = asistencia.CreadorId;
             _context.Asistencias.Add(asistencia);
             await _context.SaveChangesAsync();
             return asistencia;

@@ -14,7 +14,7 @@ namespace Proy_back_QBD.Profiles
             CreateMap<AsistenciaCreateReq, Asistencia>();
             CreateMap<AsistenciaByIdReq, Asistencia>()
             .ForMember(a => a.Id, opt => opt.Ignore())
-            .ForMember(a => a.Creador, opt => opt.Ignore())
+            .ForMember(a => a.CreadorId, opt => opt.Ignore())
             ;
             // Otros mapeos si es necesario
         }

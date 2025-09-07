@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace Proy_back_QBD.Models
@@ -27,20 +28,26 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_modificacion")]
         public DateTime? FechaModificacion { get; set; }  // Puede ser nulo
-        [Column("creador")]
-        public int? Creador { get; set; }  // Puede ser nulo
-        [Column("modificador")]
-        public int? Modificador { get; set; }  // Puede ser nulo
-        [ForeignKey("SedeId")]
+        [Column("creador_id")]
+        public int? CreadorId { get; set; }
+        [JsonIgnore]
+        public Usuario? Creador { get; set; }
+        [Column("modificador_id")]
+        public int? ModificadorId { get; set; }
+        public Usuario? Modificador { get; set; }
+        [Column("sede_id")]
+        [AllowNull]
+        public int? SedeId { get; set; }  // Puede ser nulo
         [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo
-        [Column("sede_id")]
-        public int? SedeId { get; set; }  // Puede ser nulo
         [Column("telefono")]
         public string? Telefono { get; set; }  // Puede ser nulo
-        public List<Usuario>? Usuarios  { get; set; }  // Puede ser nulo
-        public List<Medico>? Medicos  { get; set; }  // Puede ser nulo
-        public List<Paciente>? Pacientes  { get; set; }  // Puede ser nulo
+        [JsonIgnore]
+        public List<Usuario>? Usuarios { get; set; }  // Puede ser nulo
+        [JsonIgnore]
+        public List<Medico>? Medicos { get; set; }  // Puede ser nulo
+        [JsonIgnore]
+        public List<Paciente>? Pacientes { get; set; }  // Puede ser nulo
     }
 
 }

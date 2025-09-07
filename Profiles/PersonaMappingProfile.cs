@@ -19,7 +19,7 @@ namespace Proy_back_QBD.Profiles
             ;
             CreateMap<PersonaUpdateReq, Persona>()
             .ForMember(a => a.Id, options => options.Ignore())
-            .ForMember(a => a.Creador, options => options.Ignore())
+            .ForMember(a => a.CreadorId, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
             .ForMember(a => a.Sede, options => options.Ignore())
             ;

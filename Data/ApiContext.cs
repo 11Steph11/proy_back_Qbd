@@ -21,19 +21,273 @@ namespace Proy_back_QBD.Data
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Formula>()
-                            .HasOne(p => p.Pedido)
-                            .WithMany(prod => prod.Formulas)       
-                            .HasForeignKey(p => p.PedidoId)     
-                            .OnDelete(DeleteBehavior.Restrict);
+            ConfigureAsistencia(modelBuilder);
+            ConfigureEspecialidad(modelBuilder);
+            ConfigureFormula(modelBuilder);
+            ConfigureMedico(modelBuilder);
+            ConfigurePaciente(modelBuilder);
+            ConfigurePedido(modelBuilder);
+            ConfigurePersona(modelBuilder);
+            ConfigureSede(modelBuilder);
+            ConfigureUsuario(modelBuilder);
+            ConfigureTipoUsuario(modelBuilder);
         }
-        // public async Task<List<FechaConHoras>> ObtenerAsistenciasAsync(string a, int b, int c)
-        // {
-        //     // ExecuteSqlRawAsync no devuelve el resultado directamente, así que usamos FromSql para obtener el valor
-        //     var response = await Database.SqlQueryRaw<FechaConHoras>("SELECT * FROM obtener_horarios_trabajador({0}, {1}, {2})", a, b, c)
-        //         .ToListAsync();
-        //     return response;
-        // }
+        private void ConfigureAsistencia(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Asistencia>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.AsistenciasCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Asistencia>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.AsistenciasModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Asistencia>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Asistencia>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureEspecialidad(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Especialidad>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.EspecialidadsCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Especialidad>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.EspecialidadsModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Especialidad>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Especialidad>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureFormula(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Formula>()
+                            .HasOne(e => e.Pedido)
+                            .WithMany(e2 => e2.Formulas)
+                            .HasForeignKey(e => e.PedidoId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Formula>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.FormulasCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Formula>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.FormulasModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Formula>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Formula>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();            
+        }
+        private void ConfigureMedico(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Medico>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.MedicosCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Medico>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.MedicosModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Medico>()
+                            .HasOne(e => e.Persona)
+                            .WithMany(e2 => e2.Medicos)
+                            .HasForeignKey(e => e.PersonaId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Medico>()
+                            .HasOne(e => e.Especialidad)
+                            .WithMany(e2 => e2.Medicos)
+                            .HasForeignKey(e => e.EspecialidadId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Medico>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Medico>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+
+        private void ConfigurePaciente(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Paciente>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.PacientesCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Paciente>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.PacientesModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Paciente>()
+                            .HasOne(e => e.Persona)
+                            .WithMany(e2 => e2.Pacientes)
+                            .HasForeignKey(e => e.PersonaId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Paciente>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Paciente>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigurePedido(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Pedido>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.PedidosCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Pedido>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.PedidosModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Pedido>()
+                            .HasOne(e => e.Medico)
+                            .WithMany(e2 => e2.Pedidos)
+                            .HasForeignKey(e => e.MedicoId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Pedido>()
+                            .HasOne(e => e.Paciente)
+                            .WithMany(e2 => e2.Pedidos)
+                            .HasForeignKey(e => e.PacienteId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Pedido>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Pedido>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigurePersona(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Persona>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.PersonasCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Persona>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.PersonasModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Persona>()
+                            .HasOne(e => e.Sede)
+                            .WithMany(e2 => e2.Personas)
+                            .HasForeignKey(e => e.SedeId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Persona>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Persona>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureSede(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Sede>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.SedesCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Sede>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.SedesModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Sede>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Sede>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureUsuario(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Usuario>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.UsuariosCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Usuario>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.UsuariosModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Usuario>()
+                            .HasOne(e => e.Persona)
+                            .WithMany(e2 => e2.Usuarios)
+                            .HasForeignKey(e => e.PersonaId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Usuario>()
+                            .HasOne(e => e.Tipo)
+                            .WithMany(e2 => e2.Usuarios)
+                            .HasForeignKey(e => e.TipoId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Usuario>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Usuario>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureTipoUsuario(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TipoUsuario>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.TipoUsuariosCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<TipoUsuario>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.TipoUsuariosModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<TipoUsuario>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TipoUsuario>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
     }
 
 }

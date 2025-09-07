@@ -38,7 +38,7 @@ namespace Proy_back_QBD.Services
         {
             PedidoCreateResponse response = new PedidoCreateResponse();
             Pedido pedido = _mapper.Map<Pedido>(request);
-            pedido.Modificador = pedido.Creador;
+            pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
             await _context.Pedidos.AddAsync(pedido);

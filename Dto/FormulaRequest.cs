@@ -14,12 +14,12 @@ namespace Proy_back_QBD.Dto.Request
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
         public string? ComprobanteElectronico { get; set; }
-        public int? Creador { get; set; }
+        public int? CreadorId { get; set; }
         public DateTime? FechaEntrega { get; set; }
     }
     public class FormulaUpdateReq : FormulaCreateReq
     {
         [JsonIgnore]
-        public int? Creador { get; set; }
+        public int? CreadorId { get; set; }
     }
 }

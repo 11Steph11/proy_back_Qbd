@@ -44,11 +44,12 @@ namespace Proy_back_QBD.Services
         }
         public async Task<Usuario?> Crear(UsuarioCreateReq request)
         {
-            Persona persona = _mapper.Map<Persona>(request.PersonaRequest);
+            Persona persona = _mapper.Map<Persona>(request.Persona);
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
             Usuario usuario = _mapper.Map<Usuario>(request);
             usuario.PersonaId = persona.Id;
+            usuario.Modificador = persona.Creador;
             usuario.Codigo = $"{persona.Nombres.Substring(0,1).ToUpper()}{persona.Apellidos.Substring(0,1).ToUpper()} - {usuario.TipoId}-{persona.SedeId}";
             await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync();
@@ -73,7 +74,7 @@ namespace Proy_back_QBD.Services
             .FirstOrDefaultAsync(a => a.Id == id);
             _mapper.Map(request, usuario);
             usuario.Codigo = $"{usuario.Persona.Nombres.Substring(0,1).ToUpper()}{usuario.Persona.Apellidos.Substring(0,1).ToUpper()}-{usuario.TipoId}-{usuario.Persona.SedeId}";
-            _mapper.Map(request.PersonaRequest, usuario.Persona);
+            _mapper.Map(request.Persona, usuario.Persona);
             await _context.SaveChangesAsync();
             return usuario;
         }

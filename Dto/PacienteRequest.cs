@@ -7,8 +7,7 @@ namespace Proy_back_QBD.Dto.Request
 
         public string? Apoderado { get; set; }
         public string? DniApoderado { get; set; }
-        public int? Creador { get; set; }
-        public int? Modificador { get; set; }
+        public int? CreadorId { get; set; }        
         public PersonaCreateReq? PersonaFk { get; set; }
         public bool? CondicionFecha { get; set; }
     }
@@ -18,6 +17,7 @@ namespace Proy_back_QBD.Dto.Request
         public PersonaCreateReq? PersonaFk { get; set; }  // Puede ser nulo    
         public PersonaUpdateReq? PersonaUReq { get; set; }  // Puede ser nulo   
         [JsonIgnore]
-        public int? Creador { get; set; }
+        public int? CreadorId { get; set; }
+        public int? ModificadorId { get; set; }
     }
 }

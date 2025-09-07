@@ -12,28 +12,34 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int? Id { get; set; }  // Puede ser nulo
-        [ForeignKey("EspecialidadId")]
-        public Especialidad? Especialidad { get; set; }
         [Column("especialidad_id")]
         public int? EspecialidadId { get; set; }  // Puede ser nulo     
+        public Especialidad? Especialidad { get; set; }
         [Column("numero_especialidad")]
         public string? NumeroEspecialidad { get; set; }
-        [ForeignKey("PersonaId")]
-        public Persona? PersonaFk { get; set; }  // Puede ser nulo
         [Column("persona_id")]
         public int? PersonaId { get; set; }  // Puede ser nulo
+        [JsonIgnore]
+        public Persona? Persona { get; set; }  // Puede ser nulo
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime? FechaCreacion { get; set; }  // Puede ser nulo
         [Column("fecha_modificacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime? FechaModificacion { get; set; }  // Puede ser nulo
-        [Column("creador")]
-        public int? Creador { get; set; }  // Puede ser nulo
-        [Column("modificador")]
-        public int? Modificador { get; set; }  // Puede ser nulo
+        [Column("creador_id")]
+        public int CreadorId { get; set; }
+        [JsonIgnore]
+        public Usuario? Creador { get; set; }
+        [Column("modificador_id")]
+        public int ModificadorId { get; set; }
+        [JsonIgnore]
+        public Usuario? Modificador { get; set; }
         [Column("cmp")]
         public string? Cmp { get; set; }
+        [JsonIgnore]
+        public List<Pedido>? Pedidos { get; set; }
+
     }
 
 }

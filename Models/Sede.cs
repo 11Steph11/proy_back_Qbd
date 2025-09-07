@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Proy_back_QBD.Models
 {
@@ -26,10 +27,16 @@ namespace Proy_back_QBD.Models
         [Column("fecha_modificacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime? FechaModificacion { get; set; }  // Puede ser nulo               
-        [Column("creador")]
-        public int? Creador { get; set; }  // Puede ser nulo               
-        [Column("modificador")]
-        public int? Modificador { get; set; }  // Puede ser nulo               
+        [Column("creador_id")]
+        public int CreadorId { get; set; }
+        [JsonIgnore]
+        public Usuario? Creador { get; set; }
+        [Column("modificador_id")]
+        public int ModificadorId { get; set; }
+        [JsonIgnore]
+        public Usuario? Modificador { get; set; }
+        [JsonIgnore]
+        public List<Persona>? Personas { get; set; }
     }
 
 }

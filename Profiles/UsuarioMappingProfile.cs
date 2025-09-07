@@ -14,7 +14,7 @@ namespace Proy_back_QBD.Profiles
             CreateMap<UsuarioUpdateReq, Usuario>()
             .ForMember(a => a.Id, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
-            .ForMember(a => a.Creador, options => options.Ignore())
+            .ForMember(a => a.CreadorId, options => options.Ignore())
             .ForMember(a => a.Tipo, options => options.Ignore())
             .ForMember(a => a.Persona, options => options.Ignore())
             .ForMember(a => a.PersonaId, options => options.Ignore())

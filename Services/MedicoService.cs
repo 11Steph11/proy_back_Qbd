@@ -34,6 +34,7 @@ namespace Proy_back_QBD.Services
             }
             
             medico.PersonaId = persona.Id; 
+            medico.ModificadorId = medico.CreadorId; 
             await _context.Medicos.AddAsync(medico);
             await _context.SaveChangesAsync();
             response.Msg = "Creado Exitosamente";
@@ -59,7 +60,7 @@ namespace Proy_back_QBD.Services
         public async Task<Medico?> Eliminar(int id)
         {
             Medico? medico = await _context.Medicos
-            .Include(a => a.PersonaFk)
+            .Include(a => a.Persona)
             .FirstOrDefaultAsync(a => a.Id == id);
             _context.Remove(medico);
             await _context.SaveChangesAsync();
@@ -70,12 +71,12 @@ namespace Proy_back_QBD.Services
         {
             List<MedicoFindAllResponse>? response = await _context.Medicos
             .Include(a => a.Especialidad)
-            .Include(a => a.PersonaFk)
+            .Include(a => a.Persona)
             .Select(a => new MedicoFindAllResponse
             {
                 EspecialidadFk = a.Especialidad.Nombre,
                 NumeroEspecialidad = a.NumeroEspecialidad,
-                NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.Apellidos}",
+                NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
                 Cmp = a.Cmp
             })
             .ToListAsync();
@@ -90,14 +91,14 @@ namespace Proy_back_QBD.Services
         {
             MedicoFindIdResponse? response = await _context.Medicos
             .Include(a => a.Especialidad)
-            .Include(a => a.PersonaFk)
+            .Include(a => a.Persona)
             .Where(a => a.Id == id)
             .Select(a => new MedicoFindIdResponse
             {
                 Id = a.Id,
                 EspecialidadId = a.EspecialidadId,
                 NumeroEspecialidad = a.NumeroEspecialidad,
-                PersonaFk = _mapper.Map<PersonaRes>(a.PersonaFk),
+                PersonaFk = _mapper.Map<PersonaRes>(a.Persona),
                 Cmp = a.Cmp,
             })
             .FirstAsync();

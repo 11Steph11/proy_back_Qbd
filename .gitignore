@@ -18,3 +18,4 @@ out/
 *.csproj.user
 firebase-adminsdk.json
 # Dependency direc
+Migrations/
