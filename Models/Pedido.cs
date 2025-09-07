@@ -8,8 +8,6 @@ namespace Proy_back_QBD.Models
     [Table("pedidos")]
     public class Pedido
     {
-        [Column("cuop")]
-        public string? Cuop { get; set; }
         [Column("periodo")]
         public string? Periodo { get; set; }
         [Column("boleta")]
@@ -40,8 +38,14 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo
-        [Column("fecha_electronica")]
-        public DateTime? FechaElectronica { get; set; }  // Puede ser nulo                    
+        [Column("fecha_entrega")]
+        public DateTime? FechaEntrega { get; set; }  // Puede ser nulo                    
+        [ForeignKey("MedicoId")]
+        public Medico? MedicoFk { get; set; }
+
+        [Column("medico_id")]
+        public int? MedicoId { get; set; }
+        public List<Formula>? Formulas { get; set; }
     }
 
 }

@@ -33,7 +33,7 @@ public class PedidoController : ControllerBase
     }
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(PedidoUpdateReq))]
-    public async Task<IActionResult> ActualizarMedico(int id, [FromBody] PedidoUpdateReq request)
+    public async Task<IActionResult> ActualizarPedido(int id, [FromBody] PedidoUpdateReq request)
     {
         if (request == null)
         {
@@ -43,24 +43,24 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    [HttpDelete("{id}")]
-    [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
-    public async Task<IActionResult> EliminarPedido(int id)
-    {
-        if (id == null)
-        {
-            return BadRequest("Datos incorrectos");
-        }
-        Pedido? response = await _pedidoService.Eliminar(id);
+    // [HttpDelete("{id}")]
+    // [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
+    // public async Task<IActionResult> EliminarPedido(int id)
+    // {
+    //     if (id == null)
+    //     {
+    //         return BadRequest("Datos incorrectos");
+    //     }
+    //     Pedido? response = await _pedidoService.Eliminar(id);
 
-        return Ok(response);
-    }
-    [HttpGet]
-    [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerPedidos()
-    {
-        List<PedidoFindAllResponse?> response = await _pedidoService.Obtener();
+    //     return Ok(response);
+    // }
+    // [HttpGet]
+    // [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
+    // public async Task<IActionResult> ObtenerPedidos()
+    // {
+    //     List<PedidoFindAllResponse?> response = await _pedidoService.Obtener();
 
-        return Ok(response);
-    }
+    //     return Ok(response);
+    // }
 }

@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Profiles
         public PedidoMappingProfile()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<PedidoCreateReq, Pedido>();
+            CreateMap<PedidoCreateReq, Pedido>(); 
             CreateMap<PedidoUpdateReq, Pedido>()
             .ForMember(a => a.Id, opt => opt.Ignore())
             .ForMember(a => a.Creador, opt => opt.Ignore())

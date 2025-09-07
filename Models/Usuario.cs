@@ -46,7 +46,17 @@ namespace Proy_back_QBD.Models
         public TimeOnly? HorarioRegreso { get; set; }  // Puede ser nulo
         [Column("codigo")]
         public string? Codigo { get; set; }
-        
-    }
 
+    }
+    [Table("tipos_usuario")]
+    public class TipoUsuario
+    {
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("id")]
+        public int? Id { get; set; }  // Puede ser nulo 
+        [Column("nombre")]
+        public string? Nombre { get; set; }  // Puede ser nulo
+    }
 }

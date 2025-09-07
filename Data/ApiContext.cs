@@ -18,16 +18,22 @@ namespace Proy_back_QBD.Data
         public DbSet<Paciente> Pacientes { get; set; }  // Para la tabla de secciones
         public DbSet<Pedido> Pedidos { get; set; }  // Para la tabla de secciones
         public DbSet<Medico> Medicos { get; set; }  // Para la tabla de secciones
+        public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Formula>()
+                            .HasOne(p => p.Pedido)
+                            .WithMany(prod => prod.Formulas)       
+                            .HasForeignKey(p => p.PedidoId)     
+                            .OnDelete(DeleteBehavior.Restrict);
         }
-        public async Task<List<FechaConHoras>> ObtenerAsistenciasAsync(string a, int b, int c)
-        {
-            // ExecuteSqlRawAsync no devuelve el resultado directamente, así que usamos FromSql para obtener el valor
-            var response = await Database.SqlQueryRaw<FechaConHoras>("SELECT * FROM obtener_horarios_trabajador({0}, {1}, {2})", a, b, c)
-                .ToListAsync();
-            return response;
-        }
+        // public async Task<List<FechaConHoras>> ObtenerAsistenciasAsync(string a, int b, int c)
+        // {
+        //     // ExecuteSqlRawAsync no devuelve el resultado directamente, así que usamos FromSql para obtener el valor
+        //     var response = await Database.SqlQueryRaw<FechaConHoras>("SELECT * FROM obtener_horarios_trabajador({0}, {1}, {2})", a, b, c)
+        //         .ToListAsync();
+        //     return response;
+        // }
     }
 
 }

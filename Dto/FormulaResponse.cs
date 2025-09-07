@@ -3,25 +3,30 @@ using Proy_back_QBD.Models;
 
 namespace Proy_back_QBD.Dto.Response
 {
-    public class PedidoFindAllResponse
+    public class FormulaFindAllResponse
     {
         public string? Cuo { get; set; }
         public DateTime? FechaCreacion { get; set; }
-        public string? Apoderado { get; set; }
-        public string? DniApoderado { get; set; }
+        public string? Dni { get; set; }
+        public string? Paciente { get; set; }
+        public string? Celular { get; set; }
+        public string? Medico { get; set; }
+        public string? Usuario { get; set; }
+        public DateTime? FechaEntrega { get; set; }
+        public string? BolFaC { get; set; }
     }
-    public class PedidoCreateResponse
+    public class FormulaCreateResponse
     {
         public string? Msg { get; set; }  // Puede ser nulo      
-        public Pedido? PedidoRes { get; set; }
+        public Formula? FormulaRes { get; set; }
     }
-    public class PedidoUpdateResponse
+    public class FormulaUpdateResponse
     {
         public string? Msg { get; set; }  // Puede ser nulo      
-        public Pedido? PedidoRes { get; set; }
+        public Formula? FormulaRes { get; set; }
     }
 
-    public class PedidoFindIdResponse
+    public class FormulaFindIdResponse
     {
         public int? Id { get; set; }  // Puede ser nulo
         public int? Apoderado { get; set; }

@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Models
     public class Persona
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]        
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int? Id { get; set; }  // Puede ser nulo 
         [Column("nombres")]
@@ -37,7 +37,10 @@ namespace Proy_back_QBD.Models
         [Column("sede_id")]
         public int? SedeId { get; set; }  // Puede ser nulo
         [Column("telefono")]
-        public string? Telefono { get; set; }  // Puede ser nulo        
+        public string? Telefono { get; set; }  // Puede ser nulo
+        public List<Usuario>? Usuarios  { get; set; }  // Puede ser nulo
+        public List<Medico>? Medicos  { get; set; }  // Puede ser nulo
+        public List<Paciente>? Pacientes  { get; set; }  // Puede ser nulo
     }
 
 }
