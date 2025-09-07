@@ -13,7 +13,7 @@ namespace Proy_back_QBD.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
-        public int? Id { get; set; }  // Puede ser nulo 
+        public int Id { get; set; }  // Puede ser nulo 
         [Column("nombres")]
         public string? Nombres { get; set; }  // Puede ser nulo
         [Column("apellidos")]
@@ -21,23 +21,24 @@ namespace Proy_back_QBD.Models
         [Column("fecha_nacimiento")]
         public DateOnly? FechaNacimiento { get; set; }  // Puede ser nulo
         [Column("dni")]
-        public string? Dni { get; set; }  // Puede ser nulo
+        [Length(8,8)]
+        public required string Dni { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_creacion")]
-        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo
+        public DateTime FechaCreacion { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_modificacion")]
-        public DateTime? FechaModificacion { get; set; }  // Puede ser nulo
+        public DateTime FechaModificacion { get; set; }  // Puede ser nulo
         [Column("creador_id")]
-        public int? CreadorId { get; set; }
+        public int CreadorId { get; set; }
         [JsonIgnore]
         public Usuario? Creador { get; set; }
         [Column("modificador_id")]
-        public int? ModificadorId { get; set; }
+        public int ModificadorId { get; set; }
         public Usuario? Modificador { get; set; }
         [Column("sede_id")]
         [AllowNull]
-        public int? SedeId { get; set; }  // Puede ser nulo
+        public int SedeId { get; set; }  // Puede ser nulo
         [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo
         [Column("telefono")]

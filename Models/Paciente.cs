@@ -18,10 +18,10 @@ namespace Proy_back_QBD.Models
         public string? DniApoderado { get; set; }
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo
+        public DateTime FechaCreacion { get; set; }  // Puede ser nulo
         [Column("fecha_modificacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime? FechaModificacion { get; set; }  // Puede ser nulo
+        public DateTime FechaModificacion { get; set; }  // Puede ser nulo
         [Column("creador_id")]
         public int CreadorId { get; set; }
         [JsonIgnore]
@@ -31,7 +31,7 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [Column("persona_id")]
-        public int? PersonaId { get; set; }  // Puede ser nulo
+        public int PersonaId { get; set; }  // Puede ser nulo
         [JsonIgnore]
         public Persona? Persona { get; set; }  // Puede ser nulo
         [Column("condicion_fecha")]

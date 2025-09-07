@@ -26,10 +26,10 @@ namespace Proy_back_QBD.Models
         public string? ComprobanteElectronico { get; set; }
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo               
+        public DateTime FechaCreacion { get; set; }  // Puede ser nulo               
         [Column("fecha_modificacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime? FechaModificacion { get; set; }  // Puede ser nulo        
+        public DateTime FechaModificacion { get; set; }  // Puede ser nulo        
         [Column("creador_id")]
         public int CreadorId { get; set; }
         [JsonIgnore]
@@ -45,7 +45,7 @@ namespace Proy_back_QBD.Models
         [Column("fecha_entrega")]
         public DateTime? FechaEntrega { get; set; }  // Puede ser nulo                    
         [Column("medico_id")]
-        public int? MedicoId { get; set; }
+        public int MedicoId { get; set; }
         [JsonIgnore]
         public Medico? Medico { get; set; }
         [JsonIgnore]

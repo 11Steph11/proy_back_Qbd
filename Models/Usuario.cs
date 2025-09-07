@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace Proy_back_QBD.Models
@@ -14,10 +15,10 @@ namespace Proy_back_QBD.Models
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo 
         [Column("contrasena")]
-        public string? Contrasena { get; set; }  // Puede ser nulo        
+        public required string Contrasena { get; set; }  // Puede ser nulo        
         public TipoUsuario? Tipo { get; set; }  // Puede ser nulo
         [Column("tipo_id")]
-        public int? TipoId { get; set; }  // Puede ser nulo
+        public int TipoId { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_creacion")]
         public DateTime? FechaCreacion { get; set; }  // Puede ser nulo        
@@ -36,7 +37,7 @@ namespace Proy_back_QBD.Models
         public TimeOnly? HorarioSalida { get; set; }  // Puede ser nulo
         public Persona? Persona { get; set; }  // Puede ser nulo
         [Column("persona_id")]
-        public int? PersonaId { get; set; }  // Puede ser nulo
+        public int PersonaId { get; set; }  // Puede ser nulo
         [Column("cmp")]
         public string? Cmp { get; set; }  // Puede ser nulo
         [Column("horario_almuerzo")]
@@ -78,10 +79,10 @@ namespace Proy_back_QBD.Models
         public string? Nombre { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_creacion")]
-        public DateTime? FechaCreacion { get; set; }  // Puede ser nulo        
+        public DateTime FechaCreacion { get; set; }  // Puede ser nulo        
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_modificacion")]
-        public DateTime? FechaModificacion { get; set; }  // Puede ser nulo
+        public DateTime FechaModificacion { get; set; }  // Puede ser nulo
         [Column("creador_id")]
         public int CreadorId { get; set; }
         public Usuario? Creador { get; set; }

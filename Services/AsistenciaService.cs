@@ -31,7 +31,7 @@ namespace Proy_back_QBD.Services
             DateTime? fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
             var lista = await _context.Asistencias
                 .Where(a => a.CreadorId == id && a.FechaCreacion >= fechaFiltro)
-                .GroupBy(a => a.FechaCreacion.Value.Date)
+                .GroupBy(a => a.FechaCreacion.Date)
                 .Select(g => new FechaConHoras
                 {
                     Dia = g.Key.ToString("dddd", new CultureInfo("es-ES")),
