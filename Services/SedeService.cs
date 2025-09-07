@@ -2,6 +2,7 @@ using Proy_back_QBD.Request;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Proy_back_QBD.Services
 {
@@ -17,6 +18,19 @@ namespace Proy_back_QBD.Services
             await _context.Sedes.AddAsync(sede);
             await _context.SaveChangesAsync();
             return sede;
+        }
+
+        public async Task<List<SedeFindAllResponse?>> Obtener()
+        {
+            List<SedeFindAllResponse>? response = await _context.Sedes            
+            .Select(a => new SedeFindAllResponse{
+                Id = a.Id,
+                Nombre = a.Nombre,
+                Direccion = a.Direccion,
+                // Encargado = a.Encargado,
+                Telefono = a.Telefono,
+            }).ToListAsync();
+            return response;
         }
     }
 }

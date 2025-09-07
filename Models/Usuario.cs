@@ -62,6 +62,7 @@ namespace Proy_back_QBD.Models
         public List<Persona>? PersonasModificadas { get; set; }
         public List<Sede>? SedesCreadas { get; set; }
         public List<Sede>? SedesModificadas { get; set; }
+        public Sede? Sede { get; set; }
         public List<Usuario>? UsuariosCreadas { get; set; }
         public List<Usuario>? UsuariosModificadas { get; set; }
         public List<TipoUsuario>? TipoUsuariosCreadas { get; set; }

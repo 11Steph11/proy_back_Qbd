@@ -22,6 +22,7 @@ namespace Proy_back_QBD.Services
         {
             MedicoCreateResponse response = new MedicoCreateResponse();
             Persona persona = _mapper.Map<Persona>(request.PersonaCReq);
+            persona.ModificadorId = persona.CreadorId;
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
             Medico medico = _mapper.Map<Medico>(request);
@@ -31,8 +32,7 @@ namespace Proy_back_QBD.Services
             {
                 response.Msg = "Ya existe este CMP";
                 return response;
-            }
-            
+            }            
             medico.PersonaId = persona.Id; 
             medico.ModificadorId = medico.CreadorId; 
             await _context.Medicos.AddAsync(medico);

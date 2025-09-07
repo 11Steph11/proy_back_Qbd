@@ -31,4 +31,15 @@ public class SedeController : ControllerBase
         Sede? response = await _sedeService.Crear(sede);
         return Ok(response);
     }
+    [HttpGet]
+    [SwaggerResponse(200, "Operación exitosa", typeof(SedeFindAllResponse))]
+    public async Task<IActionResult> ObtenerSede()
+    {
+        List<SedeFindAllResponse>? response = await _sedeService.Obtener();
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
 }

@@ -46,6 +46,7 @@ namespace Proy_back_QBD.Services
         public async Task<Usuario?> Crear(UsuarioCreateReq request)
         {
             Persona persona = _mapper.Map<Persona>(request.Persona);
+            persona.ModificadorId = persona.CreadorId;
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
             Usuario usuario = _mapper.Map<Usuario>(request);

@@ -8,7 +8,7 @@ namespace Proy_back_QBD.Services
         Task<Sede?> Crear(Sede request);
         // Task<SedeUpdateResponse?> Actualizar(int id, SedeUpdateReq request);
         // Task<Sede?> Eliminar(int id);
-        // Task<List<SedeFindAllResponse?>> Obtener();
+        Task<List<SedeFindAllResponse?>> Obtener();
         // Task<SedeFindIdResponse?> ObtenerById(int id);
     }
 }

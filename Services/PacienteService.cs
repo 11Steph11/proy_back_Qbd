@@ -38,6 +38,7 @@ namespace Proy_back_QBD.Services
         {
             PacienteCreateResponse response = new PacienteCreateResponse();
             Persona persona = _mapper.Map<Persona>(request.PersonaFk);
+            persona.ModificadorId = persona.CreadorId;
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
             Paciente paciente = _mapper.Map<Paciente>(request);
