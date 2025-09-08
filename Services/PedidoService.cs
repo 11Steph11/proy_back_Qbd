@@ -43,7 +43,7 @@ namespace Proy_back_QBD.Services
             response.Msg = "Pedido creado exitosamente.";
             await _context.Pedidos.AddAsync(pedido);
             await _context.SaveChangesAsync();
-
+            
             return response;
         }
 

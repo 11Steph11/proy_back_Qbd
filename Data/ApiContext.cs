@@ -19,6 +19,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Pedido> Pedidos { get; set; }  // Para la tabla de secciones
         public DbSet<Medico> Medicos { get; set; }  // Para la tabla de secciones
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
+        public DbSet<ProductoTerminado> ProductoTerminados { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -31,6 +32,7 @@ namespace Proy_back_QBD.Data
             ConfigureSede(modelBuilder);
             ConfigureUsuario(modelBuilder);
             ConfigureTipoUsuario(modelBuilder);
+            ConfigureProductosTerminados(modelBuilder);
         }
         private void ConfigureAsistencia(ModelBuilder modelBuilder)
         {
@@ -215,6 +217,32 @@ namespace Proy_back_QBD.Data
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();
         }
+        private void ConfigureProductosTerminados(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductoTerminado>()
+                            .HasOne(e => e.Pedido)
+                            .WithMany(e2 => e2.ListPT)
+                            .HasForeignKey(e => e.PedidoId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<ProductoTerminado>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.PTCreados)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<ProductoTerminado>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.PTModificados)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<ProductoTerminado>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<ProductoTerminado>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
         private void ConfigureSede(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Sede>()
@@ -276,12 +304,12 @@ namespace Proy_back_QBD.Data
         {
             modelBuilder.Entity<TipoUsuario>()
                             .HasOne(e => e.Creador)
-                            .WithMany(e2 => e2.TipoUsuariosCreadas)
+                            .WithMany(e2 => e2.TUCreadas)
                             .HasForeignKey(e => e.CreadorId)
                             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<TipoUsuario>()
                             .HasOne(e => e.Modificador)
-                            .WithMany(e2 => e2.TipoUsuariosModificadas)
+                            .WithMany(e2 => e2.TUModificadas)
                             .HasForeignKey(e => e.ModificadorId)
                             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<TipoUsuario>()

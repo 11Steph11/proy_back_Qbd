@@ -30,14 +30,14 @@ namespace Proy_back_QBD.Models
         [Column("fecha_modificacion")]
         public DateTime FechaModificacion { get; set; }  // Puede ser nulo
         [Column("creador_id")]
-        public int CreadorId { get; set; }
+        public int? CreadorId { get; set; }
         [JsonIgnore]
         public Usuario? Creador { get; set; }
         [Column("modificador_id")]
-        public int ModificadorId { get; set; }
+        public int? ModificadorId { get; set; }
         public Usuario? Modificador { get; set; }
         [Column("sede_id")]
-        public int SedeId { get; set; }  // Puede ser nulo
+        public int? SedeId { get; set; }  // Puede ser nulo
         [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo
         [Column("telefono")]

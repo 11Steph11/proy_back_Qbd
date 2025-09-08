@@ -50,6 +50,8 @@ namespace Proy_back_QBD.Models
         public Medico? Medico { get; set; }
         [JsonIgnore]
         public List<Formula>? Formulas { get; set; }
+        [JsonIgnore]
+        public List<ProductoTerminado>? ListPT { get; set; }
     }
 
 }
