@@ -98,7 +98,7 @@ namespace Proy_back_QBD.Data
             modelBuilder.Entity<Formula>()
             .Property(p => p.FechaModificacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
-            .ValueGeneratedOnAdd();            
+            .ValueGeneratedOnAdd();
         }
         private void ConfigureMedico(ModelBuilder modelBuilder)
         {
@@ -227,11 +227,11 @@ namespace Proy_back_QBD.Data
                             .WithMany(e2 => e2.SedesModificadas)
                             .HasForeignKey(e => e.ModificadorId)
                             .OnDelete(DeleteBehavior.Restrict);
-            // modelBuilder.Entity<Sede>()
-            //                 .HasOne(e => e.Encargado)
-            //                 .WithOne(e2 => e2.Sede)
-            //                 .HasForeignKey<>(e => e.)
-            //                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Sede>()
+                            .HasOne(e => e.Encargado)
+                            .WithOne(e2 => e2.Sede)
+                            .HasForeignKey<Usuario>(e => e.Sede)
+                            .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Sede>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar

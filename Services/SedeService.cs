@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Models;
 using Microsoft.EntityFrameworkCore;
+using Proy_back_QBD.Dto.Response;
 
 namespace Proy_back_QBD.Services
 {
@@ -23,11 +24,12 @@ namespace Proy_back_QBD.Services
         public async Task<List<SedeFindAllResponse?>> Obtener()
         {
             List<SedeFindAllResponse>? response = await _context.Sedes            
+            .Include(a => a.Encargado.Persona)
             .Select(a => new SedeFindAllResponse{
                 Id = a.Id,
                 Nombre = a.Nombre,
                 Direccion = a.Direccion,
-                // Encargado = a.Encargado,
+                Encargado = $"{a.Encargado.Persona.Nombres} {a.Encargado.Persona.Apellidos}",
                 Telefono = a.Telefono,
             }).ToListAsync();
             return response;
