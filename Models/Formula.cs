@@ -28,12 +28,12 @@ namespace Proy_back_QBD.Models
         public string? Lote { get; set; }                      // Lote del producto
         [Column("diagnostico")]
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
-        [Column("zona_aplicada")]
-        public string? ZonaAplicada { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
+        [Column("zona_aplicacion")]
+        public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         [Column("estado")]
         public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
         [Column("reportado")]
-        public bool? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
+        public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime FechaCreacion { get; set; }           // Fecha de creación del pedido

@@ -67,8 +67,8 @@ namespace Proy_back_QBD.Models
         public List<Usuario>? UsuariosModificadas { get; set; }
         public List<TipoUsuario>? TUCreadas { get; set; }
         public List<TipoUsuario>? TUModificadas { get; set; }
-        public List<ProductoTerminado>? PTCreados { get; set; }
-        public List<ProductoTerminado>? PTModificados { get; set; }
+        public List<ProdTerm>? PTCreados { get; set; }
+        public List<ProdTerm>? PTModificados { get; set; }
     }
     [Table("tipos_usuario")]
     public class TipoUsuario

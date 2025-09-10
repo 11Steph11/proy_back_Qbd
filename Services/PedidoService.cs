@@ -43,7 +43,21 @@ namespace Proy_back_QBD.Services
             response.Msg = "Pedido creado exitosamente.";
             await _context.Pedidos.AddAsync(pedido);
             await _context.SaveChangesAsync();
-            
+            foreach (var item in request.ProductosTerminados)
+            {
+                ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
+                prodTerm.ModificadorId = prodTerm.CreadorId;
+                prodTerm.PedidoId = pedido.Id;
+                await _context.AddAsync(prodTerm);
+            }
+            foreach (var item in request.Formulas)
+            {
+                Formula formula = _mapper.Map<Formula>(item);
+                formula.ModificadorId = formula.CreadorId;
+                formula.PedidoId = pedido.Id;
+                await _context.AddAsync(formula);
+            }
+            await _context.SaveChangesAsync();
             return response;
         }
 

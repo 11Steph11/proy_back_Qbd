@@ -18,6 +18,8 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<PacienteMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<MedicoMappingProfile>();  // Registra tu perfil explícitamente
     cfg.AddProfile<PedidoMappingProfile>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<FormulaMap>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<ProdTermsMap>();  // Registra tu perfil explícitamente
 });
 
 builder.Services.AddScoped<IUserService, UserService>();

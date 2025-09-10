@@ -7,7 +7,7 @@ namespace Proy_back_QBD.Models
 {
 
     [Table("productos_terminados")]
-    public class ProductoTerminado
+    public class ProdTerm
     {
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,10 +18,10 @@ namespace Proy_back_QBD.Models
         public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         [Column("codigo")]
         public string? Codigo { get; set; }                   // g/ml (gramos por mililitro)
+        [Column("zona_aplicacion")]
+        public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         [Column("diagnostico")]
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
-        [Column("zona_aplicada")]
-        public string? ZonaAplicada { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         [Column("estado")]
         public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
         [Column("fecha_creacion")]

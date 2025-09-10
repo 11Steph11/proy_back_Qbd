@@ -15,6 +15,7 @@ namespace Proy_back_QBD.Models
         public string? Boleta { get; set; }
         [Column("paciente_id")]
         public int? PacienteId { get; set; }
+        [JsonIgnore]
         public Paciente? Paciente { get; set; }
         [Column("img1")]
         public string? Img1 { get; set; }
@@ -48,10 +49,8 @@ namespace Proy_back_QBD.Models
         public int MedicoId { get; set; }
         [JsonIgnore]
         public Medico? Medico { get; set; }
-        [JsonIgnore]
         public List<Formula>? Formulas { get; set; }
-        [JsonIgnore]
-        public List<ProductoTerminado>? ListPT { get; set; }
+        public List<ProdTerm>? ProdTerms { get; set; }
     }
 
 }

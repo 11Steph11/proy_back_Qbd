@@ -19,7 +19,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Pedido> Pedidos { get; set; }  // Para la tabla de secciones
         public DbSet<Medico> Medicos { get; set; }  // Para la tabla de secciones
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
-        public DbSet<ProductoTerminado> ProductoTerminados { get; set; }  // Para la tabla de secciones
+        public DbSet<ProdTerm> ProductoTerminados { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -219,26 +219,26 @@ namespace Proy_back_QBD.Data
         }
         private void ConfigureProductosTerminados(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProductoTerminado>()
+            modelBuilder.Entity<ProdTerm>()
                             .HasOne(e => e.Pedido)
-                            .WithMany(e2 => e2.ListPT)
+                            .WithMany(e2 => e2.ProdTerms)
                             .HasForeignKey(e => e.PedidoId)
                             .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<ProductoTerminado>()
+            modelBuilder.Entity<ProdTerm>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.PTCreados)
                             .HasForeignKey(e => e.CreadorId)
                             .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<ProductoTerminado>()
+            modelBuilder.Entity<ProdTerm>()
                             .HasOne(e => e.Modificador)
                             .WithMany(e2 => e2.PTModificados)
                             .HasForeignKey(e => e.ModificadorId)
                             .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<ProductoTerminado>()
+            modelBuilder.Entity<ProdTerm>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();
-            modelBuilder.Entity<ProductoTerminado>()
+            modelBuilder.Entity<ProdTerm>()
             .Property(p => p.FechaModificacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();

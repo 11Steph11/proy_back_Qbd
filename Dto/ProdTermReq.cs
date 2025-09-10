@@ -1,0 +1,19 @@
+using System.Text.Json.Serialization;
+
+namespace Proy_back_QBD.Dto.Request
+{
+    public class ProdTermCreateReq
+    {
+        public decimal? Costo { get; set; }                    // Costo del pedido
+        public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
+        public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
+        public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
+        public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
+        public int CreadorId { get; set; }
+    }
+    public class ProdTermUpdateReq : ProdTermCreateReq
+    {
+        [JsonIgnore]
+        public int? CreadorId { get; set; }
+    }
+}
