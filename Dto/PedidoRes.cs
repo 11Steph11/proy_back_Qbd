@@ -11,8 +11,13 @@ namespace Proy_back_QBD.Dto.Response
         public string? Paciente { get; set; }
         public string? Celular { get; set; }
         public string? Medico { get; set; }
-        public string? Usuario { get; set; }
+        public string? Total { get; set; }
+        public string? Adelanto { get; set; }
+        public string? Saldo { get; set; }
+        public string? Recibo { get; set; }
+        public string? Estado { get; set; }
         public DateTime? FechaEntrega { get; set; }
+        public string? Usuario { get; set; }
         public string? BolFaC { get; set; }
     }
     public class PedidoCreateResponse

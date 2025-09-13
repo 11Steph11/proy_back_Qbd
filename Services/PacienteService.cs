@@ -71,14 +71,18 @@ namespace Proy_back_QBD.Services
 
         public async Task<List<PacienteFindAllResponse?>> Obtener()
         {
+            Console.WriteLine(DateTime.Today.Year);
             List<PacienteFindAllResponse>? response = await _context.Pacientes
             .Include(a => a.Persona)
             .Select(a => new PacienteFindAllResponse
             {
                 Id = a.Id,
+                Dni = a.Persona.Dni,
                 NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
+                Edad = CalcularEdad(a.Persona.FechaNacimiento,null),
                 Apoderado = a.Apoderado,
-                DniApoderado = a.DniApoderado,
+                Telefono = a.Persona.Telefono,
+                FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM")}",
             })
             .ToListAsync();
 
@@ -92,6 +96,19 @@ namespace Proy_back_QBD.Services
         public async Task<PacienteFindIdResponse?> ObtenerById(int id)
         {
             throw new NotImplementedException();
+        }
+        public static int CalcularEdad(DateOnly? fechaNacimiento, DateOnly? fechaReferencia = null)
+        {
+            var hoy = fechaReferencia ?? DateOnly.FromDateTime(DateTime.Today);
+
+            int edad = hoy.Year - fechaNacimiento.GetValueOrDefault().Year;
+
+            if (fechaNacimiento > hoy.AddYears(-edad))
+            {
+                edad--;
+            }
+
+            return edad;
         }
     }
 }
