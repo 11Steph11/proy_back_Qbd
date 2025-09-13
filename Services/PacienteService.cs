@@ -1,3 +1,4 @@
+using System.Globalization;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
@@ -82,7 +83,7 @@ namespace Proy_back_QBD.Services
                 Edad = CalcularEdad(a.Persona.FechaNacimiento,null),
                 Apoderado = a.Apoderado,
                 Telefono = a.Persona.Telefono,
-                FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM")}",
+                FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM",new CultureInfo("es-ES"))}",
             })
             .ToListAsync();
 
