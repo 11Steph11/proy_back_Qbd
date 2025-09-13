@@ -38,13 +38,13 @@ namespace Proy_back_QBD.Services
         public async Task<PacienteCreateResponse?> Crear(PacienteCreateReq request)
         {
             PacienteCreateResponse response = new PacienteCreateResponse();
-            Persona persona = _mapper.Map<Persona>(request.PersonaFk);
+            Persona persona = _mapper.Map<Persona>(request.Persona);
             persona.ModificadorId = persona.CreadorId;
             await _context.Personas.AddAsync(persona);
             await _context.SaveChangesAsync();
             Paciente paciente = _mapper.Map<Paciente>(request);
             bool existe = await _context.Pacientes
-                .AnyAsync(p => p.Persona.Dni == request.PersonaFk.Dni);
+                .AnyAsync(p => p.Persona.Dni == request.Persona.Dni);
             if (existe)
             {
                 response.Msg = "El paciente ya existe.";

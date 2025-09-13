@@ -21,13 +21,19 @@ namespace Proy_back_QBD.Services
         public async Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request)
         {
             PedidoUpdateResponse response = new PedidoUpdateResponse();
-            Pedido? pedido = await _context.Pedidos.FindAsync(id);
+            Pedido? pedido = await _context.Pedidos
+            .Include(a => a.Formulas.ToList())
+            .Include(a => a.ProdTerms.ToList())
+            .Where(p => p.Id == id)
+            .FirstOrDefaultAsync();
             if (pedido == null)
             {
                 response.Msg = "no se encontró";
                 return response;
             }
             _mapper.Map(request, pedido);
+            _mapper.Map(request.Formulas, pedido.Formulas);
+            _mapper.Map(request.ProductosTerminados, pedido.ProdTerms);
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
             await _context.SaveChangesAsync();

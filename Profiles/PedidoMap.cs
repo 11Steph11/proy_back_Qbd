@@ -6,19 +6,21 @@ using Proy_back_QBD.Request; // Asegúrate de incluir el espacio de nombres corr
 
 namespace Proy_back_QBD.Profiles
 {
-    public class PedidoMappingProfile : Profile
+    public class PedidoMap : Profile
     {
-        public PedidoMappingProfile()
+        public PedidoMap()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
             CreateMap<PedidoCreateReq, Pedido>()
             .ForMember(a => a.Id, o => o.Ignore())
             .ForMember(a => a.Formulas, o => o.Ignore())
             .ForMember(a => a.ProdTerms, o => o.Ignore())
-            ; 
+            ;
             CreateMap<PedidoUpdateReq, Pedido>()
             .ForMember(a => a.Id, opt => opt.Ignore())
             .ForMember(a => a.CreadorId, opt => opt.Ignore())
+            .ForMember(a => a.Formulas, o => o.Ignore())
+            .ForMember(a => a.ProdTerms, o => o.Ignore())
             ;
             // Otros mapeos si es necesario
         }

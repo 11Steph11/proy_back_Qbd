@@ -16,7 +16,7 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.ModificadorId, o => o.Ignore())
             .ForMember(a => a.PedidoId, o => o.Ignore())
             ; 
-            CreateMap<PedidoUpdateReq, Pedido>()
+            CreateMap<FormulaUpdateReq, Formula>()
             .ForMember(a => a.Id, opt => opt.Ignore())
             .ForMember(a => a.CreadorId, opt => opt.Ignore())
             ;

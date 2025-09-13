@@ -12,10 +12,14 @@ namespace Proy_back_QBD.Dto.Request
         public int? SedeId { get; set; }
         public string? Telefono { get; set; }
     }
-    public class PersonaUpdateReq : PersonaCreateReq
+    public class PersonaUpdateReq
     {
-        [JsonIgnore]
-        public int? CreadorId { get; set; }
+        public string? Nombres { get; set; }
+        public string? Apellidos { get; set; }
+        public DateOnly? FechaNacimiento { get; set; }
+        public string? Dni { get; set; }
+        public int? SedeId { get; set; }
+        public string? Telefono { get; set; }
         public int? ModificadorId { get; set; }
     }
 }
