@@ -34,11 +34,17 @@ namespace Proy_back_QBD.Dto.Response
 
     public class PedidoFindIdResponse
     {
-        public int? Id { get; set; }  // Puede ser nulo
-        public int? Apoderado { get; set; }
-        public string? DniApoderado { get; set; }
-        public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
-        public bool? CondicionFecha { get; set; }
+        public int? Id { get; set; }
+        public string? Periodo { get; set; }
+        public string? Boleta { get; set; }
+        public string? Img1 { get; set; }
+        public string? Img2 { get; set; }
+        public string? Img3 { get; set; }
+        public string? ComprobanteElectronico { get; set; }
+        public string? FechaEntrega { get; set; }
+        public int? MedicoId { get; set; }
+        public List<FormulasByPedido>? Formulas { get; set; }
+        public List<ProdTermByPedido>? ProdTerms { get; set; }
     }
-    
+
 }

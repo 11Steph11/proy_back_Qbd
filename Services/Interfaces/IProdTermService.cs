@@ -4,12 +4,12 @@ using Proy_back_QBD.Models;
 
 namespace Proy_back_QBD.Services
 {
-    public interface IPedidoService
+    public interface IProdTermService
     {
         Task<PedidoCreateResponse?> Crear(PedidoCreateReq request);
         Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request);
         // Task<Pedido?> Eliminar(int id);
         Task<List<PedidoFindAllResponse?>> Obtener();
-        Task<PedidoFindIdResponse?> ObtenerById(int id);
+        // Task<PedidoFindIdResponse?> ObtenerById(int id);
     }
 }

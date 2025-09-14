@@ -65,26 +65,26 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<Pedido?> Eliminar(int id)
-        {
-            Pedido? pedido = await _context.Pedidos
-            .Include(p => p.Formulas)
-            .Include(p => p.ProdTerms)
-           .FirstOrDefaultAsync(a => a.Id == id);
-            _context.Pedidos.Remove(pedido);
-            foreach (var formulaFor in pedido.Formulas)
-            {
-                Formula formula = _mapper.Map<Formula>(formulaFor);
-                _context.Formulas.Remove(formula);
-            }
-            foreach (var prodTermFor in pedido.ProdTerms)
-            {
-                ProdTerm prodTerm = _mapper.Map<ProdTerm>(prodTermFor);
-                _context.ProductoTerminados.Remove(prodTerm);
-            }
-            await _context.SaveChangesAsync();
-            return pedido;
-        }
+        // public async Task<Pedido?> Eliminar(int id)
+        // {
+        //     Pedido? pedido = await _context.Pedidos
+        //     .Include(p => p.Formulas)
+        //     .Include(p => p.ProdTerms)
+        //    .FirstOrDefaultAsync(a => a.Id == id);
+        //     _context.Pedidos.Remove(pedido);
+        //     foreach (var formulaFor in pedido.Formulas)
+        //     {
+        //         Formula formula = _mapper.Map<Formula>(formulaFor);
+        //         _context.Formulas.Remove(formula);
+        //     }
+        //     foreach (var prodTermFor in pedido.ProdTerms)
+        //     {
+        //         ProdTerm prodTerm = _mapper.Map<ProdTerm>(prodTermFor);
+        //         _context.ProductoTerminados.Remove(prodTerm);
+        //     }
+        //     await _context.SaveChangesAsync();
+        //     return pedido;
+        // }
 
         public async Task<List<PedidoFindAllResponse?>> Obtener()
         {
@@ -144,7 +144,16 @@ namespace Proy_back_QBD.Services
         }
         public async Task<PedidoFindIdResponse?> ObtenerById(int id)
         {
-            throw new NotImplementedException();
+            Pedido? pedido = await _context.Pedidos
+            .Include(a => a.Formulas)
+            .Include(a => a.ProdTerms)
+            .FirstOrDefaultAsync(p => p.Id == id);
+            if (pedido == null)
+            {
+                return null;
+            }
+            PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
+            return response;
         }
         public static decimal? SumaPedido(List<Formula> listaForm, List<ProdTerm> listaProdTerm)
         {

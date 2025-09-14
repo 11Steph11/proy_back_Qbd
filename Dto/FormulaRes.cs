@@ -15,6 +15,21 @@ namespace Proy_back_QBD.Dto.Response
         public DateTime? FechaEntrega { get; set; }
         public string? BolFaC { get; set; }
     }
+    public class FormulasByPedido
+    {
+        public int? Id { get; set; }
+        public decimal? Costo { get; set; }                    // Costo del pedido
+        public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
+        public string? FormulaMagistral { get; set; }          // Descripción de la fórmula magistral
+        public string? FormulaFarmaceutica { get; set; }           // Descripción de la fórmula de farmacia
+        public decimal? GPorMl { get; set; }                   // g/ml (gramos por mililitro)
+        public string? UnidadMedida { get; set; }              // Unidad de medida (ej. "ml", "mg", "g", etc.)
+        public string? Lote { get; set; }                      // Lote del producto
+        public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
+        public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
+        public string? Estado { get; set; }
+        public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
+    }
     public class FormulaCreateResponse
     {
         public string? Msg { get; set; }  // Puede ser nulo      

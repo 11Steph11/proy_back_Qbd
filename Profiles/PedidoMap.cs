@@ -1,6 +1,7 @@
 // ApoderadoMappingProfile.cs
 using AutoMapper;
 using Proy_back_QBD.Dto.Request;
+using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Request; // Asegúrate de incluir el espacio de nombres correcto
 
@@ -22,7 +23,11 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.Formulas, o => o.Ignore())
             .ForMember(a => a.ProdTerms, o => o.Ignore())
             ;
-            // Otros mapeos si es necesario
+            CreateMap<Pedido, PedidoFindIdResponse>()
+            .ForMember(a => a.Formulas, o => o.MapFrom(mf => mf.Formulas))
+            .ForMember(a => a.ProdTerms, o => o.MapFrom(mf => mf.ProdTerms))
+            ;
+
         }
     }
 

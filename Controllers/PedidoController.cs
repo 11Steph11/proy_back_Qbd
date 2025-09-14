@@ -43,24 +43,35 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    [HttpDelete("{id}")]
-    [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
-    public async Task<IActionResult> EliminarPedido(int id)
-    {
-        if (id == null)
-        {
-            return BadRequest("Datos incorrectos");
-        }
-        Pedido? response = await _pedidoService.Eliminar(id);
+    // [HttpDelete("{id}")]
+    // [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
+    // public async Task<IActionResult> EliminarPedido(int id)
+    // {
+    //     if (id == null)
+    //     {
+    //         return BadRequest("Datos incorrectos");
+    //     }
+    //     Pedido? response = await _pedidoService.Eliminar(id);
 
-        return Ok(response);
-    }
+    //     return Ok(response);
+    // }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
     public async Task<IActionResult> ObtenerPedidos()
     {
         List<PedidoFindAllResponse?> response = await _pedidoService.Obtener();
 
+        return Ok(response);
+    }
+    [HttpGet("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(PedidoFindIdResponse))]
+    public async Task<IActionResult> ObtenerPedidosId(int id)
+    {
+        PedidoFindIdResponse? response = await _pedidoService.ObtenerById(id);
+        if (response == null)
+        {
+            return NotFound("No se encontrò");
+        }
         return Ok(response);
     }
 }
