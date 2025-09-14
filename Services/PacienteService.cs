@@ -78,11 +78,13 @@ namespace Proy_back_QBD.Services
             .Select(a => new PacienteFindAllResponse
             {
                 Id = a.Id,
-                Dni = a.Persona.Dni,
+                DniApoderado = a.DniApoderado,
                 NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
                 Edad = CalcularEdad(a.Persona.FechaNacimiento,null),
                 Apoderado = a.Apoderado,
+                Persona = _mapper.Map<PersonaRes2>(a.Persona),
                 Telefono = a.Persona.Telefono,
+                CondicionFecha = a.CondicionFecha,
                 FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM",new CultureInfo("es-ES"))}",
             })
             .ToListAsync();

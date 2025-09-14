@@ -22,8 +22,6 @@ namespace Proy_back_QBD.Services
         {
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
-            .Include(a => a.Formulas.ToList())
-            .Include(a => a.ProdTerms.ToList())
             .Where(p => p.Id == id)
             .FirstOrDefaultAsync();
             if (pedido == null)
@@ -31,9 +29,7 @@ namespace Proy_back_QBD.Services
                 response.Msg = "no se encontró";
                 return response;
             }
-            _mapper.Map(request, pedido);
-            _mapper.Map(request.Formulas, pedido.Formulas);
-            _mapper.Map(request.ProductosTerminados, pedido.ProdTerms);
+            _mapper.Map(request, pedido);          
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
             await _context.SaveChangesAsync();
@@ -49,7 +45,7 @@ namespace Proy_back_QBD.Services
             response.Msg = "Pedido creado exitosamente.";
             await _context.Pedidos.AddAsync(pedido);
             await _context.SaveChangesAsync();
-            
+
             foreach (var item in request.ProductosTerminados)
             {
                 ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
@@ -72,8 +68,20 @@ namespace Proy_back_QBD.Services
         public async Task<Pedido?> Eliminar(int id)
         {
             Pedido? pedido = await _context.Pedidos
+            .Include(p => p.Formulas)
+            .Include(p => p.ProdTerms)
            .FirstOrDefaultAsync(a => a.Id == id);
-            _context.Remove(pedido);
+            _context.Pedidos.Remove(pedido);
+            foreach (var formulaFor in pedido.Formulas)
+            {
+                Formula formula = _mapper.Map<Formula>(formulaFor);
+                _context.Formulas.Remove(formula);
+            }
+            foreach (var prodTermFor in pedido.ProdTerms)
+            {
+                ProdTerm prodTerm = _mapper.Map<ProdTerm>(prodTermFor);
+                _context.ProductoTerminados.Remove(prodTerm);
+            }
             await _context.SaveChangesAsync();
             return pedido;
         }

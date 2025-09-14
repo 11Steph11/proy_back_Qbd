@@ -24,6 +24,7 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.Sede, options => options.Ignore())
             ;
             CreateMap<Persona, PersonaRes>();
+            CreateMap<Persona, PersonaRes2>();
         }
     }
 

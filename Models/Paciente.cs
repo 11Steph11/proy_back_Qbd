@@ -33,7 +33,7 @@ namespace Proy_back_QBD.Models
         [Column("persona_id")]
         public int PersonaId { get; set; }  // Puede ser nulo
         [JsonIgnore]
-        public Persona? Persona { get; set; }  // Puede ser nulo
+        public Persona? Persona { get; set; }
         [Column("condicion_fecha")]
         public bool? CondicionFecha { get; set; }
         [JsonIgnore]

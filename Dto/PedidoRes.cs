@@ -5,6 +5,7 @@ namespace Proy_back_QBD.Dto.Response
 {
     public class PedidoFindAllResponse
     {
+        public int? Id { get; set; }
         public string? Cuo { get; set; }
         public DateTime? FechaCreacion { get; set; }
         public string? Dni { get; set; }
