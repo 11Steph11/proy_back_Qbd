@@ -75,7 +75,7 @@ namespace Proy_back_QBD.Services
             .Select(a => new MedicoFindAllResponse
             {
                 Id = a.Id,
-                EspecialidadFk = a.Especialidad.Nombre,
+                DesEspecialidad = a.Especialidad.Nombre,
                 NumeroEspecialidad = a.NumeroEspecialidad,
                 NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
                 Cmp = a.Cmp

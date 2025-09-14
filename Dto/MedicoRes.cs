@@ -6,8 +6,10 @@ namespace Proy_back_QBD.Dto.Response
     public class MedicoFindAllResponse
     {
         public int? Id { get; set; }
-        public string? EspecialidadFk { get; set; }
+        public string? DesEspecialidad { get; set; }
+        public int? EspecialidadId { get; set; }
         public string? NumeroEspecialidad { get; set; }
+        public PersonaRes2? Persona { get; set; }
         public string? NombreCompleto { get; set; }
         public string? Cmp { get; set; }
     }
