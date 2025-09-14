@@ -9,7 +9,7 @@ namespace Proy_back_QBD.Services
         Task<PedidoCreateResponse?> Crear(PedidoCreateReq request);
         Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request);
         Task<Pedido?> Eliminar(int id);
-        // Task<List<PedidoFindAllResponse?>> Obtener();
+        Task<List<PedidoFindAllResponse?>> Obtener();
         // Task<PedidoFindIdResponse?> ObtenerById(int id);
     }
 }

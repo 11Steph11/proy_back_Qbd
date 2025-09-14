@@ -31,7 +31,7 @@ namespace Proy_back_QBD.Models
         [Column("zona_aplicacion")]
         public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         [Column("estado")]
-        public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
+        public string? Estado { get; set; }
         [Column("reportado")]
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         [Column("fecha_creacion")]

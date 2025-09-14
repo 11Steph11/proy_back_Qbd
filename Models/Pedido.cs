@@ -51,6 +51,7 @@ namespace Proy_back_QBD.Models
         public Medico? Medico { get; set; }
         public List<Formula>? Formulas { get; set; }
         public List<ProdTerm>? ProdTerms { get; set; }
+        public List<Cobro>? Cobros { get; set; }
     }
 
 }

@@ -29,7 +29,7 @@ namespace Proy_back_QBD.Services
                 response.Msg = "no se encontró";
                 return response;
             }
-            _mapper.Map(request, pedido);          
+            _mapper.Map(request, pedido);
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
             await _context.SaveChangesAsync();
@@ -86,29 +86,88 @@ namespace Proy_back_QBD.Services
             return pedido;
         }
 
-        // public async Task<List<PedidoFindAllResponse?>> Obtener()
-        // {
-        //     List<PedidoFindAllResponse>? response = await _context.Pedidos
-        //     .Include(a => a.PersonaFk)
-        //     .Select(a => new PedidoFindAllResponse
-        //     {
-        //         Id = a.Id,
-        //         NombreCompleto = $"{a.PersonaFk.Nombres} {a.PersonaFk.Apellidos}",
-        //         Apoderado = a.Apoderado,
-        //         DniApoderado = a.DniApoderado,
-        //     })
-        //     .ToListAsync();
+        public async Task<List<PedidoFindAllResponse?>> Obtener()
+        {
+            List<PedidoFindAllResponse>? response = await _context.Pedidos
+            .Include(a => a.Paciente.Persona)
+            .Include(a => a.Medico.Persona)
+            .Include(a => a.Creador)
+            .Include(a => a.Cobros)
+            .Include(a => a.Formulas)
+            .Include(a => a.ProdTerms)
+            .Select(a => new PedidoFindAllResponse
+            {
+                Id = a.Id,
+                Cuo = $"BDRP-{a.Id}",
+                FechaCreacion = a.FechaCreacion,
+                Dni = a.Paciente.Persona.Dni,
+                Paciente = $"{a.Paciente.Persona.Nombres} {a.Paciente.Persona.Apellidos}",
+                Celular = a.Paciente.Persona.Telefono,
+                Medico = $"Dr. {a.Medico.Persona.Apellidos}",
+                Total = SumaPedido(a.Formulas, a.ProdTerms),
+                Adelanto = SumaCobro(a.Cobros),
+                Saldo = SumaPedido(a.Formulas, a.ProdTerms) - SumaCobro(a.Cobros),
+                Recibo = a.Boleta,
+                Estado = CalcularEstado(a.Formulas),
+                FechaEntrega = a.FechaEntrega,
+                Usuario = a.Creador.Codigo,
+                BolFaC = a.ComprobanteElectronico,
+            })
+            .ToListAsync();
 
-        //     if (response == null)
-        //     {
-        //         return null;
-        //     }
-        //     return response;
-        // }
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
+        }
+        public static string? CalcularEstado(List<Formula> Formulas)
+        {
+            string? resultado = "ENTREGADO";
+            foreach (var formula in Formulas)
+            {
+                if (formula.Estado.Trim().ToUpper().Equals("PENDIENTE"))
+                {
+                    resultado = "PENDIENTE";
+                }
+                else if (formula.Estado.Trim().ToUpper().Equals("EN PROCESO"))
+                {
+                    resultado = "EN PROCESO";
+                }
+                else if (formula.Estado.Trim().ToUpper().Equals("ENTREGADOS"))
+                {
+                    resultado = "ENTREGADOS";
+                }
+            }
+            return resultado;
 
-        // public async Task<PedidoFindIdResponse?> ObtenerById(int id)
-        // {
-        //     throw new NotImplementedException();
-        // }
+        }
+        public async Task<PedidoFindIdResponse?> ObtenerById(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public static decimal? SumaPedido(List<Formula> listaForm, List<ProdTerm> listaProdTerm)
+        {
+            decimal? total = 0;
+            foreach (var formula in listaForm)
+            {
+                total += formula.Costo;
+            }
+            foreach (var prod in listaProdTerm)
+            {
+                total += prod.Costo;
+            }
+            return total;
+        }
+        public static decimal? SumaCobro(List<Cobro> listaCobro)
+        {
+            decimal? total = 0;
+            foreach (var cobro in listaCobro)
+            {
+                total += cobro.Importe;
+            }
+            return total;
+        }
+
     }
 }

@@ -55,12 +55,12 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    // [HttpGet]
-    // [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
-    // public async Task<IActionResult> ObtenerPedidos()
-    // {
-    //     List<PedidoFindAllResponse?> response = await _pedidoService.Obtener();
+    [HttpGet]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
+    public async Task<IActionResult> ObtenerPedidos()
+    {
+        List<PedidoFindAllResponse?> response = await _pedidoService.Obtener();
 
-    //     return Ok(response);
-    // }
+        return Ok(response);
+    }
 }

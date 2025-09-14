@@ -20,6 +20,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Medico> Medicos { get; set; }  // Para la tabla de secciones
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
         public DbSet<ProdTerm> ProductoTerminados { get; set; }  // Para la tabla de secciones
+        public DbSet<Cobro> Cobros { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -33,6 +34,7 @@ namespace Proy_back_QBD.Data
             ConfigureUsuario(modelBuilder);
             ConfigureTipoUsuario(modelBuilder);
             ConfigureProductosTerminados(modelBuilder);
+            ConfigureCobros(modelBuilder);
         }
         private void ConfigureAsistencia(ModelBuilder modelBuilder)
         {
@@ -51,6 +53,27 @@ namespace Proy_back_QBD.Data
                             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
                             .ValueGeneratedOnAdd();
             modelBuilder.Entity<Asistencia>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureCobros(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cobro>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.CobrosCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Cobro>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.CobrosModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Cobro>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Cobro>()
                             .Property(p => p.FechaModificacion)
                             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
                             .ValueGeneratedOnAdd();
