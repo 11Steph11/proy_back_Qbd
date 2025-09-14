@@ -76,7 +76,9 @@ namespace Proy_back_QBD.Services
             {
                 Id = a.Id,
                 DesEspecialidad = a.Especialidad.Nombre,
+                EspecialidadId = a.Especialidad.Id,
                 NumeroEspecialidad = a.NumeroEspecialidad,
+                Persona = _mapper.Map<PersonaRes2>(a.Persona),
                 NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
                 Cmp = a.Cmp
             })
