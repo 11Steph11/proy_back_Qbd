@@ -19,7 +19,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Pedido> Pedidos { get; set; }  // Para la tabla de secciones
         public DbSet<Medico> Medicos { get; set; }  // Para la tabla de secciones
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
-        public DbSet<ProdTerm> ProductoTerminados { get; set; }  // Para la tabla de secciones
+        public DbSet<ProdTerm> ProdTerms { get; set; }  // Para la tabla de secciones
         public DbSet<Cobro> Cobros { get; set; }  // Para la tabla de secciones
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

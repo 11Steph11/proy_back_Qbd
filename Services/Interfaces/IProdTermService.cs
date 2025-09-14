@@ -6,10 +6,10 @@ namespace Proy_back_QBD.Services
 {
     public interface IProdTermService
     {
-        Task<PedidoCreateResponse?> Crear(PedidoCreateReq request);
-        Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request);
+        Task<ProdTerm?> Crear(ProdTermCreateReq request);
+        // Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request);
         // Task<Pedido?> Eliminar(int id);
-        Task<List<PedidoFindAllResponse?>> Obtener();
+        // Task<List<PedidoFindAllResponse?>> Obtener();
         // Task<PedidoFindIdResponse?> ObtenerById(int id);
     }
 }

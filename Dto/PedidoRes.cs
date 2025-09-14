@@ -44,7 +44,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? FechaEntrega { get; set; }
         public int? MedicoId { get; set; }
         public List<FormulasByPedido>? Formulas { get; set; }
-        public List<ProdTermByPedido>? ProdTerms { get; set; }
+        public List<ProdTermPedido>? ProdTerms { get; set; }
     }
 
 }

@@ -18,7 +18,7 @@ namespace Proy_back_QBD.Dto.Request
         public int CreadorId { get; set; }
         public DateTime? FechaEntrega { get; set; }
         public List<FormulaCreatePedido> Formulas { get; set; }
-        public List<ProdTermCreateReq> ProductosTerminados { get; set; }
+        public List<ProdTermPedidoReq> ProductosTerminados { get; set; }
     }
     public class PedidoUpdateReq
     {
