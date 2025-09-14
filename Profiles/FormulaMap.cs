@@ -12,10 +12,12 @@ namespace Proy_back_QBD.Profiles
         public FormulaMap()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<FormulaCreateReq, Formula>()
+            CreateMap<FormulaCreatePedido, Formula>()
             .ForMember(a => a.Id, o => o.Ignore())
             .ForMember(a => a.ModificadorId, o => o.Ignore())
             .ForMember(a => a.PedidoId, o => o.Ignore())
+            ;
+            CreateMap<FormulaCreateReq, Formula>()
             ;
             CreateMap<FormulaUpdateReq, Formula>()
             .ForMember(a => a.Id, opt => opt.Ignore())

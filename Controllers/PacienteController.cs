@@ -63,4 +63,15 @@ public class PacienteController : ControllerBase
 
         return Ok(response);
     }
+    [HttpGet("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(PacienteFindIdResponse))]
+    public async Task<IActionResult> ObtenerPacienteById(int id)
+    {
+        PacienteFindIdResponse? response = await _pacienteService.ObtenerById(id);
+        if (response == null)
+        {
+            return NotFound("No hay");
+        }
+        return Ok(response);
+    }
 }

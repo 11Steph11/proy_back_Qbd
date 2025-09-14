@@ -29,7 +29,7 @@ namespace Proy_back_QBD.Dto.Response
     public class PacienteFindIdResponse
     {
         public int? Id { get; set; }  // Puede ser nulo
-        public int? Apoderado { get; set; }
+        public string? Apoderado { get; set; }
         public string? DniApoderado { get; set; }
         public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
         public bool? CondicionFecha { get; set; }

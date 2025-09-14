@@ -80,12 +80,12 @@ namespace Proy_back_QBD.Services
                 Id = a.Id,
                 DniApoderado = a.DniApoderado,
                 NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
-                Edad = CalcularEdad(a.Persona.FechaNacimiento,null),
+                Edad = CalcularEdad(a.Persona.FechaNacimiento, null),
                 Apoderado = a.Apoderado,
                 Persona = _mapper.Map<PersonaRes2>(a.Persona),
                 Telefono = a.Persona.Telefono,
                 CondicionFecha = a.CondicionFecha,
-                FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM",new CultureInfo("es-ES"))}",
+                FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM", new CultureInfo("es-ES"))}",
             })
             .ToListAsync();
 
@@ -98,7 +98,23 @@ namespace Proy_back_QBD.Services
 
         public async Task<PacienteFindIdResponse?> ObtenerById(int id)
         {
-            throw new NotImplementedException();
+            PacienteFindIdResponse? response = await _context.Pacientes
+           .Where(a => a.Id == id)
+           .Select(a => new PacienteFindIdResponse
+           {
+               Id = a.Id,
+               Apoderado = a.Apoderado,
+               DniApoderado = a.DniApoderado,
+               PersonaFk = _mapper.Map<PersonaRes>(a.Persona),
+               CondicionFecha = a.CondicionFecha,
+           })
+           .FirstAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
         }
         public static int CalcularEdad(DateOnly? fechaNacimiento, DateOnly? fechaReferencia = null)
         {
