@@ -31,28 +31,27 @@ public class ProdTermController : ControllerBase
         ProdTerm? response = await _prodTermService.Crear(request);
         return Ok(response);
     }
-    // [HttpPut("{id}")]
-    // [SwaggerResponse(200, "Creacion exitosa", typeof(ProdTermUpdateReq))]
-    // public async Task<IActionResult> ActualizarProdTerm(int id, [FromBody] ProdTermUpdateReq request)
-    // {
-    //     if (request == null)
-    //     {
-    //         return BadRequest("Datos incorrectos");
-    //     }
-    //     ProdTermUpdateResponse? response = await _prodTermService.Actualizar(id, request);
+    [HttpPut("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(ProdTerm))]
+    public async Task<IActionResult> ActualizarProdTerm(int id, [FromBody] ProdTermUpdateReq request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        ProdTerm? response = await _prodTermService.Actualizar(id, request);
 
-    //     return Ok(response);
-    // }
-    // [HttpDelete("{id}")]
-    // [SwaggerResponse(200, "Creacion exitosa", typeof(ProdTerm))]
-    // public async Task<IActionResult> EliminarProdTerm(int id)
-    // {
-    //     if (id == null)
-    //     {
-    //         return BadRequest("Datos incorrectos");
-    //     }
-    //     ProdTerm? response = await _prodTermService.Eliminar(id);
-
-    //     return Ok(response);
-    // }
+        return Ok(response);
+    }
+    [HttpDelete("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(ProdTerm))]
+    public async Task<IActionResult> EliminarProdTerm(int id)
+    {
+        ProdTerm? response = await _prodTermService.Eliminar(id);
+        if (response == null)
+        {
+            return NotFound("No hay");
+        }
+        return Ok(response);
+    }
 }

@@ -18,23 +18,23 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        // public async Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request)
-        // {
-        //     FormulaUpdateResponse response = new FormulaUpdateResponse();
-        //     Formula? formula = await _context.Formulas
-        //     .Where(p => p.Id == id)
-        //     .FirstOrDefaultAsync();
-        //     if (formula == null)
-        //     {
-        //         response.Msg = "no se encontró";
-        //         return response;
-        //     }
-        //     _mapper.Map(request, formula);
-        //     response.Msg = "Formula Actualizado";
-        //     response.FormulaRes = formula;
-        //     await _context.SaveChangesAsync();
-        //     return response;
-        // }
+        public async Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request)
+        {
+            FormulaUpdateResponse response = new FormulaUpdateResponse();
+            Formula? formula = await _context.Formulas
+            .Where(p => p.Id == id)
+            .FirstOrDefaultAsync();
+            if (formula == null)
+            {
+                response.Msg = "no se encontró";
+                return response;
+            }
+            _mapper.Map(request, formula);
+            response.Msg = "Formula Actualizado";
+            response.FormulaRes = formula;
+            await _context.SaveChangesAsync();
+            return response;
+        }
 
         public async Task<FormulaCreateResponse?> Crear(FormulaCreateReq request)
         {
@@ -48,26 +48,14 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        // public async Task<Formula?> Eliminar(int id)
-        // {
-        //     Formula? formula = await _context.Formulas
-        //     .Include(p => p.Formulas)
-        //     .Include(p => p.ProdTerms)
-        //    .FirstOrDefaultAsync(a => a.Id == id);
-        //     _context.Formulas.Remove(formula);
-        //     foreach (var formulaFor in formula.Formulas)
-        //     {
-        //         Formula formula = _mapper.Map<Formula>(formulaFor);
-        //         _context.Formulas.Remove(formula);
-        //     }
-        //     foreach (var prodTermFor in formula.ProdTerms)
-        //     {
-        //         ProdTerm prodTerm = _mapper.Map<ProdTerm>(prodTermFor);
-        //         _context.ProductoTerminados.Remove(prodTerm);
-        //     }
-        //     await _context.SaveChangesAsync();
-        //     return formula;
-        // }
+        public async Task<Formula?> Eliminar(int id)
+        {
+            Formula? formula = await _context.Formulas
+           .FindAsync(id);
+            _context.Formulas.Remove(formula);
+            await _context.SaveChangesAsync();
+            return formula;
+        }
 
     }
 }

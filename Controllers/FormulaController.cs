@@ -31,28 +31,29 @@ public class FormulaController : ControllerBase
         FormulaCreateResponse? response = await _formulaService.Crear(request);
         return Ok(response);
     }
-    // [HttpPut("{id}")]
-    // [SwaggerResponse(200, "Creacion exitosa", typeof(FormulaUpdateReq))]
-    // public async Task<IActionResult> ActualizarFormula(int id, [FromBody] FormulaUpdateReq request)
-    // {
-    //     if (request == null)
-    //     {
-    //         return BadRequest("Datos incorrectos");
-    //     }
-    //     FormulaUpdateResponse? response = await _formulaService.Actualizar(id, request);
+    [HttpPut("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(FormulaUpdateResponse))]
+    public async Task<IActionResult> ActualizarFormula(int id, [FromBody] FormulaUpdateReq request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        FormulaUpdateResponse? response = await _formulaService.Actualizar(id, request);
 
-    //     return Ok(response);
-    // }
-    // [HttpDelete("{id}")]
-    // [SwaggerResponse(200, "Creacion exitosa", typeof(Formula))]
-    // public async Task<IActionResult> EliminarFormula(int id)
-    // {
-    //     if (id == null)
-    //     {
-    //         return BadRequest("Datos incorrectos");
-    //     }
-    //     Formula? response = await _formulaService.Eliminar(id);
+        return Ok(response);
+    }
 
-    //     return Ok(response);
-    // }
+    [HttpDelete("{id}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(Formula))]
+    public async Task<IActionResult> EliminarFormula(int id)
+    {
+        if (id == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        Formula? response = await _formulaService.Eliminar(id);
+
+        return Ok(response);
+    }
 }
