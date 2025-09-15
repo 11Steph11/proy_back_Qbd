@@ -106,6 +106,7 @@ namespace Proy_back_QBD.Services
                     FechaNacimiento = a.Persona.FechaNacimiento,
                     Dni = a.Persona.Dni,
                     Sede = a.Persona.Sede.Nombre,
+                    SedeId = a.Persona.SedeId,
                     Telefono = a.Persona.Telefono,
                 }
             })

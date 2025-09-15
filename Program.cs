@@ -20,6 +20,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<PedidoMap>();  // Registra tu perfil explícitamente
     cfg.AddProfile<FormulaMap>();  // Registra tu perfil explícitamente
     cfg.AddProfile<ProdTermsMap>();  // Registra tu perfil explícitamente
+    cfg.AddProfile<CobroMap>();
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IMedicoService, MedicoService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IProdTermService, ProdTermService>();
+builder.Services.AddScoped<ICobroService, CobroService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
