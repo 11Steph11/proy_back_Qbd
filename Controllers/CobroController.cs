@@ -23,14 +23,14 @@ public class CobroController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(Cobro))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(CobroCreateRes))]
     public async Task<IActionResult> CrearCobro([FromBody] CobroCreateReq request)
     {
         if (request == null)
         {
             return BadRequest("Request cannot be null");
         }
-        Cobro? response = await _cobroService.Crear(request);
+        CobroCreateRes? response = await _cobroService.Crear(request);
         return Ok(response);
     }
 

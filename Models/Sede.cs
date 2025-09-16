@@ -18,8 +18,7 @@ namespace Proy_back_QBD.Models
         [Column("direccion")]
         public string? Direccion { get; set; }  // Puede ser nulo               
         [Column("encargado")]
-        public int? EncargadoId { get; set; }  // Puede ser nulo              
-        public Usuario? Encargado  { get; set; }  // Puede ser nulo              
+        public string? Encargado { get; set; }  // Puede ser nulo                        
         [Column("telefono")]
         public string? Telefono { get; set; }  // Puede ser nulo               
         [Column("fecha_creacion")]

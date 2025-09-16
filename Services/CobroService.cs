@@ -5,6 +5,7 @@ using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Request;
+using Proy_back_QBD.Response.Proy_back_QBD.Dto.Response;
 
 namespace Proy_back_QBD.Services
 {
@@ -32,13 +33,34 @@ namespace Proy_back_QBD.Services
             return pedido;
         }
 
-        public async Task<Cobro?> Crear(CobroCreateReq request)
+        public async Task<CobroCreateRes?> Crear(CobroCreateReq request)
         {
+            CobroCreateRes cobroCreateRes = new CobroCreateRes();
+            Pedido? pedido = await _context.Pedidos
+            .Include(i => i.Formulas)
+            .Include(i => i.ProdTerms)
+            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+
+            if (pedido == null)
+
+            {
+                return null;
+            }
+            decimal? total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
+            decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);
+
+            if (total >= totalCobro + request.Importe)
+            {
+                cobroCreateRes.Msg ="Se ha superado el monto";
+                return cobroCreateRes;
+            }
+
             Cobro cobro = _mapper.Map<Cobro>(request);
             cobro.ModificadorId = cobro.CreadorId;
             await _context.Cobros.AddAsync(cobro);
             await _context.SaveChangesAsync();
-            return cobro;
+            cobroCreateRes.Cobro = cobro;
+            return cobroCreateRes;
         }
 
         // public async Task<List<CobroFindAllResponse?>> Obtener()

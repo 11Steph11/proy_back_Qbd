@@ -97,6 +97,7 @@ namespace Proy_back_QBD.Services
                 HorarioSalida = a.HorarioSalida,
                 Cmp = a.Cmp,
                 TipoUsuario = a.Tipo.Nombre,
+                TipoUsuarioId = a.TipoId,
                 Codigo = a.Codigo,
                 PersonaRes = new PersonaRes
                 {

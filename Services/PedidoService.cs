@@ -160,11 +160,19 @@ namespace Proy_back_QBD.Services
             decimal? total = 0;
             foreach (var formula in listaForm)
             {
-                total += formula.Costo;
+                if (formula.Estado.ToUpper().Trim() != "DEVUELTO")
+                {
+                    total += formula.Costo;
+                }
+
             }
             foreach (var prod in listaProdTerm)
             {
-                total += prod.Costo;
+                if (prod.Estado.ToUpper().Trim() != "DEVUELTO")
+                {
+                    total += prod.Costo;
+                }
+                
             }
             return total;
         }

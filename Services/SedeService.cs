@@ -24,12 +24,11 @@ namespace Proy_back_QBD.Services
         public async Task<List<SedeFindAllResponse?>> Obtener()
         {
             List<SedeFindAllResponse>? response = await _context.Sedes            
-            .Include(a => a.Encargado.Persona)
             .Select(a => new SedeFindAllResponse{
                 Id = a.Id,
                 Nombre = a.Nombre,
                 Direccion = a.Direccion,
-                Encargado = $"{a.Encargado.Persona.Nombres} {a.Encargado.Persona.Apellidos}",
+                Encargado = a.Encargado,
                 Telefono = a.Telefono,
             }).ToListAsync();
             return response;

@@ -29,6 +29,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? Cmp { get; set; }
         public PersonaRes? PersonaRes { get; set; }
         public string? TipoUsuario { get; set; }
+        public int? TipoUsuarioId { get; set; }
         public string? Codigo { get; set; }
     }
     public class UsuarioByIdRes
