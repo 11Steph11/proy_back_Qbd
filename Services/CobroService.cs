@@ -19,18 +19,35 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<Cobro?> Actualizar(int id, CobroUpdateReq request)
+        public async Task<CobroCreateRes?> Actualizar(int id, CobroUpdateReq request)
         {
-            Cobro? pedido = await _context.Cobros
-            .Where(p => p.Id == id)
-            .FirstOrDefaultAsync();
-            if (pedido == null)
+            CobroCreateRes cobroCreateRes = new CobroCreateRes();
+
+            Cobro? cobro = await _context.Cobros
+            .FindAsync(id);
+
+            if (cobro == null)
             {
                 return null;
             }
-            _mapper.Map(request, pedido);
+            Pedido? pedido = await _context.Pedidos
+                            .Include(i => i.Formulas)
+                            .Include(i => i.ProdTerms)
+                            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+
+            decimal? total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
+            decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);
+
+            if (total >= totalCobro + request.Importe)
+            {
+                cobroCreateRes.Msg = "Se ha superado el monto";
+                return cobroCreateRes;
+            }
+            _mapper.Map(request, cobro);
+            
             await _context.SaveChangesAsync();
-            return pedido;
+            cobroCreateRes.Cobro = cobro ;
+            return cobroCreateRes;
         }
 
         public async Task<CobroCreateRes?> Crear(CobroCreateReq request)
@@ -42,7 +59,6 @@ namespace Proy_back_QBD.Services
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
 
             if (pedido == null)
-
             {
                 return null;
             }
@@ -51,7 +67,7 @@ namespace Proy_back_QBD.Services
 
             if (total >= totalCobro + request.Importe)
             {
-                cobroCreateRes.Msg ="Se ha superado el monto";
+                cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
             }
 

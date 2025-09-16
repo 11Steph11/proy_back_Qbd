@@ -35,14 +35,14 @@ public class CobroController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [SwaggerResponse(200, "Creacion exitosa", typeof(Cobro))]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(CobroCreateRes))]
     public async Task<IActionResult> ActualizarCobro(int id, [FromBody] CobroUpdateReq request)
     {
         if (request == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        Cobro? response = await _cobroService.Actualizar(id, request);
+        CobroCreateRes? response = await _cobroService.Actualizar(id, request);
 
         return Ok(response);
     }
