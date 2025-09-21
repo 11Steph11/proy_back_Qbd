@@ -65,26 +65,18 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        // public async Task<Pedido?> Eliminar(int id)
-        // {
-        //     Pedido? pedido = await _context.Pedidos
-        //     .Include(p => p.Formulas)
-        //     .Include(p => p.ProdTerms)
-        //    .FirstOrDefaultAsync(a => a.Id == id);
-        //     _context.Pedidos.Remove(pedido);
-        //     foreach (var formulaFor in pedido.Formulas)
-        //     {
-        //         Formula formula = _mapper.Map<Formula>(formulaFor);
-        //         _context.Formulas.Remove(formula);
-        //     }
-        //     foreach (var prodTermFor in pedido.ProdTerms)
-        //     {
-        //         ProdTerm prodTerm = _mapper.Map<ProdTerm>(prodTermFor);
-        //         _context.ProductoTerminados.Remove(prodTerm);
-        //     }
-        //     await _context.SaveChangesAsync();
-        //     return pedido;
-        // }
+        public async Task<Pedido?> ActualizarPedido(int id, string boleta)
+        {
+            Pedido? pedido = await _context.Pedidos
+            .Include(p => p.Formulas)
+            .Include(p => p.ProdTerms)
+           .FirstOrDefaultAsync(a => a.Id == id);
+            if (pedido == null) return null;
+            pedido.Boleta = boleta;
+
+            await _context.SaveChangesAsync();
+            return pedido;
+        }
 
         public async Task<List<PedidoFindAllResponse?>> Obtener()
         {
@@ -172,7 +164,7 @@ namespace Proy_back_QBD.Services
                 {
                     total += prod.Costo;
                 }
-                
+
             }
             return total;
         }
