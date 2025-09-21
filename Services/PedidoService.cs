@@ -136,12 +136,12 @@ namespace Proy_back_QBD.Services
                 }
                 else if (formula.Estado.Trim().ToUpper().Equals("ENTREGADOS"))
                 {
-                    resultado = "ENTREGADOS";
+                    resultado = "ENTREGADO";
                 }
             }
             return resultado;
-
         }
+
         public async Task<PedidoFindIdResponse?> ObtenerById(int id)
         {
             Pedido? pedido = await _context.Pedidos

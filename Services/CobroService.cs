@@ -33,12 +33,12 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = await _context.Pedidos
                             .Include(i => i.Formulas)
                             .Include(i => i.ProdTerms)
+                            .Include(i => i.Cobros)
                             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
 
             decimal? total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
-            decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);
-
-            if (total >= totalCobro + request.Importe)
+            decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);            
+            if ( totalCobro + request.Importe - cobro.Importe >= total )
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
@@ -65,7 +65,7 @@ namespace Proy_back_QBD.Services
             decimal? total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
             decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);
 
-            if (total >= totalCobro + request.Importe)
+            if (totalCobro + request.Importe >= total)
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
