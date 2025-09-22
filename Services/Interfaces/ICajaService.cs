@@ -8,6 +8,6 @@ namespace Proy_back_QBD.Services
 {
     public interface ICajaService
     {
-        Task<List<CajaFindAllRes?>> Obtener(CajaFindAllReq request);
+        Task<CajaFindAllRes?> Obtener(CajaFindAllReq request);
     }
 }

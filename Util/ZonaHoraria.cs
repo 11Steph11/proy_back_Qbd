@@ -13,5 +13,11 @@ namespace Proy_back_QBD.Util
             DateTime fechaAjustada = TimeZoneInfo.ConvertTime(fechaInicial, ajusteHorario);
             return fechaAjustada;
         }
+        public static DateTime AjustarZonaUTC(DateTime fechaInicial)
+        {
+            TimeZoneInfo ajusteHorario = TimeZoneInfo.FindSystemTimeZoneById("U");
+            DateTime fechaAjustada = TimeZoneInfo.ConvertTime(fechaInicial, ajusteHorario);
+            return fechaAjustada;
+        }
     }
 }

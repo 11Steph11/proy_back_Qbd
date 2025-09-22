@@ -26,7 +26,7 @@ public class CajaController : ControllerBase
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<CajaFindAllRes?>))]
     public async Task<IActionResult> ObtenerCajas(CajaFindAllReq request)
     {
-        List<CajaFindAllRes?> response = await _cajaService.Obtener(request);
+        CajaFindAllRes? response = await _cajaService.Obtener(request);
 
         return Ok(response);
     }
