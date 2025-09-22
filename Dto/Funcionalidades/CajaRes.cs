@@ -15,6 +15,7 @@ namespace Proy_back_QBD.Response
         public RecaudacionDelDia? RecaudacionDelDia { get; set; }
         public RPagosDelDia? RPagosDelDia { get; set; }
         public RPagosAnteriores? RPagosAnteriores { get; set; }
+        public BQPagosDelDia? BQPagos { get; set; }
     }
     public class MovimientosEfectivo
     {
@@ -32,33 +33,33 @@ namespace Proy_back_QBD.Response
     }
     public class RecaudacionDelDia
     {
-        public string? Total { get; set; }
-        public string? Efectivo { get; set; }
-        public string? Electronico { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? Efectivo { get; set; }
+        public decimal? Electronico { get; set; }
     }
     public class RPagosDelDia
     {
-        public string? Total { get; set; }
-        public string? Efectivo { get; set; }
-        public string? Electronico { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? Efectivo { get; set; }
+        public decimal? Electronico { get; set; }
     }
     public class RPagosAnteriores
     {
-        public string? Total { get; set; }
-        public string? Efectivo { get; set; }
-        public string? Electronico { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? Efectivo { get; set; }
+        public decimal? Electronico { get; set; }
     }
     public class BQPagosDelDia
     {
-        public string? Total { get; set; }
-        public string? Efectivo { get; set; }
-        public string? Electronico { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? Efectivo { get; set; }
+        public decimal? Electronico { get; set; }
     }
     public class Ventas
     {
-        public string? Total { get; set; }
-        public string? Adelantos { get; set; }
-        public string? Electronico { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? Adelantos { get; set; }
+        public decimal? Electronico { get; set; }
     }
 
 

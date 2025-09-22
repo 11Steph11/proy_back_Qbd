@@ -44,10 +44,62 @@ namespace Proy_back_QBD.Services
                 Turno = s.Turno,
                 BolFac = s.Pedido.ComprobanteElectronico
             }).ToList();
+            RecaudacionDelDia recaudDia = new();
+            RPagosDelDia pagosDia = new();
+            RPagosAnteriores pagosAnteriores = new();
+            BQPagosDelDia bqPagos = new();
+            DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
+            foreach (var item in movimientos)
+            {
+                if (item.Modalidad.Trim().ToUpper() == "YAPE"
+                || item.Modalidad.Trim().ToUpper() == "PLIN"
+                || item.Modalidad.Trim().ToUpper() == "DEPOSITO"
+                || item.Modalidad.Trim().ToUpper() == "TARJETA")
+                {
+                    recaudDia.Electronico += item.Importe;
+                    if (string.IsNullOrEmpty(item.BolFac))
+                    {
+                        bqPagos.Electronico += item.Importe;
+                    }
 
+                    if (item.FechaPedido != Hoy)
+                    {
+                        pagosAnteriores.Electronico += item.Importe;
+                        pagosAnteriores.Total += item.Importe;
+                    }
+                    else
+                    {
+                        pagosDia.Electronico += item.Importe;
+                        pagosDia.Total += item.Importe;
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(item.BolFac))
+                    {
+                        bqPagos.Efectivo += item.Importe;
+                    }
+                    if (item.FechaPedido != Hoy)
+                    {
+                        pagosAnteriores.Efectivo += item.Importe;
+                        pagosAnteriores.Total += item.Importe;
+                    }
+                    else
+                    {
+                        pagosDia.Efectivo += item.Importe;
+                        pagosDia.Total += item.Importe;
+                    }
+                    recaudDia.Efectivo += 900;
+                }
+                recaudDia.Total += (decimal) 900;
+            }
             CajaFindAllRes? response = new CajaFindAllRes
             {
-                Movimientos = movimientos
+                Movimientos = movimientos,
+                RecaudacionDelDia = recaudDia,
+                RPagosDelDia = pagosDia,
+                RPagosAnteriores = pagosAnteriores,
+                BQPagos = bqPagos
             };
 
             return response;
