@@ -57,8 +57,9 @@ namespace Proy_back_QBD.Services
                 || item.Modalidad.Trim().ToUpper() == "TARJETA")
                 {
                     recaudDia.Electronico += item.Importe;
-                    if (string.IsNullOrEmpty(item.BolFac))
+                    if (!string.IsNullOrEmpty(item.BolFac))
                     {
+                        bqPagos.Total += item.Importe;
                         bqPagos.Electronico += item.Importe;
                     }
 
@@ -75,8 +76,9 @@ namespace Proy_back_QBD.Services
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(item.BolFac))
+                    if (!string.IsNullOrEmpty(item.BolFac))
                     {
+                        bqPagos.Total += item.Importe;
                         bqPagos.Efectivo += item.Importe;
                     }
                     if (item.FechaPedido != Hoy)
@@ -89,9 +91,13 @@ namespace Proy_back_QBD.Services
                         pagosDia.Efectivo += item.Importe;
                         pagosDia.Total += item.Importe;
                     }
-                    recaudDia.Efectivo += 900;
+                    recaudDia.Efectivo += item.Importe;
                 }
-                recaudDia.Total += (decimal) 900;
+                if (recaudDia.Total == null)
+                {
+                    recaudDia.Total = 0;
+                }
+                recaudDia.Total += item.Importe;
             }
             CajaFindAllRes? response = new CajaFindAllRes
             {

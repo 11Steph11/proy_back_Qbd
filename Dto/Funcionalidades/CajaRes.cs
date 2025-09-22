@@ -33,33 +33,33 @@ namespace Proy_back_QBD.Response
     }
     public class RecaudacionDelDia
     {
-        public decimal? Total { get; set; }
-        public decimal? Efectivo { get; set; }
-        public decimal? Electronico { get; set; }
+        public decimal? Total { get; set; } = 0;
+        public decimal? Efectivo { get; set; } = 0;
+        public decimal? Electronico { get; set; } = 0;
     }
     public class RPagosDelDia
     {
-        public decimal? Total { get; set; }
-        public decimal? Efectivo { get; set; }
-        public decimal? Electronico { get; set; }
+        public decimal? Total { get; set; } = 0;
+        public decimal? Efectivo { get; set; } = 0;
+        public decimal? Electronico { get; set; } = 0;
     }
     public class RPagosAnteriores
     {
-        public decimal? Total { get; set; }
-        public decimal? Efectivo { get; set; }
-        public decimal? Electronico { get; set; }
+        public decimal? Total { get; set; } = 0;
+        public decimal? Efectivo { get; set; } = 0;
+        public decimal? Electronico { get; set; } = 0;
     }
     public class BQPagosDelDia
     {
-        public decimal? Total { get; set; }
-        public decimal? Efectivo { get; set; }
-        public decimal? Electronico { get; set; }
+        public decimal? Total { get; set; } = 0;
+        public decimal? Efectivo { get; set; } = 0;
+        public decimal? Electronico { get; set; } = 0;
     }
     public class Ventas
     {
-        public decimal? Total { get; set; }
-        public decimal? Adelantos { get; set; }
-        public decimal? Electronico { get; set; }
+        public decimal? Total { get; set; } = 0;
+        public decimal? Adelantos { get; set; } = 0;
+        public decimal? Electronico { get; set; } = 0;
     }
 
 
