@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Medico> Medicos { get; set; }  // Para la tabla de secciones
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
         public DbSet<ProdTerm> ProdTerms { get; set; }  // Para la tabla de secciones
-        public DbSet<Cobro> Cobros { get; set; }  // Para la tabla de secciones
+        public DbSet<Cobro> Cobros { get; set; }  // Para la tabla de secciones        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -59,6 +59,11 @@ namespace Proy_back_QBD.Data
         }
         private void ConfigureCobros(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Cobro>()
+                            .HasOne(e => e.Pedido)
+                            .WithMany(e2 => e2.Cobros)
+                            .HasForeignKey(e => e.PedidoId)
+                            .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Cobro>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.CobrosCreadas)

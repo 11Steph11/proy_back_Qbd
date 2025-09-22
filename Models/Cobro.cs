@@ -19,6 +19,7 @@ namespace Proy_back_QBD.Models
         public string? Modalidad { get; set; }
         [Column("pedido_id")]
         public int? PedidoId { get; set; }
+        public Pedido? Pedido { get; set; }
         [Column("importe")]
         public decimal? Importe { get; set; }
         [Column("turno")]
