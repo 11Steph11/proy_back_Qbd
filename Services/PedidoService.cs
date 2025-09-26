@@ -94,6 +94,7 @@ namespace Proy_back_QBD.Services
                 FechaCreacion = a.FechaCreacion,
                 Dni = a.Paciente.Persona.Dni,
                 Paciente = $"{a.Paciente.Persona.Nombres} {a.Paciente.Persona.Apellidos}",
+                PacienteId = a.PacienteId,
                 Celular = a.Paciente.Persona.Telefono,
                 Medico = $"Dr. {a.Medico.Persona.Apellidos}",
                 Total = SumaPedido(a.Formulas, a.ProdTerms),

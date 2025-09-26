@@ -10,6 +10,7 @@ namespace Proy_back_QBD.Dto.Response
         public DateTime? FechaCreacion { get; set; }
         public string? Dni { get; set; }
         public string? Paciente { get; set; }
+        public int? PacienteId { get; set; }
         public string? Celular { get; set; }
         public string? Medico { get; set; }
         public decimal? Total { get; set; }
