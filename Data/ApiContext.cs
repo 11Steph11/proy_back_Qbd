@@ -21,6 +21,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Formula> Formulas { get; set; }  // Para la tabla de secciones
         public DbSet<ProdTerm> ProdTerms { get; set; }  // Para la tabla de secciones
         public DbSet<Cobro> Cobros { get; set; }  // Para la tabla de secciones        
+        public DbSet<Laboratorio> Laboratorios { get; set; }  // Para la tabla de lab        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -126,6 +127,32 @@ namespace Proy_back_QBD.Data
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();
             modelBuilder.Entity<Formula>()
+            .Property(p => p.FechaModificacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+        }
+        private void ConfigureLaboratorio(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Laboratorio>()
+                .HasOne(e => e.Formula)
+                .WithOne(e2 => e2.Laboratorio)
+                .HasForeignKey<Laboratorio>(e => e.Id) // Assuming `FormulaId` is the FK
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Laboratorio>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.LaboratorioCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Laboratorio>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.LaboratorioModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Laboratorio>()
+            .Property(p => p.FechaCreacion)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Laboratorio>()
             .Property(p => p.FechaModificacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();

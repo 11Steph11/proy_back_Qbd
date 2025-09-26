@@ -22,6 +22,17 @@ namespace Proy_back_QBD.Dto.Response
         public string? Usuario { get; set; }
         public string? BolFaC { get; set; }
     }
+    public class PedidoLabFindAllRes
+    {
+        public int? Id { get; set; }
+        public string? Cuo { get; set; }
+        public DateTime? FechaCreacion { get; set; }
+        public string? Dni { get; set; }
+        public string? Paciente { get; set; }
+        public string? FormulaMagistral { get; set; }
+        public string? Registro { get; set; }
+        public string? Elaborado { get; set; }
+    }
     public class PedidoCreateResponse
     {
         public string? Msg { get; set; }  // Puede ser nulo      

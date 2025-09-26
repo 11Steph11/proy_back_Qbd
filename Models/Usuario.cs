@@ -71,6 +71,8 @@ namespace Proy_back_QBD.Models
         public List<ProdTerm>? PTModificados { get; set; }
         public List<Cobro>? CobrosCreadas { get; set; }
         public List<Cobro>? CobrosModificadas { get; set; }
+        public List<Laboratorio>? LaboratorioCreadas { get; set; }
+        public List<Laboratorio>? LaboratorioModificadas { get; set; }
     }
     [Table("tipos_usuario")]
     public class TipoUsuario

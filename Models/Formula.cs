@@ -25,7 +25,7 @@ namespace Proy_back_QBD.Models
         [Column("unidad_medida")]
         public string? UnidadMedida { get; set; }              // Unidad de medida (ej. "ml", "mg", "g", etc.)
         [Column("lote")]
-        public string? Lote { get; set; }                      // Lote del producto
+        public string? Lote { get; set; }
         [Column("diagnostico")]
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
         [Column("zona_aplicacion")]
@@ -52,6 +52,7 @@ namespace Proy_back_QBD.Models
         public int? PedidoId { get; set; }
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
+        public Laboratorio? Laboratorio { get; set; }
 
     }
 
