@@ -49,8 +49,11 @@ namespace Proy_back_QBD.Models
         public int MedicoId { get; set; }
         [JsonIgnore]
         public Medico? Medico { get; set; }
+        [JsonIgnore]
         public List<Formula>? Formulas { get; set; }
+        [JsonIgnore]
         public List<ProdTerm>? ProdTerms { get; set; }
+        [JsonIgnore]
         public List<Cobro>? Cobros { get; set; }
     }
 
