@@ -41,6 +41,8 @@ namespace Proy_back_QBD.Models
         public Sede? Sede { get; set; }  // Puede ser nulo
         [Column("telefono")]
         public string? Telefono { get; set; }  // Puede ser nulo
+        [Column("direccion")]
+        public string? Direccion { get; set; }  // Puede ser nulo
         [JsonIgnore]
         public List<Usuario>? Usuarios { get; set; }  // Puede ser nulo
         [JsonIgnore]
