@@ -36,7 +36,7 @@ namespace Proy_back_QBD.Models
         public int? CantiTermo { get; set; }
         [Column("etiqueta")]
         public string? Etiqueta { get; set; }
-        [Column("etiqueta")]
+        [Column("etiqueta2")]
         public string? Etiqueta2 { get; set; }
         [Column("aspecto")]
         public string? Aspecto { get; set; }
