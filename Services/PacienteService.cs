@@ -99,12 +99,14 @@ namespace Proy_back_QBD.Services
         public async Task<PacienteFindIdResponse?> ObtenerById(int id)
         {
             PacienteFindIdResponse? response = await _context.Pacientes
+            .Include(i => i.Persona)
            .Where(a => a.Id == id)
            .Select(a => new PacienteFindIdResponse
            {
                Id = a.Id,
                Apoderado = a.Apoderado,
                DniApoderado = a.DniApoderado,
+               Direccion  = a.Persona.Direccion,
                PersonaFk = _mapper.Map<PersonaRes>(a.Persona),
                CondicionFecha = a.CondicionFecha,
            })

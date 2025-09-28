@@ -8,6 +8,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? NombreCompleto { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }
+        public string? Direccion { get; set; }
         public string? Sede { get; set; }
         public int? SedeId { get; set; }
         public string? Telefono { get; set; }
@@ -27,6 +28,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? NombreCompleto { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }
+        public string? Direccion { get; set; }
         public int? SedeId { get; set; }
         public string? Telefono { get; set; }
     } 

@@ -10,6 +10,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? DniApoderado { get; set; }
         public string? NombreCompleto { get; set; }
         public int? Edad { get; set; }
+        public string? Direccion { get; set; }
         public string? FechaCumple { get; set; }
         public string? Telefono { get; set; }
         public PersonaRes2? Persona { get; set; }
@@ -31,6 +32,7 @@ namespace Proy_back_QBD.Dto.Response
         public int? Id { get; set; }  // Puede ser nulo
         public string? Apoderado { get; set; }
         public string? DniApoderado { get; set; }
+        public string? Direccion { get; set; }
         public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
         public bool? CondicionFecha { get; set; }
     }
