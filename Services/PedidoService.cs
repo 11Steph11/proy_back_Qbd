@@ -116,6 +116,7 @@ namespace Proy_back_QBD.Services
         }
         public static string? CalcularEstado(List<Formula> Formulas)
         {
+
             string? resultado = "ENTREGADO";
             foreach (var formula in Formulas)
             {
@@ -151,6 +152,10 @@ namespace Proy_back_QBD.Services
         public static decimal? SumaPedido(List<Formula> listaForm, List<ProdTerm> listaProdTerm)
         {
             decimal? total = 0;
+            if (listaForm.Count() == 0 || listaForm == null || listaProdTerm.Count() == 0 || listaProdTerm == null)
+            {
+                return 0;
+            }
             foreach (var formula in listaForm)
             {
                 if (formula.Estado.ToUpper().Trim() != "DEVUELTO")
@@ -172,6 +177,10 @@ namespace Proy_back_QBD.Services
         public static decimal? SumaCobro(List<Cobro> listaCobro)
         {
             decimal? total = 0;
+            if (listaCobro.Count() == 0 || listaCobro == null)
+            {
+                return 0;
+            }
             foreach (var cobro in listaCobro)
             {
                 total += cobro.Importe;
