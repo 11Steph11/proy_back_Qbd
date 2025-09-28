@@ -79,7 +79,7 @@ namespace Proy_back_QBD.Services
                 EspecialidadId = a.Especialidad.Id,
                 NumeroEspecialidad = a.NumeroEspecialidad,
                 Persona = _mapper.Map<PersonaRes2>(a.Persona),
-                NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
+                NombreCompleto = $"{a.Persona.NombreCompleto} ",
                 Cmp = a.Cmp
             })
             .ToListAsync();

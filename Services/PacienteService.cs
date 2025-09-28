@@ -79,7 +79,7 @@ namespace Proy_back_QBD.Services
             {
                 Id = a.Id,
                 DniApoderado = a.DniApoderado,
-                NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
+                NombreCompleto = $"{a.Persona.NombreCompleto}",
                 Edad = CalcularEdad(a.Persona.FechaNacimiento, null),
                 Apoderado = a.Apoderado,
                 Persona = _mapper.Map<PersonaRes2>(a.Persona),

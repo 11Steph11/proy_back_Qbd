@@ -4,7 +4,7 @@ namespace Proy_back_QBD.Dto.Request
 {
     public class PersonaCreateReq
     {
-        public string? Nombres { get; set; }
+        public string? NombreCompleto { get; set; }
         public string? Apellidos { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }
@@ -14,7 +14,7 @@ namespace Proy_back_QBD.Dto.Request
     }
     public class PersonaUpdateReq
     {
-        public string? Nombres { get; set; }
+        public string? NombreCompleto { get; set; }
         public string? Apellidos { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }

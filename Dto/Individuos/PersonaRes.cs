@@ -5,8 +5,7 @@ namespace Proy_back_QBD.Dto.Response
     public class PersonaRes
     {
         public int? Id { get; set; }
-        public string? Nombres { get; set; }
-        public string? Apellidos { get; set; }
+        public string? NombreCompleto { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }
         public string? Sede { get; set; }
@@ -16,8 +15,7 @@ namespace Proy_back_QBD.Dto.Response
     public class PersonaRes2
     {
         public int? Id { get; set; }
-        public string? Nombres { get; set; }
-        public string? Apellidos { get; set; }
+        public string? NombreCompleto { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }
         public int? SedeId { get; set; }

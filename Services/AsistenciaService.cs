@@ -64,7 +64,7 @@ namespace Proy_back_QBD.Services
                 .Include(a => a.Persona)
                 .Select(a => new AsistenciaByIdRes
                 {
-                    NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
+                    NombreCompleto = $"{a.Persona.NombreCompleto}",
                     Entrada = a.HorarioEntrada,
                     Salida = a.HorarioSalida,
                     Almuerzo = a.HorarioAlmuerzo,

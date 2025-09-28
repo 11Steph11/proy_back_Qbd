@@ -14,10 +14,8 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo 
-        [Column("nombres")]
-        public string? Nombres { get; set; }  // Puede ser nulo
-        [Column("apellidos")]
-        public string? Apellidos { get; set; }  // Puede ser nulo
+        [Column("nombreCompleto")]
+        public string? NombreCompleto { get; set; }  // Puede ser nulo
         [Column("fecha_nacimiento")]
         public DateOnly? FechaNacimiento { get; set; }  // Puede ser nulo
         [Column("dni")]

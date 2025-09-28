@@ -28,7 +28,7 @@ namespace Proy_back_QBD.Services
             .Where(a => a.Codigo.Equals(usuario) && a.Contrasena.Equals(contrasena))
             .Select(a => new UsuarioLoginDataRes
             {
-                NombreCompleto = $"{a.Persona.Nombres} {a.Persona.Apellidos}",
+                NombreCompleto = $"{a.Persona.NombreCompleto}",
                 TipoUsuario = a.Tipo.Nombre,
                 TipoId = a.Tipo.Id,
                 Sede = a.Persona.Sede.Nombre,
@@ -53,7 +53,7 @@ namespace Proy_back_QBD.Services
             Usuario usuario = _mapper.Map<Usuario>(request);
             usuario.PersonaId = persona.Id;
             usuario.Modificador = persona.Creador;
-            usuario.Codigo = $"{persona.Nombres.Substring(0,1).ToUpper()}{persona.Apellidos.Substring(0,1).ToUpper()} - {usuario.TipoId}-{persona.SedeId}";
+            usuario.Codigo = $"{persona.NombreCompleto.Substring(0,1).ToUpper()} - {usuario.TipoId}-{persona.SedeId}";
             await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync();
             return usuario;
@@ -76,7 +76,7 @@ namespace Proy_back_QBD.Services
             .Include(a => a.Persona)
             .FirstOrDefaultAsync(a => a.Id == id);
             _mapper.Map(request, usuario);
-            usuario.Codigo = $"{usuario.Persona.Nombres.Substring(0,1).ToUpper()}{usuario.Persona.Apellidos.Substring(0,1).ToUpper()}-{usuario.TipoId}-{usuario.Persona.SedeId}";
+            usuario.Codigo = $"{usuario.Persona.NombreCompleto.Substring(0,1).ToUpper()}-{usuario.TipoId}-{usuario.Persona.SedeId}";
             _mapper.Map(request.Persona, usuario.Persona);
             await _context.SaveChangesAsync();
             return usuario;
@@ -103,8 +103,7 @@ namespace Proy_back_QBD.Services
                 PersonaRes = new PersonaRes
                 {
                     Id = a.Persona.Id,                     
-                    Nombres = a.Persona.Nombres,
-                    Apellidos = a.Persona.Apellidos,
+                    NombreCompleto = a.Persona.NombreCompleto,
                     FechaNacimiento = a.Persona.FechaNacimiento,
                     Dni = a.Persona.Dni,
                     Sede = a.Persona.Sede.Nombre,
@@ -135,8 +134,7 @@ namespace Proy_back_QBD.Services
                 PersonaRes = new PersonaRes
                 {
                     Id = a.Persona.Id,
-                    Nombres = a.Persona.Nombres,
-                    Apellidos = a.Persona.Apellidos,
+                    NombreCompleto = a.Persona.NombreCompleto,
                     FechaNacimiento = a.Persona.FechaNacimiento,
                     Dni = a.Persona.Dni,
                     Sede = a.Persona.Sede.Nombre,
