@@ -25,6 +25,8 @@ namespace Proy_back_QBD.Profiles
             ;
             CreateMap<Persona, PersonaRes>();
             CreateMap<Persona, PersonaRes2>();
+            CreateMap<Persona, PersMedRes>();
+            CreateMap<Persona, PersMedRes2>();
         }
     }
 

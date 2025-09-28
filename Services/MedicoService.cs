@@ -78,7 +78,7 @@ namespace Proy_back_QBD.Services
                 DesEspecialidad = a.Especialidad.Nombre,
                 EspecialidadId = a.Especialidad.Id,
                 NumeroEspecialidad = a.NumeroEspecialidad,
-                Persona = _mapper.Map<PersonaRes2>(a.Persona),
+                Persona = _mapper.Map<PersMedRes2>(a.Persona),
                 NombreCompleto = $"{a.Persona.NombreCompleto} ",
                 Cmp = a.Cmp
             })
@@ -101,7 +101,7 @@ namespace Proy_back_QBD.Services
                 Id = a.Id,
                 EspecialidadId = a.EspecialidadId,
                 NumeroEspecialidad = a.NumeroEspecialidad,
-                PersonaFk = _mapper.Map<PersonaRes>(a.Persona),
+                PersonaFk = _mapper.Map<PersMedRes>(a.Persona),
                 Cmp = a.Cmp,
             })
             .FirstAsync();

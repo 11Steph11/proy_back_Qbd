@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Models
         public DateOnly? FechaNacimiento { get; set; }  // Puede ser nulo
         [Column("dni")]
         [Length(8,8)]
-        public required string Dni { get; set; }  // Puede ser nulo
+        public string? Dni { get; set; }  // Puede ser nulo
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Column("fecha_creacion")]
         public DateTime FechaCreacion { get; set; }  // Puede ser nulo

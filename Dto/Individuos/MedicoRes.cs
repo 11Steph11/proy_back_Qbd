@@ -9,7 +9,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? DesEspecialidad { get; set; }
         public int? EspecialidadId { get; set; }
         public string? NumeroEspecialidad { get; set; }
-        public PersonaRes2? Persona { get; set; }
+        public PersMedRes2? Persona { get; set; }
         public string? NombreCompleto { get; set; }
         public string? Cmp { get; set; }
     }
@@ -29,7 +29,7 @@ namespace Proy_back_QBD.Dto.Response
         public int? Id { get; set; }  // Puede ser nulo
         public int? EspecialidadId { get; set; }
         public string? NumeroEspecialidad { get; set; }
-        public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
+        public PersMedRes? PersonaFk { get; set; }  // Puede ser nulo
         public string? Cmp { get; set; }
     }
     
