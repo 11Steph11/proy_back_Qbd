@@ -36,17 +36,27 @@ namespace Proy_back_QBD.Services
                             .Include(i => i.Cobros)
                             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
 
-            decimal? total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
-            decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);            
-            if ( totalCobro + request.Importe - cobro.Importe >= total )
+            decimal? totalPedido = 0;
+            decimal? totalCobro = 0;
+
+            if (pedido.Formulas != null)
+            {
+                totalPedido = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
+            }
+            if (pedido.Cobros != null)
+            {
+                totalCobro = PedidoService.SumaCobro(pedido.Cobros);
+            }
+
+            if (totalCobro + request.Importe - cobro.Importe >= totalPedido)
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
             }
             _mapper.Map(request, cobro);
-            
+
             await _context.SaveChangesAsync();
-            cobroCreateRes.Cobro = cobro ;
+            cobroCreateRes.Cobro = cobro;
             return cobroCreateRes;
         }
 
@@ -62,10 +72,19 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            decimal? total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
-            decimal? totalCobro = PedidoService.SumaCobro(pedido.Cobros);
+            decimal? totalPedido = 0;
+            decimal? totalCobro = 0;
 
-            if (totalCobro + request.Importe >= total)
+            if (pedido.Formulas != null)
+            {
+                totalPedido = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
+            }
+            if (pedido.Cobros != null)
+            {
+                totalCobro = PedidoService.SumaCobro(pedido.Cobros);
+            }
+
+            if (totalCobro + request.Importe >= totalPedido)
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;

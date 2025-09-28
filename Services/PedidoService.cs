@@ -152,26 +152,30 @@ namespace Proy_back_QBD.Services
         public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
             decimal? total = 0;
-            if (listaForm.Count() == 0 || listaForm == null || listaProdTerm.Count() == 0 || listaProdTerm == null)
+            if (listaForm.Count() != 0 || listaForm != null)
             {
-                return 0;
-            }
-            foreach (var formula in listaForm)
-            {
-                if (formula.Estado.ToUpper().Trim() != "DEVUELTO")
+                foreach (var formula in listaForm)
                 {
-                    total += formula.Costo;
-                }
+                    if (formula.Estado.ToUpper().Trim() != "DEVUELTO")
+                    {
+                        total += formula.Costo;
+                    }
 
+                }
             }
-            foreach (var prod in listaProdTerm)
+            if (listaProdTerm.Count() != 0 || listaProdTerm != null)
             {
-                if (prod.Estado.ToUpper().Trim() != "DEVUELTO")
+                foreach (var prod in listaProdTerm)
                 {
-                    total += prod.Costo;
-                }
+                    if (prod.Estado.ToUpper().Trim() != "DEVUELTO")
+                    {
+                        total += prod.Costo;
+                    }
 
+                }
             }
+
+
             return total;
         }
         public static decimal? SumaCobro(List<Cobro>? listaCobro)
