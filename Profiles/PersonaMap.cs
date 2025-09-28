@@ -23,6 +23,17 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
             .ForMember(a => a.Sede, options => options.Ignore())
             ;
+            CreateMap<PersMedCreateReq, Persona>()
+            .ForMember(a => a.Id, options => options.Ignore())
+            .ForMember(a => a.FechaCreacion, options => options.Ignore())
+            .ForMember(a => a.Sede, options => options.Ignore())
+            ;
+            CreateMap<PersMedUpdateReq, Persona>()
+            .ForMember(a => a.Id, options => options.Ignore())
+            .ForMember(a => a.CreadorId, options => options.Ignore())
+            .ForMember(a => a.FechaCreacion, options => options.Ignore())
+            .ForMember(a => a.Sede, options => options.Ignore())
+            ;
             CreateMap<Persona, PersonaRes>();
             CreateMap<Persona, PersonaRes2>();
             CreateMap<Persona, PersMedRes>();
