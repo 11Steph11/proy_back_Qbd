@@ -149,7 +149,7 @@ namespace Proy_back_QBD.Services
             PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
             return response;
         }
-        public static decimal? SumaPedido(List<Formula> listaForm, List<ProdTerm> listaProdTerm)
+        public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
             decimal? total = 0;
             if (listaForm.Count() == 0 || listaForm == null || listaProdTerm.Count() == 0 || listaProdTerm == null)
@@ -174,7 +174,7 @@ namespace Proy_back_QBD.Services
             }
             return total;
         }
-        public static decimal? SumaCobro(List<Cobro> listaCobro)
+        public static decimal? SumaCobro(List<Cobro>? listaCobro)
         {
             decimal? total = 0;
             if (listaCobro.Count() == 0 || listaCobro == null)
