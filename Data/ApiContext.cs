@@ -36,6 +36,7 @@ namespace Proy_back_QBD.Data
             ConfigureTipoUsuario(modelBuilder);
             ConfigureProductosTerminados(modelBuilder);
             ConfigureCobros(modelBuilder);
+            ConfigureLaboratorio(modelBuilder);
         }
         private void ConfigureAsistencia(ModelBuilder modelBuilder)
         {
