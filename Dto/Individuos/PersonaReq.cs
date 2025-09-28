@@ -5,7 +5,6 @@ namespace Proy_back_QBD.Dto.Request
     public class PersMedCreateReq
     {
         public string? NombreCompleto { get; set; }
-        public string? Apellidos { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public int? CreadorId { get; set; }
         public int? SedeId { get; set; }
@@ -26,7 +25,6 @@ namespace Proy_back_QBD.Dto.Request
     public class PersMedUpdateReq
     {
         public string? NombreCompleto { get; set; }
-        public string? Apellidos { get; set; }
         public DateOnly? FechaNacimiento { get; set; }
         public int? SedeId { get; set; }
         public string? Telefono { get; set; }
