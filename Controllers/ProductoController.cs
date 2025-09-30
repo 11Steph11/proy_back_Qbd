@@ -21,7 +21,7 @@ public class ProductoController : ControllerBase
     }
 
     [HttpGet()]
-    [SwaggerResponse(200, "Obtencion exitosa", typeof(Producto))]
+    [SwaggerResponse(200, "Obtencion exitosa", typeof(ProductoRes))]
     public async Task<IActionResult> Obtener()
     {
         List<ProductoRes>? response = new();

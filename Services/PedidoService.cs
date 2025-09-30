@@ -133,6 +133,7 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
+        
         public static string? CalcularEstado(List<Formula> Formulas)
         {
 
