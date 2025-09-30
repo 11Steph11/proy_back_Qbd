@@ -84,7 +84,6 @@ namespace Proy_back_QBD.Services
         {
             FormulaCreateResponse response = new FormulaCreateResponse();
 
-
             Formula formula = _mapper.Map<Formula>(request);
             formula.ModificadorId = formula.CreadorId;
             response.FormulaRes = formula;

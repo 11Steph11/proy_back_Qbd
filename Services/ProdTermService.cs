@@ -44,7 +44,7 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            
+
             decimal costoReq = 0;
             costoReq = request.Costo * request.Cantidad;
             decimal costoForm = 0;
@@ -77,7 +77,18 @@ namespace Proy_back_QBD.Services
 
             await _context.ProdTerms.AddAsync(prodTerm);
             await _context.SaveChangesAsync();
-            
+
+            Pedido? pedido = await _context.Pedidos
+            .Include(i => i.ProdTerms)
+            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+            if (pedido == null)
+            {
+                return null;
+            }
+
+            pedido.Total += prodTerm.Costo * prodTerm.Cantidad;
+            pedido.Saldo += prodTerm.Costo * prodTerm.Cantidad;
+
             return prodTerm;
         }
 
@@ -91,6 +102,18 @@ namespace Proy_back_QBD.Services
             }
             _context.ProdTerms.Remove(prodTerm);
             await _context.SaveChangesAsync();
+
+            Pedido? pedido = await _context.Pedidos
+                        .Include(i => i.ProdTerms)
+                        .FirstOrDefaultAsync(fod => fod.Id == prodTerm.PedidoId);
+            if (pedido == null)
+            {
+                return null;
+            }
+
+            pedido.Total -= prodTerm.Costo * prodTerm.Cantidad;
+            pedido.Saldo -= prodTerm.Costo * prodTerm.Cantidad;
+
             return prodTerm;
         }
 
