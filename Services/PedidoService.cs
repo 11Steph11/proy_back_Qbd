@@ -39,14 +39,33 @@ namespace Proy_back_QBD.Services
         public async Task<PedidoCreateResponse?> Crear(PedidoCreateReq request)
         {
             PedidoCreateResponse response = new PedidoCreateResponse();
+            List<Formula> formulaList = new();
+            List<ProdTerm> prodTermList = new();
+
+            foreach (var item in request.Formulas)
+            {
+                Formula formula = _mapper.Map<Formula>(item);
+        
+                formulaList.Add(formula);
+            }
+            foreach (var item in request.ProductosTerminados)
+            {
+                ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
+        
+                prodTermList.Add(prodTerm);
+            }
+
+            // decimal total = SumaPedido(prodTermList, request.ProductosTerminados);
+
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
+
             await _context.Pedidos.AddAsync(pedido);
             await _context.SaveChangesAsync();
 
-            foreach (var item in request.ProductosTerminados)
+            foreach (var item in formulaList)
             {
                 ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
                 prodTerm.ModificadorId = prodTerm.CreadorId;
@@ -97,11 +116,11 @@ namespace Proy_back_QBD.Services
                 PacienteId = a.PacienteId,
                 Celular = a.Paciente.Persona.Telefono,
                 Medico = $"Dr. {a.Medico.Persona.NombreCompleto}",
-                Total = SumaPedido(a.Formulas, a.ProdTerms),
-                Adelanto = SumaCobro(a.Cobros),
-                Saldo = SumaPedido(a.Formulas, a.ProdTerms) - SumaCobro(a.Cobros),
+                Total = a.Total,
+                Adelanto = a.Adelanto,
+                Saldo = a.Saldo,
                 Recibo = a.Boleta,
-                Estado = CalcularEstado(a.Formulas),
+                Estado = a.Estado,
                 FechaEntrega = a.FechaEntrega,
                 Usuario = a.Creador.Codigo,
                 BolFaC = a.ComprobanteElectronico,
@@ -118,6 +137,7 @@ namespace Proy_back_QBD.Services
         {
 
             string? resultado = "ENTREGADO";
+
             foreach (var formula in Formulas)
             {
                 if (formula.Estado.Trim().ToUpper().Equals("PENDIENTE"))
@@ -133,6 +153,7 @@ namespace Proy_back_QBD.Services
                     resultado = "ENTREGADO";
                 }
             }
+
             return resultado;
         }
 
@@ -152,13 +173,14 @@ namespace Proy_back_QBD.Services
         public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
             decimal? total = 0;
+
             if (listaForm.Count() != 0 || listaForm != null)
             {
                 foreach (var formula in listaForm)
                 {
                     if (formula.Estado.ToUpper().Trim() != "DEVUELTO")
                     {
-                        total += formula.Costo;
+                        total += formula.Costo * formula.Cantidad;
                     }
 
                 }
@@ -169,12 +191,11 @@ namespace Proy_back_QBD.Services
                 {
                     if (prod.Estado.ToUpper().Trim() != "DEVUELTO")
                     {
-                        total += prod.Costo;
+                        total += prod.Costo * prod.Cantidad;
                     }
 
                 }
             }
-
 
             return total;
         }

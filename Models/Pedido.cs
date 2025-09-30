@@ -9,8 +9,6 @@ namespace Proy_back_QBD.Models
     [Table("pedidos")]
     public class Pedido
     {
-        [Column("periodo")]
-        public string? Periodo { get; set; }
         [Column("boleta")]
         public string? Boleta { get; set; }
         [Column("paciente_id")]
@@ -21,6 +19,14 @@ namespace Proy_back_QBD.Models
         public string? Img1 { get; set; }
         [Column("img2")]
         public string? Img2 { get; set; }
+        [Column("estado")]
+        public string? Estado { get; set; }
+        [Column("adelanto")]
+        public decimal? Adelanto { get; set; }
+        [Column("saldo")]
+        public decimal? Saldo { get; set; }
+        [Column("total")]
+        public decimal? Total { get; set; }
         [Column("img3")]
         public string? Img3 { get; set; }
         [Column("comprobante_electronico")]

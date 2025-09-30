@@ -21,30 +21,68 @@ namespace Proy_back_QBD.Services
         public async Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request)
         {
             FormulaUpdateResponse response = new FormulaUpdateResponse();
+
             Formula? formula = await _context.Formulas
-            .Where(p => p.Id == id)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(f => f.Id == id);
             if (formula == null)
             {
                 response.Msg = "no se encontró";
                 return response;
             }
+
             _mapper.Map(request, formula);
             response.Msg = "Formula Actualizado";
             response.FormulaRes = formula;
+
             await _context.SaveChangesAsync();
+
+            Pedido? pedido = await _context.Pedidos
+            .Include(i => i.Formulas)
+            .FirstOrDefaultAsync(fod => fod.Id == formula.Id);
+            if (pedido == null)
+            {
+                return null;
+            }
+
+            string? estado = PedidoService.CalcularEstado(pedido.Formulas);
+            if (pedido.Estado != estado)
+            {
+                pedido.Estado = estado;
+            }
+
+            await _context.SaveChangesAsync();
+            
             return response;
         }
 
         public async Task<FormulaCreateResponse?> Crear(FormulaCreateReq request)
         {
             FormulaCreateResponse response = new FormulaCreateResponse();
+
+
             Formula formula = _mapper.Map<Formula>(request);
             formula.ModificadorId = formula.CreadorId;
             response.FormulaRes = formula;
             response.Msg = "Formula creado exitosamente.";
-            await _context.Formulas.AddAsync(formula);            
+
+            await _context.Formulas.AddAsync(formula);
             await _context.SaveChangesAsync();
+
+            Pedido? pedido = await _context.Pedidos
+            .Include(i => i.Formulas)
+            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+            if (pedido == null)
+            {
+                return null;
+            }
+
+            string? estado = PedidoService.CalcularEstado(pedido.Formulas);
+            if (pedido.Estado != estado)
+            {
+                pedido.Estado = estado;
+            }
+            pedido.Total = pedido.Total + formula.Costo;
+
             return response;
         }
 

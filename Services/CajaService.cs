@@ -23,12 +23,17 @@ namespace Proy_back_QBD.Services
 
         public async Task<CajaFindAllRes?> Obtener(CajaFindAllReq request)
         {
+            
             List<Cobro> caja = await _context.Cobros
                     .Include(i => i.Pedido.Paciente.Persona)
+                    .Include(i => i.Pedido.Formulas)
+                    .Include(i => i.Pedido.ProdTerms)
                     .Where(w =>
-                        DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio &&
-                        DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal)
+                        DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
+                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
+                        )
                     .ToListAsync();
+            
 
             List<MovimientosEfectivo> movimientos = caja.Select(s => new MovimientosEfectivo
             {
