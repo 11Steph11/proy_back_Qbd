@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Proy_back_QBD.Controllers;
 
 [ApiController]
-[Route("api/prodTerm")]
+[Route("api/prod")]
 public class ProductoController : ControllerBase
 {
 

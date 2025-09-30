@@ -32,6 +32,7 @@ namespace Proy_back_QBD.Services
             _mapper.Map(request, prodTerm);
 
             await _context.SaveChangesAsync();
+
             return prodTerm;
         }
 
@@ -39,8 +40,10 @@ namespace Proy_back_QBD.Services
         {
             ProdTerm prodTerm = _mapper.Map<ProdTerm>(request);
             prodTerm.ModificadorId = prodTerm.CreadorId;
+
             await _context.ProdTerms.AddAsync(prodTerm);
             await _context.SaveChangesAsync();
+            
             return prodTerm;
         }
 

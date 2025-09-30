@@ -28,7 +28,7 @@ public class FormulaController : ControllerBase
         {
             return BadRequest("Request cannot be null");
         }
-        FormulaCreateResponse? response = await _formulaService.Crear(request);
+        FormulaCreateResponse? response = await _formulaService.CrearFormPed(request);
         return Ok(response);
     }
     [HttpPut("{id}")]

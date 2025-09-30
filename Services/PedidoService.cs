@@ -55,9 +55,11 @@ namespace Proy_back_QBD.Services
                 prodTermList.Add(prodTerm);
             }
 
-            // decimal total = SumaPedido(prodTermList, request.ProductosTerminados);
+            decimal? total = SumaPedido(formulaList, prodTermList);
 
             Pedido pedido = _mapper.Map<Pedido>(request);
+            pedido.Total = total;
+            pedido.Saldo = total;
             pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
@@ -65,22 +67,24 @@ namespace Proy_back_QBD.Services
             await _context.Pedidos.AddAsync(pedido);
             await _context.SaveChangesAsync();
 
-            foreach (var item in formulaList)
+            foreach (var item in prodTermList)
             {
-                ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
-                prodTerm.ModificadorId = prodTerm.CreadorId;
-                prodTerm.PedidoId = pedido.Id;
-                await _context.AddAsync(prodTerm);
+                item.ModificadorId = item.CreadorId;
+                item.PedidoId = pedido.Id;
+
+                await _context.ProdTerms.AddAsync(item);
             }
 
-            foreach (var item in request.Formulas)
+            foreach (var item in formulaList)
             {
-                Formula formula = _mapper.Map<Formula>(item);
-                formula.ModificadorId = formula.CreadorId;
-                formula.PedidoId = pedido.Id;
-                await _context.AddAsync(formula);
+                item.ModificadorId = item.CreadorId;
+                item.PedidoId = pedido.Id;
+
+                await _context.Formulas.AddAsync(item);
             }
+
             await _context.SaveChangesAsync();
+
             return response;
         }
 
@@ -91,9 +95,11 @@ namespace Proy_back_QBD.Services
             .Include(p => p.ProdTerms)
            .FirstOrDefaultAsync(a => a.Id == id);
             if (pedido == null) return null;
+
             pedido.Boleta = boleta;
 
             await _context.SaveChangesAsync();
+            
             return pedido;
         }
 
@@ -171,6 +177,7 @@ namespace Proy_back_QBD.Services
             PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
             return response;
         }
+        
         public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
             decimal? total = 0;

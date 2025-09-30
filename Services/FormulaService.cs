@@ -55,7 +55,7 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<FormulaCreateResponse?> Crear(FormulaCreateReq request)
+        public async Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request)
         {
             FormulaCreateResponse response = new FormulaCreateResponse();
 
@@ -81,7 +81,8 @@ namespace Proy_back_QBD.Services
             {
                 pedido.Estado = estado;
             }
-            pedido.Total = pedido.Total + formula.Costo;
+            pedido.Total += formula.Costo * formula.Cantidad;
+            pedido.Saldo =+ formula.Costo * formula.Cantidad;
 
             return response;
         }
@@ -91,6 +92,8 @@ namespace Proy_back_QBD.Services
             Formula? formula = await _context.Formulas
            .FindAsync(id);
             _context.Formulas.Remove(formula);
+            Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId);
+            pedido.Total = pedido.Total - (formula.Costo * formula.Cantidad);
             await _context.SaveChangesAsync();
             return formula;
         }
