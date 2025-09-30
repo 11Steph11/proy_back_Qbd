@@ -23,13 +23,47 @@ namespace Proy_back_QBD.Services
             ProdTerm? prodTerm = await _context.ProdTerms
             .Where(p => p.Id == id)
             .FirstOrDefaultAsync();
-
             if (prodTerm == null)
             {
                 return null;
             }
 
             _mapper.Map(request, prodTerm);
+
+            await _context.SaveChangesAsync();
+
+            Pedido? pedido = await _context.Pedidos
+            .Include(i => i.ProdTerms)
+            .FirstOrDefaultAsync(fod => fod.Id == prodTerm.Id);
+            if (pedido == null)
+            {
+                return null;
+            }
+            List<ProdTerm>? prodTerms = pedido.ProdTerms;
+            if (prodTerms == null)
+            {
+                return null;
+            }
+            
+            decimal costoReq = 0;
+            costoReq = request.Costo * request.Cantidad;
+            decimal costoForm = 0;
+            costoForm = prodTerm.Costo * prodTerm.Cantidad;
+            decimal? diferencia = Math.Abs(costoReq - costoForm);
+
+            if (costoReq != costoForm)
+            {
+                if (costoReq > costoForm)
+                {
+                    pedido.Total -= diferencia;
+                    pedido.Saldo -= diferencia;
+                }
+                else if (costoReq < costoForm)
+                {
+                    pedido.Total += diferencia;
+                    pedido.Saldo += diferencia;
+                }
+            }
 
             await _context.SaveChangesAsync();
 

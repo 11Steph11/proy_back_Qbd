@@ -35,8 +35,8 @@ namespace Proy_back_QBD.Dto.Request
     }
     public class FormulaUpdateReq
     {
-        public decimal? Costo { get; set; }                    // Costo del pedido
-        public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
+        public decimal Costo { get; set; }                    // Costo del pedido
+        public int Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         public string? FormulaMagistral { get; set; }          // Descripción de la fórmula magistral
         public string? FormulaFarmaceutica { get; set; }           // Descripción de la fórmula de farmacia
         public decimal? GPorMl { get; set; }                   // g/ml (gramos por mililitro)

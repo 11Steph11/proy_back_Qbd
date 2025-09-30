@@ -13,9 +13,9 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }                          // ID único del pedido
         [Column("costo")]
-        public decimal? Costo { get; set; }                    // Costo del pedido
+        public decimal Costo { get; set; }                    // Costo del pedido
         [Column("cantidad")]
-        public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
+        public int Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         [Column("formula_magistral")]
         public string? FormulaMagistral { get; set; }          // Descripción de la fórmula magistral
         [Column("formula_farmaceutica")]

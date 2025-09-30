@@ -43,15 +43,40 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
+            List<Formula>? formulas = pedido.Formulas;
+            if (formulas == null)
+            {
+                return null;
+            }
 
-            string? estado = PedidoService.CalcularEstado(pedido.Formulas);
+            string? estado = PedidoService.CalcularEstado(formulas);
             if (pedido.Estado != estado)
             {
                 pedido.Estado = estado;
             }
+            
+            decimal costoReq = 0;
+            costoReq = request.Costo * request.Cantidad;
+            decimal costoForm = 0;
+            costoForm = formula.Costo * formula.Cantidad;
+            decimal? diferencia = Math.Abs(costoReq - costoForm);
+
+            if (costoReq != costoForm)
+            {
+                if (costoReq > costoForm)
+                {
+                    pedido.Total -= diferencia;
+                    pedido.Saldo -= diferencia;
+                }
+                else if (costoReq < costoForm)
+                {
+                    pedido.Total += diferencia;
+                    pedido.Saldo += diferencia;
+                }
+            }
 
             await _context.SaveChangesAsync();
-            
+
             return response;
         }
 
@@ -82,7 +107,7 @@ namespace Proy_back_QBD.Services
                 pedido.Estado = estado;
             }
             pedido.Total += formula.Costo * formula.Cantidad;
-            pedido.Saldo =+ formula.Costo * formula.Cantidad;
+            pedido.Saldo += formula.Costo * formula.Cantidad;
 
             return response;
         }
@@ -93,7 +118,7 @@ namespace Proy_back_QBD.Services
            .FindAsync(id);
             _context.Formulas.Remove(formula);
             Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId);
-            pedido.Total = pedido.Total - (formula.Costo * formula.Cantidad);
+            pedido.Total -= formula.Costo * formula.Cantidad;
             await _context.SaveChangesAsync();
             return formula;
         }
