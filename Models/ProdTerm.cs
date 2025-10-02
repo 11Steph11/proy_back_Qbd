@@ -11,13 +11,13 @@ namespace Proy_back_QBD.Models
     {
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }                          // ID único del pedido
+        public int? Id { get; set; }                          // ID único del pedido 
         [Column("costo")]
         public decimal Costo { get; set; }                    // Costo del pedido
         [Column("cantidad")]
         public int Cantidad { get; set; }                     // Cantidad de unidades solicitadas
-        [Column("codigo")]
-        public string? Codigo { get; set; }                   // g/ml (gramos por mililitro)
+        [Column("producto_id")]
+        public int? ProductoId { get; set; }                   // g/ml (gramos por mililitro)
         [Column("zona_aplicacion")]
         public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         [Column("diagnostico")]
@@ -42,6 +42,8 @@ namespace Proy_back_QBD.Models
         public int? PedidoId { get; set; }
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
+        [JsonIgnore]
+        public Producto? ProdDetalle { get; set; }
 
     }
 

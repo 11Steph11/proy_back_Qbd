@@ -36,10 +36,14 @@ namespace Proy_back_QBD.Services
                     .Where(w =>
                         DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
                         && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
-                        && w.Pedido.Estado.ToUpper() == "ENTREGADO"
                         )
-                    .ToListAsync();
-
+                    .ToListAsync();            
+            List<Pedido> pedido = await _context.Pedidos
+                                .Include(i => i.Cobros)
+                                .Where(w =>
+                                    w.FechaCreacion == DateTime.Today
+                                    )
+                                .ToListAsync();
 
             List<MovimientosEfectivo> movimientos = caja.Select(s => new MovimientosEfectivo
             {

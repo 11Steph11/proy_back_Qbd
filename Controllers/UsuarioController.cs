@@ -38,7 +38,7 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(Usuario))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(Pedido))]
     public async Task<IActionResult> CrearUsuario([FromBody] UsuarioCreateReq request)
     {
         Usuario? usuario = await _userService.Crear(request);
@@ -47,7 +47,7 @@ public class UsuarioController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [SwaggerResponse(200, "Operación exitosa", typeof(Usuario))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(Pedido))]
     public async Task<IActionResult> EliminarUsuario(int id)
     {
         Usuario? usuario = await _userService.Eliminar(id);

@@ -6,6 +6,7 @@ using AutoMapper;
 using Proy_back_QBD.Profiles;
 using Proy_back_QBD.Services;
 using System.Reflection;
+using Proy_back_QBD.Util;
 Env.Load(); // Cargar variables de entorno desde el archivo .env
 
 var builder = WebApplication.CreateBuilder(args);

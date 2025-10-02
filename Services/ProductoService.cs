@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Services
 
         public async Task<List<ProductoRes>?> Obtener()
         {
-            List<ProductoRes> response = await _context.Productos
+            List<ProductoRes> response = await _context.ProdDetalles
                                         .Select(s => new ProductoRes
                                         {
                                             Id = s.Id,
