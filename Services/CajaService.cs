@@ -23,7 +23,12 @@ namespace Proy_back_QBD.Services
 
         public async Task<CajaFindAllRes?> Obtener(CajaFindAllReq request)
         {
-            
+            RecaudacionDelDia recaudDia = new();
+            RPagosDelDia pagosDia = new();
+            RPagosAnteriores pagosAnteriores = new();
+            BQPagosDelDia bqPagos = new();
+            Ventas ventas = new();
+
             List<Cobro> caja = await _context.Cobros
                     .Include(i => i.Pedido.Paciente.Persona)
                     .Include(i => i.Pedido.Formulas)
@@ -31,9 +36,10 @@ namespace Proy_back_QBD.Services
                     .Where(w =>
                         DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
                         && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
+                        && w.Pedido.Estado.ToUpper() == "ENTREGADO"
                         )
                     .ToListAsync();
-            
+
 
             List<MovimientosEfectivo> movimientos = caja.Select(s => new MovimientosEfectivo
             {
@@ -49,10 +55,7 @@ namespace Proy_back_QBD.Services
                 Turno = s.Turno,
                 BolFac = s.Pedido.ComprobanteElectronico
             }).ToList();
-            RecaudacionDelDia recaudDia = new();
-            RPagosDelDia pagosDia = new();
-            RPagosAnteriores pagosAnteriores = new();
-            BQPagosDelDia bqPagos = new();
+
             DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
             foreach (var item in movimientos)
             {
@@ -104,6 +107,7 @@ namespace Proy_back_QBD.Services
                 }
                 recaudDia.Total += item.Importe;
             }
+
             CajaFindAllRes? response = new CajaFindAllRes
             {
                 Movimientos = movimientos,

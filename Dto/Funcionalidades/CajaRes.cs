@@ -59,7 +59,7 @@ namespace Proy_back_QBD.Response
     {
         public decimal? Total { get; set; } = 0;
         public decimal? Adelantos { get; set; } = 0;
-        public decimal? Electronico { get; set; } = 0;
+        public decimal? Saldo { get; set; } = 0;
     }
 
 

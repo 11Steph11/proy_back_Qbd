@@ -155,6 +155,10 @@ namespace Proy_back_QBD.Services
                 {
                     resultado = "EN PROCESO";
                 }
+                else if (formula.Estado.Trim().ToUpper().Equals("TERMINADO"))
+                {
+                    resultado = "TERMINADO";
+                }
                 else if (formula.Estado.Trim().ToUpper().Equals("ENTREGADOS"))
                 {
                     resultado = "ENTREGADO";
