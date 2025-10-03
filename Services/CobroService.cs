@@ -88,7 +88,7 @@ namespace Proy_back_QBD.Services
                 totalCobro = PedidoService.SumaCobro(pedido.Cobros);
             }
 
-            if (totalCobro + request.Importe >= totalPedido)
+            if (totalCobro + request.Importe > totalPedido)
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
@@ -96,9 +96,9 @@ namespace Proy_back_QBD.Services
 
             Cobro cobro = _mapper.Map<Cobro>(request);
             cobro.ModificadorId = cobro.CreadorId;
+            await _context.Cobros.AddAsync(cobro);
             pedido.Adelanto = totalCobro;
             pedido.Saldo = totalPedido - totalCobro;
-            await _context.Cobros.AddAsync(cobro);
             await _context.SaveChangesAsync();
             cobroCreateRes.Cobro = cobro;
             return cobroCreateRes;
