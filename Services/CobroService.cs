@@ -66,6 +66,7 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
             .Include(i => i.ProdTerms)
+            .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
 
             if (pedido == null)

@@ -40,12 +40,26 @@ namespace Proy_back_QBD.Services
         {
             PedidoCreateResponse response = new PedidoCreateResponse();
             List<Formula> formulaList = new();
+            DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
+            int correlativo = await _context.Formulas
+                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
+                                    .CountAsync() + 1;
+
             List<ProdTerm> prodTermList = new();
 
+            var codLote = 
+           DateTime.Now.Year.ToString().Substring(2, 2) +
+           DateTime.Now.Month.ToString("D2") + // El mes con 2 dígitos
+           DateTime.Now.Day.ToString("D2")
+           ;   // El día con 2 dígitos
+            Console.WriteLine(codLote);
+            
             foreach (var item in request.Formulas)
             {
+                int c = 0;
                 Formula formula = _mapper.Map<Formula>(item);
-        
+                formula.Lote = codLote + (correlativo + c);
+                c++;
                 formulaList.Add(formula);
             }
             foreach (var item in request.ProductosTerminados)
@@ -59,7 +73,7 @@ namespace Proy_back_QBD.Services
 
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.Total = total;
-            pedido.Saldo = total;
+            pedido.Saldo = total;            
             pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
