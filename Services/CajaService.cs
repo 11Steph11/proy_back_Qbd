@@ -35,17 +35,13 @@ namespace Proy_back_QBD.Services
                     .Include(i => i.Pedido.ProdTerms)
                     .Where(w =>
                         DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
-                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
+                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal                        
                         )
-                    .ToListAsync();            
-            List<Pedido> pedido = await _context.Pedidos
-                                .Include(i => i.Cobros)
-                                .Where(w =>
-                                    w.FechaCreacion == DateTime.Today
-                                    )
-                                .ToListAsync();
+                    .ToListAsync();      
 
-            List<MovimientosEfectivo> movimientos = caja.Select(s => new MovimientosEfectivo
+            List<MovimientosEfectivo> movimientos = caja
+            .Where(w => w.Pedido.Estado == "ENTREGADO")
+            .Select(s => new MovimientosEfectivo            
             {
                 CUO_R = "BDRP-" + s.PedidoId,
                 CUO_C = "BDRC-" + s.Id,
@@ -58,7 +54,8 @@ namespace Proy_back_QBD.Services
                 Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                 Turno = s.Turno,
                 BolFac = s.Pedido.ComprobanteElectronico
-            }).ToList();
+            })
+            .ToList();  
 
             DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
             foreach (var item in movimientos)
@@ -111,6 +108,16 @@ namespace Proy_back_QBD.Services
                 }
                 recaudDia.Total += item.Importe;
             }
+            decimal? adelantoInc = 0;
+            decimal? saldoInc = 0;
+            foreach (var item in caja)
+            {
+                adelantoInc = item.Pedido.Adelanto;
+                saldoInc = item.Pedido.Saldo;
+            }
+            ventas.Total = recaudDia.Total + adelantoInc;
+            ventas.Adelantos =  adelantoInc;
+            ventas.Saldo = saldoInc;
 
             CajaFindAllRes? response = new CajaFindAllRes
             {
@@ -118,7 +125,8 @@ namespace Proy_back_QBD.Services
                 RecaudacionDelDia = recaudDia,
                 RPagosDelDia = pagosDia,
                 RPagosAnteriores = pagosAnteriores,
-                BQPagos = bqPagos
+                BQPagos = bqPagos,
+                Ventas = ventas                
             };
 
             return response;

@@ -54,7 +54,7 @@ namespace Proy_back_QBD.Services
             {
                 pedido.Estado = estado;
             }
-            
+
             decimal costoReq = 0;
             costoReq = request.Costo * request.Cantidad;
             decimal costoForm = 0;
@@ -83,9 +83,20 @@ namespace Proy_back_QBD.Services
         public async Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request)
         {
             FormulaCreateResponse response = new FormulaCreateResponse();
+            DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
+            int correlativo = await _context.Formulas
+                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
+                                    .CountAsync() + 1;
+
+
+            var codLote =
+           DateTime.Now.Year.ToString().Substring(2, 2) +
+           DateTime.Now.Month.ToString("D2") +
+           DateTime.Now.Day.ToString("D2");
 
             Formula formula = _mapper.Map<Formula>(request);
             formula.ModificadorId = formula.CreadorId;
+            formula.Lote = codLote + correlativo.ToString("D3");
             response.FormulaRes = formula;
             response.Msg = "Formula creado exitosamente.";
 
@@ -95,6 +106,7 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+
             if (pedido == null)
             {
                 return null;

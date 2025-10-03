@@ -53,8 +53,10 @@ namespace Proy_back_QBD.Services
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
             }
+            
             _mapper.Map(request, cobro);
-
+            pedido.Adelanto = totalCobro;
+            pedido.Saldo = totalPedido - totalCobro;
             await _context.SaveChangesAsync();
             cobroCreateRes.Cobro = cobro;
             return cobroCreateRes;

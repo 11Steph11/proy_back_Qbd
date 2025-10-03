@@ -16,6 +16,7 @@ namespace Proy_back_QBD.Response
         public RPagosDelDia? RPagosDelDia { get; set; }
         public RPagosAnteriores? RPagosAnteriores { get; set; }
         public BQPagosDelDia? BQPagos { get; set; }
+        public Ventas? Ventas { get; set; }
     }
     public class MovimientosEfectivo
     {
