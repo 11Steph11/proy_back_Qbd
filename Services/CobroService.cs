@@ -64,13 +64,17 @@ namespace Proy_back_QBD.Services
 
         public async Task<CobroCreateRes?> Crear(CobroCreateReq request)
         {
+            if (request.Importe == 0)
+            {
+                return null;
+            }
             CobroCreateRes cobroCreateRes = new CobroCreateRes();
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
             .Include(i => i.ProdTerms)
             .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
-
+            
             if (pedido == null)
             {
                 return null;
@@ -97,8 +101,8 @@ namespace Proy_back_QBD.Services
             Cobro cobro = _mapper.Map<Cobro>(request);
             cobro.ModificadorId = cobro.CreadorId;
             await _context.Cobros.AddAsync(cobro);
-            pedido.Adelanto = totalCobro;
-            pedido.Saldo = totalPedido - totalCobro;
+            pedido.Adelanto = totalCobro+cobro.Importe;
+            pedido.Saldo = totalPedido - (totalCobro + cobro.Importe);
             await _context.SaveChangesAsync();
             cobroCreateRes.Cobro = cobro;
             return cobroCreateRes;
