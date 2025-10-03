@@ -95,7 +95,7 @@ namespace Proy_back_QBD.Services
             Cobro cobro = _mapper.Map<Cobro>(request);
             cobro.ModificadorId = cobro.CreadorId;
             pedido.Adelanto = totalCobro;
-            pedido.Saldo = totalPedido + totalCobro;
+            pedido.Saldo = totalPedido - totalCobro;
             await _context.Cobros.AddAsync(cobro);
             await _context.SaveChangesAsync();
             cobroCreateRes.Cobro = cobro;
