@@ -35,6 +35,7 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.ProdTerms)
             .FirstOrDefaultAsync(fod => fod.Id == prodTerm.Id);
+            
             if (pedido == null)
             {
                 return null;
@@ -74,7 +75,7 @@ namespace Proy_back_QBD.Services
         {
             ProdTerm prodTerm = _mapper.Map<ProdTerm>(request);
             prodTerm.ModificadorId = prodTerm.CreadorId;
-            prodTerm.Estado = "PENDIENTE";
+            prodTerm.Estado = "TERMINADO";
 
             await _context.ProdTerms.AddAsync(prodTerm);
             await _context.SaveChangesAsync();
@@ -82,6 +83,7 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.ProdTerms)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+
             if (pedido == null)
             {
                 return null;

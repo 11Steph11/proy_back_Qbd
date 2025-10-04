@@ -22,13 +22,34 @@ namespace Proy_back_QBD.Services
         {
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
+            .Include(i => i.Formulas)
             .Where(p => p.Id == id)
             .FirstOrDefaultAsync();
+
             if (pedido == null)
             {
                 response.Msg = "no se encontró";
                 return response;
             }
+            
+            if (request.Estado != pedido.Estado)
+            {
+                foreach (var item in pedido.Formulas)
+                {
+                    item.Estado = request.Estado;
+                }
+            }
+
+            if (request.Estado == "ENTREGADO")
+            {
+                foreach (var item in pedido.ProdTerms)
+                {
+                    item.Estado = request.Estado;
+                }
+            }
+
+
+
             _mapper.Map(request, pedido);
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
@@ -57,7 +78,7 @@ namespace Proy_back_QBD.Services
             {
                 int c = 0;
                 Formula formula = _mapper.Map<Formula>(item);
-                formula.Estado ="PENDIENTE";
+                formula.Estado = "PENDIENTE";
                 formula.Lote = codLote + (correlativo + c).ToString("D3");
                 c++;
                 formulaList.Add(formula);
@@ -66,7 +87,7 @@ namespace Proy_back_QBD.Services
             foreach (var item in request.ProductosTerminados)
             {
                 ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
-                prodTerm.Estado ="PENDIENTE";
+                prodTerm.Estado = "PENDIENTE";
                 prodTermList.Add(prodTerm);
             }
 
@@ -155,33 +176,33 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public static string? CalcularEstado(List<Formula> Formulas)
-        {
+        // public static string? CalcularEstado(List<Formula> Formulas)
+        // {
 
-            string? resultado = "ENTREGADO";
+        //     string? resultado = "ENTREGADO";
 
-            foreach (var formula in Formulas)
-            {
-                if (formula.Estado.Trim().ToUpper().Equals("PENDIENTE"))
-                {
-                    resultado = "PENDIENTE";
-                }
-                else if (formula.Estado.Trim().ToUpper().Equals("EN PROCESO"))
-                {
-                    resultado = "EN PROCESO";
-                }
-                else if (formula.Estado.Trim().ToUpper().Equals("TERMINADO"))
-                {
-                    resultado = "TERMINADO";
-                }
-                else if (formula.Estado.Trim().ToUpper().Equals("ENTREGADO"))
-                {
-                    resultado = "ENTREGADO";
-                }
-            }
+        //     foreach (var formula in Formulas)
+        //     {
+        //         if (formula.Estado.Trim().ToUpper().Equals("PENDIENTE"))
+        //         {
+        //             resultado = "PENDIENTE";
+        //         }
+        //         else if (formula.Estado.Trim().ToUpper().Equals("EN PROCESO"))
+        //         {
+        //             resultado = "EN PROCESO";
+        //         }
+        //         else if (formula.Estado.Trim().ToUpper().Equals("TERMINADO"))
+        //         {
+        //             resultado = "TERMINADO";
+        //         }
+        //         else if (formula.Estado.Trim().ToUpper().Equals("ENTREGADO"))
+        //         {
+        //             resultado = "ENTREGADO";
+        //         }
+        //     }
 
-            return resultado;
-        }
+        //     return resultado;
+        // }
 
         public async Task<PedidoFindIdResponse?> ObtenerById(int id)
         {

@@ -49,11 +49,11 @@ namespace Proy_back_QBD.Services
                 return null;
             }
 
-            string? estado = PedidoService.CalcularEstado(formulas);
-            if (pedido.Estado != estado)
-            {
-                pedido.Estado = estado;
-            }
+            // string? estado = PedidoService.CalcularEstado(formulas);
+            // if (pedido.Estado != estado)
+            // {
+            //     pedido.Estado = estado;
+            // }
 
             decimal costoReq = 0;
             costoReq = request.Costo * request.Cantidad;
@@ -113,11 +113,11 @@ namespace Proy_back_QBD.Services
                 return null;
             }
 
-            string? estado = PedidoService.CalcularEstado(pedido.Formulas);
-            if (pedido.Estado != estado)
-            {
-                pedido.Estado = estado;
-            }
+            // string? estado = PedidoService.CalcularEstado(pedido.Formulas);
+            // if (pedido.Estado != estado)
+            // {
+            //     pedido.Estado = estado;
+            // }
             pedido.Total += formula.Costo * formula.Cantidad;
             pedido.Saldo += formula.Costo * formula.Cantidad;
 
