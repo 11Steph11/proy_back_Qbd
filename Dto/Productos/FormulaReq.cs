@@ -13,7 +13,6 @@ namespace Proy_back_QBD.Dto.Request
         public string? Lote { get; set; }                      // Lote del producto
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
         public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
-        public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         public int CreadorId { get; set; }
     }
@@ -29,7 +28,6 @@ namespace Proy_back_QBD.Dto.Request
         public string? Lote { get; set; }                      // Lote del producto
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
         public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
-        public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         public int CreadorId { get; set; }
     }

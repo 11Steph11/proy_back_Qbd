@@ -96,6 +96,7 @@ namespace Proy_back_QBD.Services
 
             Formula formula = _mapper.Map<Formula>(request);
             formula.ModificadorId = formula.CreadorId;
+            formula.Estado = "PENDIENTE";
             formula.Lote = codLote + correlativo.ToString("D3");
             response.FormulaRes = formula;
             response.Msg = "Formula creado exitosamente.";

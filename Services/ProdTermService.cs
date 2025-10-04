@@ -74,6 +74,7 @@ namespace Proy_back_QBD.Services
         {
             ProdTerm prodTerm = _mapper.Map<ProdTerm>(request);
             prodTerm.ModificadorId = prodTerm.CreadorId;
+            prodTerm.Estado = "PENDIENTE";
 
             await _context.ProdTerms.AddAsync(prodTerm);
             await _context.SaveChangesAsync();

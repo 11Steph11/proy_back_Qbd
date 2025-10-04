@@ -47,12 +47,12 @@ namespace Proy_back_QBD.Services
                                     .CountAsync() + 1;
 
 
-            var codLote = 
+            var codLote =
            DateTime.Now.Year.ToString().Substring(2, 2) +
            DateTime.Now.Month.ToString("D2") + // El mes con 2 dígitos
            DateTime.Now.Day.ToString("D2")
            ;   // El día con 2 dígitos
-            
+
             foreach (var item in request.Formulas)
             {
                 int c = 0;
@@ -61,11 +61,10 @@ namespace Proy_back_QBD.Services
                 c++;
                 formulaList.Add(formula);
             }
-            
+
             foreach (var item in request.ProductosTerminados)
             {
                 ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
-
                 prodTermList.Add(prodTerm);
             }
 
@@ -73,7 +72,7 @@ namespace Proy_back_QBD.Services
 
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.Total = total;
-            pedido.Saldo = total;            
+            pedido.Saldo = total;
             pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
@@ -84,6 +83,7 @@ namespace Proy_back_QBD.Services
             foreach (var item in prodTermList)
             {
                 item.ModificadorId = item.CreadorId;
+                item.Estado = "PENDIENTE";
                 item.PedidoId = pedido.Id;
 
                 await _context.ProdTerms.AddAsync(item);
@@ -93,7 +93,7 @@ namespace Proy_back_QBD.Services
             {
                 item.ModificadorId = item.CreadorId;
                 item.PedidoId = pedido.Id;
-
+                item.Estado = "PENDIENTE";
                 await _context.Formulas.AddAsync(item);
             }
 
@@ -113,7 +113,7 @@ namespace Proy_back_QBD.Services
             pedido.Boleta = boleta;
 
             await _context.SaveChangesAsync();
-            
+
             return pedido;
         }
 
@@ -153,7 +153,7 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
-        
+
         public static string? CalcularEstado(List<Formula> Formulas)
         {
 
@@ -195,7 +195,7 @@ namespace Proy_back_QBD.Services
             PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
             return response;
         }
-        
+
         public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
             decimal? total = 0;

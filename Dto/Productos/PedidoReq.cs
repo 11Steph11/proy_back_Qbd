@@ -30,6 +30,7 @@ namespace Proy_back_QBD.Dto.Request
         public string? Img1 { get; set; }
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
+        public string? Estado { get; set; }
         public string? ComprobanteElectronico { get; set; }
         public int ModificadorId { get; set; }
         public DateTime? FechaEntrega { get; set; }
