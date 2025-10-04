@@ -4,6 +4,7 @@ using Proy_back_QBD.Data;
 using Proy_back_QBD.Models;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Dto.Response;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Proy_back_QBD.Services
 {
@@ -23,8 +24,9 @@ namespace Proy_back_QBD.Services
 
         public async Task<List<SedeFindAllResponse?>> Obtener()
         {
-            List<SedeFindAllResponse>? response = await _context.Sedes            
-            .Select(a => new SedeFindAllResponse{
+            List<SedeFindAllResponse>? response = await _context.Sedes
+            .Select(a => new SedeFindAllResponse
+            {
                 Id = a.Id,
                 Nombre = a.Nombre,
                 Direccion = a.Direccion,
@@ -33,5 +35,47 @@ namespace Proy_back_QBD.Services
             }).ToListAsync();
             return response;
         }
+
+        public async Task<GeneralRes?> ObtGeneral(int id)
+        {
+            GeneralRes? response = await _context.Sedes
+                        .Where(w => w.Id == id)
+                        .Select(s => new GeneralRes
+                        {
+                            MsgGpt = s.MsgGpt,
+                            MsgWsp = s.MsgWsp
+                        }).FirstOrDefaultAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
+
+            return response;
+        }
+
+        public async Task<string?> ActualizarGeneral(int id, GeneralReq request)
+        {
+            var entidad = await _context.Sedes.FirstOrDefaultAsync(f => f.Id == id);
+            if (entidad == null)
+            {
+                return null;
+            }
+            if (request.MsgWsp != null)
+            {
+                entidad.MsgWsp = request.MsgWsp;
+            }
+
+            if (request.MsgGpt != null)
+            {
+                entidad.MsgGpt = request.MsgGpt;
+            }
+
+            _context.Sedes.Update(entidad);
+            await _context.SaveChangesAsync();
+
+            return "registro exitoso";
+        }
+
     }
 }

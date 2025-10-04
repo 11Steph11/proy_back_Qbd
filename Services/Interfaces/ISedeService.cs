@@ -10,6 +10,7 @@ namespace Proy_back_QBD.Services
         // Task<SedeUpdateResponse?> Actualizar(int id, SedeUpdateReq request);
         // Task<Sede?> Eliminar(int id);
         Task<List<SedeFindAllResponse?>> Obtener();
-        // Task<SedeFindIdResponse?> ObtenerById(int id);
+        Task<GeneralRes?> ObtGeneral(int id);
+        Task<string?> ActualizarGeneral(int id, GeneralReq request);
     }
 }

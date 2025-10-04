@@ -42,4 +42,26 @@ public class SedeController : ControllerBase
         }
         return Ok(response);
     }
+    [HttpGet("msgs/{id}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(GeneralRes))]
+    public async Task<IActionResult> DatosGenerales(int id)
+    {
+        GeneralRes? response = await _sedeService.ObtGeneral(id);                                                 ;
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
+    [HttpPatch("sedeId/{id}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(GeneralRes))]
+    public async Task<IActionResult> DatosGenerales(int id, GeneralReq request)
+    {
+        string? response = await _sedeService.ActualizarGeneral(id, request);
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
 }
