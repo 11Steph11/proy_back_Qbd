@@ -57,6 +57,7 @@ namespace Proy_back_QBD.Services
             {
                 int c = 0;
                 Formula formula = _mapper.Map<Formula>(item);
+                formula.Estado ="PENDIENTE";
                 formula.Lote = codLote + (correlativo + c).ToString("D3");
                 c++;
                 formulaList.Add(formula);
@@ -65,6 +66,7 @@ namespace Proy_back_QBD.Services
             foreach (var item in request.ProductosTerminados)
             {
                 ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
+                prodTerm.Estado ="PENDIENTE";
                 prodTermList.Add(prodTerm);
             }
 
@@ -73,6 +75,7 @@ namespace Proy_back_QBD.Services
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.Total = total;
             pedido.Saldo = total;
+            pedido.Estado = "PENDIENTE";
             pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
@@ -83,7 +86,6 @@ namespace Proy_back_QBD.Services
             foreach (var item in prodTermList)
             {
                 item.ModificadorId = item.CreadorId;
-                item.Estado = "PENDIENTE";
                 item.PedidoId = pedido.Id;
 
                 await _context.ProdTerms.AddAsync(item);
@@ -93,7 +95,6 @@ namespace Proy_back_QBD.Services
             {
                 item.ModificadorId = item.CreadorId;
                 item.PedidoId = pedido.Id;
-                item.Estado = "PENDIENTE";
                 await _context.Formulas.AddAsync(item);
             }
 
@@ -199,6 +200,11 @@ namespace Proy_back_QBD.Services
         public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
             decimal? total = 0;
+
+            if (listaForm == null || listaProdTerm == null)
+            {
+                throw new ArgumentNullException("Las listas no pueden ser null.");
+            }
 
             if (listaForm.Count() != 0 || listaForm != null)
             {
