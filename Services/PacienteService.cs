@@ -22,13 +22,16 @@ namespace Proy_back_QBD.Services
         public async Task<PacienteUpdateResponse?> Actualizar(int id, PacienteUpdateReq request)
         {
             PacienteUpdateResponse response = new PacienteUpdateResponse();
-            Paciente? paciente = await _context.Pacientes.FindAsync(id);
+            Paciente? paciente = await _context.Pacientes
+                                                .Include(i => i.Persona)
+                                                .FirstOrDefaultAsync(fod => fod.Id == id);
             if (paciente == null)
             {
                 response.Msg = "no se encontró";
                 return response;
             }
             _mapper.Map(request, paciente);
+            _mapper.Map(request.Persona, paciente.Persona);
             response.Msg = "Paciente Actualizado";
             response.PacienteRes = paciente;
             await _context.SaveChangesAsync();
