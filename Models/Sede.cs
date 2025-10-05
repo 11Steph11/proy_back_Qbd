@@ -23,6 +23,8 @@ namespace Proy_back_QBD.Models
         public string? Telefono { get; set; }  // Puede ser nulo               
         [Column("msg_wsp")]
         public string? MsgWsp { get; set; }  // Puede ser nulo                        
+        [Column("meta")]
+        public int? Meta { get; set; }  // Puede ser nulo                        
         [Column("msg_gpt")]
         public string? MsgGpt { get; set; }  // Puede ser nulo               
         [Column("fecha_creacion")]

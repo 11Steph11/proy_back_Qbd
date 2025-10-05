@@ -4,6 +4,7 @@ namespace Proy_back_QBD.Dto.Response
 {
     public class GeneralRes
     {
+        public int? Meta { get; set; }
         public string? MsgWsp { get; set; }
         public string? MsgGpt { get; set; }
     }

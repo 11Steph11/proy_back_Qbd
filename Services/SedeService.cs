@@ -42,6 +42,7 @@ namespace Proy_back_QBD.Services
                         .Where(w => w.Id == id)
                         .Select(s => new GeneralRes
                         {
+                            Meta = s.Meta,
                             MsgGpt = s.MsgGpt,
                             MsgWsp = s.MsgWsp
                         }).FirstOrDefaultAsync();
@@ -69,6 +70,10 @@ namespace Proy_back_QBD.Services
             if (request.MsgGpt != null)
             {
                 entidad.MsgGpt = request.MsgGpt;
+            }
+            if (request.Meta != null)
+            {
+                entidad.Meta = request.Meta;
             }
 
             _context.Sedes.Update(entidad);
