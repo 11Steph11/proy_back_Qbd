@@ -74,7 +74,10 @@ namespace Proy_back_QBD.Services
                 {
                     foreach (var item in pedido.Formulas)
                     {
-                        item.Estado = estado;
+                        if (item.Estado != "DEVUELTO")
+                        {
+                            item.Estado = estado;
+                        }
                     }
                 }
                 else
@@ -90,16 +93,20 @@ namespace Proy_back_QBD.Services
                 {
                     foreach (var item in pedido.ProdTerms)
                     {
-                        item.Estado = estado;
+                        if (item.Estado != "DEVUELTO")
+                        {
+                            item.Estado = estado;
+                        }
                     }
                 }
             }
-            pedido.Estado =estado;
+            pedido.Estado = estado;
             _context.Update(pedido);
             response = "Estado Actualizado";
             await _context.SaveChangesAsync();
             return response;
         }
+
         public async Task<PedidoCreateResponse?> Crear(PedidoCreateReq request)
         {
             PedidoCreateResponse response = new PedidoCreateResponse();
