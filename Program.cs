@@ -7,6 +7,7 @@ using Proy_back_QBD.Profiles;
 using Proy_back_QBD.Services;
 using System.Reflection;
 using Proy_back_QBD.Util;
+using Proy_back_QBD.Services.Interfaces;
 Env.Load(); // Cargar variables de entorno desde el archivo .env
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,7 @@ builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IProdTermService, ProdTermService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
 builder.Services.AddScoped<ICobroService, CobroService>();
 builder.Services.AddScoped<ICajaService, CajaService>();
 builder.Services.AddControllers();
