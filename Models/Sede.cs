@@ -21,8 +21,8 @@ namespace Proy_back_QBD.Models
         public string? Encargado { get; set; }  // Puede ser nulo                        
         [Column("telefono")]
         public string? Telefono { get; set; }  // Puede ser nulo               
-        [Column("msg_wsp")]
-        public string? MsgWsp { get; set; }  // Puede ser nulo                        
+        [Column("msg_terminado")]
+        public string? MsgTerminado { get; set; }  // Puede ser nulo                        
         [Column("msg_gpt")]
         public string? MsgGpt { get; set; }  // Puede ser nulo               
         [Column("msg_cumple")]
