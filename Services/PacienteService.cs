@@ -70,31 +70,36 @@ namespace Proy_back_QBD.Services
             return paciente;
         }
 
-        public async Task<List<PacienteFindAllResponse?>> Obtener()
+        public async Task<List<PacienteFindAllResponse?>> Obtener(int pageNumber = 1, int pageSize = 10)
         {
-            Console.WriteLine(DateTime.Today.Year);
-            List<PacienteFindAllResponse>? response = await _context.Pacientes
-            .Include(a => a.Persona)
-            .Select(a => new PacienteFindAllResponse
-            {
-                Id = a.Id,
-                DniApoderado = a.DniApoderado,
-                NombreCompleto = $"{a.Persona.NombreCompleto}",
-                Edad = CalcularEdad(a.Persona.FechaNacimiento, null),
-                Apoderado = a.Apoderado,
-                Persona = _mapper.Map<PersonaRes2>(a.Persona),
-                Telefono = a.Persona.Telefono,
-                CondicionFecha = a.CondicionFecha,
-                FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM", new CultureInfo("es-ES"))}",
-            })
-            .ToListAsync();
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 10;
 
-            if (response == null)
-            {
-                return null;
-            }
-            return response;
+            var skip = (pageNumber - 1) * pageSize;
+
+            var query = _context.Pacientes
+                .Include(a => a.Persona)
+                .Select(a => new PacienteFindAllResponse
+                {
+                    Id = a.Id,
+                    DniApoderado = a.DniApoderado,
+                    NombreCompleto = $"{a.Persona.NombreCompleto}",
+                    Edad = CalcularEdad(a.Persona.FechaNacimiento, null),
+                    Apoderado = a.Apoderado,
+                    Persona = _mapper.Map<PersonaRes2>(a.Persona),
+                    Telefono = a.Persona.Telefono,
+                    CondicionFecha = a.CondicionFecha,
+                    FechaCumple = $"{a.Persona.FechaNacimiento.GetValueOrDefault().Day} de {a.Persona.FechaNacimiento.GetValueOrDefault().ToString("MMMM", new CultureInfo("es-ES"))}",
+                });
+
+            var response = await query
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return response ?? new List<PacienteFindAllResponse?>();
         }
+
 
         public async Task<PacienteFindIdResponse?> ObtenerById(int id)
         {
