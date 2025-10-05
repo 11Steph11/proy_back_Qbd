@@ -33,6 +33,16 @@ namespace Proy_back_QBD.Dto.Response
         public string? Registro { get; set; }
         public string? Elaborado { get; set; }
     }
+    public class LabFindPedIdRes
+    {
+        public string? DNI { get; set; }
+        public string? Paciente { get; set; }
+        public string? Edad { get; set; }
+        public string? CMP { get; set; }
+        public string? Medico { get; set; }
+        public List<LabForm>? Formulas { get; set; }
+
+    }
     public class PedidoCreateResponse
     {
         public string? Msg { get; set; }  // Puede ser nulo      
@@ -60,4 +70,14 @@ namespace Proy_back_QBD.Dto.Response
         public List<ProdTermPedido>? ProdTerms { get; set; }
     }
 
+    public class LabForm()
+    {
+        public int? FormId { get; set; }
+        public string? Nombre { get; set; }
+        public string? Lote { get; set; }
+        public string? Registro { get; set; }
+        public string? Diagnostico { get; set; }
+        public string? ZonaAplicacion { get; set; }
+    }
+    
 }

@@ -106,7 +106,7 @@ namespace Proy_back_QBD.Services
                Id = a.Id,
                Apoderado = a.Apoderado,
                DniApoderado = a.DniApoderado,
-               Direccion  = a.Persona.Direccion,
+               Direccion = a.Persona.Direccion,
                PersonaFk = _mapper.Map<PersonaRes>(a.Persona),
                CondicionFecha = a.CondicionFecha,
            })
