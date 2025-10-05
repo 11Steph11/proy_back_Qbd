@@ -88,4 +88,5 @@ app.UseRouting();
 app.MapControllers();
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("Swagger disponible en: http://localhost:5051/swagger");
+logger.LogInformation(TimeOnly.FromDateTime(DateTime.Now).ToString());
 app.Run();

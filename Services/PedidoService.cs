@@ -91,7 +91,7 @@ namespace Proy_back_QBD.Services
                 prodTermList.Add(prodTerm);
             }
 
-            decimal? total = SumaPedido(formulaList, prodTermList);
+            decimal total = SumaPedido(formulaList, prodTermList);
 
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.Total = total;
@@ -218,9 +218,9 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public static decimal? SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
+        public static decimal SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
         {
-            decimal? total = 0;
+            decimal total = 0;
 
             if (listaForm == null || listaProdTerm == null)
             {
@@ -252,9 +252,9 @@ namespace Proy_back_QBD.Services
 
             return total;
         }
-        public static decimal? SumaCobro(List<Cobro>? listaCobro)
+        public static decimal SumaCobro(List<Cobro>? listaCobro)
         {
-            decimal? total = 0;
+            decimal total = 0;
             if (listaCobro.Count() == 0 || listaCobro == null)
             {
                 return 0;

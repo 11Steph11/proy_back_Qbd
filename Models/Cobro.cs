@@ -22,7 +22,7 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
         [Column("importe")]
-        public decimal? Importe { get; set; }
+        public decimal Importe { get; set; } = 0;
         [Column("turno")]
         public string? Turno { get; set; }
         [Column("fecha_creacion")]

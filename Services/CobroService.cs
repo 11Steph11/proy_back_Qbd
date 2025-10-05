@@ -36,8 +36,8 @@ namespace Proy_back_QBD.Services
                             .Include(i => i.Cobros)
                             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
 
-            decimal? totalPedido = 0;
-            decimal? totalCobro = 0;
+            decimal totalPedido = 0;
+            decimal totalCobro = 0;
 
             if (pedido.Formulas != null)
             {
@@ -80,8 +80,8 @@ namespace Proy_back_QBD.Services
                 return null;
             }
 
-            decimal? totalPedido = 0;
-            decimal? totalCobro = 0;
+            decimal totalPedido = 0;
+            decimal totalCobro = 0;
 
             if (pedido.Formulas != null)
             {
@@ -101,7 +101,7 @@ namespace Proy_back_QBD.Services
             Cobro cobro = _mapper.Map<Cobro>(request);
             cobro.ModificadorId = cobro.CreadorId;
             await _context.Cobros.AddAsync(cobro);
-            pedido.Adelanto = totalCobro+cobro.Importe;
+            pedido.Adelanto = totalCobro + cobro.Importe;
             pedido.Saldo = totalPedido - (totalCobro + cobro.Importe);
             await _context.SaveChangesAsync();
             cobroCreateRes.Cobro = cobro;

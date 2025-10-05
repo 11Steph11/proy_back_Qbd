@@ -22,11 +22,11 @@ namespace Proy_back_QBD.Models
         [Column("estado")]
         public string? Estado { get; set; }
         [Column("adelanto")]
-        public decimal? Adelanto { get; set; }
+        public decimal Adelanto { get; set; } = 0;
         [Column("saldo")]
-        public decimal? Saldo { get; set; }
+        public decimal Saldo { get; set; } = 0;
         [Column("total")]
-        public decimal? Total { get; set; }
+        public decimal Total { get; set; } = 0;
         [Column("img3")]
         public string? Img3 { get; set; }
         [Column("comprobante_electronico")]

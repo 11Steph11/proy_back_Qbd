@@ -27,7 +27,7 @@ namespace Proy_back_QBD.Services
             RPagosDelDia pagosDia = new();
             RPagosAnteriores pagosAnteriores = new();
             BQPagosDelDia bqPagos = new();
-            Ventas ventas = new();
+            Ventas ventas = new Ventas();
 
             List<Cobro> caja = await _context.Cobros
                     .Include(i => i.Pedido.Paciente.Persona)
@@ -108,13 +108,14 @@ namespace Proy_back_QBD.Services
                 }
                 recaudDia.Total += item.Importe;
             }
-            decimal? adelantoInc = 0;
-            decimal? saldoInc = 0;
+            decimal adelantoInc = 0;
+            decimal saldoInc = 0;
             foreach (var item in caja)
             {
-                adelantoInc = item.Pedido.Adelanto;
-                saldoInc = item.Pedido.Saldo;
+                adelantoInc = item.Pedido.Adelanto==null?0:item.Pedido.Adelanto;
+                saldoInc = item.Pedido.Saldo==null?0:item.Pedido.Saldo;
             }
+            ventas.Total = 10;
             ventas.Total = recaudDia.Total + adelantoInc;
             ventas.Adelantos =  adelantoInc;
             ventas.Saldo = saldoInc;

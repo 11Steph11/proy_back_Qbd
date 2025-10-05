@@ -50,7 +50,7 @@ namespace Proy_back_QBD.Services
             costoReq = request.Costo * request.Cantidad;
             decimal costoForm = 0;
             costoForm = prodTerm.Costo * prodTerm.Cantidad;
-            decimal? diferencia = Math.Abs(costoReq - costoForm);
+            decimal diferencia = Math.Abs(costoReq - costoForm);
 
             if (costoReq != costoForm)
             {
