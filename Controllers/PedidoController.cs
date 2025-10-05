@@ -43,15 +43,26 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    [HttpPatch("{id}")]
+    [HttpPatch("boleta/{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
-    public async Task<IActionResult> EliminarPedido(int id, string boleta)
+    public async Task<IActionResult> AgregarBoleta(int id, string boleta)
     {
         if (id == null)
         {
             return BadRequest("Datos incorrectos");
         }
         Pedido? response = await _pedidoService.ActualizarPedido(id, boleta);
+
+        return Ok(response);
+    }
+    [HttpPatch("estado/{id}")]
+    public async Task<IActionResult> ActualizarEstado(int id, string estado)
+    {
+        if (id == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        string? response = await _pedidoService.ActualizarEstado(id, estado);
 
         return Ok(response);
     }

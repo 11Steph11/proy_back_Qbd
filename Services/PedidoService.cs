@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Migrations;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Request;
 
@@ -31,7 +32,7 @@ namespace Proy_back_QBD.Services
                 response.Msg = "no se encontró";
                 return response;
             }
-            
+
             if (request.Estado != pedido.Estado)
             {
                 foreach (var item in pedido.Formulas)
@@ -56,7 +57,51 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return response;
         }
+        public async Task<string?> ActualizarEstado(int id, string request)
+        {
+            string estado = request.ToUpper().Trim();
+            string response;
+            Pedido? pedido = await _context.Pedidos
+            .Include(i => i.Formulas)
+            .FirstOrDefaultAsync(p => p.Id == id);
 
+            if (pedido == null)
+            {
+                response = "no se encontró";
+                return response;
+            }
+            if (pedido.Formulas != null)
+            {
+                if (estado != pedido.Estado)
+                {
+                    foreach (var item in pedido.Formulas)
+                    {
+                        item.Estado = estado;
+                    }
+                }
+                else
+                {
+                    response = "Es el mismo estado";
+                    return response;
+                }
+            }
+
+            if (pedido.ProdTerms != null)
+            {
+                if (estado == "ENTREGADO")
+                {
+                    foreach (var item in pedido.ProdTerms)
+                    {
+                        item.Estado = estado;
+                    }
+                }
+            }
+            pedido.Estado =estado;
+            _context.Update(pedido);
+            response = "Estado Actualizado";
+            await _context.SaveChangesAsync();
+            return response;
+        }
         public async Task<PedidoCreateResponse?> Crear(PedidoCreateReq request)
         {
             PedidoCreateResponse response = new PedidoCreateResponse();

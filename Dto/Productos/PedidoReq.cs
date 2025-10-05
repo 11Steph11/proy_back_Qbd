@@ -20,6 +20,10 @@ namespace Proy_back_QBD.Dto.Request
         public List<FormulaCreatePedido> Formulas { get; set; }
         public List<ProdTermPedidoReq> ProductosTerminados { get; set; }
     }
+    public class PedidoEstadoUpdate
+    {
+        public string? Estado { get; set; }
+    }
     public class PedidoUpdateReq
     {
         public required string Cuop { get; set; }
@@ -31,8 +35,6 @@ namespace Proy_back_QBD.Dto.Request
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
         public string? Estado { get; set; }
-        public string? ComprobanteElectronico { get; set; }
-        public int ModificadorId { get; set; }
-        public DateTime? FechaEntrega { get; set; }
+
     }
 }
