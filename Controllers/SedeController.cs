@@ -53,7 +53,7 @@ public class SedeController : ControllerBase
         }
         return Ok(response);
     }
-    [HttpPatch("sedeId/{id}")]
+    [HttpPatch("msgs/{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(GeneralRes))]
     public async Task<IActionResult> DatosGenerales(int id, GeneralReq request)
     {
