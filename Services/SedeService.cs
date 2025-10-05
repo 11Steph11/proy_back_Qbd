@@ -44,7 +44,9 @@ namespace Proy_back_QBD.Services
                         {
                             Meta = s.Meta,
                             MsgGpt = s.MsgGpt,
-                            MsgWsp = s.MsgWsp
+                            MsgCumple = s.MsgCumple,
+                            MsgSeguimiento = s.MsgSeguimiento,
+                            MsgTerminado = s.MsgTerminado
                         }).FirstOrDefaultAsync();
 
             if (response == null)
@@ -62,11 +64,18 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            if (request.MsgWsp != null)
+            if (request.MsgSeguimiento != null)
             {
-                entidad.MsgWsp = request.MsgWsp;
+                entidad.MsgSeguimiento = request.MsgSeguimiento;
             }
-
+            if (request.MsgTerminado != null)
+            {
+                entidad.MsgTerminado = request.MsgTerminado;
+            }
+            if (request.MsgCumple != null)
+            {
+                entidad.MsgCumple = request.MsgCumple;
+            }
             if (request.MsgGpt != null)
             {
                 entidad.MsgGpt = request.MsgGpt;
