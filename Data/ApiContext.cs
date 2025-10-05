@@ -23,6 +23,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Producto> ProdDetalles { get; set; }  // Para la tabla de secciones
         public DbSet<Cobro> Cobros { get; set; }  // Para la tabla de secciones        
         public DbSet<Laboratorio> Laboratorios { get; set; }  // Para la tabla de lab        
+        public DbSet<Especialidad> Especialidads { get; set; }  // Para la tabla de lab        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
