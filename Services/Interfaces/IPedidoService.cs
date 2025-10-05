@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Services
         Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request);
         Task<Pedido?> ActualizarPedido(int id, string boleta);
         Task<string?> ActualizarEstado(int id, string estado);
-        Task<List<PedidoFindAllResponse?>> Obtener();
+        Task<List<PedidoFindAllResponse?>> Obtener(int pageNumber = 1, int pageSize = 30);
         Task<PedidoFindIdResponse?> ObtenerById(int id);
     }
 }

@@ -47,8 +47,6 @@ namespace Proy_back_QBD.Services
                 }
             }
 
-
-
             _mapper.Map(request, pedido);
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
@@ -189,40 +187,43 @@ namespace Proy_back_QBD.Services
             return pedido;
         }
 
-        public async Task<List<PedidoFindAllResponse?>> Obtener()
+        public async Task<List<PedidoFindAllResponse?>> Obtener(int pageNumber = 1, int pageSize = 30)
         {
-            List<PedidoFindAllResponse>? response = await _context.Pedidos
-            .Include(a => a.Paciente.Persona)
-            .Include(a => a.Medico.Persona)
-            .Include(a => a.Creador)
-            .Include(a => a.Cobros)
-            .Include(a => a.Formulas)
-            .Include(a => a.ProdTerms)
-            .Select(a => new PedidoFindAllResponse
-            {
-                Id = a.Id,
-                Cuo = $"BDRP-{a.Id}",
-                FechaCreacion = a.FechaCreacion,
-                Dni = a.Paciente.Persona.Dni,
-                Paciente = $"{a.Paciente.Persona.NombreCompleto}",
-                PacienteId = a.PacienteId,
-                Celular = a.Paciente.Persona.Telefono,
-                Medico = $"Dr. {a.Medico.Persona.NombreCompleto}",
-                Total = a.Total,
-                Adelanto = a.Adelanto,
-                Saldo = a.Saldo,
-                Recibo = a.Boleta,
-                Estado = a.Estado,
-                FechaEntrega = a.FechaEntrega,
-                Usuario = a.Creador.Codigo,
-                BolFaC = a.ComprobanteElectronico,
-            })
-            .ToListAsync();
+            // Validación defensiva
+            if (pageNumber < 1) pageNumber = 1;
+            if (pageSize < 1) pageSize = 30;
 
-            if (response == null)
-            {
-                return null;
-            }
+            var response = await _context.Pedidos
+                .Include(a => a.Paciente.Persona)
+                .Include(a => a.Medico.Persona)
+                .Include(a => a.Creador)
+                .Include(a => a.Cobros)
+                .Include(a => a.Formulas)
+                .Include(a => a.ProdTerms)
+                .OrderByDescending(a => a.FechaCreacion) // Ordenar por fecha (puedes cambiar el criterio)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(a => new PedidoFindAllResponse
+                {
+                    Id = a.Id,
+                    Cuo = $"BDRP-{a.Id}",
+                    FechaCreacion = a.FechaCreacion,
+                    Dni = a.Paciente.Persona.Dni,
+                    Paciente = a.Paciente.Persona.NombreCompleto,
+                    PacienteId = a.PacienteId,
+                    Celular = a.Paciente.Persona.Telefono,
+                    Medico = $"Dr. {a.Medico.Persona.NombreCompleto}",
+                    Total = a.Total,
+                    Adelanto = a.Adelanto,
+                    Saldo = a.Saldo,
+                    Recibo = a.Boleta,
+                    Estado = a.Estado,
+                    FechaEntrega = a.FechaEntrega,
+                    Usuario = a.Creador.Codigo,
+                    BolFaC = a.ComprobanteElectronico,
+                })
+                .ToListAsync();
+
             return response;
         }
 
