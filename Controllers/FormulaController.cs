@@ -32,7 +32,7 @@ public class FormulaController : ControllerBase
         return Ok(response);
     }
     [HttpPut("{id}")]
-    [SwaggerResponse(200, "Creacion exitosa", typeof(FormulaUpdateResponse))]
+    [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
     public async Task<IActionResult> ActualizarFormula(int id, [FromBody] FormulaUpdateReq request)
     {
         if (request == null)
@@ -40,6 +40,18 @@ public class FormulaController : ControllerBase
             return BadRequest("Datos incorrectos");
         }
         FormulaUpdateResponse? response = await _formulaService.Actualizar(id, request);
+
+        return Ok(response);
+    }
+    [HttpPatch("{id}")]
+    [SwaggerResponse(200, "Actualizacion exitosa", typeof(string))]
+    public async Task<IActionResult> AgregarInjerto(int id, string request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Datos incorrectos");
+        }
+        string? response = await _formulaService.AgregarInjerto(id, request);
 
         return Ok(response);
     }

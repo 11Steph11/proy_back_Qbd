@@ -34,6 +34,8 @@ namespace Proy_back_QBD.Models
         public string? Estado { get; set; }
         [Column("reportado")]
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
+        [Column("injerto")]
+        public string? Injerto { get; set; }                   // Si ha sido reportado o no (valor booleano)
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime FechaCreacion { get; set; }           // Fecha de creación del pedido

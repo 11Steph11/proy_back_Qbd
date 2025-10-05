@@ -99,7 +99,6 @@ namespace Proy_back_QBD.Services
                 }
             }
             pedido.Estado = estado;
-            _context.Update(pedido);
             response = "Estado Actualizado";
             await _context.SaveChangesAsync();
             return response;

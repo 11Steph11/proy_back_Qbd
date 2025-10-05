@@ -79,6 +79,21 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
+        public async Task<string?> AgregarInjerto(int id, string injerto)
+        {
+            string Msg;
+            Formula? formula = await _context.Formulas
+            .FirstOrDefaultAsync(f => f.Id == id);
+            if (formula == null)
+            {
+                return null;
+            }
+            formula.Injerto = injerto;
+            await _context.SaveChangesAsync();
+            Msg = "Se añadio correctamente";
+
+            return Msg;
+        }
 
         public async Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request)
         {
