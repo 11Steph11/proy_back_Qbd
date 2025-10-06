@@ -23,7 +23,7 @@ namespace Proy_back_QBD.Services
 
             UsuarioLoginDataRes? response = await _context.Usuarios
             .Include(a => a.Persona)
-            .Include(a => a.Persona.Sede)
+            .Include(a => a.Sede)
             .Include(a => a.Tipo)
             .Where(a => a.Persona.Dni.Trim() == dni && a.Contrasena.Trim() == contrasena)
             .Select(a => new UsuarioLoginDataRes
@@ -31,13 +31,13 @@ namespace Proy_back_QBD.Services
                 NombreCompleto = $"{a.Persona.NombreCompleto}",
                 TipoUsuario = a.Tipo.Nombre,
                 TipoId = a.Tipo.Id,
-                Sede = a.Persona.Sede.Nombre,
+                Sede = a.Sede.Nombre,
                 Dni = a.Persona.Dni,
-                SedeId = a.Persona.Sede.Id,
+                SedeId = a.Sede.Id,
                 Id = a.Id,
             })
             .FirstOrDefaultAsync();
-            
+
             if (response == null)
             {
                 return null;
@@ -54,7 +54,7 @@ namespace Proy_back_QBD.Services
             Usuario usuario = _mapper.Map<Usuario>(request);
             usuario.PersonaId = persona.Id;
             usuario.Modificador = persona.Creador;
-            usuario.Codigo = $"{persona.NombreCompleto.Substring(0,1).ToUpper()} - {usuario.TipoId}-{persona.SedeId}";
+            usuario.Codigo = $"{ObtenerIniciales(persona.NombreCompleto)}{persona.FechaNacimiento:ddMM}";
             await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync();
             return usuario;
@@ -77,7 +77,7 @@ namespace Proy_back_QBD.Services
             .Include(a => a.Persona)
             .FirstOrDefaultAsync(a => a.Id == id);
             _mapper.Map(request, usuario);
-            usuario.Codigo = $"{usuario.Persona.NombreCompleto.Substring(0,1).ToUpper()}-{usuario.TipoId}-{usuario.Persona.SedeId}";
+            usuario.Codigo = $"{ObtenerIniciales(usuario.Persona.NombreCompleto)}{usuario.Persona.FechaNacimiento:ddMM}";
             _mapper.Map(request.Persona, usuario.Persona);
             await _context.SaveChangesAsync();
             return usuario;
@@ -88,7 +88,7 @@ namespace Proy_back_QBD.Services
             List<UsuarioListaRes>? response = await _context.Usuarios
             .Where(a => a.TipoId != 1)
             .Include(a => a.Tipo)
-            .Include(a => a.Persona.Sede)
+            .Include(a => a.Sede)
             .Select(a => new UsuarioListaRes
             {
                 Id = a.Id,
@@ -103,12 +103,12 @@ namespace Proy_back_QBD.Services
                 Codigo = a.Codigo,
                 PersonaRes = new PersonaRes
                 {
-                    Id = a.Persona.Id,                     
+                    Id = a.Persona.Id,
                     NombreCompleto = a.Persona.NombreCompleto,
                     FechaNacimiento = a.Persona.FechaNacimiento,
                     Dni = a.Persona.Dni,
-                    Sede = a.Persona.Sede.Nombre,
-                    SedeId = a.Persona.SedeId,
+                    Sede = a.Sede.Nombre,
+                    SedeId = a.SedeId,
                     Telefono = a.Persona.Telefono,
                 }
             })
@@ -120,7 +120,7 @@ namespace Proy_back_QBD.Services
             UsuarioByIdRes? response = await _context.Usuarios
             .Where(a => a.Id == id)
             .Include(a => a.Tipo)
-            .Include(a => a.Persona.Sede)
+            .Include(a => a.Sede)
             .Select(a => new UsuarioByIdRes
             {
                 Id = a.Id,
@@ -138,12 +138,24 @@ namespace Proy_back_QBD.Services
                     NombreCompleto = a.Persona.NombreCompleto,
                     FechaNacimiento = a.Persona.FechaNacimiento,
                     Dni = a.Persona.Dni,
-                    Sede = a.Persona.Sede.Nombre,
+                    Sede = a.Sede.Nombre,
                     Telefono = a.Persona.Telefono,
                 }
             })
             .FirstOrDefaultAsync();
             return response;
         }
+        private string ObtenerIniciales(string nombreCompleto)
+        {
+            if (string.IsNullOrWhiteSpace(nombreCompleto))
+                return string.Empty;
+
+            var palabras = nombreCompleto
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            return string.Concat(palabras.Select(p => char.ToUpper(p[0])));
+        }
+
     }
+
 }

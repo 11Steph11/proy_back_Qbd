@@ -9,6 +9,6 @@ namespace Proy_back_QBD.Services
     {
         // Task<AsistenciaByDNIResponse?> ObtenerAsistenciasByIdAsync(string dni, int año, string mes);
         Task<Asistencia?> Crear(AsistenciaCreateReq asistencia);
-        Task<AsistenciaByIdRes?> ObtenerPorId(int id, int año, int mes);
+        Task<AsistenciaByIdRes?> ObtenerPorId(int id, int año, int mes, int idSede);
     }
 }

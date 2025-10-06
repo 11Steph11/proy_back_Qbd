@@ -186,8 +186,9 @@ namespace Proy_back_QBD.Services
             return pedido;
         }
 
-        public async Task<List<PedidoFindAllResponse?>> Obtener(int pageNumber = 1, int pageSize = 30)
-        {
+        public async Task<List<PedidoFindAllResponse?>> Obtener(int pageNumber, int sedeId)
+        {            
+            int pageSize = 30;
             // Validación defensiva
             if (pageNumber < 1) pageNumber = 1;
             if (pageSize < 1) pageSize = 30;
@@ -202,6 +203,7 @@ namespace Proy_back_QBD.Services
                 .OrderByDescending(a => a.FechaCreacion) // Ordenar por fecha (puedes cambiar el criterio)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
+                .Where(w => w.SedeId == sedeId)
                 .Select(a => new PedidoFindAllResponse
                 {
                     Id = a.Id,

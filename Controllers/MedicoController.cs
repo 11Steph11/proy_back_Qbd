@@ -59,14 +59,14 @@ public class MedicoController : ControllerBase
     }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<MedicoFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerMedicos()
+    public async Task<IActionResult> ObtenerMedicos(int pageId, int sedeId)
     {
-        List<MedicoFindAllResponse?> response = await _medicoService.Obtener();
+        List<MedicoFindAllResponse?> response = await _medicoService.Obtener(pageId, sedeId);
 
         return Ok(response);
     }
     [HttpGet("{id}")]
-    [SwaggerResponse(200,"Creacion exitosa",typeof(MedicoFindIdResponse))]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(MedicoFindIdResponse))]
     public async Task<IActionResult> ObtenerMedicosById(int id)
     {
         MedicoFindIdResponse? response = await _medicoService.ObtenerById(id);

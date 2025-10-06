@@ -22,7 +22,7 @@ namespace Proy_back_QBD.Services
 
         }
 
-        public async Task<AsistenciaByIdRes?> ObtenerPorId(int id, int año, int mes)
+        public async Task<AsistenciaByIdRes?> ObtenerPorId(int id, int año, int mes, int sedeId)
         {
             if (id == null || año <= 0 || mes <= 0 || mes > 12)
             {

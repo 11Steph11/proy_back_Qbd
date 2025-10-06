@@ -25,11 +25,11 @@ public class UsuarioController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(UsuarioLoginDataRes))]
     public async Task<IActionResult> ValidarCredenciales([FromBody] UsuarioLoginReq request)
     {
-        if (request == null || request.DNI == null || request.Contrasena == null)
+        if (request == null || request.Codigo == null || request.Contrasena == null)
         {
             return BadRequest("Datos mal enviados");
         }
-        UsuarioLoginDataRes? usuario = await _userService.ValidarLogin(request.DNI, request.Contrasena);
+        UsuarioLoginDataRes? usuario = await _userService.ValidarLogin(request.Codigo, request.Contrasena);
         if (usuario == null)
         {
             return NotFound("No hay");

@@ -16,6 +16,7 @@ namespace Proy_back_QBD.Models
         public int Id { get; set; }  // Puede ser nulo 
         [Column("contrasena")]
         public required string Contrasena { get; set; }  // Puede ser nulo        
+        [JsonIgnore]
         public TipoUsuario? Tipo { get; set; }  // Puede ser nulo
         [Column("tipo_id")]
         public int? TipoId { get; set; }  // Puede ser nulo
@@ -27,19 +28,25 @@ namespace Proy_back_QBD.Models
         public DateTime? FechaModificacion { get; set; }  // Puede ser nulo
         [Column("creador_id")]
         public int? CreadorId { get; set; }
+        [JsonIgnore]
         public Usuario? Creador { get; set; }
         [Column("modificador_id")]
         public int? ModificadorId { get; set; }
+        [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [Column("horario_entrada")]
         public TimeOnly? HorarioEntrada { get; set; }  // Puede ser nulo
         [Column("horario_salida")]
         public TimeOnly? HorarioSalida { get; set; }  // Puede ser nulo
+        [JsonIgnore]
         public Persona? Persona { get; set; }  // Puede ser nulo
         [Column("persona_id")]
         public int? PersonaId { get; set; }  // Puede ser nulo
         [Column("cmp")]
         public string? Cmp { get; set; }  // Puede ser nulo
+        [Column("sedeId")]
+        public int? SedeId { get; set; }  // Puede ser nulo
+        public Sede? Sede { get; set; }  // Puede ser nulo
         [Column("horario_almuerzo")]
         public TimeOnly? HorarioAlmuerzo { get; set; }  // Puede ser nulo
         [Column("horario_regreso")]
@@ -62,7 +69,6 @@ namespace Proy_back_QBD.Models
         public List<Persona>? PersonasModificadas { get; set; }
         public List<Sede>? SedesCreadas { get; set; }
         public List<Sede>? SedesModificadas { get; set; }
-        public Sede? Sede { get; set; }
         public List<Usuario>? UsuariosCreadas { get; set; }
         public List<Usuario>? UsuariosModificadas { get; set; }
         public List<TipoUsuario>? TUCreadas { get; set; }
@@ -94,10 +100,13 @@ namespace Proy_back_QBD.Models
         public DateTime FechaModificacion { get; set; }  // Puede ser nulo
         [Column("creador_id")]
         public int? CreadorId { get; set; }
+        [JsonIgnore]
         public Usuario? Creador { get; set; }
         [Column("modificador_id")]
         public int? ModificadorId { get; set; }
+        [JsonIgnore]
         public Usuario? Modificador { get; set; }
+        [JsonIgnore]
         public List<Usuario>? Usuarios { get; set; }
     }
 }

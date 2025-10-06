@@ -31,9 +31,12 @@ namespace Proy_back_QBD.Models
         [Column("modificador_id")]
         public int ModificadorId { get; set; }
         [JsonIgnore]
-        public Usuario? Modificador { get; set; }        
+        public Usuario? Modificador { get; set; }
         [JsonIgnore]
-        public List<ProdTerm>? ProdTerm { get; set; }        
+        public List<ProdTerm>? ProdTerm { get; set; }
+        [Column("sedeId")]
+        public int? SedeId { get; set; }  // Puede ser nulo
+        public Sede? Sede { get; set; }  // Puede ser nulo    
     }
 
 }

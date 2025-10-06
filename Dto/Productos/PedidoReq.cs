@@ -11,6 +11,7 @@ namespace Proy_back_QBD.Dto.Request
         public string? Boleta { get; set; }
         public int PacienteId { get; set; }
         public int MedicoId { get; set; }
+        public int SedeId { get; set; }
         public string? Img1 { get; set; }
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }

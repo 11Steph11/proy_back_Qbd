@@ -33,7 +33,7 @@ public class PacienteController : ControllerBase
     }
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(PacienteUpdateReq))]
-    public async Task<IActionResult> ActualizarMedico(int id, [FromBody] PacienteUpdateReq request)
+    public async Task<IActionResult> ActualizarPaciente(int id, [FromBody] PacienteUpdateReq request)
     {
         if (request == null)
         {
@@ -57,9 +57,9 @@ public class PacienteController : ControllerBase
     }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PacienteFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerPacientes(int page)
+    public async Task<IActionResult> ObtenerPacientes(int pageId, int sedeId)
     {
-        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener(page);
+        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener(pageId, sedeId);
 
         return Ok(response);
     }

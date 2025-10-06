@@ -73,15 +73,16 @@ namespace Proy_back_QBD.Services
             return paciente;
         }
 
-        public async Task<List<PacienteFindAllResponse?>> Obtener(int pageNumber = 1, int pageSize = 10)
+        public async Task<List<PacienteFindAllResponse?>> Obtener(int pageNumber, int sedeId)
         {
+            int pageSize = 10;
             if (pageNumber < 1) pageNumber = 1;
             if (pageSize < 1) pageSize = 10;
 
             var skip = (pageNumber - 1) * pageSize;
 
             var query = _context.Pacientes
-                .Include(a => a.Persona)
+                .Include(a => a.Persona)                
                 .Select(a => new PacienteFindAllResponse
                 {
                     Id = a.Id,

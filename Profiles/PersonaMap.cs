@@ -15,24 +15,20 @@ namespace Proy_back_QBD.Profiles
             CreateMap<PersonaCreateReq, Persona>()
             .ForMember(a => a.Id, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
-            .ForMember(a => a.Sede, options => options.Ignore())
             ;
             CreateMap<PersonaUpdateReq, Persona>()
             .ForMember(a => a.Id, options => options.Ignore())
             .ForMember(a => a.CreadorId, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
-            .ForMember(a => a.Sede, options => options.Ignore())
             ;
             CreateMap<PersMedCreateReq, Persona>()
             .ForMember(a => a.Id, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
-            .ForMember(a => a.Sede, options => options.Ignore())
             ;
             CreateMap<PersMedUpdateReq, Persona>()
             .ForMember(a => a.Id, options => options.Ignore())
             .ForMember(a => a.CreadorId, options => options.Ignore())
             .ForMember(a => a.FechaCreacion, options => options.Ignore())
-            .ForMember(a => a.Sede, options => options.Ignore())
             ;
             CreateMap<Persona, PersonaRes>();
             CreateMap<Persona, PersonaRes2>();

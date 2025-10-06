@@ -262,12 +262,7 @@ namespace Proy_back_QBD.Data
                             .HasOne(e => e.Modificador)
                             .WithMany(e2 => e2.PersonasModificadas)
                             .HasForeignKey(e => e.ModificadorId)
-                            .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Persona>()
-                            .HasOne(e => e.Sede)
-                            .WithMany(e2 => e2.Personas)
-                            .HasForeignKey(e => e.SedeId)
-                            .OnDelete(DeleteBehavior.Restrict);
+                            .OnDelete(DeleteBehavior.Restrict);            
             modelBuilder.Entity<Persona>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar

@@ -7,8 +7,8 @@ namespace Proy_back_QBD.Dto.Request
         public int? EspecialidadId { get; set; }  // Puede ser nulo      
         public string? NumeroEspecialidad { get; set; }  // Puede ser nulo      
         public int? CreadorId { get; set; }
-        public PersMedCreateReq? PersonaCReq { get; set; }  // Puede ser nulo    
-        public string? Cmp { get; set; }  // Puede ser nulo        
+        public PersMedCreateReq? PersonaCReq { get; set; }
+        public string? Cmp { get; set; }
     }
     public class MedicoUpdateReq
     {

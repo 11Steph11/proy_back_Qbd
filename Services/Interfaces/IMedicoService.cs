@@ -9,7 +9,7 @@ namespace Proy_back_QBD.Services
        Task<MedicoCreateResponse?> Crear(MedicoCreateReq request);
        Task<MedicoUpdateResponse?> Actualizar(int id, MedicoUpdateReq request);
        Task<Medico?> Eliminar(int id);
-       Task<List<MedicoFindAllResponse?>> Obtener();
+       Task<List<MedicoFindAllResponse?>> Obtener(int pageId, int sedeId);
        Task<MedicoFindIdResponse?> ObtenerById(int id);
         
     }

@@ -16,7 +16,7 @@ public class AsistenciaController : ControllerBase
 {
 
     private readonly IAsistenciaService _asistenciaService;
-    private readonly IMapper _mapper; 
+    private readonly IMapper _mapper;
 
     public AsistenciaController(IAsistenciaService userService, IMapper mapper)
     {
@@ -44,14 +44,14 @@ public class AsistenciaController : ControllerBase
     /// </summary>
     [HttpPost("{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByIdRes))]
-    public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id, [FromBody] AsistenciaByIdReq request)
+    public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id, [FromBody] AsistenciaByIdReq request, int sedeId)
     {
         if (request == null || id == null)
         {
             return BadRequest("Código de asistencia o id no proporcionado");
         }
 
-        AsistenciaByIdRes? response = await _asistenciaService.ObtenerPorId(id, request.Año, request.Mes);
+        AsistenciaByIdRes? response = await _asistenciaService.ObtenerPorId(id, request.Año, request.Mes, sedeId);
         return Ok(response);
     }
 
