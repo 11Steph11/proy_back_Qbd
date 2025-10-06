@@ -19,6 +19,14 @@ namespace Proy_back_QBD.Models
         public string? Img1 { get; set; }
         [Column("img2")]
         public string? Img2 { get; set; }
+        [Column("img3")]
+        public string? Img3 { get; set; }
+        [Column("img4")]
+        public string? Img4 { get; set; }
+        [Column("img5")]
+        public string? Img5 { get; set; }
+        [Column("img6")]
+        public string? Img6 { get; set; }
         [Column("estado")]
         public string? Estado { get; set; }
         [Column("adelanto")]
@@ -27,8 +35,6 @@ namespace Proy_back_QBD.Models
         public decimal Saldo { get; set; } = 0;
         [Column("total")]
         public decimal Total { get; set; } = 0;
-        [Column("img3")]
-        public string? Img3 { get; set; }
         [Column("comprobante_electronico")]
         public string? ComprobanteElectronico { get; set; }
         [Column("fecha_creacion")]
@@ -50,7 +56,7 @@ namespace Proy_back_QBD.Models
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo
         [Column("fecha_entrega")]
-        public DateTime FechaEntrega { get; set; }  // Puede ser nulo                    
+        public DateTime FechaEntrega { get; set; }  // Puede ser nulo
         [Column("medico_id")]
         public int MedicoId { get; set; }
         [JsonIgnore]
@@ -63,6 +69,7 @@ namespace Proy_back_QBD.Models
         public List<Cobro>? Cobros { get; set; }
         [Column("sedeId")]
         public int? SedeId { get; set; }  // Puede ser nulo
+        [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo
     }
 

@@ -14,6 +14,7 @@ namespace Proy_back_QBD.Models
         public int? Id { get; set; }  // Puede ser nulo
         [Column("especialidad_id")]
         public int? EspecialidadId { get; set; }  // Puede ser nulo     
+        [JsonIgnore]
         public Especialidad? Especialidad { get; set; }
         [Column("numero_especialidad")]
         public string? NumeroEspecialidad { get; set; }
