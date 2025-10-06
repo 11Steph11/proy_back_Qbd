@@ -17,7 +17,7 @@ namespace Proy_back_QBD.Services
             _context = context;
             _mapper = mapper;
         }
-        public async Task<UsuarioLoginDataRes?> ValidarLogin(string dni, string contrasena)
+        public async Task<UsuarioLoginDataRes?> ValidarLogin(string codigo, string contrasena)
         {
 
 
@@ -25,7 +25,7 @@ namespace Proy_back_QBD.Services
             .Include(a => a.Persona)
             .Include(a => a.Sede)
             .Include(a => a.Tipo)
-            .Where(a => a.Persona.Dni.Trim() == dni && a.Contrasena.Trim() == contrasena)
+            .Where(a => a.Codigo.Trim() == codigo && a.Contrasena.Trim() == contrasena)
             .Select(a => new UsuarioLoginDataRes
             {
                 NombreCompleto = $"{a.Persona.NombreCompleto}",
