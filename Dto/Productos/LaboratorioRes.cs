@@ -35,6 +35,7 @@ namespace Proy_back_QBD.Dto.Productos
         public string? Registro { get; set; }
         public string? Diagnostico { get; set; }
         public string? ZonaAplicacion { get; set; }
+        public decimal? CostoTotal { get; set; }
     }
 
 }

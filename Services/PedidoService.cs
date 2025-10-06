@@ -188,7 +188,7 @@ namespace Proy_back_QBD.Services
         }
 
         public async Task<List<PedidoFindAllResponse?>> Obtener(int sedeId)
-        {            
+        {
 
             var response = await _context.Pedidos
                 .Include(a => a.Paciente.Persona)
@@ -202,7 +202,7 @@ namespace Proy_back_QBD.Services
                 .Select(a => new PedidoFindAllResponse
                 {
                     Id = a.Id,
-                    Cuo = $"BDRP-{a.Id}",
+                    Cuo = $"P-{a.Id}",
                     FechaCreacion = a.FechaCreacion,
                     Dni = a.Paciente.Persona.Dni,
                     Paciente = a.Paciente.Persona.NombreCompleto,

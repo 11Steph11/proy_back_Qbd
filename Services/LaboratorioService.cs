@@ -17,8 +17,6 @@ namespace Proy_back_QBD.Services
             _db = db;
         }
 
-
-
         public async Task<List<PedidoLab>> ListaLab(int pageNumber = 1, int pageSize = 30)
         {
             var skipCount = (pageNumber - 1) * pageSize;  // Número de elementos a omitir
