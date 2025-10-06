@@ -4,6 +4,7 @@ using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
+using Proy_back_QBD.Util;
 
 namespace Proy_back_QBD.Services
 {
@@ -213,7 +214,7 @@ namespace Proy_back_QBD.Services
                     Saldo = a.Saldo,
                     Recibo = a.Boleta,
                     Estado = a.Estado,
-                    FechaEntrega = a.FechaEntrega,
+                    FechaEntrega = ZonaHoraria.AjustarZona(a.FechaEntrega),
                     Usuario = a.Creador.Codigo,
                     BolFaC = a.ComprobanteElectronico,
                 })

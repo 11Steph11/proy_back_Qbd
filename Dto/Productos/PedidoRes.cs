@@ -18,7 +18,7 @@ namespace Proy_back_QBD.Dto.Response
         public decimal? Saldo { get; set; }
         public string? Recibo { get; set; }
         public string? Estado { get; set; }
-        public DateTime? FechaEntrega { get; set; }
+        public DateTime FechaEntrega { get; set; }
         public string? Usuario { get; set; }
         public string? BolFaC { get; set; }
     }

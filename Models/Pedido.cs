@@ -50,7 +50,7 @@ namespace Proy_back_QBD.Models
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo
         [Column("fecha_entrega")]
-        public DateTime? FechaEntrega { get; set; }  // Puede ser nulo                    
+        public DateTime FechaEntrega { get; set; }  // Puede ser nulo                    
         [Column("medico_id")]
         public int MedicoId { get; set; }
         [JsonIgnore]
