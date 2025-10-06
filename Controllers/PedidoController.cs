@@ -68,9 +68,9 @@ public class PedidoController : ControllerBase
     }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerPedidos(int pageId, int sedeId)
+    public async Task<IActionResult> ObtenerPedidos( int sedeId)
     {
-        List<PedidoFindAllResponse?> response = await _pedidoService.Obtener(pageId, sedeId);
+        List<PedidoFindAllResponse?> response = await _pedidoService.Obtener( sedeId);
 
         return Ok(response);
     }

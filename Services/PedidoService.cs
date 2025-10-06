@@ -186,12 +186,8 @@ namespace Proy_back_QBD.Services
             return pedido;
         }
 
-        public async Task<List<PedidoFindAllResponse?>> Obtener(int pageNumber, int sedeId)
+        public async Task<List<PedidoFindAllResponse?>> Obtener(int sedeId)
         {            
-            int pageSize = 30;
-            // Validación defensiva
-            if (pageNumber < 1) pageNumber = 1;
-            if (pageSize < 1) pageSize = 30;
 
             var response = await _context.Pedidos
                 .Include(a => a.Paciente.Persona)
@@ -201,8 +197,6 @@ namespace Proy_back_QBD.Services
                 .Include(a => a.Formulas)
                 .Include(a => a.ProdTerms)
                 .OrderByDescending(a => a.FechaCreacion) // Ordenar por fecha (puedes cambiar el criterio)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
                 .Where(w => w.SedeId == sedeId)
                 .Select(a => new PedidoFindAllResponse
                 {

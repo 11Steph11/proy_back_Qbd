@@ -70,31 +70,28 @@ namespace Proy_back_QBD.Services
             return medico;
         }
 
-        public async Task<List<MedicoFindAllResponse?>> Obtener(int page, int sedeId)
+        public async Task<List<MedicoFindAllResponse?>> Obtener(int sedeId)
         {
-            int pageSize = 10;
-            if (page <= 0) page = 1;
-            if (pageSize <= 0) pageSize = 10;
-
             List<MedicoFindAllResponse>? response = await _context.Medicos
-                .Include(a => a.Especialidad)
-                .Include(a => a.Persona)
-                .Select(a => new MedicoFindAllResponse
-                {
-                    Id = a.Id,
-                    DesEspecialidad = a.Especialidad.Nombre,
-                    EspecialidadId = a.Especialidad.Id,
-                    NumeroEspecialidad = a.NumeroEspecialidad,
-                    Persona = _mapper.Map<PersMedRes2>(a.Persona),
-                    NombreCompleto = $"{a.Persona.NombreCompleto}",
-                    Cmp = a.Cmp
-                })
-                .Where(w => w.Persona.SedeId == sedeId)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            .Include(a => a.Especialidad)
+            .Include(a => a.Persona)
+            .Select(a => new MedicoFindAllResponse
+            {
+                Id = a.Id,
+                DesEspecialidad = a.Especialidad.Nombre,
+                EspecialidadId = a.Especialidad.Id,
+                NumeroEspecialidad = a.NumeroEspecialidad,
+                Persona = _mapper.Map<PersMedRes2>(a.Persona),
+                NombreCompleto = $"{a.Persona.NombreCompleto} ",
+                Cmp = a.Cmp
+            })
+            .ToListAsync();
 
-            return response ?? new List<MedicoFindAllResponse?>();
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
         }
 
         public async Task<MedicoFindIdResponse?> ObtenerById(int id)

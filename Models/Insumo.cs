@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace Proy_back_QBD.Models
 {
 
-    [Table("innsumo")]
+    [Table("insumo")]
     public class Insumo
     {
         [Column("id")]

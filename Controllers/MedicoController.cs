@@ -59,9 +59,9 @@ public class MedicoController : ControllerBase
     }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<MedicoFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerMedicos(int pageId, int sedeId)
+    public async Task<IActionResult> ObtenerMedicos( int sedeId)
     {
-        List<MedicoFindAllResponse?> response = await _medicoService.Obtener(pageId, sedeId);
+        List<MedicoFindAllResponse?> response = await _medicoService.Obtener(sedeId);
 
         return Ok(response);
     }
