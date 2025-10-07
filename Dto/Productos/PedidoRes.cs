@@ -39,6 +39,11 @@ namespace Proy_back_QBD.Dto.Response
         public string? Msg { get; set; }  // Puede ser nulo      
         public Pedido? PedidoRes { get; set; }
     }
+    public class PedidoListaRes
+    {
+        public int? Id { get; set; }  // Puede ser nulo      
+        public string? Codigo { get; set; }
+    }
     public class PedidoUpdateResponse
     {
         public string? Msg { get; set; }  // Puede ser nulo      

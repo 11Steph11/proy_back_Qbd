@@ -40,5 +40,23 @@ namespace Proy_back_QBD.Services
             return pedidosLab;
         }
 
+        public async Task<LabFindPedIdRes?> ObtenerByCod(string cod)
+        {
+            int id = 0;
+            var partes = cod.Split('-');
+            if (partes.Length == 2 && int.TryParse(partes[1], out int numero))
+            {
+                id = numero;
+            }
+            LabFindPedIdRes response = await _db.Pedidos
+                                        .Where(w => w.Id == id)
+                                        .Select(s => new LabFindPedIdRes
+                                        {
+                                            CMP = s.Medico.Cmp
+                                        }
+                                        )
+                                        .FirstOrDefaultAsync();
+            return response;
+        }
     }
 }
