@@ -172,7 +172,7 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<Pedido?> ActualizarPedido(int id, string boleta)
+        public async Task<Pedido?> ActComprobante(int id, string comprobante)
         {
             Pedido? pedido = await _context.Pedidos
             .Include(p => p.Formulas)
@@ -180,7 +180,7 @@ namespace Proy_back_QBD.Services
            .FirstOrDefaultAsync(a => a.Id == id);
             if (pedido == null) return null;
 
-            pedido.Boleta = boleta;
+            pedido.ComprobanteElectronico = comprobante;
 
             await _context.SaveChangesAsync();
 

@@ -43,15 +43,15 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    [HttpPatch("boleta/{id}")]
+    [HttpPatch("comprobante/{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
-    public async Task<IActionResult> AgregarBoleta(int id, string boleta)
+    public async Task<IActionResult> AgregarBoleta(int id, string comprobante)
     {
         if (id == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        Pedido? response = await _pedidoService.ActualizarPedido(id, boleta);
+        Pedido? response = await _pedidoService.ActComprobante(id, comprobante);
 
         return Ok(response);
     }
