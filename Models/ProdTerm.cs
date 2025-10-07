@@ -43,7 +43,7 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
         [JsonIgnore]
-        public Producto? ProdDetalle { get; set; }
+        public Producto? Producto { get; set; }
 
     }
 

@@ -17,13 +17,21 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.ModificadorId, o => o.Ignore())
             .ForMember(a => a.PedidoId, o => o.Ignore())
             ;
+
             CreateMap<ProdTermUpdateReq, ProdTerm>()
             .ForMember(a => a.Id, opt => opt.Ignore())
             .ForMember(a => a.CreadorId, opt => opt.Ignore())
             ;
-            CreateMap<ProdTerm,ProdTermPedido >();
-            CreateMap<ProdTermCreateReq,ProdTerm >();
-            
+
+            CreateMap<ProdTerm, ProdTermPedido>()
+            .ForMember(dest => dest.Producto, opt => opt.MapFrom(src => src.Producto));
+            ;
+
+            CreateMap<Producto, ProductoRes>()
+  .ForMember(dest => dest.Codigo, opt => opt.MapFrom(src => "PT " + src.Id.ToString("D3")))
+            ;
+            CreateMap<ProdTermCreateReq, ProdTerm>();
+
         }
     }
 

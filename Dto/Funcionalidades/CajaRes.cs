@@ -26,6 +26,7 @@ namespace Proy_back_QBD.Response
         public string? Dni { get; set; }
         public string? Paciente { get; set; }
         public DateOnly? FechaPedido { get; set; }
+        public string? Estado { get; set; }
         public string? Modalidad { get; set; }
         public decimal? Importe { get; set; }
         public TimeOnly? Hora { get; set; }

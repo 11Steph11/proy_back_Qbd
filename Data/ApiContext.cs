@@ -282,7 +282,7 @@ namespace Proy_back_QBD.Data
                             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ProdTerm>()
-                            .HasOne(e => e.ProdDetalle)
+                            .HasOne(e => e.Producto)
                             .WithMany(e2 => e2.ProdTerm)
                             .HasForeignKey(hfk => hfk.ProductoId)
                             .OnDelete(DeleteBehavior.Restrict);
