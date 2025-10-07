@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Dto.Productos
     {
         public string? DNI { get; set; }
         public string? Paciente { get; set; }
-        public string? Edad { get; set; }
+        public int? Edad { get; set; }
         public string? CMP { get; set; }
         public string? Medico { get; set; }
         public List<LabForm>? Formulas { get; set; }
@@ -30,7 +30,7 @@ namespace Proy_back_QBD.Dto.Productos
     public class LabForm()
     {
         public int? Id { get; set; }
-        public string? Nombre { get; set; }
+        public string? FormulaF { get; set; }
         public string? Lote { get; set; }
         public string? Registro { get; set; }
         public string? Diagnostico { get; set; }

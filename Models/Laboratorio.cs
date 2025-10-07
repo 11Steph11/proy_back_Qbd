@@ -12,8 +12,6 @@ namespace Proy_back_QBD.Models
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
-        [Column("reportado")]
-        public string? Reportado { get; set; }
         [Column("formulaR")]
         public string? FormulaR { get; set; }
         [Column("fecha_emision")]

@@ -84,7 +84,7 @@ namespace Proy_back_QBD.Services
                     Id = a.Id,
                     DniApoderado = a.DniApoderado,
                     NombreCompleto = $"{a.Persona.NombreCompleto}",
-                    Edad = CalcularEdad(a.Persona.FechaNacimiento, null),
+                    Edad = CalcularEdad(a.Persona.FechaNacimiento),
                     Apoderado = a.Apoderado,
                     Persona = _mapper.Map<PersonaRes2>(a.Persona),
                     Telefono = a.Persona.Telefono,
@@ -97,7 +97,6 @@ namespace Proy_back_QBD.Services
 
             return response ?? new List<PacienteFindAllResponse?>();
         }
-
 
         public async Task<PacienteFindIdResponse?> ObtenerById(int id)
         {
@@ -121,9 +120,10 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
-        public static int CalcularEdad(DateOnly? fechaNacimiento, DateOnly? fechaReferencia = null)
+        
+        public static int CalcularEdad(DateOnly? fechaNacimiento)
         {
-            var hoy = fechaReferencia ?? DateOnly.FromDateTime(DateTime.Today);
+            var hoy = DateOnly.FromDateTime(DateTime.Today);
 
             int edad = hoy.Year - fechaNacimiento.GetValueOrDefault().Year;
 

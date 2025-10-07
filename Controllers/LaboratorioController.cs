@@ -33,6 +33,19 @@ namespace Proy_back_QBD.Controllers
 
             return Ok(response);
         }
+        [HttpGet("{cod}")]
+        [SwaggerResponse(200, "Lista exitosa", typeof(LabFindPedIdRes))]
+        public async Task<IActionResult> ListarPedidosLab(string cod)
+        {
+            LabFindPedIdRes? response = await _labService.ObtenerByCod(cod);
+            
+            if (response == null)
+            {
+                return NotFound("");
+            }
+            
+            return Ok(response);
+        }
 
 
     }

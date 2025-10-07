@@ -48,14 +48,37 @@ namespace Proy_back_QBD.Services
             {
                 id = numero;
             }
-            LabFindPedIdRes response = await _db.Pedidos
+
+            LabFindPedIdRes? response = await _db.Pedidos
+                                        .Include(i => i.Paciente.Persona)
+                                        .Include(i => i.Medico.Persona)
                                         .Where(w => w.Id == id)
                                         .Select(s => new LabFindPedIdRes
                                         {
-                                            CMP = s.Medico.Cmp
+                                            DNI = s.Paciente.Persona.Dni ?? s.Paciente.DniApoderado,
+                                            Paciente = s.Paciente.Persona.NombreCompleto,
+                                            Edad = PacienteService.CalcularEdad(s.Paciente.Persona.FechaNacimiento),
+                                            CMP = s.Medico.Cmp,
+                                            Medico = s.Medico.Persona.NombreCompleto,
+                                            Formulas = s.Formulas.Select(f => new LabForm
+                                            {
+                                                Id = f.Id,
+                                                FormulaF = f.FormulaFarmaceutica,
+                                                Lote = f.Lote,
+                                                Registro = "REG-" + f.Id,
+                                                Diagnostico = f.Diagnostico,
+                                                ZonaAplicacion = f.ZonaAplicacion,
+                                                CostoTotal = f.Cantidad * f.Costo,
+
+                                            }).ToList()
                                         }
                                         )
                                         .FirstOrDefaultAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
             return response;
         }
     }
