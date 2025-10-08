@@ -110,6 +110,10 @@ namespace Proy_back_QBD.Models
         public List<Producto>? ProductoCreadas { get; set; }
         [JsonIgnore]
         public List<Producto>? ProductoModificadas { get; set; }
+        [JsonIgnore]
+        public List<Empaque>? EmpaquesCreadas { get; set; }
+        [JsonIgnore]
+        public List<Empaque>? EmpaquesModificadas { get; set; }
     }
     [Table("tipos_usuario")]
     public class TipoUsuario

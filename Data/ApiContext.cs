@@ -25,6 +25,7 @@ namespace Proy_back_QBD.Data
         public DbSet<Laboratorio> Laboratorios { get; set; }  // Para la tabla de lab        
         public DbSet<Especialidad> Especialidads { get; set; }  // Para la tabla de lab        
         public DbSet<Insumo> Insumos { get; set; }  // Para la tabla de lab        
+        public DbSet<Empaque> Empaques { get; set; }  // Para la tabla de lab        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -41,6 +42,29 @@ namespace Proy_back_QBD.Data
             ConfigureProductos(modelBuilder);
             ConfigureCobros(modelBuilder);
             ConfigureLaboratorio(modelBuilder);
+            ConfigureEmpaque(modelBuilder);
+        }
+
+        private void ConfigureEmpaque(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Empaque>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.EmpaquesCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Empaque>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.EmpaquesModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Empaque>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Empaque>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
         }
 
         private void ConfigureAsistencia(ModelBuilder modelBuilder)
@@ -263,7 +287,7 @@ namespace Proy_back_QBD.Data
                             .HasOne(e => e.Modificador)
                             .WithMany(e2 => e2.PersonasModificadas)
                             .HasForeignKey(e => e.ModificadorId)
-                            .OnDelete(DeleteBehavior.Restrict);            
+                            .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Persona>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar

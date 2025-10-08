@@ -39,13 +39,13 @@ namespace Proy_back_QBD.Services
                         )
                     .ToListAsync();
 
-            List<MovimientosEfectivo> movimientos = caja
-            .Where(w => w.Pedido.Estado == "ENTREGADO")
-            .Select(s => new MovimientosEfectivo
+            List<Movimientos> movsPend = caja
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo != 0)
+            .Select(s => new Movimientos
             {
                 CUO_R = "BDRP-" + s.PedidoId,
                 CUO_C = "BDRC-" + s.Id,
-                Fecha = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
+                FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                 Dni = s.Pedido.Paciente.DniApoderado ?? s.Pedido.Paciente.Persona.Dni,
                 Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
                 FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.Pedido.FechaCreacion)),
@@ -57,6 +57,39 @@ namespace Proy_back_QBD.Services
                 BolFac = s.Pedido.ComprobanteElectronico
             })
             .ToList();
+
+            List<int?> idMovsTerm = caja
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0)
+            .Select(s => s.PedidoId)
+            .ToList();
+            List<Movimientos> movsTerm = new();
+            if (idMovsTerm != null)
+            {
+                movsTerm = await _context.Cobros
+                .Include(i => i.Pedido.Paciente.Persona)
+                .Include(i => i.Pedido.Formulas)
+                .Include(i => i.Pedido.ProdTerms)
+                .Where(w => idMovsTerm.Contains(w.PedidoId))
+                .Select(s => new Movimientos
+                {
+                    CUO_R = "BDRP-" + s.PedidoId,
+                    CUO_C = "BDRC-" + s.Id,
+                    FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
+                    Dni = s.Pedido.Paciente.DniApoderado ?? s.Pedido.Paciente.Persona.Dni,
+                    Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
+                    FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.Pedido.FechaCreacion)),
+                    Modalidad = s.Modalidad,
+                    Estado = s.Pedido.Estado,
+                    Importe = s.Importe,
+                    Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
+                    Turno = s.Turno,
+                    BolFac = s.Pedido.ComprobanteElectronico
+                })
+                .ToListAsync();
+            }
+            List<Movimientos> movimientos = new List<Movimientos>();
+            if (movsPend != null) movimientos.AddRange(movsPend);
+            if (movsTerm != null) movimientos.AddRange(movsTerm);
 
             DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
             foreach (var item in movimientos)
@@ -73,7 +106,7 @@ namespace Proy_back_QBD.Services
                         bqPagos.Electronico += item.Importe;
                     }
 
-                    if (item.FechaPedido != Hoy)
+                    if (item.FechaCobro != Hoy)
                     {
                         pagosAnteriores.Electronico += item.Importe;
                         pagosAnteriores.Total += item.Importe;
@@ -91,7 +124,7 @@ namespace Proy_back_QBD.Services
                         bqPagos.Total += item.Importe;
                         bqPagos.Efectivo += item.Importe;
                     }
-                    if (item.FechaPedido != Hoy)
+                    if (item.FechaCobro != Hoy)
                     {
                         pagosAnteriores.Efectivo += item.Importe;
                         pagosAnteriores.Total += item.Importe;
@@ -102,24 +135,22 @@ namespace Proy_back_QBD.Services
                         pagosDia.Total += item.Importe;
                     }
                     recaudDia.Efectivo += item.Importe;
-                }
-                if (recaudDia.Total == null)
-                {
-                    recaudDia.Total = 0;
-                }
-                recaudDia.Total += item.Importe;
+                }        
             }
-            decimal adelantoInc = 0;
-            decimal saldoInc = 0;
-            foreach (var item in caja)
-            {
-                adelantoInc = item.Pedido.Adelanto == null ? 0 : item.Pedido.Adelanto;
-                saldoInc = item.Pedido.Saldo == null ? 0 : item.Pedido.Saldo;
-            }
-            ventas.Total = 10;
-            ventas.Total = recaudDia.Total + adelantoInc;
-            ventas.Adelantos = adelantoInc;
-            ventas.Saldo = saldoInc;
+            recaudDia.Total = 0;
+            recaudDia.Total += pagosDia.Total + pagosAnteriores.Total;
+
+            List<Pedido> ventasP = await _context.Pedidos
+                   .Where(w =>
+                       DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
+                       && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
+                       )
+                   .ToListAsync();
+
+            ventas.Total = 0;
+            ventas.Total = ventasP.Sum(p => p.Total);
+            ventas.Adelantos = ventasP.Sum(p => p.Adelanto);
+            ventas.Saldo = ventasP.Sum(p => p.Saldo);
 
             CajaFindAllRes? response = new CajaFindAllRes
             {

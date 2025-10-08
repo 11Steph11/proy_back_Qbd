@@ -81,5 +81,12 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
+        // public async Task<LabFindPedIdRes?> RegistrarLabIns(FormLabIns request)
+        // {
+           
+            
+
+        //     return response;
+        // }
     }
 }

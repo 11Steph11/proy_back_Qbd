@@ -11,18 +11,18 @@ namespace Proy_back_QBD.Response
 
     public class CajaFindAllRes
     {
-        public List<MovimientosEfectivo>? Movimientos { get; set; }
+        public List<Movimientos>? Movimientos { get; set; }
         public RecaudacionDelDia? RecaudacionDelDia { get; set; }
         public RPagosDelDia? RPagosDelDia { get; set; }
         public RPagosAnteriores? RPagosAnteriores { get; set; }
         public BQPagosDelDia? BQPagos { get; set; }
         public Ventas? Ventas { get; set; }
     }
-    public class MovimientosEfectivo
+    public class Movimientos
     {
         public string? CUO_R { get; set; }
         public string? CUO_C { get; set; }
-        public DateOnly? Fecha { get; set; }
+        public DateOnly? FechaCobro { get; set; }
         public string? Dni { get; set; }
         public string? Paciente { get; set; }
         public DateOnly? FechaPedido { get; set; }

@@ -24,8 +24,10 @@ namespace Proy_back_QBD.Models
         public string? Autorizado { get; set; }
         [Column("procedimiento")]
         public string? Procedimiento { get; set; }
-        [Column("cod_E")]
-        public string? CodE { get; set; }
+        [Column("empaque_id")]
+        public int? EmpaqueId { get; set; }
+        [JsonIgnore]
+        public Empaque? Empaque { get; set; }
         [Column("cod_adicional")]
         public string? CodAdicional { get; set; }
         [Column("cod_termo")]
