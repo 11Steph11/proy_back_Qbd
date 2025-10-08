@@ -23,6 +23,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<FormulaMap>();  // Registra tu perfil explícitamente
     cfg.AddProfile<ProdTermsMap>();  // Registra tu perfil explícitamente
     cfg.AddProfile<CobroMap>();
+    cfg.AddProfile<LaboratorioMap>();
 });
 
 builder.Services.AddScoped<IUserService, UserService>();

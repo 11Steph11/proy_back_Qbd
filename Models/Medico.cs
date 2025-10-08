@@ -8,7 +8,6 @@ namespace Proy_back_QBD.Models
     [Table("medicos")]
     public class Medico
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int? Id { get; set; }  // Puede ser nulo

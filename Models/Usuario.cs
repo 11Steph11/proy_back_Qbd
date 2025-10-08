@@ -10,7 +10,6 @@ namespace Proy_back_QBD.Models
     [Table("usuarios")]
     public class Usuario
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo 
@@ -114,6 +113,10 @@ namespace Proy_back_QBD.Models
         public List<Empaque>? EmpaquesCreadas { get; set; }
         [JsonIgnore]
         public List<Empaque>? EmpaquesModificadas { get; set; }
+        [JsonIgnore]
+        public List<FormulaCC>? FormulaCCsCreadas { get; set; }
+        [JsonIgnore]
+        public List<FormulaCC>? FormulaCCsModificadas { get; set; }
     }
     [Table("tipos_usuario")]
     public class TipoUsuario

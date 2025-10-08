@@ -8,16 +8,23 @@ using System.Threading.Tasks;
 
 namespace Proy_back_QBD.Models
 {
+    [Table("empaques")]
     public class Empaque
     {
-        [Key]
+        [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
+        [Column("descripcion")]
         public string? Descripcion { get; set; }
+        [Column("funda")]
         public string? Funda { get; set; }
+        [Column("caja")]
         public string? Caja { get; set; }
+        [Column("etiqueta1")]
         public string? Etiqueta1 { get; set; }
+        [Column("etiqueta2")]
         public string? Etiqueta2 { get; set; }
+        [Column("tara")]
         public string? Tara { get; set; }
         [Column("fecha_modificacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

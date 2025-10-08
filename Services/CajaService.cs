@@ -63,6 +63,7 @@ namespace Proy_back_QBD.Services
             .Select(s => s.PedidoId)
             .ToList();
             List<Movimientos> movsTerm = new();
+            Console.WriteLine("CODIGOS PEDIDOOOOOOOOOO"+idMovsTerm);
             if (idMovsTerm != null)
             {
                 movsTerm = await _context.Cobros
@@ -72,7 +73,7 @@ namespace Proy_back_QBD.Services
                 .Where(w => idMovsTerm.Contains(w.PedidoId))
                 .Select(s => new Movimientos
                 {
-                    CUO_R = "BDRP-" + s.PedidoId,
+                    CUO_R = "Z-" + s.PedidoId,
                     CUO_C = "BDRC-" + s.Id,
                     FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                     Dni = s.Pedido.Paciente.DniApoderado ?? s.Pedido.Paciente.Persona.Dni,

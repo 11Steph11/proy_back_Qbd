@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Productos;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Services.Interfaces;
 
 namespace Proy_back_QBD.Services
@@ -12,9 +14,11 @@ namespace Proy_back_QBD.Services
     public class LaboratorioService : ILaboratorioService
     {
         private readonly ApiContext _db;
-        public LaboratorioService(ApiContext db)
+        private readonly IMapper _Mappers;
+        public LaboratorioService(ApiContext db, IMapper Mappers)
         {
             _db = db;
+            _Mappers = Mappers;
         }
 
         public async Task<List<PedidoLab>> ListaLab(int pageNumber = 1, int pageSize = 30)
@@ -81,12 +85,21 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
-        // public async Task<LabFindPedIdRes?> RegistrarLabIns(FormLabIns request)
-        // {
-           
-            
+        public async Task<string?> RegistrarLabIns(FormLabIns request)
+        {
 
-        //     return response;
-        // }
+            string response;
+            
+            Laboratorio laboratorio = _Mappers.Map<Laboratorio>(request.Lab);
+            Insumo insumo = _Mappers.Map<Insumo>(request.Ins);
+
+            _db.Laboratorios.Add(laboratorio);
+            _db.Insumos.Add(insumo);
+
+            await _db.SaveChangesAsync();
+
+            response = "Registro exitoso";
+            return response;
+        }
     }
 }

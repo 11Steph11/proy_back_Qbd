@@ -25,7 +25,8 @@ namespace Proy_back_QBD.Data
         public DbSet<Laboratorio> Laboratorios { get; set; }  // Para la tabla de lab        
         public DbSet<Especialidad> Especialidads { get; set; }  // Para la tabla de lab        
         public DbSet<Insumo> Insumos { get; set; }  // Para la tabla de lab        
-        public DbSet<Empaque> Empaques { get; set; }  // Para la tabla de lab        
+        public DbSet<FormulaCC> FormulasCC { get; set; }  // Para la tabla de lab        
+        public DbSet<Empaque> Empaques { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -43,6 +44,29 @@ namespace Proy_back_QBD.Data
             ConfigureCobros(modelBuilder);
             ConfigureLaboratorio(modelBuilder);
             ConfigureEmpaque(modelBuilder);
+            ConfigureFormulasCC(modelBuilder);
+        }
+
+        private void ConfigureFormulasCC(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FormulaCC>()
+                            .HasOne(e => e.Creador)
+                            .WithMany(e2 => e2.FormulaCCsCreadas)
+                            .HasForeignKey(e => e.CreadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FormulaCC>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.FormulaCCsModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FormulaCC>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<FormulaCC>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
         }
 
         private void ConfigureEmpaque(ModelBuilder modelBuilder)

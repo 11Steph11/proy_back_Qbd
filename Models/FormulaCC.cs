@@ -6,18 +6,32 @@ using System.Text.Json.Serialization;
 namespace Proy_back_QBD.Models
 {
 
-    [Table("productos")]
-    public class Producto
+    [Table("formulasCC")]
+    public class FormulaCC
     {
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }                          // ID único del pedido
-        [Column("descripcion")]
-        public string? Descripcion { get; set; }                    // Costo del pedido
-        [Column("lab")]
-        public decimal? Lab { get; set; }                     // Cantidad de unidades solicitadas
-        [Column("costo")]
-        public decimal? Costo { get; set; }                   // g/ml (gramos por mililitro)
+        public int? Id { get; set; }
+        [Column("formula_id")]
+        public int? FormulaId { get; set; }
+        [JsonIgnore]
+        public Formula? Formula { get; set; }
+        [Column("insumo_id")]
+        public int? InsumoId { get; set; }
+        [JsonIgnore]
+        public Insumo? Insumo { get; set; }
+        [Column("porcentaje")]
+        public required string Porcentaje { get; set; }
+        [Column("variable")]
+        public required string Variable { get; set; }
+        [Column("cantidad_U")]
+        public required string CantidadU { get; set; }
+        [Column("cantidad_L")]
+        public required string CantidadL { get; set; }
+        [Column("practica")]
+        public string? Practica { get; set; }
+        [Column("csp")]
+        public bool? CSP { get; set; }
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime FechaCreacion { get; set; }           // Fecha de creación del pedido
@@ -31,12 +45,7 @@ namespace Proy_back_QBD.Models
         [Column("modificador_id")]
         public int ModificadorId { get; set; }
         [JsonIgnore]
-        public Usuario? Modificador { get; set; }
-        [JsonIgnore]
-        public List<ProdTerm>? ProdTerm { get; set; }
-        [Column("sedeId")]
-        public int? SedeId { get; set; }  // Puede ser nulo
-        public Sede? Sede { get; set; }  // Puede ser nulo    
+        public Usuario? Modificador { get; set; }        
     }
 
 }

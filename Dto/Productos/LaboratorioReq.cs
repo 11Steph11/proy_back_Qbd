@@ -8,12 +8,12 @@ namespace Proy_back_QBD.Dto.Productos
     public class FormLabIns
     {
 
-        public required Lab Lab { get; set; }
-        public required Ins Ins { get; set; }
+        public required LabCreReq Lab { get; set; }
+        public required InsumsCreReq Ins { get; set; }
 
     }
 
-    public class Lab
+    public class LabCreReq
     {
         public string? FormulaR { get; set; }
         public DateOnly FechaEmision { get; set; }
@@ -33,8 +33,15 @@ namespace Proy_back_QBD.Dto.Productos
         public string? Ph { get; set; }
         public int CreadorId { get; set; }
     }
-    public class Ins
+    public class InsumsCreReq
     {
-
+        public required int FormulaId { get; set; }
+        public required int InsumoId { get; set; }
+        public required string Porcentaje { get; set; }
+        public required string? V { get; set; }
+        public required string QU { get; set; }
+        public required string QL { get; set; }
+        public string? Pract { get; set; }
+        public bool? CSP { get; set; }
     }
 }

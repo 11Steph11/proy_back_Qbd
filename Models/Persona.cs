@@ -10,7 +10,6 @@ namespace Proy_back_QBD.Models
     [Table("personas")]
     public class Persona
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo 

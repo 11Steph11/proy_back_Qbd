@@ -9,7 +9,6 @@ namespace Proy_back_QBD.Models
     [Table("cobros")]
     public class Cobro
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int? Id { get; set; }

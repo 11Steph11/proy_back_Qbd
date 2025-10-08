@@ -15,11 +15,11 @@ namespace Proy_back_QBD.Models
         [Column("descripcion")]
         public string? Descripcion { get; set; }
         [Column("um")]
-        public string? UM { get; set; }
+        public string? UnidadMedida { get; set; }
         [Column("fc")]
-        public string? Fc { get; set; }
+        public string? FactorCorreccion { get; set; }
         [Column("dil")]
-        public string? Dil { get; set; }
+        public string? Dilucion { get; set; }
         [Column("fecha_creacion")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime FechaCreacion { get; set; }           // Fecha de creación del pedido
@@ -35,7 +35,7 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [JsonIgnore]
-        public Formula? Formula { get; set; }
+        public List<FormulaCC>? FormulasCC { get; set; }
         [Column("sedeId")]
         public int? SedeId { get; set; }  // Puede ser nulo
         [JsonIgnore]

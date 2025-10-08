@@ -5,10 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Proy_back_QBD.Models
 {
-    [Table("especialidad")]
+    [Table("especialidades")]
     public class Especialidad
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int? Id { get; set; }  // Puede ser nulo        
