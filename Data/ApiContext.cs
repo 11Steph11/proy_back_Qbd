@@ -50,6 +50,9 @@ namespace Proy_back_QBD.Data
         private void ConfigureFormulasCC(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FormulaCC>()
+            .HasKey(fi => new { fi.FormulaId, fi.InsumoId }); // Clave compuesta
+            
+            modelBuilder.Entity<FormulaCC>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.FormulaCCsCreadas)
                             .HasForeignKey(e => e.CreadorId)

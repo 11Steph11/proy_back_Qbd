@@ -91,10 +91,10 @@ namespace Proy_back_QBD.Services
             string response;
             
             Laboratorio laboratorio = _Mappers.Map<Laboratorio>(request.Lab);
-            Insumo insumo = _Mappers.Map<Insumo>(request.Ins);
+            FormulaCC formulaCC = _Mappers.Map<FormulaCC>(request.Ins);
 
             _db.Laboratorios.Add(laboratorio);
-            _db.Insumos.Add(insumo);
+            _db.FormulasCC.Add(formulaCC);
 
             await _db.SaveChangesAsync();
 

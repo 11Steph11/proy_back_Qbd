@@ -14,6 +14,7 @@ namespace Proy_back_QBD.Profiles
         {
             // Mapeo entre ApoderadoCreate y Apoderado
             CreateMap<LabCreReq, Laboratorio>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FormulaId))
             ;
             CreateMap<InsumsCreReq, FormulaCC>()
             ;

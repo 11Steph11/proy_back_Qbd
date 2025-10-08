@@ -107,7 +107,7 @@ namespace Proy_back_QBD.Services
                         bqPagos.Electronico += item.Importe;
                     }
 
-                    if (item.FechaCobro != Hoy)
+                    if (item.FechaPedido != Hoy)
                     {
                         pagosAnteriores.Electronico += item.Importe;
                         pagosAnteriores.Total += item.Importe;
@@ -125,7 +125,7 @@ namespace Proy_back_QBD.Services
                         bqPagos.Total += item.Importe;
                         bqPagos.Efectivo += item.Importe;
                     }
-                    if (item.FechaCobro != Hoy)
+                    if (item.FechaPedido != Hoy)
                     {
                         pagosAnteriores.Efectivo += item.Importe;
                         pagosAnteriores.Total += item.Importe;

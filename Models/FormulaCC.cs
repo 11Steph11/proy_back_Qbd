@@ -9,9 +9,6 @@ namespace Proy_back_QBD.Models
     [Table("formulasCC")]
     public class FormulaCC
     {
-        [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }
         [Column("formula_id")]
         public int? FormulaId { get; set; }
         [JsonIgnore]
