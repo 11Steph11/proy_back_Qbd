@@ -45,13 +45,36 @@ namespace Proy_back_QBD.Data
             ConfigureLaboratorio(modelBuilder);
             ConfigureEmpaque(modelBuilder);
             ConfigureFormulasCC(modelBuilder);
+            ConfigureInsumo(modelBuilder);
+        }
+
+        private void ConfigureInsumo(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Insumo>()
+                           .HasOne(e => e.Creador)
+                           .WithMany(e2 => e2.InsumosCreadas)
+                           .HasForeignKey(e => e.CreadorId)
+                           .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Insumo>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.InsumosModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Insumo>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Insumo>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
         }
 
         private void ConfigureFormulasCC(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FormulaCC>()
             .HasKey(fi => new { fi.FormulaId, fi.InsumoId }); // Clave compuesta
-            
+
             modelBuilder.Entity<FormulaCC>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.FormulaCCsCreadas)

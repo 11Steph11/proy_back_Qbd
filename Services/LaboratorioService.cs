@@ -89,17 +89,23 @@ namespace Proy_back_QBD.Services
         {
 
             string response;
-            
+
             Laboratorio laboratorio = _Mappers.Map<Laboratorio>(request.Lab);
-            FormulaCC formulaCC = _Mappers.Map<FormulaCC>(request.Ins);
+            laboratorio.ModificadorId =laboratorio.CreadorId;
+            foreach (var item in request.Ins)
+            {
+                FormulaCC formulaCC = _Mappers.Map<FormulaCC>(item);
+                formulaCC.ModificadorId = formulaCC.CreadorId;
+                _db.FormulasCC.Add(formulaCC);
+            }
 
             _db.Laboratorios.Add(laboratorio);
-            _db.FormulasCC.Add(formulaCC);
 
             await _db.SaveChangesAsync();
 
             response = "Registro exitoso";
             return response;
+
         }
     }
 }

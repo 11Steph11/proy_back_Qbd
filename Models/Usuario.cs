@@ -117,6 +117,10 @@ namespace Proy_back_QBD.Models
         public List<FormulaCC>? FormulaCCsCreadas { get; set; }
         [JsonIgnore]
         public List<FormulaCC>? FormulaCCsModificadas { get; set; }
+        [JsonIgnore]
+        public List<Insumo>? InsumosCreadas { get; set; }
+        [JsonIgnore]
+        public List<Insumo>? InsumosModificadas { get; set; }
     }
     [Table("tipos_usuario")]
     public class TipoUsuario

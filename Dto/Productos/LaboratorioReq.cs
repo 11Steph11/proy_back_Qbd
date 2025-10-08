@@ -9,7 +9,7 @@ namespace Proy_back_QBD.Dto.Productos
     {
 
         public required LabCreReq Lab { get; set; }
-        public required InsumsCreReq Ins { get; set; }
+        public required List<InsumsCreReq> Ins { get; set; }
 
     }
 
@@ -22,10 +22,9 @@ namespace Proy_back_QBD.Dto.Productos
         public string? Elaborado { get; set; }
         public string? Autorizado { get; set; }
         public string? Procedimiento { get; set; }
-        public string? CodE { get; set; }
-        public string? CodAdicional { get; set; }
-        public string? CodTermo { get; set; }
+        public int? EmpaqueId { get; set; }
         public int? CantiTermo { get; set; }
+        public string? CodAdicional { get; set; }
         public string? Etiqueta { get; set; }
         public string? Etiqueta2 { get; set; }
         public string? Aspecto { get; set; }
@@ -39,10 +38,11 @@ namespace Proy_back_QBD.Dto.Productos
         public required int FormulaId { get; set; }
         public required int InsumoId { get; set; }
         public required string Porcentaje { get; set; }
-        public required string? V { get; set; }
-        public required string QU { get; set; }
-        public required string QL { get; set; }
-        public string? Pract { get; set; }
+        public required string? Variable { get; set; }
+        public required string CantidadU { get; set; }
+        public required string CantidadL { get; set; }
+        public string? Practica { get; set; }
         public bool? CSP { get; set; }
+        public int CreadorId { get; set; }
     }
 }

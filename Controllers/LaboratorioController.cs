@@ -35,9 +35,26 @@ namespace Proy_back_QBD.Controllers
         }
         [HttpGet("{cod}")]
         [SwaggerResponse(200, "Lista exitosa", typeof(LabFindPedIdRes))]
-        public async Task<IActionResult> ListarPedidosLab(string cod)
+        public async Task<IActionResult> ListarPedidoLab(string cod)
         {
             LabFindPedIdRes? response = await _labService.ObtenerByCod(cod);
+            
+            if (response == null)
+            {
+                return NotFound("");
+            }
+            
+            return Ok(response);
+        }
+        [HttpPost]
+        [SwaggerResponse(200, "Registro exitosa", typeof(string))]
+        public async Task<IActionResult> CrearLaboratorio(FormLabIns request)
+        {
+            if (request.Lab == null || request.Ins == null)
+            {
+                return BadRequest("Faltan Datos");
+            }
+            string? response = await _labService.RegistrarLabIns(request);
             
             if (response == null)
             {

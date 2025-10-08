@@ -29,8 +29,6 @@ namespace Proy_back_QBD.Models
         public Empaque? Empaque { get; set; }
         [Column("cod_adicional")]
         public string? CodAdicional { get; set; }
-        [Column("cod_termo")]
-        public string? CodTermo { get; set; }
         [Column("canti_termo")]
         public int? CantiTermo { get; set; }
         [Column("etiqueta")]
