@@ -14,9 +14,9 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Formula? Formula { get; set; }
         [Column("insumo_id")]
-        public int? InsumoId { get; set; }
+        public required int InsumoId { get; set; }
         [JsonIgnore]
-        public Insumo? Insumo { get; set; }
+        public required Insumo Insumo { get; set; }
         [Column("porcentaje")]
         public required string Porcentaje { get; set; }
         [Column("variable")]

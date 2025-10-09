@@ -27,6 +27,8 @@ namespace Proy_back_QBD.Data
         public DbSet<Insumo> Insumos { get; set; }  // Para la tabla de lab        
         public DbSet<FormulaCC> FormulasCC { get; set; }  // Para la tabla de lab        
         public DbSet<Empaque> Empaques { get; set; }
+        public DbSet<FormulaR> FormulasR { get; set; }
+        public DbSet<InsumoR> InsumosR { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
@@ -46,6 +48,54 @@ namespace Proy_back_QBD.Data
             ConfigureEmpaque(modelBuilder);
             ConfigureFormulasCC(modelBuilder);
             ConfigureInsumo(modelBuilder);
+            ConfigureInsumoR(modelBuilder);
+            ConfigureFormulaR(modelBuilder);
+        }
+
+        private void ConfigureInsumoR(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<InsumoR>()
+            .HasKey(fi => new { fi.FormulaRId, fi.InsumoId }); // Clave compuesta
+            modelBuilder.Entity<InsumoR>()
+                           .HasOne(e => e.Creador)
+                           .WithMany(e2 => e2.InsumoRsCreadas)
+                           .HasForeignKey(e => e.CreadorId)
+                           .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<InsumoR>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.InsumoRsModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<InsumoR>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<InsumoR>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+        }
+
+        private void ConfigureFormulaR(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FormulaR>()
+                           .HasOne(e => e.Creador)
+                           .WithMany(e2 => e2.FormulaRsCreadas)
+                           .HasForeignKey(e => e.CreadorId)
+                           .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FormulaR>()
+                            .HasOne(e => e.Modificador)
+                            .WithMany(e2 => e2.FormulasRsModificadas)
+                            .HasForeignKey(e => e.ModificadorId)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FormulaR>()
+                            .Property(p => p.FechaCreacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<FormulaR>()
+                            .Property(p => p.FechaModificacion)
+                            .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
+                            .ValueGeneratedOnAdd();
         }
 
         private void ConfigureInsumo(ModelBuilder modelBuilder)

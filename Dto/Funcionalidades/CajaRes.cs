@@ -17,6 +17,7 @@ namespace Proy_back_QBD.Response
         public RPagosAnteriores? RPagosAnteriores { get; set; }
         public BQPagosDelDia? BQPagos { get; set; }
         public Ventas? Ventas { get; set; }
+        public List<DeudasPendientes>? Deudas { get; set; }
     }
     public class Movimientos
     {
@@ -31,6 +32,19 @@ namespace Proy_back_QBD.Response
         public decimal? Importe { get; set; }
         public TimeOnly? Hora { get; set; }
         public string? Turno { get; set; }
+        public string? BolFac { get; set; }
+    }
+    public class DeudasPendientes
+    {
+        public string? CUO_R { get; set; }
+        public DateOnly? FechaPedido { get; set; }
+        public string? Boleta { get; set; }
+        public string? Dni { get; set; }
+        public string? Paciente { get; set; }
+        public string? Telefono { get; set; }
+        public decimal? Importe { get; set; }
+        public decimal? Adelanto { get; set; }
+        public decimal? Saldo { get; set; }
         public string? BolFac { get; set; }
     }
     public class RecaudacionDelDia

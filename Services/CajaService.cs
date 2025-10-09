@@ -28,6 +28,7 @@ namespace Proy_back_QBD.Services
             RPagosAnteriores pagosAnteriores = new();
             BQPagosDelDia bqPagos = new();
             Ventas ventas = new Ventas();
+            List<DeudasPendientes> DeudasP = new ();
 
             List<Cobro> caja = await _context.Cobros
                     .Include(i => i.Pedido.Paciente.Persona)
@@ -63,7 +64,7 @@ namespace Proy_back_QBD.Services
             .Select(s => s.PedidoId)
             .ToList();
             List<Movimientos> movsTerm = new();
-            Console.WriteLine("CODIGOS PEDIDOOOOOOOOOO"+idMovsTerm);
+            Console.WriteLine("CODIGOS PEDIDOOOOOOOOOO" + idMovsTerm);
             if (idMovsTerm != null)
             {
                 movsTerm = await _context.Cobros
@@ -136,12 +137,13 @@ namespace Proy_back_QBD.Services
                         pagosDia.Total += item.Importe;
                     }
                     recaudDia.Efectivo += item.Importe;
-                }        
+                }
             }
             recaudDia.Total = 0;
             recaudDia.Total += pagosDia.Total + pagosAnteriores.Total;
 
             List<Pedido> ventasP = await _context.Pedidos
+                   .Include(i => i.Paciente.Persona)
                    .Where(w =>
                        DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
@@ -153,6 +155,22 @@ namespace Proy_back_QBD.Services
             ventas.Adelantos = ventasP.Sum(p => p.Adelanto);
             ventas.Saldo = ventasP.Sum(p => p.Saldo);
 
+            DeudasP = ventasP
+            .Where(w => w.Saldo != 0)
+            .Select(s => new DeudasPendientes
+            {
+                CUO_R = "BDRP-"+s.Id,
+                FechaPedido = DateOnly.FromDateTime(s.FechaCreacion),
+                Boleta = s.Id.ToString(),
+                Dni = s.Paciente.Persona.Dni??s.Paciente.DniApoderado,
+                Paciente = s.Paciente.Persona.NombreCompleto,
+                Telefono = s.Paciente.Persona.Telefono,
+                Importe = s.Total,
+                Adelanto = s.Adelanto,
+                Saldo = s.Saldo,
+                BolFac = s.ComprobanteElectronico,
+            }).ToList();
+
             CajaFindAllRes? response = new CajaFindAllRes
             {
                 Movimientos = movimientos,
@@ -160,7 +178,8 @@ namespace Proy_back_QBD.Services
                 RPagosDelDia = pagosDia,
                 RPagosAnteriores = pagosAnteriores,
                 BQPagos = bqPagos,
-                Ventas = ventas
+                Ventas = ventas,
+                Deudas = DeudasP
             };
 
             return response;

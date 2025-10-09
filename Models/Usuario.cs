@@ -121,6 +121,14 @@ namespace Proy_back_QBD.Models
         public List<Insumo>? InsumosCreadas { get; set; }
         [JsonIgnore]
         public List<Insumo>? InsumosModificadas { get; set; }
+        [JsonIgnore]
+        public List<InsumoR>? InsumoRsCreadas { get; set; }
+        [JsonIgnore]
+        public List<InsumoR>? InsumoRsModificadas { get; set; }
+        [JsonIgnore]
+        public List<FormulaR>? FormulaRsCreadas { get; set; }
+        [JsonIgnore]
+        public List<FormulaR>? FormulasRsModificadas { get; set; }
     }
     [Table("tipos_usuario")]
     public class TipoUsuario

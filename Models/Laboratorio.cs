@@ -6,13 +6,11 @@ using System.Text.Json.Serialization;
 namespace Proy_back_QBD.Models
 {
 
-    [Table("laboratorio")]
+    [Table("laboratorios")]
     public class Laboratorio
     {
         [Column("id")]
         public int? Id { get; set; }
-        [Column("formulaR")]
-        public string? FormulaR { get; set; }
         [Column("fecha_emision")]
         public DateOnly FechaEmision { get; set; }
         [Column("fecha_vcto")]

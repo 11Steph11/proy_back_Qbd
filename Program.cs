@@ -33,6 +33,7 @@ builder.Services.AddScoped<IPacienteService, PacienteService>();
 builder.Services.AddScoped<IMedicoService, MedicoService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IFormulaService, FormulaService>();
+builder.Services.AddScoped<IFormulaRService, FormulaRService>();
 builder.Services.AddScoped<IProdTermService, ProdTermService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
