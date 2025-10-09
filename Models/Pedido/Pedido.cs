@@ -15,7 +15,7 @@ namespace Proy_back_QBD.Models
         public Paciente? Paciente { get; set; }
         [Column("img1")]
         public string? Img1 { get; set; }
-        [Column("img2")]
+        [Column("img2")]    
         public string? Img2 { get; set; }
         [Column("img3")]
         public string? Img3 { get; set; }
