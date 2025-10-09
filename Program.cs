@@ -24,6 +24,8 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<ProdTermsMap>();  // Registra tu perfil explícitamente
     cfg.AddProfile<CobroMap>();
     cfg.AddProfile<LaboratorioMap>();
+    cfg.AddProfile<FormulaRMap>();
+    cfg.AddProfile<InsumoRMap>();
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -34,6 +36,7 @@ builder.Services.AddScoped<IMedicoService, MedicoService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IFormulaRService, FormulaRService>();
+builder.Services.AddScoped<IInsumoRService, InsumoRService>();
 builder.Services.AddScoped<IProdTermService, ProdTermService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();

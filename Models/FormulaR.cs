@@ -46,6 +46,6 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo
         [JsonIgnore]
-        public InsumoR? InsumoR { get; set; }  // Puede ser nulo
+        public List<InsumoR>? InsumoR { get; set; }  // Puede ser nulo
     }
 }
