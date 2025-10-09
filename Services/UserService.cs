@@ -97,7 +97,7 @@ namespace Proy_back_QBD.Services
                 HorarioAlmuerzo = a.HorarioAlmuerzo,
                 HorarioRegreso = a.HorarioRegreso,
                 HorarioSalida = a.HorarioSalida,
-                Cmp = a.Cmp,
+                Cmp = a.CQFP,
                 TipoUsuario = a.Tipo.Nombre,
                 TipoUsuarioId = a.TipoId,
                 Codigo = a.Codigo,
@@ -129,7 +129,7 @@ namespace Proy_back_QBD.Services
                 HorarioAlmuerzo = a.HorarioAlmuerzo,
                 HorarioRegreso = a.HorarioRegreso,
                 HorarioSalida = a.HorarioSalida,
-                Cmp = a.Cmp,
+                Cmp = a.CQFP,
                 TipoUsuario = a.Tipo.Nombre,
                 Codigo = a.Codigo,
                 PersonaRes = new PersonaRes

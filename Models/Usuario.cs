@@ -41,8 +41,8 @@ namespace Proy_back_QBD.Models
         public Persona? Persona { get; set; }  // Puede ser nulo
         [Column("persona_id")]
         public int? PersonaId { get; set; }  // Puede ser nulo
-        [Column("cmp")]
-        public string? Cmp { get; set; }  // Puede ser nulo
+        [Column("cqfp")]
+        public string? CQFP { get; set; }  // Puede ser nulo
         [Column("sedeId")]
         public int? SedeId { get; set; }  // Puede ser nulo
         [JsonIgnore]
