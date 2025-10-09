@@ -15,7 +15,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? Medico { get; set; }
         public decimal? Total { get; set; }
         public decimal? Adelanto { get; set; }
-        public decimal? Saldo { get; set; }        
+        public decimal? Saldo { get; set; }
         public string? Estado { get; set; }
         public DateTime FechaEntrega { get; set; }
         public string? Usuario { get; set; }
@@ -32,8 +32,13 @@ namespace Proy_back_QBD.Dto.Response
         public string? Registro { get; set; }
         public string? Elaborado { get; set; }
     }
+    public class PedidoLabFindAllRes2
+    {
+        public int? Id { get; set; }
+        public string? Cuo { get; set; }
+    }
 
-    public class PedidoCreateResponse
+    public class PedidoCreateRes
     {
         public string? Msg { get; set; }  // Puede ser nulo      
         public Pedido? PedidoRes { get; set; }
@@ -52,7 +57,7 @@ namespace Proy_back_QBD.Dto.Response
     public class PedidoFindIdResponse
     {
         public int? Id { get; set; }
-        public string? Periodo { get; set; }        
+        public string? Periodo { get; set; }
         public string? Img1 { get; set; }
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
@@ -65,5 +70,5 @@ namespace Proy_back_QBD.Dto.Response
     }
 
 
-    
+
 }

@@ -54,7 +54,7 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return response;
         }
-        public async Task<string?> ActualizarEstado(int id, string request)
+        public async Task<string?> ActEstado(int id, string request)
         {
             string estado = request.ToUpper().Trim();
             string response;
@@ -105,9 +105,9 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<PedidoCreateResponse?> Crear(PedidoCreateReq request)
+        public async Task<PedidoCreateRes?> Crear(PedidoCreateReq request)
         {
-            PedidoCreateResponse response = new PedidoCreateResponse();
+            PedidoCreateRes response = new PedidoCreateRes();
             List<Formula> formulaList = new();
             List<ProdTerm> prodTermList = new();
             DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
@@ -187,7 +187,7 @@ namespace Proy_back_QBD.Services
             return pedido;
         }
 
-        public async Task<List<PedidoFindAllResponse?>> Obtener(int sedeId)
+        public async Task<List<PedidoFindAllResponse?>> Listar(int sedeId)
         {
 
             var response = await _context.Pedidos
@@ -313,5 +313,23 @@ namespace Proy_back_QBD.Services
             return total;
         }
 
+        public async Task<List<PedidoLabFindAllRes2?>> ListarLab(int sedeId)
+        {
+            var response = await _context.Pedidos
+               .OrderByDescending(a => a.FechaCreacion) // Ordenar por fecha (puedes cambiar el criterio)
+               .Where(w => w.SedeId == sedeId)
+               .Select(a => new PedidoLabFindAllRes2
+               {
+                   Id = a.Id,
+                   Cuo = $"P-{a.Id}"                  
+               })
+               .ToListAsync();
+            if (response == null)
+            {
+                return null;
+            }
+            
+            return response;
+        }
     }
 }

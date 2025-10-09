@@ -21,14 +21,14 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(PedidoCreateResponse))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(PedidoCreateRes))]
     public async Task<IActionResult> CrearPedido([FromBody] PedidoCreateReq request)
     {
         if (request == null)
         {
             return BadRequest("Request cannot be null");
         }
-        PedidoCreateResponse? response = await _pedidoService.Crear(request);
+        PedidoCreateRes? response = await _pedidoService.Crear(request);
         return Ok(response);
     }
     [HttpPut("{id}")]
@@ -62,15 +62,24 @@ public class PedidoController : ControllerBase
         {
             return BadRequest("Datos incorrectos");
         }
-        string? response = await _pedidoService.ActualizarEstado(id, estado);
+        string? response = await _pedidoService.ActEstado(id, estado);
 
         return Ok(response);
     }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerPedidos( int sedeId)
+    public async Task<IActionResult> ObtenerPedidos(int sedeId)
     {
-        List<PedidoFindAllResponse?> response = await _pedidoService.Obtener( sedeId);
+        List<PedidoFindAllResponse?> response = await _pedidoService.Listar(sedeId);
+
+        return Ok(response);
+    }
+    
+    [HttpGet("lab/{sedeId}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoLabFindAllRes?>))]
+    public async Task<IActionResult> ObtenerPedidosLab(int sedeId)
+    {
+        List<PedidoLabFindAllRes2?> response = await _pedidoService.ListarLab(sedeId);
 
         return Ok(response);
     }
