@@ -212,7 +212,6 @@ namespace Proy_back_QBD.Services
                     Total = a.Total,
                     Adelanto = a.Adelanto,
                     Saldo = a.Saldo,
-                    Recibo = a.Boleta,
                     Estado = a.Estado,
                     FechaEntrega = ZonaHoraria.AjustarZona(a.FechaEntrega),
                     Usuario = a.Creador.Codigo,

@@ -7,8 +7,7 @@ namespace Proy_back_QBD.Dto.Request
     {
 
         public required string Cuop { get; set; }
-        public required string Periodo { get; set; }
-        public string? Boleta { get; set; }
+        public required string Periodo { get; set; }        
         public int PacienteId { get; set; }
         public int MedicoId { get; set; }
         public int SedeId { get; set; }
@@ -31,8 +30,7 @@ namespace Proy_back_QBD.Dto.Request
     public class PedidoUpdateReq
     {
         public required string Cuop { get; set; }
-        public required string Periodo { get; set; }
-        public string? Boleta { get; set; }
+        public required string Periodo { get; set; }        
         public int PacienteId { get; set; }
         public int MedicoId { get; set; }        
         public string? Img1 { get; set; }

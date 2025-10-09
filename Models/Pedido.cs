@@ -9,8 +9,6 @@ namespace Proy_back_QBD.Models
     [Table("pedidos")]
     public class Pedido
     {
-        [Column("boleta")]
-        public string? Boleta { get; set; }
         [Column("paciente_id")]
         public int? PacienteId { get; set; }
         [JsonIgnore]
