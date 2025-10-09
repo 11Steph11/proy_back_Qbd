@@ -45,7 +45,7 @@ public class PedidoController : ControllerBase
     }
     [HttpPatch("comprobante/{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
-    public async Task<IActionResult> AgregarBoleta(int id, string comprobante)
+    public async Task<IActionResult> AgregarBoleta(int id, string? comprobante)
     {
         if (id == null)
         {

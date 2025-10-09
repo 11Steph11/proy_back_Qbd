@@ -172,7 +172,7 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<Pedido?> ActComprobante(int id, string comprobante)
+        public async Task<Pedido?> ActComprobante(int id, string? comprobante)
         {
             Pedido? pedido = await _context.Pedidos
             .Include(p => p.Formulas)
