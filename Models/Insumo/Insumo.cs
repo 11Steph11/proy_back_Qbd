@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Models
     {
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [Column("descripcion")]
         public required string Descripcion { get; set; }
         [Column("um")]

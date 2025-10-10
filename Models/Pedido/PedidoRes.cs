@@ -19,7 +19,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? Estado { get; set; }
         public DateTime FechaEntrega { get; set; }
         public string? Usuario { get; set; }
-        public string? BolFaC { get; set; }
+        public string? ComprobanteElectronico { get; set; }
     }
     public class PedidoLabFindAllRes
     {
@@ -61,6 +61,9 @@ namespace Proy_back_QBD.Dto.Response
         public string? Img1 { get; set; }
         public string? Img2 { get; set; }
         public string? Img3 { get; set; }
+        public string? Img4 { get; set; }
+        public string? Img5 { get; set; }
+        public string? Img6 { get; set; }
         public string? ComprobanteElectronico { get; set; }
         public string? FechaEntrega { get; set; }
         public int? MedicoId { get; set; }

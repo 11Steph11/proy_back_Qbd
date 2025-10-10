@@ -15,7 +15,7 @@ namespace Proy_back_QBD.Dto.Insumo
     }
     public class InsumoFindAllRes
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public required string Descripcion { get; set; }
     }
     public class InsumoFindIdRes

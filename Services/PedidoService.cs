@@ -215,7 +215,7 @@ namespace Proy_back_QBD.Services
                     Estado = a.Estado,
                     FechaEntrega = ZonaHoraria.AjustarZona(a.FechaEntrega),
                     Usuario = a.Creador.Codigo,
-                    BolFaC = a.ComprobanteElectronico,
+                    ComprobanteElectronico = a.ComprobanteElectronico,
                 })
                 .ToListAsync();
 

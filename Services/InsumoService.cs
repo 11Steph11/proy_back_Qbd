@@ -17,17 +17,17 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public Task<Insumo?> Actualizar(int id, InsumoUpdateReq request)
+        public async Task<Insumo?> Actualizar(int id, InsumoUpdateReq request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Insumo?> Crear(InsumoCreateReq request)
+        public async Task<Insumo?> Crear(InsumoCreateReq request)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Insumo?> Eliminar(int id)
+        public async Task<Insumo?> Eliminar(int id)
         {
             throw new NotImplementedException();
         }
@@ -48,14 +48,37 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public Task<List<InsumoFindAllRes?>> Obtener()
+        public async Task<List<InsumoFindAllRes?>> Obtener()
         {
-            throw new NotImplementedException();
+            List<InsumoFindAllRes?> response = await _context.Insumos
+                                            .Select(s => new InsumoFindAllRes
+                                            {
+                                                Id = s.Id,
+                                                Descripcion = s.Descripcion
+                                            }
+                                            ).ToListAsync();
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
         }
 
-        public Task<InsumoFindIdRes?> ObtenerById(int id)
+        public async Task<InsumoFindIdRes?> ObtenerById(int id)
         {
             throw new NotImplementedException();
+            // List<InsumoFindIdRes?> response = await _context.Insumos
+            //                                 .Select(s => new InsumoFindAllRes
+            //                                 {
+            //                                     Id = s.Id,
+            //                                     Descripcion = s.Descripcion
+            //                                 }
+            //                                 ).FirstOrDefault();
+            // if (response == null)
+            // {
+            //     return null;
+            // }
+            // return response;
         }
     }
 }
