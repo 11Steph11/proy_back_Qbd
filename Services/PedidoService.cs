@@ -203,7 +203,7 @@ namespace Proy_back_QBD.Services
                 {
                     Id = a.Id,
                     Cuo = $"P-{a.Id}",
-                    FechaCreacion = a.FechaCreacion,
+                    FechaCreacion = ZonaHoraria.AjustarZona(a.FechaCreacion),
                     Dni = a.Paciente.Persona.Dni,
                     Paciente = a.Paciente.Persona.NombreCompleto,
                     PacienteId = a.PacienteId,

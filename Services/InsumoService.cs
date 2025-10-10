@@ -1,12 +1,9 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
-using Proy_back_QBD.Dto.Auxiliares;
-using Proy_back_QBD.Dto.Productos;
-using Proy_back_QBD.Dto.Request;
-using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Dto.Insumo;
 using Proy_back_QBD.Models;
-using Proy_back_QBD.Request;
+
 
 namespace Proy_back_QBD.Services
 {
@@ -20,6 +17,21 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
+        public Task<Insumo?> Actualizar(int id, InsumoUpdateReq request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Insumo?> Crear(InsumoCreateReq request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Insumo?> Eliminar(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<InsumoLabRes>?> ListaFormulaR(int FormulaRId)
         {
             List<InsumoLabRes> response = await _context.InsumosR
@@ -28,12 +40,22 @@ namespace Proy_back_QBD.Services
                                                         {
                                                             Id = s.InsumoId,
                                                             Descripcion = s.Insumo.Descripcion,
-                                                            FactorCorreccion =s.Insumo.FactorCorreccion,
-                                                            Dilucion=s.Insumo.Dilucion,
-                                                            UnidadMedida=s.Insumo.UnidadMedida
+                                                            FactorCorreccion = s.Insumo.FactorCorreccion,
+                                                            Dilucion = s.Insumo.Dilucion,
+                                                            UnidadMedida = s.Insumo.UnidadMedida
                                                         })
                                                         .ToListAsync();
             return response;
+        }
+
+        public Task<List<InsumoFindAllRes?>> Obtener()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<InsumoFindIdRes?> ObtenerById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
