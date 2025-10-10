@@ -13,6 +13,7 @@ namespace Proy_back_QBD.Dto.Insumo
         public required string FactorCorreccion { get; set; }
         public required string Dilucion { get; set; }
         public int CreadorId { get; set; }
+        public int SedeId { get; set; }
     }
     public class InsumoUpdateReq
     {

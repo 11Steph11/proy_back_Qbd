@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Services
         Task<Insumo?> Crear(InsumoCreateReq request);
         Task<Insumo?> Actualizar(int id, InsumoUpdateReq request);
         Task<Insumo?> Eliminar(int id);
-        Task<List<InsumoFindAllRes?>> Obtener();
+        Task<List<InsumoFindAllRes?>> Obtener(int sedeId);
         Task<InsumoFindIdRes?> ObtenerById(int id);
     }
 }

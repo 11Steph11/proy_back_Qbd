@@ -26,6 +26,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<LaboratorioMap>();
     cfg.AddProfile<FormulaRMap>();
     cfg.AddProfile<InsumoRMap>();
+    cfg.AddProfile<InsumoMap>();
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -37,6 +38,7 @@ builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IFormulaRService, FormulaRService>();
 builder.Services.AddScoped<IInsumoRService, InsumoRService>();
+builder.Services.AddScoped<IInsumoService, InsumoService>();
 builder.Services.AddScoped<IProdTermService, ProdTermService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();

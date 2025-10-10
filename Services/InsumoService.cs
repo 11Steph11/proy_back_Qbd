@@ -19,17 +19,36 @@ namespace Proy_back_QBD.Services
 
         public async Task<Insumo?> Actualizar(int id, InsumoUpdateReq request)
         {
-            throw new NotImplementedException();
+            Insumo? insumo = await _context.Insumos.FindAsync(id);
+            if (insumo == null)
+            {
+                return null;
+            }
+            _mapper.Map(request, insumo);
+            await _context.SaveChangesAsync();
+            return insumo;
         }
 
         public async Task<Insumo?> Crear(InsumoCreateReq request)
         {
-            throw new NotImplementedException();
+            Insumo? insumo = _mapper.Map<Insumo>(request);
+            insumo.ModificadorId = insumo.CreadorId;
+            _context.Insumos.Add(insumo);
+            await _context.SaveChangesAsync();
+            return insumo;
         }
 
         public async Task<Insumo?> Eliminar(int id)
         {
-            throw new NotImplementedException();
+            Insumo? insumo = await _context.Insumos.FindAsync(id);
+            if (insumo == null)
+            {
+                return null;
+            }
+
+            _context.Remove(insumo);
+            await _context.SaveChangesAsync();
+            return insumo;
         }
 
         public async Task<List<InsumoLabRes>?> ListaFormulaR(int FormulaRId)
@@ -48,9 +67,10 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<List<InsumoFindAllRes?>> Obtener()
+        public async Task<List<InsumoFindAllRes?>> Obtener(int sedeId)
         {
             List<InsumoFindAllRes?> response = await _context.Insumos
+                                            .Where(w => w.SedeId == sedeId)
                                             .Select(s => new InsumoFindAllRes
                                             {
                                                 Id = s.Id,
@@ -66,19 +86,21 @@ namespace Proy_back_QBD.Services
 
         public async Task<InsumoFindIdRes?> ObtenerById(int id)
         {
-            throw new NotImplementedException();
-            // List<InsumoFindIdRes?> response = await _context.Insumos
-            //                                 .Select(s => new InsumoFindAllRes
-            //                                 {
-            //                                     Id = s.Id,
-            //                                     Descripcion = s.Descripcion
-            //                                 }
-            //                                 ).FirstOrDefault();
-            // if (response == null)
-            // {
-            //     return null;
-            // }
-            // return response;
+            InsumoFindIdRes response = await _context.Insumos
+                                            .Select(s => new InsumoFindIdRes
+                                            {
+                                                Id = s.Id,
+                                                Descripcion = s.Descripcion,
+                                                UnidadMedida = s.UnidadMedida,
+                                                FactorCorreccion = s.FactorCorreccion,
+                                                Dilucion = s.Dilucion
+                                            }
+                                            ).FirstOrDefaultAsync(fod => fod.Id == id);
+            if (response == null)
+            {
+                return null;
+            }
+            return response;
         }
     }
 }
