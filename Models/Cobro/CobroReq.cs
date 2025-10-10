@@ -29,4 +29,9 @@ namespace Proy_back_QBD.Request
         [Required]
         public int Mes { get; set; }
     }
+    public class CajaFindAllReq
+    {
+        public DateOnly FechaInicio { get; set; }
+        public DateOnly FechaFinal { get; set; }
+    }
 }

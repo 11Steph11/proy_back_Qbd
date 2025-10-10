@@ -12,4 +12,12 @@ namespace Proy_back_QBD.Dto.Response
         public string? Encargado { get; set; }  // Puede ser nulo               
         public string? Telefono { get; set; }  // Puede ser nulo   
     }
+     public class GeneralRes
+    {
+        public int? Meta { get; set; }
+        public string? MsgTerminado { get; set; }
+        public string? MsgCumple { get; set; }
+        public string? MsgSeguimiento { get; set; }
+        public string? MsgGpt { get; set; }
+    }
 }
