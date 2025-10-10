@@ -13,7 +13,7 @@ namespace Proy_back_QBD.Models
     {
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [Column("descripcion")]
         public string? Descripcion { get; set; }
         [Column("funda")]
@@ -40,5 +40,9 @@ namespace Proy_back_QBD.Models
         public int ModificadorId { get; set; }
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
+        [Column("sede_id")]
+        public int? SedeId { get; set; }
+        [JsonIgnore]
+        public Sede? Sede { get; set; }
     }
 }

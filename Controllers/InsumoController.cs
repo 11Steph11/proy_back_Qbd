@@ -23,63 +23,63 @@ public class InsumoController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(Pedido))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(Insumo))]
     public async Task<IActionResult> CrearInsumo([FromBody] InsumoCreateReq request)
     {
-        Insumo? usuario = await _insumoService.Crear(request);
-        if (usuario == null)
+        Insumo? insumo = await _insumoService.Crear(request);
+        if (insumo == null)
         {
             NotFound("No existe");
         }
-        return Ok(usuario);
+        return Ok(insumo);
     }
 
     [HttpDelete("{id}")]
-    [SwaggerResponse(200, "Operación exitosa", typeof(Pedido))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(Insumo))]
     public async Task<IActionResult> EliminarInsumo(int id)
     {
-        Insumo? usuario = await _insumoService.Eliminar(id);
-        if (usuario == null)
+        Insumo? insumo = await _insumoService.Eliminar(id);
+        if (insumo == null)
         {
             NotFound("No existe");
         }
-        return Ok(usuario);
+        return Ok(insumo);
     }
 
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(InsumoUpdateReq))]
     public async Task<IActionResult> ActualizarInsumo(int id, InsumoUpdateReq request)
     {
-        Insumo? usuario = await _insumoService.Actualizar(id, request);
-        if (usuario == null)
+        Insumo? insumo = await _insumoService.Actualizar(id, request);
+        if (insumo == null)
         {
             NotFound("No existe");
         }
-        return Ok(usuario);
+        return Ok(insumo);
     }
 
     [HttpGet("sede/{sedeId}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(InsumoFindAllRes))]
     public async Task<IActionResult> ObtenerInsumos(int sedeId)
     {
-        List<InsumoFindAllRes?> usuario = await _insumoService.Obtener(sedeId);
-        if (usuario == null)
+        List<InsumoFindAllRes?> insumo = await _insumoService.Obtener(sedeId);
+        if (insumo == null)
         {
             NotFound("No existen");
         }
-        return Ok(usuario);
+        return Ok(insumo);
     }
 
     [HttpGet("{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(InsumoFindIdRes))]
     public async Task<IActionResult> ObtenerInsumosPorId(int id)
     {
-        InsumoFindIdRes? usuario = await _insumoService.ObtenerById(id);
-        if (usuario == null)
+        InsumoFindIdRes? insumo = await _insumoService.ObtenerById(id);
+        if (insumo == null)
         {
             NotFound("No existe");
         }
-        return Ok(usuario);
+        return Ok(insumo);
     }
 
 }

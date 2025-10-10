@@ -27,6 +27,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<FormulaRMap>();
     cfg.AddProfile<InsumoRMap>();
     cfg.AddProfile<InsumoMap>();
+    cfg.AddProfile<EmpaqueMap>();
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -45,6 +46,7 @@ builder.Services.AddScoped<ILaboratorioService, LaboratorioService>();
 builder.Services.AddScoped<IEspecialidadService, EspecialidadService>();
 builder.Services.AddScoped<ICobroService, CobroService>();
 builder.Services.AddScoped<ICajaService, CajaService>();
+builder.Services.AddScoped<IEmpaqueService, EmpaqueService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

@@ -46,6 +46,8 @@ namespace Proy_back_QBD.Models
         public Usuario? Modificador { get; set; }
         [JsonIgnore]
         public List<Persona>? Personas { get; set; }
+        [JsonIgnore]
+        public List<Empaque>? Empaques { get; set; }
     }
 
 }
