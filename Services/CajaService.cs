@@ -6,6 +6,7 @@ using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Request;
 using Proy_back_QBD.Response;
+using Proy_back_QBD.Response.Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Util;
 
 namespace Proy_back_QBD.Services
@@ -161,7 +162,7 @@ namespace Proy_back_QBD.Services
             {
                 CUO_R = "BDRP-"+s.Id,
                 FechaPedido = DateOnly.FromDateTime(s.FechaCreacion),
-                Boleta = s.Id.ToString(),
+                Recibo = s.Id.ToString(),
                 Dni = s.Paciente.Persona.Dni??s.Paciente.DniApoderado,
                 Paciente = s.Paciente.Persona.NombreCompleto,
                 Telefono = s.Paciente.Persona.Telefono,

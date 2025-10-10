@@ -55,7 +55,7 @@ namespace Proy_back_QBD.Response
     {
         public string? CUO_R { get; set; }
         public DateOnly? FechaPedido { get; set; }
-        public string? Boleta { get; set; }
+        public string? Recibo { get; set; }
         public string? Dni { get; set; }
         public string? Paciente { get; set; }
         public string? Telefono { get; set; }

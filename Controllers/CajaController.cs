@@ -5,6 +5,7 @@ using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Request;
 using Proy_back_QBD.Response;
+using Proy_back_QBD.Response.Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
 

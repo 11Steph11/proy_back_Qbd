@@ -13,6 +13,8 @@ namespace Proy_back_QBD.Models
         public int? PacienteId { get; set; }
         [JsonIgnore]
         public Paciente? Paciente { get; set; }
+        [Column("recibo")]
+        public string? Recibo { get; set; }
         [Column("img1")]
         public string? Img1 { get; set; }
         [Column("img2")]    
