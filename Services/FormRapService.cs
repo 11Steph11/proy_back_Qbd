@@ -157,7 +157,13 @@ namespace Proy_back_QBD.Services
                                                         .Select(s => new FormulaRRes
                                                         {
                                                             Id = s.Id,
-                                                            Descripcion = s.Descripcion
+                                                            Descripcion = s.Descripcion,
+                                                            Empaque = s.Empaque,
+                                                            Procedimiento = s.Procedimiento,
+                                                            Aspecto = s.Aspecto,
+                                                            Color = s.Color,
+                                                            Olor = s.Olor,
+                                                            Ph = s.Ph
                                                         })
                                                         .ToListAsync();
             return response;

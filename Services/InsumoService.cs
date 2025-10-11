@@ -74,7 +74,10 @@ namespace Proy_back_QBD.Services
                                             .Select(s => new InsumoFindAllRes
                                             {
                                                 Id = s.Id,
-                                                Descripcion = s.Descripcion
+                                                Descripcion = s.Descripcion,
+                                                FactorCorreccion = s.FactorCorreccion,
+                                                Dilucion = s.Dilucion,
+                                                UnidadMedida = s.UnidadMedida
                                             }
                                             ).ToListAsync();
             if (response == null)
