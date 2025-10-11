@@ -28,8 +28,15 @@ namespace Proy_back_QBD.Dto.Auxiliares
     public class FormulaRUpdReq
     {
 
-        public required FormularRReq2 FormulaR { get; set; }
-        public required List<InsumoRCreateReq> InsumosR { get; set; }
+        public required string Descripcion { get; set; }  // Puede ser nulo
+        public string? Empaque { get; set; }  // Puede ser nulo
+        public string? Procedimiento { get; set; }  // Puede ser nulo
+        public string? Aspecto { get; set; }  // Puede ser nulo
+        public string? Color { get; set; }  // Puede ser nulo
+        public string? Olor { get; set; }  // Puede ser nulo
+        public string? Ph { get; set; }  // Puede ser nulo
+        public int ModificadorId { get; set; }
+        public int? SedeId { get; set; }  // Puede ser nulo
 
     }
     public class FormularRReq2
@@ -42,7 +49,7 @@ namespace Proy_back_QBD.Dto.Auxiliares
         public string? Color { get; set; }  // Puede ser nulo
         public string? Olor { get; set; }  // Puede ser nulo
         public string? Ph { get; set; }  // Puede ser nulo
-        public int CreadorId { get; set; }
+        public int ModificadorId { get; set; }
         public int? SedeId { get; set; }  // Puede ser nulo
     }
 }

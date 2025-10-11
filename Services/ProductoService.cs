@@ -18,14 +18,16 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ProductoRes>?> Obtener()
+        public async Task<List<ProductoRes>?> Obtener(int sedeId)
         {
-            List<ProductoRes> response = await _context.ProdDetalles
+            List<ProductoRes> response = await _context.Productos
+                                        .Where(w => w.SedeId ==sedeId)
                                         .Select(s => new ProductoRes
                                         {
                                             Id = s.Id,
                                             Codigo = $"PT {s.Id}",
-                                            Descripcion = s.Descripcion
+                                            Descripcion = s.Descripcion,
+                                            Costo = s.Costo,
                                         })
                                         .ToListAsync();
 

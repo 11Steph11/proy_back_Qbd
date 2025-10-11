@@ -7,5 +7,6 @@ namespace Proy_back_QBD.Dto.Response
         public int? Id { get; set; }                          // ID único del pedido
         public string? Codigo { get; set; }   
         public string? Descripcion { get; set; }                     // Cantidad de unidades solicitadas
+        public decimal? Costo { get; set; }
     }         
 }

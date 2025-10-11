@@ -20,13 +20,13 @@ public class ProductoController : ControllerBase
         _productoService = prodTermService;
     }
 
-    [HttpGet()]
+    [HttpGet("/{sedeId}")]
     [SwaggerResponse(200, "Obtencion exitosa", typeof(ProductoRes))]
-    public async Task<IActionResult> Obtener()
+    public async Task<IActionResult> Obtener(int sedeId)
     {
         List<ProductoRes>? response = new();
 
-        response = await _productoService.Obtener();
+        response = await _productoService.Obtener(sedeId);
 
         return Ok(response);
     }

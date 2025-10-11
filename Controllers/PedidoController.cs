@@ -21,6 +21,7 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPost]
+    [Consumes("multipart/form-data")]
     [SwaggerResponse(200, "Operación exitosa", typeof(PedidoCreateRes))]
     public async Task<IActionResult> CrearPedido([FromBody] PedidoCreateReq request)
     {

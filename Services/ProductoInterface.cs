@@ -6,6 +6,6 @@ namespace Proy_back_QBD.Services
 {
     public interface IProductoService
     {
-        Task<List<ProductoRes>?> Obtener();
+        Task<List<ProductoRes>?> Obtener(int sedeId);
     }
 }

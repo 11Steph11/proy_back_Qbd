@@ -70,27 +70,7 @@ namespace Proy_back_QBD.Services
                 }
 
                 // Actualizamos las propiedades de FormulaR
-                _mapper.Map(request, formulaR);  // Esto actualiza las propiedades de formulaR con los datos de request
-
-                // Actualizamos los insumos relacionados
-                foreach (var item in request.InsumosR)
-                {
-                    var insumoR = await _context.InsumosR
-                        .FirstOrDefaultAsync(i => i.InsumoId == item.InsumoId);  // Buscar el insumoR existente
-
-                    if (insumoR != null)
-                    {
-                        // Actualizamos las propiedades del insumoR existente
-                        _mapper.Map(item, insumoR);
-                    }
-                    else
-                    {
-                        // Si no existe, agregamos uno nuevo
-                        insumoR = _mapper.Map<InsumoR>(item);
-                        insumoR.FormulaRId = formulaR.Id; // Aseguramos que se mantiene la relación
-                        await _context.InsumosR.AddAsync(insumoR);
-                    }
-                }
+                _mapper.Map(request, formulaR);  // Esto actualiza las propiedades de formulaR con los datos de request            
 
                 // Guardamos los cambios
                 var result = await _context.SaveChangesAsync();
