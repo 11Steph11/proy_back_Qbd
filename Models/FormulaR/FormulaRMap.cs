@@ -17,6 +17,10 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.Id, o => o.Ignore())
             .ForMember(a => a.ModificadorId, o => o.Ignore())
             ;
+            CreateMap<FormulaRUpdReq, FormulaR>()
+            .ForMember(a => a.Id, o => o.Ignore())
+            .ForMember(a => a.ModificadorId, o => o.Ignore())
+            ;
 
         }
     }
