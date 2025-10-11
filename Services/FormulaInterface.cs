@@ -8,6 +8,7 @@ namespace Proy_back_QBD.Services
     {
         Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request);        
         Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request);
+        Task<List<RecetaRes>?> ListarReceta(int sedeId);
         Task<Formula?> Eliminar(int id);
         Task<string?> AgregarInjerto(int id, string injerto);
     }

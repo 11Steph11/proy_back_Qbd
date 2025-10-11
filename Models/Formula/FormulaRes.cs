@@ -49,5 +49,18 @@ namespace Proy_back_QBD.Dto.Response
         public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
         public bool? CondicionFecha { get; set; }
     }
-    
+    public class RecetaRes
+    {
+        public string? Medico { get; set; }  // Puede ser nulo
+        public DateOnly? Fecha { get; set; }
+        public string? Prescripcion { get; set; }
+        public string? Gram { get; set; }  // Puede ser nulo
+        public int? Cant { get; set; }
+        public string? Mili { get; set; }
+        public string? Gotas { get; set; }
+        public string? Observacion { get; set; }
+        public decimal? Precio { get; set; }
+        public string? Tipo { get; set; }
+    }
+
 }

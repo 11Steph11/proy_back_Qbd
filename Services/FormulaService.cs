@@ -150,5 +150,31 @@ namespace Proy_back_QBD.Services
             return formula;
         }
 
+        public async Task<List<RecetaRes>?> ListarReceta(int sedeId)
+        {
+            List<RecetaRes> response = await _context.Formulas
+            .Include(i => i.Pedido.Medico.Persona)
+            .Include(i => i.Pedido.Paciente.Persona)
+            .Select(s => new RecetaRes
+            {
+                Medico = s.Pedido.Medico.Persona.NombreCompleto,
+                Fecha = DateOnly.FromDateTime(s.FechaCreacion),
+                Prescripcion = s.FormulaMagistral,
+                Gram = s.UnidadMedida == "G" ? s.GPorMl.ToString() : null,
+                Cant = s.Cantidad,
+                Mili = s.UnidadMedida == "ML" ? s.GPorMl.ToString() : null,
+                Gotas = s.UnidadMedida == "Gotas" ? s.GPorMl.ToString() : null,
+                Observacion = s.Pedido.Paciente.Persona.NombreCompleto,
+                Precio = s.Costo,
+                Tipo = s.Reportado,
+            })
+            .ToListAsync();
+            if (response == null)
+            {
+                return null;
+            }
+
+            return response;
+        }
     }
 }

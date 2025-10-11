@@ -68,4 +68,12 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
+    [HttpGet("receta/{sedeId}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(List<RecetaRes>))]
+    public async Task<IActionResult> ListarReceta(int sedeId)
+    {
+        List<RecetaRes>? response = await _formulaService.ListarReceta(sedeId);
+
+        return Ok(response);
+    }
 }
