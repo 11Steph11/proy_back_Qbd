@@ -8,6 +8,7 @@ namespace Proy_back_QBD.Dto.Response
         public int? Id { get; set; }
         public string? Cuo { get; set; }
         public DateTime? FechaCreacion { get; set; }
+        public string? Recibo { get; set; }
         public string? Dni { get; set; }
         public string? Paciente { get; set; }
         public int? PacienteId { get; set; }
