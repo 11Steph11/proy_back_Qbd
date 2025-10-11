@@ -18,6 +18,7 @@ namespace Proy_back_QBD.Dto.Response
     public class FormulasByPedido
     {
         public int? Id { get; set; }
+        public string? Codigo { get; set; }
         public decimal? Costo { get; set; }                    // Costo del pedido
         public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         public string? FormulaMagistral { get; set; }          // Descripción de la fórmula magistral

@@ -252,6 +252,7 @@ namespace Proy_back_QBD.Services
 
         public async Task<PedidoFindIdResponse?> ObtenerById(int id)
         {
+
             Pedido? pedido = await _context.Pedidos
             .Include(a => a.Formulas)
             .Include(a => a.ProdTerms)
@@ -262,7 +263,12 @@ namespace Proy_back_QBD.Services
                 return null;
             }
             PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
+            foreach (var item in response.Formulas)
+            {
+                item.Codigo = "REG-"+item.Id;
+            }
             return response;
+
         }
 
         public static decimal SumaPedido(List<Formula>? listaForm, List<ProdTerm>? listaProdTerm)
