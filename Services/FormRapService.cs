@@ -26,8 +26,8 @@ namespace Proy_back_QBD.Services
             {
                 int result;
                 // Mapeamos la formulaR
-                FormulaR formulaR = _mapper.Map<FormulaR>(request);
-
+                FormulaR formulaR = _mapper.Map<FormulaR>(request.FormulaR);
+                formulaR.ModificadorId = formulaR.CreadorId;
                 await _context.FormulasR.AddAsync(formulaR);
                 result = await _context.SaveChangesAsync();
                 foreach (var item in request.InsumosR)

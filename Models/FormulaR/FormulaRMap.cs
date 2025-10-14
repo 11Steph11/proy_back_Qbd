@@ -13,7 +13,7 @@ namespace Proy_back_QBD.Profiles
         public FormulaRMap()
         {
             // Mapeo entre ApoderadoCreate y Apoderado
-            CreateMap<FormulaRCreReq, FormulaR>()
+            CreateMap<FormularRReq, FormulaR>()
             .ForMember(a => a.Id, o => o.Ignore())
             .ForMember(a => a.ModificadorId, o => o.Ignore())
             ;
