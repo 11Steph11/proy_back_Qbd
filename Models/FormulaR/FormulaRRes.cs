@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Proy_back_QBD.Dto.Insumo;
 
 namespace Proy_back_QBD.Dto.Auxiliares
 {
@@ -15,5 +16,6 @@ namespace Proy_back_QBD.Dto.Auxiliares
         public string? Color { get; set; }  // Puede ser nulo
         public string? Olor { get; set; }  // Puede ser nulo
         public string? Ph { get; set; }  // Puede ser nulo
+        public List<InsumoFormR>? Insumos { get; set; }  // Puede ser nulo
     }
 }

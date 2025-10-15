@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Auxiliares;
+using Proy_back_QBD.Dto.Insumo;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
 using Proy_back_QBD.Models;
@@ -143,7 +144,17 @@ namespace Proy_back_QBD.Services
                                                             Aspecto = s.Aspecto,
                                                             Color = s.Color,
                                                             Olor = s.Olor,
-                                                            Ph = s.Ph
+                                                            Ph = s.Ph,
+                                                            Insumos = s.InsumoR.Select(i => new InsumoFormR
+                                                            {
+                                                                Id = i.InsumoId,
+                                                                Codigo = "MP-QbD-"+i.InsumoId,
+                                                                Porcentaje = i.Porcentaje,
+                                                                Descripcion = i.Insumo.Descripcion,
+                                                                UnidadMedida = i.Insumo.UnidadMedida,
+                                                                FactorCorreccion = i.Insumo.FactorCorreccion,
+                                                                Dilucion = i.Insumo.Dilucion
+                                                            }).ToList()
                                                         })
                                                         .ToListAsync();
             return response;
