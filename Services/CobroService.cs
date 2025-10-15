@@ -109,6 +109,24 @@ namespace Proy_back_QBD.Services
 
         }
 
+        public async Task<List<CobroByPedido?>> Obtener(int PedidoId)
+        {
+            List<CobroByPedido?> response = await _context.Cobros
+            .Where(w => w.PedidoId == PedidoId)
+            .Select(s => new CobroByPedido()
+            {
+                Id = s.Id,
+                Codigo = "BDRC-" + s.Id
+            }).ToListAsync();
+
+            if (response == null)
+            {
+                return null;
+            }
+
+            return response;
+        }
+
         // public async Task<List<CobroFindAllResponse?>> Obtener()
         // {
         //     List<CobroFindAllResponse>? response = await _context.Cobros

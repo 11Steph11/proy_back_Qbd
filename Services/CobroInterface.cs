@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Services
         Task<CobroCreateRes?> Crear(CobroCreateReq request);
         Task<CobroCreateRes?> Actualizar(int id, CobroUpdateReq request);
         // Task<Cobro?> Eliminar(int id);
-        // Task<List<CobroFindAllResponse?>> Obtener();
+        Task<List<CobroByPedido?>> Obtener(int PedidoId);
         // Task<CobroFindIdResponse?> ObtenerById(int id);
     }
 }

@@ -10,89 +10,84 @@ namespace Proy_back_QBD.Response
     namespace Proy_back_QBD.Dto.Response
     {
 
-        public class CobroByIdRes
-        {
-            public string? NombreCompleto { get; set; }
-            public TimeOnly? Almuerzo { get; set; }
-            public TimeOnly? Entrada { get; set; }
-            public TimeOnly? Regreso { get; set; }
-            public TimeOnly? Salida { get; set; }            
-        }
         public class CobroCreateRes
         {
             public string? Msg { get; set; }
             public Cobro? Cobro { get; set; }
         }
-        
-        
+        public class CobroByPedido
+        {
+            public int? Id { get; set; }
+            public string? Codigo { get; set; }
+        }
 
-    public class CajaFindAllRes
-    {
-        public List<Movimientos>? Movimientos { get; set; }
-        public RecaudacionDelDia? RecaudacionDelDia { get; set; }
-        public RPagosDelDia? RPagosDelDia { get; set; }
-        public RPagosAnteriores? RPagosAnteriores { get; set; }
-        public BQPagosDelDia? BQPagos { get; set; }
-        public Ventas? Ventas { get; set; }
-        public List<DeudasPendientes>? Deudas { get; set; }
-    }
-    public class Movimientos
-    {
-        public string? CUO_R { get; set; }
-        public string? CUO_C { get; set; }
-        public DateOnly? FechaCobro { get; set; }
-        public string? Dni { get; set; }
-        public string? Paciente { get; set; }
-        public DateOnly? FechaPedido { get; set; }
-        public string? Estado { get; set; }
-        public string? Modalidad { get; set; }
-        public decimal? Importe { get; set; }
-        public TimeOnly? Hora { get; set; }
-        public string? Turno { get; set; }
-        public string? BolFac { get; set; }
-    }
-    public class DeudasPendientes
-    {
-        public string? CUO_R { get; set; }
-        public DateOnly? FechaPedido { get; set; }
-        public string? Recibo { get; set; }
-        public string? Dni { get; set; }
-        public string? Paciente { get; set; }
-        public string? Telefono { get; set; }
-        public decimal? Importe { get; set; }
-        public decimal? Adelanto { get; set; }
-        public decimal? Saldo { get; set; }
-        public string? BolFac { get; set; }
-    }
-    public class RecaudacionDelDia
-    {
-        public decimal? Total { get; set; } = 0;
-        public decimal? Efectivo { get; set; } = 0;
-        public decimal? Electronico { get; set; } = 0;
-    }
-    public class RPagosDelDia
-    {
-        public decimal? Total { get; set; } = 0;
-        public decimal? Efectivo { get; set; } = 0;
-        public decimal? Electronico { get; set; } = 0;
-    }
-    public class RPagosAnteriores
-    {
-        public decimal? Total { get; set; } = 0;
-        public decimal? Efectivo { get; set; } = 0;
-        public decimal? Electronico { get; set; } = 0;
-    }
-    public class BQPagosDelDia
-    {
-        public decimal? Total { get; set; } = 0;
-        public decimal? Efectivo { get; set; } = 0;
-        public decimal? Electronico { get; set; } = 0;
-    }
-    public class Ventas
-    {
-        public decimal? Total { get; set; } = 0;
-        public decimal? Adelantos { get; set; } = 0;
-        public decimal? Saldo { get; set; } = 0;
-    }
+        public class CajaFindAllRes
+        {
+            public List<Movimientos>? Movimientos { get; set; }
+            public RecaudacionDelDia? RecaudacionDelDia { get; set; }
+            public RPagosDelDia? RPagosDelDia { get; set; }
+            public RPagosAnteriores? RPagosAnteriores { get; set; }
+            public BQPagosDelDia? BQPagos { get; set; }
+            public Ventas? Ventas { get; set; }
+            public List<DeudasPendientes>? Deudas { get; set; }
+        }
+        public class Movimientos
+        {
+            public string? CUO_R { get; set; }
+            public string? CUO_C { get; set; }
+            public DateOnly? FechaCobro { get; set; }
+            public string? Dni { get; set; }
+            public string? Paciente { get; set; }
+            public DateOnly? FechaPedido { get; set; }
+            public string? Estado { get; set; }
+            public string? Modalidad { get; set; }
+            public decimal? Importe { get; set; }
+            public TimeOnly? Hora { get; set; }
+            public string? Turno { get; set; }
+            public string? BolFac { get; set; }
+        }
+        public class DeudasPendientes
+        {
+            public string? CUO_R { get; set; }
+            public DateOnly? FechaPedido { get; set; }
+            public string? Recibo { get; set; }
+            public string? Dni { get; set; }
+            public string? Paciente { get; set; }
+            public string? Telefono { get; set; }
+            public decimal? Importe { get; set; }
+            public decimal? Adelanto { get; set; }
+            public decimal? Saldo { get; set; }
+            public string? BolFac { get; set; }
+        }
+        public class RecaudacionDelDia
+        {
+            public decimal? Total { get; set; } = 0;
+            public decimal? Efectivo { get; set; } = 0;
+            public decimal? Electronico { get; set; } = 0;
+        }
+        public class RPagosDelDia
+        {
+            public decimal? Total { get; set; } = 0;
+            public decimal? Efectivo { get; set; } = 0;
+            public decimal? Electronico { get; set; } = 0;
+        }
+        public class RPagosAnteriores
+        {
+            public decimal? Total { get; set; } = 0;
+            public decimal? Efectivo { get; set; } = 0;
+            public decimal? Electronico { get; set; } = 0;
+        }
+        public class BQPagosDelDia
+        {
+            public decimal? Total { get; set; } = 0;
+            public decimal? Efectivo { get; set; } = 0;
+            public decimal? Electronico { get; set; } = 0;
+        }
+        public class Ventas
+        {
+            public decimal? Total { get; set; } = 0;
+            public decimal? Adelantos { get; set; } = 0;
+            public decimal? Saldo { get; set; } = 0;
+        }
     }
 }

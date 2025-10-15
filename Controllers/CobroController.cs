@@ -33,6 +33,17 @@ public class CobroController : ControllerBase
         CobroCreateRes? response = await _cobroService.Crear(request);
         return Ok(response);
     }
+    [HttpGet("{pedidoId}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(List<CobroByPedido>))]
+    public async Task<IActionResult> ListarCobros(int pedidoId)
+    {
+        List<CobroByPedido>? response = await _cobroService.Obtener(pedidoId);
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
 
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(CobroCreateRes))]
