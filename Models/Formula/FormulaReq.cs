@@ -39,7 +39,7 @@ namespace Proy_back_QBD.Dto.Request
         public string? UnidadMedida { get; set; }              // Unidad de medida (ej. "ml", "mg", "g", etc.)
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
         public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
-        public string? Estado { get; set; }                    // Estado del pedido (pendiente, procesado, entregado, etc.)
+        public string? Estado { get; set; }
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         public int ModificadorId { get; set; }
     }

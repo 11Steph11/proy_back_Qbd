@@ -16,7 +16,6 @@ namespace Proy_back_QBD.Request
     public class CobroUpdateReq
     {
         public int? PedidoId { get; set; }
-        public string? Periodo { get; set; }
         public string? Modalidad { get; set; }
         public string? Turno { get; set; }
         public decimal? Importe { get; set; }

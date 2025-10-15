@@ -34,7 +34,7 @@ namespace Proy_back_QBD.Services
                             .Include(i => i.Formulas)
                             .Include(i => i.ProdTerms)
                             .Include(i => i.Cobros)
-                            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+                            .FirstOrDefaultAsync(fod => fod.Id == id);
 
             decimal totalPedido = 0;
             decimal totalCobro = 0;

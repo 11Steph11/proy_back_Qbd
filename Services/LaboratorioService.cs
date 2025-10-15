@@ -70,6 +70,7 @@ namespace Proy_back_QBD.Services
                                                 FormulaF = f.FormulaFarmaceutica,
                                                 Lote = f.Lote,
                                                 Registro = "REG-" + f.Id,
+                                                UnidadMedida = f.UnidadMedida,
                                                 Diagnostico = f.Diagnostico,
                                                 ZonaAplicacion = f.ZonaAplicacion,
                                                 CostoTotal = f.Cantidad * f.Costo,

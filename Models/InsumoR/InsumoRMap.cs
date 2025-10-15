@@ -16,6 +16,9 @@ namespace Proy_back_QBD.Profiles
             CreateMap<InsumoRCreateReq, InsumoR>()
             .ForMember(a => a.ModificadorId, o => o.Ignore())
             ;
+            CreateMap<InsumoRUpdateReq, InsumoR>()
+            .ForMember(a => a.CreadorId, o => o.Ignore())
+            ;
 
         }
     }

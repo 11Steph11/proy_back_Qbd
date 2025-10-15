@@ -166,7 +166,7 @@ namespace Proy_back_QBD.Services
                 Gotas = s.UnidadMedida == "Gotas" ? s.GPorMl.ToString() : null,
                 Observacion = s.Pedido.Paciente.Persona.NombreCompleto,
                 Precio = s.Costo,
-                Tipo = s.Reportado,
+                Tipo = s.Reportado
             })
             .ToListAsync();
             if (response == null)

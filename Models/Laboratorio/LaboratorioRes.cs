@@ -32,6 +32,7 @@ namespace Proy_back_QBD.Dto.Productos
         public int? Id { get; set; }
         public string? FormulaF { get; set; }
         public string? Lote { get; set; }
+        public string? UnidadMedida { get; set; }
         public string? Registro { get; set; }
         public string? Diagnostico { get; set; }
         public string? ZonaAplicacion { get; set; }

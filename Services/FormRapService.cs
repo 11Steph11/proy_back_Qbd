@@ -63,6 +63,7 @@ namespace Proy_back_QBD.Services
             {
                 // Buscar la formulaR existente
                 var formulaR = await _context.FormulasR
+                    .Include(i => i.InsumoR) // Suponiendo que el Id está en la solicitud
                     .FirstOrDefaultAsync(f => f.Id == id); // Suponiendo que el Id está en la solicitud
 
                 if (formulaR == null)
@@ -71,11 +72,19 @@ namespace Proy_back_QBD.Services
                 }
 
                 // Actualizamos las propiedades de FormulaR
-                _mapper.Map(request, formulaR);  // Esto actualiza las propiedades de formulaR con los datos de request            
+                _mapper.Map(request.FormulaR, formulaR);  // Esto actualiza las propiedades de formulaR con los datos de request            
 
                 // Guardamos los cambios
-                var result = await _context.SaveChangesAsync();
 
+                foreach (var insumoRequest in request.InsumosR)
+                {
+                    var insumoExistente = formulaR.InsumoR.FirstOrDefault(i => i.InsumoId == insumoRequest.InsumoId);
+                    if (insumoExistente != null)
+                    {
+                        _mapper.Map(insumoRequest, insumoExistente);
+                    }
+                }
+                var result = await _context.SaveChangesAsync();
                 if (result > 0)
                 {
                     return "Actualización exitosa";
@@ -148,7 +157,7 @@ namespace Proy_back_QBD.Services
                                                             Insumos = s.InsumoR.Select(i => new InsumoFormR
                                                             {
                                                                 Id = i.InsumoId,
-                                                                Codigo = "MP-QbD-"+i.InsumoId,
+                                                                Codigo = "MP-QbD-" + i.InsumoId,
                                                                 Porcentaje = i.Porcentaje,
                                                                 Descripcion = i.Insumo.Descripcion,
                                                                 UnidadMedida = i.Insumo.UnidadMedida,
