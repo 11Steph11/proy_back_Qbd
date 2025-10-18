@@ -18,7 +18,12 @@ namespace Proy_back_QBD.Response
         public class CobroByPedido
         {
             public int? Id { get; set; }
-            public string? Codigo { get; set; }
+            public string? CUO { get; set; } 
+            public DateTime? FechaCreacion { get; set; } 
+            public string? Turno { get; set; } 
+            public string? Modalidad { get; set; } 
+            public string? NroOperacion { get; set; } 
+            public decimal? Importe { get; set; } 
         }
 
         public class CajaFindAllRes

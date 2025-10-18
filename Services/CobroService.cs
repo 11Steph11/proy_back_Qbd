@@ -116,7 +116,12 @@ namespace Proy_back_QBD.Services
             .Select(s => new CobroByPedido()
             {
                 Id = s.Id,
-                Codigo = "BDRC-" + s.Id
+                CUO = "BDRC-" + s.Id,
+                FechaCreacion = s.FechaCreacion,
+                Turno = s.Turno,
+                Modalidad = s.Modalidad,
+                NroOperacion = "BDRC-"+s.Id+"-"+s.Modalidad.ToCharArray().GetValue(0),
+                Importe = s.Importe,
             }).ToListAsync();
 
             if (response == null)

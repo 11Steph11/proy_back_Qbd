@@ -12,8 +12,6 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int? Id { get; set; }
-        [Column("periodo")]
-        public string? Periodo { get; set; }
         [Column("modalidad")]
         public string? Modalidad { get; set; }
         [Column("pedido_id")]
