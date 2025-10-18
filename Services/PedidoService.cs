@@ -119,12 +119,11 @@ namespace Proy_back_QBD.Services
             var codLote =
            DateTime.Now.Year.ToString().Substring(2, 2) +
            DateTime.Now.Month.ToString("D2") + // El mes con 2 dígitos
-           DateTime.Now.Day.ToString("D2")
-           ;   // El día con 2 dígitos
-
+           DateTime.Now.Day.ToString("D2");
+            int c = 0;
             foreach (var item in request.Formulas)
             {
-                int c = 0;
+
                 Formula formula = _mapper.Map<Formula>(item);
                 formula.Estado = "PENDIENTE";
                 formula.Lote = codLote + (correlativo + c).ToString("D3");
@@ -266,7 +265,7 @@ namespace Proy_back_QBD.Services
             PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
             foreach (var item in response.Formulas)
             {
-                item.Codigo = "REG-"+item.Id;
+                item.Codigo = "REG-" + item.Id;
             }
             return response;
 
@@ -328,14 +327,14 @@ namespace Proy_back_QBD.Services
                .Select(a => new PedidoLabFindAllRes2
                {
                    Id = a.Id,
-                   Cuo = $"P-{a.Id}"                  
+                   Cuo = $"P-{a.Id}"
                })
                .ToListAsync();
             if (response == null)
             {
                 return null;
             }
-            
+
             return response;
         }
     }

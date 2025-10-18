@@ -24,7 +24,7 @@ namespace Proy_back_QBD.Services
             CobroCreateRes cobroCreateRes = new CobroCreateRes();
 
             Cobro? cobro = await _context.Cobros
-            .Include(i => i.Pedido)
+            .Include(i => i.Pedido.Cobros)
             .FirstOrDefaultAsync(foda => foda.Id == id);
 
             if (cobro == null)
@@ -39,7 +39,12 @@ namespace Proy_back_QBD.Services
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
             }
-
+            decimal sum = 0;
+            foreach (var item in pedido.Cobros)
+            {
+                sum = +item.Importe;
+            }
+            pedido.Adelanto = sum;
             pedido.Adelanto = pedido.Adelanto - cobro.Importe + request.Importe;
             pedido.Saldo = pedido.Total - pedido.Adelanto;
             _mapper.Map(request, cobro);
