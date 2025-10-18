@@ -24,39 +24,26 @@ namespace Proy_back_QBD.Services
             CobroCreateRes cobroCreateRes = new CobroCreateRes();
 
             Cobro? cobro = await _context.Cobros
-            .FindAsync(id);
+            .Include(i => i.Pedido)
+            .FirstOrDefaultAsync(foda => foda.Id == id);
 
             if (cobro == null)
             {
                 return null;
             }
-            Pedido? pedido = await _context.Pedidos
-                            .Include(i => i.Formulas)
-                            .Include(i => i.ProdTerms)
-                            .Include(i => i.Cobros)
-                            .FirstOrDefaultAsync(fod => fod.Id == id);
+            Pedido? pedido = cobro.Pedido;
 
-            decimal totalPedido = 0;
-            decimal totalCobro = 0;
 
-            if (pedido.Formulas != null)
-            {
-                totalPedido = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
-            }
-            if (pedido.Cobros != null)
-            {
-                totalCobro = PedidoService.SumaCobro(pedido.Cobros);
-            }
-
-            if (totalCobro + request.Importe - cobro.Importe >= totalPedido)
+            if (pedido.Adelanto + request.Importe - cobro.Importe >= pedido.Total)
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
             }
-            
+
+            pedido.Adelanto = pedido.Adelanto - cobro.Importe + request.Importe;
+            pedido.Saldo = pedido.Total - pedido.Adelanto;
             _mapper.Map(request, cobro);
-            pedido.Adelanto = totalCobro;
-            pedido.Saldo = totalPedido - totalCobro;
+
             await _context.SaveChangesAsync();
             cobroCreateRes.Cobro = cobro;
             return cobroCreateRes;
@@ -74,7 +61,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.ProdTerms)
             .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
-            
+
             if (pedido == null)
             {
                 return null;
@@ -120,7 +107,7 @@ namespace Proy_back_QBD.Services
                 FechaCreacion = s.FechaCreacion,
                 Turno = s.Turno,
                 Modalidad = s.Modalidad,
-                NroOperacion = "BDRC-"+s.Id+"-"+s.Modalidad.ToCharArray().GetValue(0),
+                NroOperacion = "BDRC-" + s.Id + "-" + s.Modalidad.ToCharArray().GetValue(0),
                 Importe = s.Importe,
             }).ToListAsync();
 
