@@ -34,7 +34,7 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = cobro.Pedido;
 
 
-            if (pedido.Adelanto + request.Importe - cobro.Importe >= pedido.Total)
+            if (pedido.Adelanto + request.Importe - cobro.Importe > pedido.Total)
             {
                 cobroCreateRes.Msg = "Se ha superado el monto";
                 return cobroCreateRes;
@@ -42,7 +42,7 @@ namespace Proy_back_QBD.Services
             decimal sum = 0;
             foreach (var item in pedido.Cobros)
             {
-                sum = +item.Importe;
+                sum += item.Importe;
             }
             pedido.Adelanto = sum;
             pedido.Adelanto = pedido.Adelanto - cobro.Importe + request.Importe;
