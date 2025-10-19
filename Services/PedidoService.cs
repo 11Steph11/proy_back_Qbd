@@ -118,9 +118,9 @@ namespace Proy_back_QBD.Services
                                     .CountAsync() + 1;
 
             var codLote =
-           DateTime.Now.Year.ToString().Substring(2, 2) +
-           DateTime.Now.Month.ToString("D2") + // El mes con 2 dígitos
-           DateTime.Now.Day.ToString("D2");
+           Hoy.ToString().Substring(2, 2) +
+           Hoy.Month.ToString("D2") + // El mes con 2 dígitos
+           Hoy.Day.ToString("D2");
             int c = 0;
             foreach (var item in request.Formulas)
             {
