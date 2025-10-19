@@ -110,17 +110,20 @@ namespace Proy_back_QBD.Services
             PedidoCreateRes response = new PedidoCreateRes();
             List<Formula> formulaList = new();
             List<ProdTerm> prodTermList = new();
-            TimeZoneInfo zonaPeru = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            var zonaPeru = TimeZoneInfo.FindSystemTimeZoneById("America/Lima");
             DateTime horaLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zonaPeru);
-            DateOnly Hoy = DateOnly.FromDateTime(horaLocal);
+            var inicioDiaUtc = TimeZoneInfo.ConvertTimeToUtc(horaLocal.Date, zonaPeru);
+            var finDiaUtc = TimeZoneInfo.ConvertTimeToUtc(horaLocal.Date.AddDays(1), zonaPeru);
+
             int correlativo = await _context.Formulas
-                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
-                                    .CountAsync() + 1;
+                .Where(w => w.FechaCreacion >= inicioDiaUtc && w.FechaCreacion < finDiaUtc)
+                .CountAsync() + 1;
 
             var codLote =
-           Hoy.Year.ToString().Substring(2, 2) +
-           Hoy.Month.ToString("D2") + // El mes con 2 dígitos
-           Hoy.Day.ToString("D2");
+           inicioDiaUtc.Year.ToString().Substring(2, 2) +
+           inicioDiaUtc.Month.ToString("D2") + // El mes con 2 dígitos
+           inicioDiaUtc.Day.ToString("D2");
+
             int c = 0;
             foreach (var item in request.Formulas)
             {

@@ -8,6 +8,7 @@ using Proy_back_QBD.Services;
 using System.Reflection;
 using Proy_back_QBD.Util;
 using Proy_back_QBD.Services.Interfaces;
+using Proy_back_QBD.Models;
 Env.Load(); // Cargar variables de entorno desde el archivo .env
 
 var builder = WebApplication.CreateBuilder(args);
@@ -96,6 +97,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigins");
 app.UseRouting();
 app.MapControllers();
+
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("Swagger disponible en: http://localhost:5051/swagger");
 app.Run();
