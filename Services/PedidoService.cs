@@ -110,11 +110,12 @@ namespace Proy_back_QBD.Services
             PedidoCreateRes response = new PedidoCreateRes();
             List<Formula> formulaList = new();
             List<ProdTerm> prodTermList = new();
-            DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
+            TimeZoneInfo zonaPeru = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+            DateTime horaLocal = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zonaPeru);
+            DateOnly Hoy = DateOnly.FromDateTime(horaLocal);
             int correlativo = await _context.Formulas
                                     .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
                                     .CountAsync() + 1;
-
 
             var codLote =
            DateTime.Now.Year.ToString().Substring(2, 2) +
