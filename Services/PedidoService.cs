@@ -118,7 +118,7 @@ namespace Proy_back_QBD.Services
                                     .CountAsync() + 1;
 
             var codLote =
-           Hoy.ToString().Substring(2, 2) +
+           Hoy.Year.ToString().Substring(2, 2) +
            Hoy.Month.ToString("D2") + // El mes con 2 dígitos
            Hoy.Day.ToString("D2");
             int c = 0;
