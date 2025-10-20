@@ -54,6 +54,7 @@ namespace Proy_back_QBD.Models
         public int? PedidoId { get; set; }
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
+        [JsonIgnore]
         public Laboratorio? Laboratorio { get; set; }
 
     }

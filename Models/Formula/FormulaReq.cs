@@ -43,4 +43,15 @@ namespace Proy_back_QBD.Dto.Request
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         public int ModificadorId { get; set; }
     }
+    public class FormulaUpdLabReq
+    {
+        public decimal Costo { get; set; }                    // Costo del pedido
+        public int Cantidad { get; set; }                     // Cantidad de unidades solicitadas
+        public string? FormulaMagistral { get; set; }
+        public decimal? GPorMl { get; set; }
+        public string? UnidadMedida { get; set; }
+        public int ModificadorId { get; set; }
+        public DateOnly FechaEmision { get; set; }
+        public DateOnly FechaVencimiento { get; set; }
+    }
 }

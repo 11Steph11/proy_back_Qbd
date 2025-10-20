@@ -58,7 +58,7 @@ namespace Proy_back_QBD.Services
             decimal total = PedidoService.SumaPedido(formulas, prodTerms);
             total = total - (formulaFind.Cantidad * formulaFind.Costo) + (request.Cantidad * request.Costo);
             pedido.Total = total;
-            pedido.Saldo = total-pedido.Adelanto;
+            pedido.Saldo = total - pedido.Adelanto;
             _mapper.Map(request, formulaFind);
             response.Msg = "Formula Actualizado";
             response.FormulaRes = formulaFind;
@@ -169,6 +169,34 @@ namespace Proy_back_QBD.Services
             }
 
             return response;
+        }
+
+        public async Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request)
+        {
+            Formula? formula = await _context.Formulas
+            .Include(i => i.Laboratorio)
+            .FirstOrDefaultAsync(foda => foda.Id == formulaId);
+            if (formula == null )
+            {
+                return null;
+            }
+            Laboratorio? laboratorio = formula?.Laboratorio;
+            if (laboratorio == null)
+            {
+                return null;
+            }
+            formula.Costo = request.Costo;
+            formula.Cantidad = request.Cantidad;
+            formula.FormulaMagistral = request.FormulaMagistral;
+            formula.GPorMl = request.GPorMl;
+            formula.UnidadMedida = request.UnidadMedida;
+            formula.ModificadorId = request.ModificadorId;
+            laboratorio.FechaEmision = request.FechaEmision ;
+            laboratorio.FechaVcto = request.FechaVencimiento;
+
+            await _context.SaveChangesAsync();
+
+            return formula;
         }
     }
 }

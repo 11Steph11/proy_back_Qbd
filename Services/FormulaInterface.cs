@@ -7,7 +7,8 @@ namespace Proy_back_QBD.Services
     public interface IFormulaService
     {
         Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request);        
-        Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request);
+        Task<FormulaUpdateResponse?> Actualizar(int formulaId, FormulaUpdateReq request);
+        Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request);
         Task<List<RecetaRes>?> ListarReceta(int sedeId);
         Task<Formula?> Eliminar(int id);
         Task<string?> AgregarInjerto(int id, string injerto);

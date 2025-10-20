@@ -55,6 +55,7 @@ namespace Proy_back_QBD.Models
         public int ModificadorId { get; set; }
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
+        [JsonIgnore]
         public Formula? Formula { get; set; }        
 
     }
