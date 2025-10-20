@@ -67,7 +67,7 @@ namespace Proy_back_QBD.Services
                                             Formulas = s.Formulas.Select(f => new LabForm
                                             {
                                                 Id = f.Id,
-                                                FormulaF = f.FormulaFarmaceutica,
+                                                FormulaM = f.FormulaMagistral,
                                                 Lote = f.Lote,
                                                 Registro = "REG-" + f.Id,
                                                 Cantidad = f.Cantidad,

@@ -18,6 +18,18 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
+        public async Task<Formula> ActualizarFormulaM(int formulaId, string FormulaMagistral)
+        {
+            Formula? formula = await _context.Formulas.FindAsync(formulaId);
+            if (formula == null)
+            {
+                return null;
+            }
+            formula.FormulaMagistral = FormulaMagistral;
+            await _context.SaveChangesAsync();
+            return formula;
+        }
+
         public async Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request)
         {
             FormulaUpdateResponse response = new FormulaUpdateResponse();

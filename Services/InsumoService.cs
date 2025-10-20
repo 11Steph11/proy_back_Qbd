@@ -66,6 +66,21 @@ namespace Proy_back_QBD.Services
                                                         .ToListAsync();
             return response;
         }
+        public async Task<List<InsumoLabRes>?> ListaInsLab(int FormulaRId)
+        {
+            List<InsumoLabRes> response = await _context.InsumosR
+                                                        .Where(w => w.FormulaRId == FormulaRId)
+                                                        .Select(s => new InsumoLabRes
+                                                        {
+                                                            Id = s.InsumoId,
+                                                            Descripcion = s.Insumo.Descripcion,
+                                                            FactorCorreccion = s.Insumo.FactorCorreccion,
+                                                            Dilucion = s.Insumo.Dilucion,
+                                                            UnidadMedida = s.Insumo.UnidadMedida
+                                                        })
+                                                        .ToListAsync();
+            return response;
+        }
 
         public async Task<List<InsumoFindAllRes?>> Obtener(int sedeId)
         {

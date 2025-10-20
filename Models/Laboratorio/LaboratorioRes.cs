@@ -30,7 +30,7 @@ namespace Proy_back_QBD.Dto.Productos
     public class LabForm()
     {
         public int? Id { get; set; }
-        public string? FormulaF { get; set; }
+        public string? FormulaM { get; set; }
         public string? Lote { get; set; }
         public int? Cantidad { get; set; }
         public decimal? GPorMl { get; set; }
