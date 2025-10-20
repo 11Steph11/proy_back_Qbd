@@ -34,60 +34,42 @@ namespace Proy_back_QBD.Services
         {
             FormulaUpdateResponse response = new FormulaUpdateResponse();
 
-            Formula? formula = await _context.Formulas
+            Formula? formulaFind = await _context.Formulas
+            .Include(i => i.Pedido.Formulas)
+            .Include(i => i.Pedido.ProdTerms)
             .FirstOrDefaultAsync(f => f.Id == id);
-            if (formula == null)
+            if (formulaFind == null)
             {
                 response.Msg = "no se encontró";
                 return response;
             }
 
-            _mapper.Map(request, formula);
-            response.Msg = "Formula Actualizado";
-            response.FormulaRes = formula;
-
-            await _context.SaveChangesAsync();
-
-            Pedido? pedido = await _context.Pedidos
-            .Include(i => i.Formulas)
-            .FirstOrDefaultAsync(fod => fod.Id == formula.Id);
+            Pedido? pedido = formulaFind.Pedido;
             if (pedido == null)
             {
                 return null;
             }
-            List<Formula>? formulas = pedido.Formulas;
-            if (formulas == null)
+            List<Formula>? formulas = pedido?.Formulas;
+            List<ProdTerm>? prodTerms = pedido?.ProdTerms;
+            if (formulas == null && prodTerms == null)
             {
                 return null;
             }
+            decimal total = PedidoService.SumaPedido(formulas, prodTerms);
+            total = total - (formulaFind.Cantidad * formulaFind.Costo) + (request.Cantidad * request.Costo);
+            pedido.Total = total;
+            pedido.Saldo = total-pedido.Adelanto;
+            _mapper.Map(request, formulaFind);
+            response.Msg = "Formula Actualizado";
+            response.FormulaRes = formulaFind;
+
+            await _context.SaveChangesAsync();
 
             // string? estado = PedidoService.CalcularEstado(formulas);
             // if (pedido.Estado != estado)
             // {
             //     pedido.Estado = estado;
             // }
-
-            decimal costoReq = 0;
-            costoReq = request.Costo * request.Cantidad;
-            decimal costoForm = 0;
-            costoForm = formula.Costo * formula.Cantidad;
-            decimal diferencia = Math.Abs(costoReq - costoForm);
-
-            if (costoReq != costoForm)
-            {
-                if (costoReq > costoForm)
-                {
-                    pedido.Total -= diferencia;
-                    pedido.Saldo -= diferencia;
-                }
-                else if (costoReq < costoForm)
-                {
-                    pedido.Total += diferencia;
-                    pedido.Saldo += diferencia;
-                }
-            }
-
-            await _context.SaveChangesAsync();
 
             return response;
         }
