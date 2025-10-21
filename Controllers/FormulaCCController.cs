@@ -1,35 +1,35 @@
-// using Microsoft.AspNetCore.Identity;
-// using Microsoft.AspNetCore.Mvc;
-// using Proy_back_QBD.Dto.Request;
-// using Proy_back_QBD.Dto.Response;
-// using Proy_back_QBD.Models;
-// using Proy_back_QBD.Services;
-// using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Proy_back_QBD.Dto.Request;
+using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Models;
+using Proy_back_QBD.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
-// namespace Proy_back_QBD.Controllers;
+namespace Proy_back_QBD.Controllers;
 
-// [ApiController]
-// [Route("api/formula")]
-// public class FormulaCCController : ControllerBase
-// {
-//     private readonly IFormulaService _formulaService;
+[ApiController]
+[Route("api/formulaCC")]
+public class FormulaCCController : ControllerBase
+{
+    private readonly IFormulaCCService _formulaService;
 
-//     public FormulaCCController(IFormulaService formulaService)
-//     {
-//         _formulaService = formulaService;
-//     }
+    public FormulaCCController(IFormulaCCService formulaService)
+    {
+        _formulaService = formulaService;
+    }
 
-//     [HttpPost]
-//     [SwaggerResponse(200, "Operación exitosa", typeof(FormulaCreateResponse))]
-//     public async Task<IActionResult> CrearFormula([FromBody] FormulaCreateReq request)
-//     {
-//         if (request == null)
-//         {
-//             return BadRequest("Request cannot be null");
-//         }
-//         FormulaCreateResponse? response = await _formulaService.CrearFormPed(request);
-//         return Ok(response);
-//     }
+    [HttpGet("{formulaId}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(FormulaCCLabRes))]
+    public async Task<IActionResult> ObtenerInsumosLab(int formulaId)
+    {
+        FormulaCCLabRes? response = await _formulaService.ListarInsumosLab(formulaId);
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
     
     
-// }
+}

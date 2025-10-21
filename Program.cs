@@ -39,6 +39,7 @@ builder.Services.AddScoped<IMedicoService, MedicoService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 builder.Services.AddScoped<IFormulaService, FormulaService>();
 builder.Services.AddScoped<IFormulaRService, FormulaRService>();
+builder.Services.AddScoped<IFormulaCCService, FormulaCCService>();
 builder.Services.AddScoped<IInsumoRService, InsumoRService>();
 builder.Services.AddScoped<IInsumoService, InsumoService>();
 builder.Services.AddScoped<IProdTermService, ProdTermService>();

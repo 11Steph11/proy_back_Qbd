@@ -68,6 +68,7 @@ namespace Proy_back_QBD.Services
                                             {
                                                 Id = f.Id,
                                                 FormulaM = f.FormulaMagistral,
+                                                FormulaF = f.FormaFarmaceutica,
                                                 Lote = f.Lote,
                                                 Registro = "REG-" + f.Id,
                                                 Cantidad = f.Cantidad,

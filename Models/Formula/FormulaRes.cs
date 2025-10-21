@@ -22,7 +22,7 @@ namespace Proy_back_QBD.Dto.Response
         public decimal? Costo { get; set; }                    // Costo del pedido
         public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         public string? FormulaMagistral { get; set; }          // Descripción de la fórmula magistral
-        public string? FormulaFarmaceutica { get; set; }           // Descripción de la fórmula de farmacia
+        public string? FormaFarmaceutica { get; set; }           // Descripción de la fórmula de farmacia
         public decimal? GPorMl { get; set; }                   // g/ml (gramos por mililitro)
         public string? UnidadMedida { get; set; }              // Unidad de medida (ej. "ml", "mg", "g", etc.)
         public string? Lote { get; set; }                      // Lote del producto

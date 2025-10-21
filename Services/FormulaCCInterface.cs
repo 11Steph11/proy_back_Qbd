@@ -7,5 +7,6 @@ namespace Proy_back_QBD.Services
     public interface IFormulaCCService
     {
         Task<List<RecetaRes>?> ListarInsumos(int sedeId);
+        Task<FormulaCCLabRes>? ListarInsumosLab(int formulaId);
     }
 }
