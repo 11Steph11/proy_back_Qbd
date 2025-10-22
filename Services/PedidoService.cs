@@ -266,11 +266,13 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
+            pedido.FechaEntrega = ZonaHoraria.AjustarZona(pedido.FechaEntrega);
             PedidoFindIdResponse response = _mapper.Map<PedidoFindIdResponse>(pedido);
             foreach (var item in response.Formulas)
             {
                 item.Codigo = "REG-" + item.Id;
             }
+
             return response;
 
         }
