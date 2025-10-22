@@ -8,5 +8,6 @@ namespace Proy_back_QBD.Services
     {
         Task<List<RecetaRes>?> ListarInsumos(int sedeId);
         Task<FormulaCCLabRes>? ListarInsumosLab(int formulaId);
+        Task<List<FormulaCC>>? Actualizar(int formulaId, List<FormulaCCUpdReq> formulas);
     }
-}
+}   

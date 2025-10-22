@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Migrations;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Services;
 using Swashbuckle.AspNetCore.Annotations;
@@ -24,6 +25,21 @@ public class FormulaCCController : ControllerBase
     public async Task<IActionResult> ObtenerInsumosLab(int formulaId)
     {
         FormulaCCLabRes? response = await _formulaService.ListarInsumosLab(formulaId);
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
+    [HttpPut("{formulaId}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(List<FormulaCC>))]
+    public async Task<IActionResult> ActualizarFormulas(int formulaId,List<FormulaCCUpdReq> formulas)
+    {
+        if (formulas == null)
+        {
+            return BadRequest();
+        }
+        List<FormulaCC>? response = await _formulaService.Actualizar(formulaId,formulas);
         if (response == null)
         {
             return NotFound();

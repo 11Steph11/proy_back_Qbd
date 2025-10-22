@@ -26,6 +26,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<CobroMap>();
     cfg.AddProfile<LaboratorioMap>();
     cfg.AddProfile<FormulaRMap>();
+    cfg.AddProfile<FormulaCCMap>();
     cfg.AddProfile<InsumoRMap>();
     cfg.AddProfile<InsumoMap>();
     cfg.AddProfile<EmpaqueMap>();
