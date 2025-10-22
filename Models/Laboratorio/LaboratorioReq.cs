@@ -34,7 +34,6 @@ namespace Proy_back_QBD.Dto.Productos
     }
     public class InsumsCreReq
     {
-        public required int FormulaId { get; set; }
         public required int InsumoId { get; set; }
         public required string Porcentaje { get; set; }
         public required string? Variable { get; set; }

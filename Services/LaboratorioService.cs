@@ -99,6 +99,7 @@ namespace Proy_back_QBD.Services
             foreach (var item in request.Ins)
             {
                 FormulaCC formulaCC = _Mappers.Map<FormulaCC>(item);
+                formulaCC.FormulaId = request.Lab.FormulaId;
                 formulaCC.ModificadorId = formulaCC.CreadorId;
                 _db.FormulasCC.Add(formulaCC);
             }

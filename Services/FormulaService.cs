@@ -38,6 +38,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Pedido.Formulas)
             .Include(i => i.Pedido.ProdTerms)
             .FirstOrDefaultAsync(f => f.Id == id);
+
             if (formulaFind == null)
             {
                 response.Msg = "no se encontró";
@@ -177,11 +178,12 @@ namespace Proy_back_QBD.Services
             Formula? formula = await _context.Formulas
             .Include(i => i.Laboratorio)
             .FirstOrDefaultAsync(foda => foda.Id == formulaId);
+
             if (formula == null)
             {
                 return null;
             }
-                
+
             Laboratorio? laboratorio = formula?.Laboratorio;
             if (laboratorio == null)
             {
@@ -195,7 +197,7 @@ namespace Proy_back_QBD.Services
             formula.GPorMl = request.GPorMl;
             formula.UnidadMedida = request.UnidadMedida;
             formula.ModificadorId = request.ModificadorId;
-            laboratorio.FechaEmision = request.FechaEmision ;
+            laboratorio.FechaEmision = request.FechaEmision;
             laboratorio.FechaVcto = request.FechaVencimiento;
 
             await _context.SaveChangesAsync();
