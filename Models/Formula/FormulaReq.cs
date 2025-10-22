@@ -48,6 +48,7 @@ namespace Proy_back_QBD.Dto.Request
         public decimal Costo { get; set; }                    // Costo del pedido
         public int Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         public string? FormulaMagistral { get; set; }
+        public string? FormaFarmaceutica { get; set; }
         public decimal GPorMl { get; set; }
         public string? UnidadMedida { get; set; }
         public int ModificadorId { get; set; }

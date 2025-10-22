@@ -173,21 +173,25 @@ namespace Proy_back_QBD.Services
 
         public async Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request)
         {
+
             Formula? formula = await _context.Formulas
             .Include(i => i.Laboratorio)
             .FirstOrDefaultAsync(foda => foda.Id == formulaId);
-            if (formula == null )
+            if (formula == null)
             {
                 return null;
             }
+                
             Laboratorio? laboratorio = formula?.Laboratorio;
             if (laboratorio == null)
             {
                 return null;
             }
+
             formula.Costo = request.Costo;
             formula.Cantidad = request.Cantidad;
             formula.FormulaMagistral = request.FormulaMagistral;
+            formula.FormaFarmaceutica = request.FormaFarmaceutica;
             formula.GPorMl = request.GPorMl;
             formula.UnidadMedida = request.UnidadMedida;
             formula.ModificadorId = request.ModificadorId;
