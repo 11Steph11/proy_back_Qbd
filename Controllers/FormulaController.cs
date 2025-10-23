@@ -104,4 +104,15 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
+    [HttpGet("formulasLab/{pedidoId}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(FormulasLab))]
+    public async Task<IActionResult> ListarFormulasLab(int pedidoId)
+    {
+        FormulasLab? response = await _formulaService.ListarFormulasLab(pedidoId);
+        if (response == null)
+        {
+            return NotFound();
+        }
+        return Ok(response);
+    }
 }

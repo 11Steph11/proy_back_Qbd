@@ -171,6 +171,59 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
+        public async Task<FormulasLab> ListarFormulasLab(int pedidoId)
+        {
+            try
+            {
+                FormulasLab? response = await _context.Pedidos
+                .Include(i => i.Medico.Persona)
+                .Include(i => i.Paciente.Persona)
+                .Include(i => i.Formulas)
+                .Where(w => w.Id == pedidoId)
+                .Select(s => new FormulasLab
+                {
+                    Paciente = s.Paciente.Persona.NombreCompleto,
+                    DNI = s.Paciente.Persona.Dni ?? s.Paciente.DniApoderado,
+                    Edad = PacienteService.CalcularEdad(s.Paciente.Persona.FechaNacimiento),
+                    Medico = s.Medico.Persona.NombreCompleto,
+                    CMP = s.Medico.Cmp,
+                    Formulas = s.Formulas.Select(s => new FormulasLab2
+                    {
+                        Costo = s.Costo,
+                        Cantidad = s.Cantidad,
+                        FormulaMagistral = s.FormulaMagistral,
+                        GPorMl = s.GPorMl,
+                        NReg = "REG-" + s.Id,
+                        Lote = s.Lote,
+                        Diagnostico = s.Diagnostico,
+                        Zona = s.ZonaAplicacion,
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
+                response.Items = response.Formulas.Count;
+                response.CantidadTotal = 0;
+                response.CostoTotal = 0;
+                foreach (var item in response.Formulas)
+                {
+                    response.CantidadTotal += item.Cantidad;
+                    response.CostoTotal += item.Cantidad * item.Costo;
+                }
+
+                if (response == null)
+                {
+                    return null;
+                }
+
+                return response;
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+
+        }
 
         public async Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request)
         {

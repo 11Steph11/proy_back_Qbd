@@ -50,6 +50,29 @@ namespace Proy_back_QBD.Dto.Response
         public PersonaRes? PersonaFk { get; set; }  // Puede ser nulo
         public bool? CondicionFecha { get; set; }
     }
+    public class FormulasLab
+    {
+        public string? Paciente { get; set; }  // Puede ser nulo
+        public string? DNI { get; set; }
+        public int? Edad { get; set; }
+        public string? Medico { get; set; }
+        public string? CMP { get; set; }
+        public List<FormulasLab2>? Formulas { get; set; }
+        public int? Items { get; set; }
+        public decimal? CantidadTotal { get; set; }
+        public decimal? CostoTotal { get; set; }
+    }
+    public class FormulasLab2
+    {
+        public decimal? Costo { get; set; }  // Puede ser nulo
+        public int? Cantidad { get; set; }
+        public string? FormulaMagistral { get; set; }
+        public decimal? GPorMl { get; set; }
+        public string? NReg { get; set; }
+        public string? Lote { get; set; }
+        public string? Diagnostico { get; set; }
+        public string? Zona { get; set; }
+    }
     public class RecetaRes
     {
         public string? Medico { get; set; }  // Puede ser nulo

@@ -13,5 +13,6 @@ namespace Proy_back_QBD.Services
         Task<Formula?> Eliminar(int id);
         Task<string?> AgregarInjerto(int id, string injerto);
         Task<Formula> ActualizarFormulaM(int formulaId, string FormulaMagistral);
+        Task<FormulasLab?> ListarFormulasLab(int pedidoId);
     }
 }

@@ -29,7 +29,7 @@ namespace Proy_back_QBD.Services
             RPagosAnteriores pagosAnteriores = new();
             BQPagosDelDia bqPagos = new();
             Ventas ventas = new Ventas();
-            List<DeudasPendientes> DeudasP = new ();
+            List<DeudasPendientes> DeudasP = new();
 
             List<Cobro> caja = await _context.Cobros
                     .Include(i => i.Pedido.Paciente.Persona)
@@ -100,7 +100,9 @@ namespace Proy_back_QBD.Services
                 if (item.Modalidad.Trim().ToUpper() == "YAPE"
                 || item.Modalidad.Trim().ToUpper() == "PLIN"
                 || item.Modalidad.Trim().ToUpper() == "DEPOSITO"
-                || item.Modalidad.Trim().ToUpper() == "TARJETA")
+                || item.Modalidad.Trim().ToUpper() == "TARJETA CREDITO"
+                || item.Modalidad.Trim().ToUpper() == "TARJETA DEBITO"
+                )
                 {
                     recaudDia.Electronico += item.Importe;
                     if (!string.IsNullOrEmpty(item.BolFac))
@@ -160,10 +162,10 @@ namespace Proy_back_QBD.Services
             .Where(w => w.Saldo != 0)
             .Select(s => new DeudasPendientes
             {
-                CUO_R = "BDRP-"+s.Id,
+                CUO_R = "BDRP-" + s.Id,
                 FechaPedido = DateOnly.FromDateTime(s.FechaCreacion),
                 Recibo = s.Id.ToString(),
-                Dni = s.Paciente.Persona.Dni??s.Paciente.DniApoderado,
+                Dni = s.Paciente.Persona.Dni ?? s.Paciente.DniApoderado,
                 Paciente = s.Paciente.Persona.NombreCompleto,
                 Telefono = s.Paciente.Persona.Telefono,
                 Importe = s.Total,
