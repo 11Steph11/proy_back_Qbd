@@ -18,7 +18,7 @@ namespace Proy_back_QBD.Models
         public int Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         [Column("formula_magistral")]
         public string? FormulaMagistral { get; set; }          // Descripción de la fórmula magistral
-        [Column("formula_farmaceutica")]
+        [Column("forma_farmaceutica")]
         public string? FormaFarmaceutica { get; set; }           // Descripción de la fórmula de farmacia
         [Column("g/ml")]
         public decimal GPorMl { get; set; }                   // g/ml (gramos por mililitro)
