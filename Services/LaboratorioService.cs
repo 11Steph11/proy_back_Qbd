@@ -64,7 +64,9 @@ namespace Proy_back_QBD.Services
                                             Edad = PacienteService.CalcularEdad(s.Paciente.Persona.FechaNacimiento),
                                             CMP = s.Medico.Cmp,
                                             Medico = s.Medico.Persona.NombreCompleto,
-                                            Formulas = s.Formulas.Select(f => new LabForm
+                                            Formulas = s.Formulas
+                                            .Where(w => w.PedidoId == id)
+                                            .Select(f => new LabForm
                                             {
                                                 Id = f.Id,
                                                 FormulaM = f.FormulaMagistral,
@@ -95,7 +97,7 @@ namespace Proy_back_QBD.Services
             string response;
 
             Laboratorio laboratorio = _Mappers.Map<Laboratorio>(request.Lab);
-            laboratorio.ModificadorId =laboratorio.CreadorId;
+            laboratorio.ModificadorId = laboratorio.CreadorId;
             foreach (var item in request.Ins)
             {
                 FormulaCC formulaCC = _Mappers.Map<FormulaCC>(item);

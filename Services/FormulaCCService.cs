@@ -105,6 +105,7 @@ namespace Proy_back_QBD.Services
             }
             List<FormulaCCLabSubRes>? response2 = await _context.FormulasCC
             .Include(i => i.Insumo)
+            .Where(w => w.FormulaId == formulaId)
             .Select(s => new FormulaCCLabSubRes
             {
                 InsumoId = s.InsumoId,
@@ -113,6 +114,7 @@ namespace Proy_back_QBD.Services
                 Practica = s.Practica,
                 CSP = s.CSP
             }).ToListAsync();
+
             if (response2 == null)
             {
                 return null;
