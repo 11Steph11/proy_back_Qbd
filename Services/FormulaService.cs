@@ -91,29 +91,38 @@ namespace Proy_back_QBD.Services
         public async Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request)
         {
             FormulaCreateResponse response = new FormulaCreateResponse();
-            DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
-            int correlativo = await _context.Formulas
-                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
-                                    .CountAsync() + 1;
-
-
-            var codLote =
-           DateTime.Now.Year.ToString().Substring(2, 2) +
-           DateTime.Now.Month.ToString("D2") +
-           DateTime.Now.Day.ToString("D2");
-
-            Formula formula = _mapper.Map<Formula>(request);
-            formula.ModificadorId = formula.CreadorId;
-            formula.Estado = "PENDIENTE";
-            formula.Lote = codLote + correlativo;
-            response.FormulaRes = formula;
-            response.Msg = "Formula creado exitosamente.";
-
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
             .Include(i => i.ProdTerms)
             .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+            Formula formula = _mapper.Map<Formula>(request);
+            if (pedido.Formulas == null && pedido.Formulas.Count == 0)
+            {
+                DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
+                int correlativo = await _context.Formulas
+                                        .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
+                                        .CountAsync() + 1;
+
+
+                var codLote =
+               DateTime.Now.Year.ToString().Substring(2, 2) +
+               DateTime.Now.Month.ToString("D2") +
+               DateTime.Now.Day.ToString("D2");
+                formula.Lote = codLote + correlativo;
+            }
+            else
+            {
+                formula.Lote = pedido.Formulas.First().Lote;
+            }
+
+
+            formula.ModificadorId = formula.CreadorId;
+            formula.Estado = "PENDIENTE";
+
+            response.FormulaRes = formula;
+            response.Msg = "Formula creado exitosamente.";
+
 
             if (pedido == null)
             {
