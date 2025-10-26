@@ -14,7 +14,6 @@ namespace Proy_back_QBD.Profiles
         {
             // Mapeo entre ApoderadoCreate y Apoderado
             CreateMap<FormulaCCUpdReq, FormulaCC>()
-            .ForMember(a => a.InsumoId, o => o.Ignore())
             ;
 
         }

@@ -20,7 +20,6 @@ namespace Proy_back_QBD.Services
 
         public async Task<List<FormulaCC>>? Actualizar(int formulaId, List<FormulaCCUpdReq> request)
         {
-
             List<FormulaCC>? formulasCC = await _context.FormulasCC
             .Where(w => w.FormulaId == formulaId)
             .ToListAsync();
@@ -30,29 +29,32 @@ namespace Proy_back_QBD.Services
             }
             IEnumerable<int> InsumosReq = request.Select(s => s.InsumoId);
             IEnumerable<int> InsumosFormulas = formulasCC.Select(s => s.InsumoId);
+            List<FormulaCC>? auxiliar = new();
             foreach (var formula in request)
             {
                 if (!InsumosFormulas.Contains(formula.InsumoId))
                 {
-                    _context.Add(formula);
+                    FormulaCC formulaM = _mapper.Map<FormulaCC>(formula);
+                    formulaM.FormulaId = formulaId;
+                    _context.FormulasCC.Add(formulaM);
+                    auxiliar.Add(formulaM);
                 }
                 foreach (var formula2 in formulasCC)
                 {
                     if (formula2.InsumoId == formula.InsumoId)
                     {
+
                         _mapper.Map(formula, formula2);
+                        auxiliar.Add(formula2);
                     }
                     if (!InsumosReq.Contains(formula2.InsumoId))
                     {
-                        _context.Remove(formula2);
+                        _context.FormulasCC.Remove(formula2);
                     }
-
                 }
             }
-
             await _context.SaveChangesAsync();
-
-            return formulasCC;
+            return auxiliar;
         }
 
         public async Task<List<RecetaRes>?> ListarInsumos(int sedeId)

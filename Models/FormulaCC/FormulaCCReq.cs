@@ -15,6 +15,7 @@ namespace Proy_back_QBD.Models
         public required string CantidadL { get; set; }
         public string? Practica { get; set; }
         public bool? CSP { get; set; }
+        public int CreadorId { get; set; }
         public int ModificadorId { get; set; }
     }
 
