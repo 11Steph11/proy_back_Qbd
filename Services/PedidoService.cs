@@ -23,6 +23,7 @@ namespace Proy_back_QBD.Services
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
+            .Include(i => i.ProdTerms)
             .Where(p => p.Id == id)
             .FirstOrDefaultAsync();
 
@@ -34,21 +35,31 @@ namespace Proy_back_QBD.Services
 
             if (request.Estado != pedido.Estado)
             {
-                foreach (var item in pedido.Formulas)
+                if (pedido.Formulas != null && pedido.Formulas.Count > 0)
                 {
-                    item.Estado = request.Estado;
+                    foreach (var item in pedido.Formulas)
+                    {
+                        if (item.Estado.ToUpper() != "DEVUELTO") item.Estado = request.Estado.ToUpper();
+                    }
+                }
+                if (pedido.ProdTerms != null && pedido.ProdTerms.Count > 0)
+                {
+                    if (request.Estado.ToUpper() != "EN PROCESO")
+                    {
+                        if (request.Estado.ToUpper() == "TERMINADO")
+                        {
+                            request.Estado = "PT";
+                        }
+                        foreach (var item in pedido.ProdTerms)
+                        {
+                            if (item.Estado.ToUpper() != "DEVUELTO") item.Estado = request.Estado.ToUpper();
+                        }
+                    }
                 }
             }
-
-            if (request.Estado == "ENTREGADO")
-            {
-                foreach (var item in pedido.ProdTerms)
-                {
-                    item.Estado = request.Estado;
-                }
-            }
-
             _mapper.Map(request, pedido);
+            pedido.Estado = request.Estado.ToUpper();
+            if (pedido.Formulas == null && pedido.Formulas.Count == 0) pedido.Estado = "PT";
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
             await _context.SaveChangesAsync();
@@ -125,20 +136,24 @@ namespace Proy_back_QBD.Services
            inicioDiaUtc.Day.ToString("D2");
 
             int c = 0;
-            foreach (var item in request.Formulas)
-            {
 
-                Formula formula = _mapper.Map<Formula>(item);
-                formula.Estado = "PENDIENTE";
-                formula.Lote = codLote + (correlativo + c).ToString("D3");
-                c++;
-                formulaList.Add(formula);
+            if (request.Formulas != null && request.Formulas.Count > 0)
+            {
+                foreach (var item in request.Formulas)
+                {
+
+                    Formula formula = _mapper.Map<Formula>(item);
+                    formula.Estado = "PENDIENTE";
+                    formula.Lote = codLote + (correlativo + c).ToString("D3");
+                    c++;
+                    formulaList.Add(formula);
+                }
             }
 
             foreach (var item in request.ProductosTerminados)
             {
                 ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
-                prodTerm.Estado = "PENDIENTE";
+                prodTerm.Estado = "PT";
                 prodTermList.Add(prodTerm);
             }
 
@@ -147,7 +162,14 @@ namespace Proy_back_QBD.Services
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.Total = total;
             pedido.Saldo = total;
-            pedido.Estado = "PENDIENTE";
+            if (request.Formulas == null && request.Formulas.Count == 0)
+            {
+                pedido.Estado = "PT";
+            }
+            else
+            {
+                pedido.Estado = "PENDIENTE";
+            }
             pedido.ModificadorId = pedido.CreadorId;
             response.PedidoRes = pedido;
             response.Msg = "Pedido creado exitosamente.";
