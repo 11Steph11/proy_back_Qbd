@@ -95,10 +95,5 @@ public class PedidoController : ControllerBase
         }
         return Ok(response);
     }
-    [HttpGet("secure-data")]
-    public IActionResult GetSecureData()
-    {
-        // Este endpoint estará protegido por el middleware que valida el código.
-        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
-    }
+    
 }

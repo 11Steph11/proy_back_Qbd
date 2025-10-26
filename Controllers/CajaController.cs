@@ -22,12 +22,7 @@ public class CajaController : ControllerBase
     {
         _cajaService = cajaService;
     }
-    [HttpGet("secure-data")]
-    public IActionResult GetSecureData()
-    {
-        // Este endpoint estará protegido por el middleware que valida el código.
-        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
-    }
+    
     [HttpPost]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<CajaFindAllRes?>))]
     public async Task<IActionResult> ObtenerCajas(CajaFindAllReq request)

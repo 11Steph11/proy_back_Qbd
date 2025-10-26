@@ -44,12 +44,7 @@ public class CobroController : ControllerBase
         }
         return Ok(response);
     }
-    [HttpGet("secure-data")]
-    public IActionResult GetSecureData()
-    {
-        // Este endpoint estará protegido por el middleware que valida el código.
-        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
-    }
+    
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(CobroCreateRes))]
     public async Task<IActionResult> ActualizarCobro(int id, [FromBody] CobroUpdateReq request)

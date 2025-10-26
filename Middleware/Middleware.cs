@@ -1,32 +1,35 @@
 public class ApiKeyMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly IConfiguration _configuration;
+    private const string API_KEY_HEADER_NAME = "X-Api-Key"; // El nombre del encabezado en el que esperamos la clave
+    private const string VALID_API_KEY = "123456"; // La clave secreta válida (reemplaza con tu propia clave)
 
-    public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration)
+    public ApiKeyMiddleware(RequestDelegate next)
     {
         _next = next;
-        _configuration = configuration;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext httpContext)
     {
-        var apiKey = context.Request.Headers["Authorization"].FirstOrDefault();
-        if (string.IsNullOrEmpty(apiKey))
+        // Verificar si el encabezado 'X-Api-Key' está presente
+        if (!httpContext.Request.Headers.ContainsKey(API_KEY_HEADER_NAME))
         {
-            context.Response.StatusCode = 401;
-            await context.Response.WriteAsync("Unauthorized");
-            return;
-        }
-        // Verificamos si el valor del token coincide con el que está en la configuración
-        if (apiKey == null || apiKey != "aaaa")
-        {
-            // Si no coincide, respondemos con un error 401 (No autorizado)
-            context.Response.StatusCode = 401;
-            await context.Response.WriteAsync("Unauthorized");
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest; // Si no está presente, retorno error 400
+            await httpContext.Response.WriteAsync("API Key es requerida.");
             return;
         }
 
-        await _next(context); // Si la clave es válida, pasamos al siguiente middleware
+        var apiKey = httpContext.Request.Headers[API_KEY_HEADER_NAME].ToString();
+
+        // Verificar si la API Key es válida
+        if (apiKey != VALID_API_KEY)
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized; // Si la clave es incorrecta, retorno error 401
+            await httpContext.Response.WriteAsync("API Key inválida.");
+            return;
+        }
+
+        // Si la clave es válida, proceder con la solicitud
+        await _next(httpContext);
     }
 }

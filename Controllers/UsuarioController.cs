@@ -75,10 +75,5 @@ public class UsuarioController : ControllerBase
         UsuarioByIdRes? usuario = await _userService.ObtenerById(id);
         return Ok(usuario);
     }
-    [HttpGet("secure-data")]
-    public IActionResult GetSecureData()
-    {
-        // Este endpoint estará protegido por el middleware que valida el código.
-        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
-    }
+    
 }

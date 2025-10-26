@@ -9,6 +9,7 @@ using System.Reflection;
 using Proy_back_QBD.Util;
 using Proy_back_QBD.Services.Interfaces;
 using Proy_back_QBD.Models;
+using Microsoft.OpenApi.Models;
 Env.Load(); // Cargar variables de entorno desde el archivo .env
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +58,29 @@ builder.Services.AddSwaggerGen(c =>
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
+
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "Ingrese su API Key en el campo",
+        Name = "X-Api-Key", // Nombre del encabezado que el middleware espera
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "ApiKeyScheme"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                }
+            },
+            new List<string>()
+        }
+    });
 });
 
 // Configurar conexión a PostgreSQL
@@ -84,7 +108,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-app.UseMiddleware<ApiKeyMiddleware>();
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
@@ -92,11 +115,11 @@ app.UseSwaggerUI(options =>
 
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
 });
-
-
 app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigins");
 app.UseRouting();
+app.UseMiddleware<ApiKeyMiddleware>();
+app.UseAuthorization();
 app.MapControllers();
 
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
