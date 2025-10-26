@@ -31,6 +31,7 @@ namespace Proy_back_QBD.Services
                                         .Take(pageSize)  // Limitar a los primeros "pageSize" registros
                                         .Select(s => new PedidoLab
                                         {
+                                            LabId = s.Id,
                                             Cuo = "BDRP-" + s.Id,
                                             Fecha = s.FechaCreacion,
                                             DNI = s.Formula.Pedido.Paciente.Persona.Dni ?? s.Formula.Pedido.Paciente.DniApoderado,

@@ -7,6 +7,7 @@ namespace Proy_back_QBD.Dto.Productos
 {
     public class PedidoLab
     {
+        public int? LabId { get; set; }                          // ID único del pedido
         public string? Cuo { get; set; }                          // ID único del pedido
         public DateTime? Fecha { get; set; }                    // Costo del pedido
         public string? DNI { get; set; }                     // Cantidad de unidades solicitadas

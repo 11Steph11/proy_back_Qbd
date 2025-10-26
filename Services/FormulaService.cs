@@ -29,7 +29,6 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return formula;
         }
-
         public async Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request)
         {
             FormulaUpdateResponse response = new FormulaUpdateResponse();
@@ -89,7 +88,6 @@ namespace Proy_back_QBD.Services
 
             return Msg;
         }
-
         public async Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request)
         {
             FormulaCreateResponse response = new FormulaCreateResponse();
@@ -107,7 +105,7 @@ namespace Proy_back_QBD.Services
             Formula formula = _mapper.Map<Formula>(request);
             formula.ModificadorId = formula.CreadorId;
             formula.Estado = "PENDIENTE";
-            formula.Lote = codLote + correlativo.ToString("D3");
+            formula.Lote = codLote + correlativo;
             response.FormulaRes = formula;
             response.Msg = "Formula creado exitosamente.";
 
@@ -194,7 +192,7 @@ namespace Proy_back_QBD.Services
                         FormulaMagistral = s.FormulaMagistral,
                         GPorMl = s.GPorMl,
                         NReg = "REG-" + s.Id,
-                        Lote = s.Lote,
+                        Lote = "FM"+s.Lote,
                         Diagnostico = s.Diagnostico,
                         Zona = s.ZonaAplicacion,
                     }).ToList()
