@@ -86,5 +86,15 @@ namespace Proy_back_QBD.Dto.Response
         public decimal? Precio { get; set; }
         public string? Tipo { get; set; }
     }
-
+    public class EtiquetaRes
+    {
+        public string? NReg { get; set; }
+        public string? DNI { get; set; }
+        public string? Paciente { get; set; }
+        public string? FormulaMagistral { get; set; }
+        public string? FechaEmision { get; set; }
+        public string? FechaVencimiento { get; set; }
+        public string? CMP { get; set; }
+        public string? Medico { get; set; }
+    }
 }

@@ -257,5 +257,29 @@ namespace Proy_back_QBD.Services
 
             return formula;
         }
+
+        public async Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId)
+        {
+            EtiquetaRes res = await _context.Formulas
+            .Include(i => i.Pedido.Paciente.Persona)
+            .Include(i => i.Pedido.Medico.Persona)
+            .Include(i => i.Laboratorio)
+            .Where(w => w.Id == formulaId)
+            .Select(s => new EtiquetaRes
+            {
+                NReg = "REG-" + s.Id,
+                DNI = s.Pedido.Paciente.Persona.Dni ?? s.Pedido.Paciente.DniApoderado,
+                Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
+                FormulaMagistral = s.FormulaMagistral,
+                FechaEmision = s.Laboratorio.FechaEmision + "",
+                FechaVencimiento = s.Laboratorio.FechaVcto + "",
+                CMP = s.Pedido.Medico.Cmp,
+                Medico = s.Pedido.Medico.Persona.NombreCompleto
+            }
+            )
+            .FirstOrDefaultAsync();
+
+            return res;
+        }
     }
 }

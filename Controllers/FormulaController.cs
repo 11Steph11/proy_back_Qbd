@@ -43,6 +43,15 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
+    [HttpGet("etiqueta/{formulaId}")]
+    [SwaggerResponse(200, "Actualizacion exitosa", typeof(EtiquetaRes))]
+    public async Task<IActionResult> ObtenerEtiqueta(int formulaId)
+    {
+        EtiquetaRes? response = await _formulaService.ObtenerEtiqueta(formulaId);
+        if (response == null) return NotFound();
+        return Ok(response);
+    }
+
     [HttpPut("lab/{formulaId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
     public async Task<IActionResult> ActualizarFormulaLaboratorio(int formulaId, [FromBody] FormulaUpdLabReq request)
