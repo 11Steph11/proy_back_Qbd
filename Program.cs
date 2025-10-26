@@ -32,7 +32,8 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<InsumoMap>();
     cfg.AddProfile<EmpaqueMap>();
 });
-
+builder.Configuration
+    .AddEnvironmentVariables();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISedeService, SedeService>();
 builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
