@@ -109,11 +109,10 @@ namespace Proy_back_QBD.Services
             response.FormulaRes = formula;
             response.Msg = "Formula creado exitosamente.";
 
-            await _context.Formulas.AddAsync(formula);
-            await _context.SaveChangesAsync();
-
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
+            .Include(i => i.ProdTerms)
+            .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
 
             if (pedido == null)
@@ -121,13 +120,12 @@ namespace Proy_back_QBD.Services
                 return null;
             }
 
-            // string? estado = PedidoService.CalcularEstado(pedido.Formulas);
-            // if (pedido.Estado != estado)
-            // {
-            //     pedido.Estado = estado;
-            // }
+            pedido.Total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
             pedido.Total += formula.Costo * formula.Cantidad;
-            pedido.Saldo += formula.Costo * formula.Cantidad;
+            pedido.Saldo = pedido.Total - pedido.Adelanto;
+            // Maneja un estado virtual no poner antes
+            await _context.Formulas.AddAsync(formula);
+            await _context.SaveChangesAsync();
 
             return response;
         }
@@ -192,7 +190,7 @@ namespace Proy_back_QBD.Services
                         FormulaMagistral = s.FormulaMagistral,
                         GPorMl = s.GPorMl,
                         NReg = "REG-" + s.Id,
-                        Lote = "FM"+s.Lote,
+                        Lote = "FM" + s.Lote,
                         Diagnostico = s.Diagnostico,
                         Zona = s.ZonaAplicacion,
                     }).ToList()
