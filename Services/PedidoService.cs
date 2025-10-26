@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Migrations;
 using Proy_back_QBD.Models;
 using Proy_back_QBD.Util;
 
@@ -35,31 +36,58 @@ namespace Proy_back_QBD.Services
 
             if (request.Estado != pedido.Estado)
             {
-                if (pedido.Formulas != null && pedido.Formulas.Count > 0)
+                bool validar = true;
+                if (pedido.Estado.ToUpper() == "DEVUELTO")
                 {
+                    validar = false;
                     foreach (var item in pedido.Formulas)
                     {
-                        if (item.Estado.ToUpper() != "DEVUELTO") item.Estado = request.Estado.ToUpper();
+                        if (item.Estado.ToUpper() != "DEVUELTO")
+                        {
+                            validar = true;
+                        }
+                    }
+                    foreach (var item in pedido.ProdTerms)
+                    {
+                        if (item.Estado.ToUpper() != "DEVUELTO")
+                        {
+                            validar = true;
+                        }
                     }
                 }
-                if (pedido.ProdTerms != null && pedido.ProdTerms.Count > 0)
+                if (validar)
                 {
-                    if (request.Estado.ToUpper() != "EN PROCESO")
+                    if (pedido.Formulas != null && pedido.Formulas.Count > 0)
                     {
-                        if (request.Estado.ToUpper() == "TERMINADO")
-                        {
-                            request.Estado = "PT";
-                        }
-                        foreach (var item in pedido.ProdTerms)
+                        foreach (var item in pedido.Formulas)
                         {
                             if (item.Estado.ToUpper() != "DEVUELTO") item.Estado = request.Estado.ToUpper();
                         }
                     }
+                    if (pedido.ProdTerms != null && pedido.ProdTerms.Count > 0)
+                    {
+                        if (request.Estado.ToUpper() != "EN PROCESO")
+                        {
+                            if (request.Estado.ToUpper() == "TERMINADO")
+                            {
+                                request.Estado = "PT";
+                            }
+                            foreach (var item in pedido.ProdTerms)
+                            {
+                                if (item.Estado.ToUpper() != "DEVUELTO") item.Estado = request.Estado.ToUpper();
+                            }
+                        }
+                    }
                 }
+                else
+                {
+                    response.Msg = "Primero cambie un producto terminado o formula a otro estado que no sea devuelto";
+                    return response;
+                }
+                pedido.Estado = request.Estado.ToUpper();
+                if (pedido.Formulas == null && pedido.Formulas.Count == 0) pedido.Estado = "PT";
             }
             _mapper.Map(request, pedido);
-            pedido.Estado = request.Estado.ToUpper();
-            if (pedido.Formulas == null && pedido.Formulas.Count == 0) pedido.Estado = "PT";
             response.Msg = "Pedido Actualizado";
             response.PedidoRes = pedido;
             await _context.SaveChangesAsync();

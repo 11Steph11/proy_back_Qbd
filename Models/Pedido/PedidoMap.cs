@@ -21,6 +21,7 @@ namespace Proy_back_QBD.Profiles
             .ForMember(a => a.Id, opt => opt.Ignore())
             .ForMember(a => a.CreadorId, opt => opt.Ignore())
             .ForMember(a => a.Formulas, o => o.Ignore())
+            .ForMember(a => a.Estado, o => o.Ignore())
             .ForMember(a => a.ProdTerms, o => o.Ignore())
             ;
             CreateMap<Pedido, PedidoFindIdResponse>()
