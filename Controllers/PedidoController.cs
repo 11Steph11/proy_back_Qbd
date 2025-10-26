@@ -74,7 +74,7 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    
+
     [HttpGet("lab/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PedidoLabFindAllRes?>))]
     public async Task<IActionResult> ObtenerPedidosLab(int sedeId)
@@ -94,5 +94,11 @@ public class PedidoController : ControllerBase
             return NotFound("No se encontrò");
         }
         return Ok(response);
+    }
+    [HttpGet("secure-data")]
+    public IActionResult GetSecureData()
+    {
+        // Este endpoint estará protegido por el middleware que valida el código.
+        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
     }
 }

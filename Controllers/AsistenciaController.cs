@@ -18,6 +18,13 @@ public class AsistenciaController : ControllerBase
     private readonly IAsistenciaService _asistenciaService;
     private readonly IMapper _mapper;
 
+    [HttpGet("secure-data")]
+    public IActionResult GetSecureData()
+    {
+        // Este endpoint estará protegido por el middleware que valida el código.
+        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
+    }
+
     public AsistenciaController(IAsistenciaService userService, IMapper mapper)
     {
         _asistenciaService = userService;

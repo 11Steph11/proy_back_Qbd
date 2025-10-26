@@ -57,9 +57,9 @@ public class PacienteController : ControllerBase
     }
     [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PacienteFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerPacientes( int sedeId)
+    public async Task<IActionResult> ObtenerPacientes(int sedeId)
     {
-        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener( sedeId);
+        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener(sedeId);
 
         return Ok(response);
     }
@@ -73,5 +73,11 @@ public class PacienteController : ControllerBase
             return NotFound("No hay");
         }
         return Ok(response);
+    }
+    [HttpGet("secure-data")]
+    public IActionResult GetSecureData()
+    {
+        // Este endpoint estará protegido por el middleware que valida el código.
+        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
     }
 }

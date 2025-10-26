@@ -46,7 +46,7 @@ public class SedeController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(GeneralRes))]
     public async Task<IActionResult> DatosGenerales(int id)
     {
-        GeneralRes? response = await _sedeService.ObtGeneral(id);                                                 ;
+        GeneralRes? response = await _sedeService.ObtGeneral(id); ;
         if (response == null)
         {
             return NotFound();
@@ -63,5 +63,11 @@ public class SedeController : ControllerBase
             return NotFound();
         }
         return Ok(response);
+    }
+    [HttpGet("secure-data")]
+    public IActionResult GetSecureData()
+    {
+        // Este endpoint estará protegido por el middleware que valida el código.
+        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
     }
 }

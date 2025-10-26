@@ -72,7 +72,6 @@ Console.WriteLine($"Connection String: {connectionString}");
 
 builder.Services.AddDbContext<ApiContext>(options =>
     options.UseNpgsql(connectionString));
-
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
@@ -85,7 +84,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(options =>

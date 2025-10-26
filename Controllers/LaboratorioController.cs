@@ -38,12 +38,12 @@ namespace Proy_back_QBD.Controllers
         public async Task<IActionResult> ListarPedidoLab(string cod)
         {
             LabFindPedIdRes? response = await _labService.ObtenerByCod(cod);
-            
+
             if (response == null)
             {
                 return NotFound("");
             }
-            
+
             return Ok(response);
         }
         [HttpPost]
@@ -55,15 +55,20 @@ namespace Proy_back_QBD.Controllers
                 return BadRequest("Faltan Datos");
             }
             string? response = await _labService.RegistrarLabIns(request);
-            
+
             if (response == null)
             {
                 return NotFound("");
             }
-            
+
             return Ok(response);
         }
 
-
+        [HttpGet("secure-data")]
+        public IActionResult GetSecureData()
+        {
+            // Este endpoint estará protegido por el middleware que valida el código.
+            return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
+        }
     }
 }

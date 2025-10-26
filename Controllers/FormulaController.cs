@@ -43,6 +43,12 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
+    [HttpGet("secure-data")]
+    public IActionResult GetSecureData()
+    {
+        // Este endpoint estará protegido por el middleware que valida el código.
+        return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
+    }
     [HttpGet("etiqueta/{formulaId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(EtiquetaRes))]
     public async Task<IActionResult> ObtenerEtiqueta(int formulaId)

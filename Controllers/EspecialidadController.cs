@@ -116,7 +116,12 @@ namespace Proy_back_QBD.Controllers
                 return StatusCode(500, "Error interno del servidor.");
             }
         }
-
+        [HttpGet("secure-data")]
+        public IActionResult GetSecureData()
+        {
+            // Este endpoint estará protegido por el middleware que valida el código.
+            return Ok(new { message = "Datos protegidos, solo accesibles con el código correcto" });
+        }
         // Obtener especialidad por ID
         [HttpGet("obtener/{id}")]
         public async Task<IActionResult> ObtenerById(int id)
