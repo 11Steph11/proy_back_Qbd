@@ -46,6 +46,7 @@ namespace Proy_back_QBD.Services
                             MsgGpt = s.MsgGpt,
                             MsgCumple = s.MsgCumple,
                             MsgSeguimiento = s.MsgSeguimiento,
+                            MsgProceso = s.MsgEnProceso,
                             MsgTerminado = s.MsgTerminado
                         }).FirstOrDefaultAsync();
 

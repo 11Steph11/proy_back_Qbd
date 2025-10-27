@@ -18,6 +18,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? MsgTerminado { get; set; }
         public string? MsgCumple { get; set; }
         public string? MsgSeguimiento { get; set; }
+        public string? MsgProceso { get; set; }
         public string? MsgGpt { get; set; }
     }
 }

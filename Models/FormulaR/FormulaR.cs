@@ -15,8 +15,10 @@ namespace Proy_back_QBD.Models
         public int Id { get; set; }  // Puede ser nulo
         [Column("descripcion")]
         public required string Descripcion { get; set; }  // Puede ser nulo
-        [Column("empaque")]
-        public string? Empaque { get; set; }  // Puede ser nulo
+        [Column("empaqueId")]
+        public int? EmpaqueId { get; set; }  // Puede ser nulo
+        [JsonIgnore]
+        public Empaque? Empaque { get; set; }  // Puede ser nulo
         [Column("procedimiento")]
         public string? Procedimiento { get; set; }  // Puede ser nulo
         [Column("aspecto")]
