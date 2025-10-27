@@ -92,10 +92,22 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
+
         public async Task<string?> RegistrarLabIns(FormLabIns request)
         {
 
             string response;
+            bool valor;
+
+            valor = await _db.Laboratorios
+            .Where(w => w.Id == request.Lab.FormulaId)
+            .AnyAsync()
+            ;
+
+            if (valor)
+            {
+                return "Ya existe un registro creado con esta formula";
+            }
 
             Laboratorio laboratorio = _Mappers.Map<Laboratorio>(request.Lab);
             laboratorio.ModificadorId = laboratorio.CreadorId;
