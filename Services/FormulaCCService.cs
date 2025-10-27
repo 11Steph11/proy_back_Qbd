@@ -111,9 +111,9 @@ namespace Proy_back_QBD.Services
             .Select(s => new FormulaCCLabSubRes
             {
                 InsumoId = s.InsumoId,
-                Porcentaje = s.Porcentaje,
+                Porcentaje = s.Porcentaje.ToString(),
                 Variable = s.Variable,
-                Practica = s.Practica,
+                Practica = s.Practica.ToString(),
                 CSP = s.CSP
             }).ToListAsync();
 

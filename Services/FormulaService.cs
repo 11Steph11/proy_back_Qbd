@@ -286,5 +286,66 @@ namespace Proy_back_QBD.Services
 
             return res;
         }
+
+        public async Task<DetallesRes?> ObtenerDetalles(int formulaId)
+        {
+            DetallesRes? response = await _context.Formulas
+            .Include(i => i.Pedido.Paciente.Persona)
+            .Include(i => i.Pedido.Medico.Persona)
+            .Include(i => i.Laboratorio)
+            .Include(i => i.FormulaCC)
+            .ThenInclude(i => i.Insumo)
+            .Where(w => w.Id == formulaId)
+            .Select(s => new DetallesRes
+            {
+                Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
+                Edad = PacienteService.CalcularEdad(s.Pedido.Paciente.Persona.FechaNacimiento),
+                Diagnostico = s.Diagnostico,
+                QFDT = s.Laboratorio.Autorizado,
+                CQFP_DT = "",
+                QFBD = s.Laboratorio.Elaborado,
+                CQFP_BD = "",
+                Formula = s.FormulaMagistral,
+                Registro = "REG-" + s.Id,
+                Cantidad = s.Cantidad.ToString(),
+                CMP = s.Pedido.Medico.Cmp,
+                Medico = s.Pedido.Paciente.Persona.NombreCompleto,
+                CostoTotal = s.Cantidad * s.Costo,
+                Insumos = s.FormulaCC.Select(s => new DetallesRes2
+                {
+                    CODQBD = "MP-QBD-" + s.InsumoId,
+                    Porcentaje = s.Porcentaje,
+                    Descripcion = s.Insumo.Descripcion,
+                    Variable = s.Variable,
+                    CantUND = s.CantidadU,
+                    FC = s.Insumo.FactorCorreccion,
+                    Dilucion = s.Insumo.Dilucion,
+                    UM = s.Insumo.UnidadMedida,
+                    CantLot = s.CantidadL,
+                    Pract = s.Practica,
+                }).ToList(),
+            })
+            .FirstOrDefaultAsync();
+            if (response == null) return null;
+            if (response.Insumos == null) return null;
+            response.Items = response.Insumos.Count();
+            decimal porcentajeTotal = 0;
+            decimal sumCantUND = 0;
+            decimal sumCantLot = 0;
+            if (response.Insumos.Count() > 0)
+            {
+                foreach (var item in response.Insumos)
+                {
+                    porcentajeTotal += item.Porcentaje;
+                    sumCantUND += item.CantUND;
+                    sumCantLot += item.CantLot;
+                }
+            }
+            response.Total = porcentajeTotal;
+            response.TotalCantXUND = sumCantUND;
+            response.TotalCantXLOT = sumCantLot;
+
+            return response;
+        }
     }
 }

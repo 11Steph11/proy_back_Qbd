@@ -97,4 +97,39 @@ namespace Proy_back_QBD.Dto.Response
         public string? CMP { get; set; }
         public string? Medico { get; set; }
     }
+    public class DetallesRes
+    {
+        public string? Paciente { get; set; }
+        public int? Edad { get; set; }
+        public string? Diagnostico { get; set; }
+        public string? QFDT { get; set; }
+        public string? QFBD { get; set; }
+        public string? CQFP_DT { get; set; }
+        public string? CQFP_BD { get; set; }
+        public string? Formula { get; set; }
+        public string? Registro { get; set; }
+        public string? Cantidad { get; set; }
+        public string? CMP { get; set; }
+        public string? Medico { get; set; }
+        public decimal CostoTotal { get; set; }
+        public List<DetallesRes2>? Insumos { get; set; }
+        public int? Items { get; set; }
+        public decimal Total { get; set; }
+        public decimal TotalCantXUND { get; set; }
+        public decimal TotalCantXLOT { get; set; }
+    }
+    public class DetallesRes2
+    {
+        public string? CODQBD { get; set; }
+        public decimal Porcentaje { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Variable { get; set; }
+        public decimal CantUND { get; set; }
+        public string? FC { get; set; }
+        public string? Dilucion { get; set; }
+        public string? UM { get; set; }
+        public decimal CantLot { get; set; }
+        public decimal? Pract { get; set; }
+
+    }
 }

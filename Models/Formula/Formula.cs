@@ -56,6 +56,8 @@ namespace Proy_back_QBD.Models
         public Pedido? Pedido { get; set; }
         [JsonIgnore]
         public Laboratorio? Laboratorio { get; set; }
+        [JsonIgnore]
+        public List<FormulaCC>? FormulaCC { get; set; }
 
     }
 

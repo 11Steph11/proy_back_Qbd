@@ -18,15 +18,15 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Insumo Insumo { get; set; }
         [Column("porcentaje")]
-        public required string Porcentaje { get; set; }
+        public decimal Porcentaje { get; set; }
         [Column("variable")]
         public required string Variable { get; set; }
         [Column("cantidad_U")]
-        public required string CantidadU { get; set; }
+        public required decimal CantidadU { get; set; }
         [Column("cantidad_L")]
-        public required string CantidadL { get; set; }
+        public required decimal CantidadL { get; set; }
         [Column("practica")]
-        public string? Practica { get; set; }
+        public decimal? Practica { get; set; }
         [Column("csp")]
         public bool? CSP { get; set; }
         [Column("fecha_creacion")]

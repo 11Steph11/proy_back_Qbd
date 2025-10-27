@@ -15,5 +15,6 @@ namespace Proy_back_QBD.Services
         Task<Formula> ActualizarFormulaM(int formulaId, string FormulaMagistral);
         Task<FormulasLab?> ListarFormulasLab(int pedidoId);
         Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId);
+        Task<DetallesRes?> ObtenerDetalles(int formulaId);
     }
 }

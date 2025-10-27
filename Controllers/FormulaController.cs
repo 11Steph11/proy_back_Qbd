@@ -52,6 +52,14 @@ public class FormulaController : ControllerBase
         if (response == null) return NotFound();
         return Ok(response);
     }
+    [HttpGet("detalles/{formulaId}")]
+    [SwaggerResponse(200, "Actualizacion exitosa", typeof(DetallesRes))]
+    public async Task<IActionResult> ObtenerDetalles(int formulaId)
+    {
+        DetallesRes? response = await _formulaService.ObtenerDetalles(formulaId);
+        if (response == null) return NotFound();
+        return Ok(response);
+    }
 
     [HttpPut("lab/{formulaId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
