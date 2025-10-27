@@ -190,7 +190,7 @@ namespace Proy_back_QBD.Services
             Pedido pedido = _mapper.Map<Pedido>(request);
             pedido.Total = total;
             pedido.Saldo = total;
-            if (request.Formulas == null && request.Formulas.Count == 0)
+            if (request.Formulas == null || request.Formulas.Count == 0)
             {
                 pedido.Estado = "PT";
             }
