@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Services
         Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request);
         Task<List<RecetaRes>?> ListarReceta(int sedeId);
         Task<Formula?> Eliminar(int id);
-        Task<string?> AgregarInjerto(int id, string injerto);
+        Task<string?> AgregarInserto(int id, string inserto);
         Task<Formula> ActualizarFormulaM(int formulaId, string FormulaMagistral);
         Task<FormulasLab?> ListarFormulasLab(int pedidoId);
         Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId);

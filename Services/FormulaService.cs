@@ -73,7 +73,7 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-        public async Task<string?> AgregarInjerto(int id, string injerto)
+        public async Task<string?> AgregarInserto(int id, string inserto)
         {
             string Msg;
             Formula? formula = await _context.Formulas
@@ -82,7 +82,7 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            formula.Injerto = injerto;
+            formula.Inserto = inserto;
             await _context.SaveChangesAsync();
             Msg = "Se añadio correctamente";
 
