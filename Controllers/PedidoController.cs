@@ -29,6 +29,10 @@ public class PedidoController : ControllerBase
             return BadRequest("Request cannot be null");
         }
         PedidoCreateRes? response = await _pedidoService.Crear(request);
+        if (response == null)
+        {
+            return BadRequest("No se pudo crear por falta de datos");
+        }
         return Ok(response);
     }
     [HttpPut("{id}")]

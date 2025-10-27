@@ -146,6 +146,10 @@ namespace Proy_back_QBD.Services
 
         public async Task<PedidoCreateRes?> Crear(PedidoCreateReq request)
         {
+            if (request.ProductosTerminados == null && request.Formulas == null)
+            {
+                return null;
+            }
             PedidoCreateRes response = new PedidoCreateRes();
             List<Formula> formulaList = new();
             List<ProdTerm> prodTermList = new();
