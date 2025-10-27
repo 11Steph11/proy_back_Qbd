@@ -148,7 +148,7 @@ namespace Proy_back_QBD.Services
                                                         {
                                                             Id = s.Id,
                                                             Descripcion = s.Descripcion,
-                                                            Empaque = s.Empaque,
+                                                            EmpaqueId = s.EmpaqueId,
                                                             Procedimiento = s.Procedimiento,
                                                             Aspecto = s.Aspecto,
                                                             Color = s.Color,
