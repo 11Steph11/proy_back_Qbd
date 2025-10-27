@@ -76,6 +76,10 @@ namespace Proy_back_QBD.Services
             {
                 entidad.MsgCumple = request.MsgCumple;
             }
+            if (request.MsgCumple != null)
+            {
+                entidad.MsgEnProceso = request.MsgEnProceso;
+            }
             if (request.MsgGpt != null)
             {
                 entidad.MsgGpt = request.MsgGpt;

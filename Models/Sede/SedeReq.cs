@@ -17,6 +17,7 @@ namespace Proy_back_QBD.Request
         public int? Meta { get; set; }
         public string? MsgTerminado { get; set; }
         public string? MsgSeguimiento { get; set; }
+        public string? MsgEnProceso { get; set; }
         public string? MsgCumple { get; set; }
         public string? MsgGpt { get; set; }
     }
