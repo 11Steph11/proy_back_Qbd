@@ -109,7 +109,7 @@ namespace Proy_back_QBD.Services
                DateTime.Now.Year.ToString().Substring(2, 2) +
                DateTime.Now.Month.ToString("D2") +
                DateTime.Now.Day.ToString("D2");
-                formula.Lote = codLote + correlativo;
+                formula.Lote = "FM"+codLote + correlativo;
             }
             else
             {
@@ -199,7 +199,7 @@ namespace Proy_back_QBD.Services
                         FormulaMagistral = s.FormulaMagistral,
                         GPorMl = s.GPorMl,
                         NReg = "REG-" + s.Id,
-                        Lote = "FM" + s.Lote,
+                        Lote = s.Lote,
                         Diagnostico = s.Diagnostico,
                         Zona = s.ZonaAplicacion,
                     }).ToList()
