@@ -30,6 +30,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? ZonaAplicacion { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         public string? Estado { get; set; }
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
+        public string? Injerto { get; set; }                   // Si ha sido reportado o no (valor booleano)
     }
     public class FormulaCreateResponse
     {
