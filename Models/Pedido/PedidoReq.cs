@@ -19,8 +19,8 @@ namespace Proy_back_QBD.Dto.Request
         public string? ComprobanteElectronico { get; set; }
         public int CreadorId { get; set; }
         public DateTime? FechaEntrega { get; set; }
-        public List<FormulaCreatePedido> Formulas { get; set; }
-        public List<ProdTermPedidoReq> ProductosTerminados { get; set; }
+        public List<FormulaCreatePedido>? Formulas { get; set; }
+        public List<ProdTermPedidoReq>? ProductosTerminados { get; set; }
     }
     public class PedidoEstadoUpdate
     {

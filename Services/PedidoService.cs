@@ -172,19 +172,20 @@ namespace Proy_back_QBD.Services
 
                     Formula formula = _mapper.Map<Formula>(item);
                     formula.Estado = "PENDIENTE";
-                    formula.Lote = "FM"+codLote + (correlativo + c).ToString();
+                    formula.Lote = "FM" + codLote + (correlativo + c).ToString();
                     c++;
                     formulaList.Add(formula);
                 }
             }
-
-            foreach (var item in request.ProductosTerminados)
+            if (request.ProductosTerminados != null && request.ProductosTerminados.Count > 0)
             {
-                ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
-                prodTerm.Estado = "PT";
-                prodTermList.Add(prodTerm);
+                foreach (var item in request.ProductosTerminados)
+                {
+                    ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
+                    prodTerm.Estado = "PT";
+                    prodTermList.Add(prodTerm);
+                }
             }
-
             decimal total = SumaPedido(formulaList, prodTermList);
 
             Pedido pedido = _mapper.Map<Pedido>(request);
