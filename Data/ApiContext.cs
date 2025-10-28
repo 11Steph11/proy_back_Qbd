@@ -279,6 +279,16 @@ namespace Proy_back_QBD.Data
                             .HasForeignKey(e => e.ModificadorId)
                             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Laboratorio>()
+                            .HasOne(e => e.AutorizadoU)
+                            .WithMany(e2 => e2.FormulasAutorizadas)
+                            .HasForeignKey(e => e.Autorizado)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Laboratorio>()
+                            .HasOne(e => e.ElaboradoU)
+                            .WithMany(e2 => e2.FormulasElaboradas)
+                            .HasForeignKey(e => e.Elaborado)
+                            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Laboratorio>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();

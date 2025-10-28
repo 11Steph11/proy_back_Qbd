@@ -106,6 +106,10 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public List<Laboratorio>? LaboratorioModificadas { get; set; }
         [JsonIgnore]
+        public List<Laboratorio>? FormulasAutorizadas { get; set; }
+        [JsonIgnore]
+        public List<Laboratorio>? FormulasElaboradas { get; set; }
+        [JsonIgnore]
         public List<Producto>? ProductoCreadas { get; set; }
         [JsonIgnore]
         public List<Producto>? ProductoModificadas { get; set; }

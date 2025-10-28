@@ -14,7 +14,7 @@ namespace Proy_back_QBD.Dto.Productos
         public string? Paciente { get; set; }                   // g/ml (gramos por mililitro)
         public string? FormulaMagistral { get; set; }              // Zona donde se aplica el tratamiento (si aplica)
         public string? Registro { get; set; }               // Diagnóstico relacionado al pedido
-        public string? Elaborado { get; set; }
+        public int? Elaborado { get; set; }
     }
 
     public class LabFindPedIdRes

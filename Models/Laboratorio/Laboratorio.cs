@@ -16,9 +16,13 @@ namespace Proy_back_QBD.Models
         [Column("fecha_vcto")]
         public DateOnly FechaVcto { get; set; }
         [Column("elaborado")]
-        public string? Elaborado { get; set; }
+        public int? Elaborado { get; set; }
+        [JsonIgnore]
+        public Usuario ElaboradoU { get; set; }
         [Column("autorizado")]
-        public string? Autorizado { get; set; }
+        public int? Autorizado { get; set; }
+        [JsonIgnore]
+        public Usuario AutorizadoU { get; set; }
         [Column("procedimiento")]
         public string? Procedimiento { get; set; }
         [Column("empaque_id")]
@@ -56,7 +60,7 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [JsonIgnore]
-        public Formula? Formula { get; set; }        
+        public Formula? Formula { get; set; }
 
     }
 
