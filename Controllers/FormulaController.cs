@@ -89,7 +89,7 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
-    [HttpPatch("{formulaId}")]
+    [HttpPatch("inserto/{formulaId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(string))]
     public async Task<IActionResult> AgregarInserto(int formulaId, string injerto)
     {
