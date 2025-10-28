@@ -60,28 +60,28 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 
-    // c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
-    // {
-    //     Description = "Ingrese su API Key en el campo",
-    //     Name = "X-Api-Key", // Nombre del encabezado que el middleware espera
-    //     In = ParameterLocation.Header,
-    //     Type = SecuritySchemeType.ApiKey,
-    //     Scheme = "ApiKeyScheme"
-    // });
-    // c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-    // {
-    //     {
-    //         new OpenApiSecurityScheme
-    //         {
-    //             Reference = new OpenApiReference
-    //             {
-    //                 Type = ReferenceType.SecurityScheme,
-    //                 Id = "ApiKey"
-    //             }
-    //         },
-    //         new List<string>()
-    //     }
-    // });
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "Ingrese su API Key en el campo",
+        Name = "X-Api-Key", // Nombre del encabezado que el middleware espera
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "ApiKeyScheme"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                }
+            },
+            new List<string>()
+        }
+    });
 });
 
 // Configurar conexión a PostgreSQL
