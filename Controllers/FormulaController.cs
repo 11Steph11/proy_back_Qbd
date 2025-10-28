@@ -91,13 +91,13 @@ public class FormulaController : ControllerBase
     }
     [HttpPatch("inserto/{formulaId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(string))]
-    public async Task<IActionResult> AgregarInserto(int formulaId, string injerto)
+    public async Task<IActionResult> AgregarInserto(int formulaId, string inserto)
     {
-        if (injerto == null)
+        if (inserto == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        string? response = await _formulaService.AgregarInserto(formulaId, injerto);
+        string? response = await _formulaService.AgregarInserto(formulaId, inserto);
 
         return Ok(response);
     }
