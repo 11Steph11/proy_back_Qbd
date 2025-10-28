@@ -109,7 +109,7 @@ namespace Proy_back_QBD.Services
                DateTime.Now.Year.ToString().Substring(2, 2) +
                DateTime.Now.Month.ToString("D2") +
                DateTime.Now.Day.ToString("D2");
-                formula.Lote = "FM"+codLote + correlativo;
+                formula.Lote = "FM" + codLote + correlativo;
             }
             else
             {
@@ -265,9 +265,10 @@ namespace Proy_back_QBD.Services
 
         public async Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId)
         {
-            EtiquetaRes res = await _context.Formulas
+            EtiquetaRes? res = await _context.Formulas
             .Include(i => i.Pedido.Paciente.Persona)
             .Include(i => i.Pedido.Medico.Persona)
+            .Include(i => i.Pedido.Sede)
             .Include(i => i.Laboratorio)
             .Where(w => w.Id == formulaId)
             .Select(s => new EtiquetaRes
@@ -279,11 +280,16 @@ namespace Proy_back_QBD.Services
                 FechaEmision = s.Laboratorio.FechaEmision + "",
                 FechaVencimiento = s.Laboratorio.FechaVcto + "",
                 CMP = s.Pedido.Medico.Cmp,
-                Medico = s.Pedido.Medico.Persona.NombreCompleto
+                Medico = s.Pedido.Medico.Persona.NombreCompleto,
+                Direccion = s.Pedido.Sede.Direccion
             }
             )
             .FirstOrDefaultAsync();
 
+            if (res == null)
+            {
+                return null;
+            }
             return res;
         }
 
@@ -307,6 +313,7 @@ namespace Proy_back_QBD.Services
                 CQFP_BD = "",
                 Formula = s.FormulaMagistral,
                 Registro = "REG-" + s.Id,
+                EmpaqueId = s.Laboratorio.EmpaqueId,
                 Cantidad = s.Cantidad.ToString(),
                 CMP = s.Pedido.Medico.Cmp,
                 Medico = s.Pedido.Paciente.Persona.NombreCompleto,

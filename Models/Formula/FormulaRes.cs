@@ -97,6 +97,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? FechaVencimiento { get; set; }
         public string? CMP { get; set; }
         public string? Medico { get; set; }
+        public string? Direccion { get; set; }
     }
     public class DetallesRes
     {
@@ -110,6 +111,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? Formula { get; set; }
         public string? Registro { get; set; }
         public string? Cantidad { get; set; }
+        public int? EmpaqueId { get; set; }
         public string? CMP { get; set; }
         public string? Medico { get; set; }
         public decimal CostoTotal { get; set; }
