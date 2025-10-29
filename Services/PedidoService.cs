@@ -150,6 +150,10 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
+            if (request.ProductosTerminados.Count() == 0 && request.Formulas.Count() == 0)
+            {
+                return null;
+            }
             PedidoCreateRes response = new PedidoCreateRes();
             List<Formula> formulaList = new();
             List<ProdTerm> prodTermList = new();

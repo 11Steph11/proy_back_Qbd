@@ -21,9 +21,10 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerResponse(200, "Operación exitosa", typeof(PedidoCreateRes))]
+    [SwaggerResponse(200, "Operación exitosa", typeof(string))]
     public async Task<IActionResult> CrearPedido([FromBody] PedidoCreateReq request)
     {
+        
         if (request == null)
         {
             return BadRequest("Request cannot be null");
@@ -99,5 +100,5 @@ public class PedidoController : ControllerBase
         }
         return Ok(response);
     }
-    
+
 }

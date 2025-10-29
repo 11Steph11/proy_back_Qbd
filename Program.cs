@@ -119,7 +119,7 @@ app.UseSwaggerUI(options =>
 app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigins");
 app.UseRouting();
-// app.UseMiddleware<ApiKeyMiddleware>();
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 

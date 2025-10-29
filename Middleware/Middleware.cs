@@ -1,7 +1,6 @@
 public class ApiKeyMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly IConfiguration _configuration;
     private const string API_KEY_HEADER_NAME = "X-Api-Key"; // El nombre del encabezado en el que esperamos la clave
     private readonly string VALID_API_KEY;
 
