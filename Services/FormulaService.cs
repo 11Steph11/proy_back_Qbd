@@ -234,7 +234,6 @@ namespace Proy_back_QBD.Services
         {
 
             Formula? formula = await _context.Formulas
-            .Include(i => i.Laboratorio)
             .FirstOrDefaultAsync(foda => foda.Id == formulaId);
 
             if (formula == null)
@@ -255,8 +254,6 @@ namespace Proy_back_QBD.Services
             formula.GPorMl = request.GPorMl;
             formula.UnidadMedida = request.UnidadMedida;
             formula.ModificadorId = request.ModificadorId;
-            laboratorio.FechaEmision = request.FechaEmision;
-            laboratorio.FechaVcto = request.FechaVencimiento;
 
             await _context.SaveChangesAsync();
 

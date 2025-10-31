@@ -52,7 +52,5 @@ namespace Proy_back_QBD.Dto.Request
         public decimal GPorMl { get; set; }
         public string? UnidadMedida { get; set; }
         public int ModificadorId { get; set; }
-        public DateOnly FechaEmision { get; set; }
-        public DateOnly FechaVencimiento { get; set; }
     }
 }
