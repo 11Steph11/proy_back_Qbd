@@ -31,12 +31,12 @@ namespace Proy_back_QBD.Models
         [ForeignKey("Etiqueta1")]
         public int? EtiquetaId1 { get; set; }
         [JsonIgnore]
-        public Etiqueta? Etiqueta1 { get; set; }
+        public Empaque? Etiqueta1 { get; set; }
         [Column("etiqueta_id2")]
         [ForeignKey("Etiqueta2")]
         public int? EtiquetaId2 { get; set; }
         [JsonIgnore]
-        public Etiqueta? Etiqueta2 { get; set; }
+        public Empaque? Etiqueta2 { get; set; }
         [Column("tara")]
         public string? Tara { get; set; }
         [Column("fecha_modificacion")]
