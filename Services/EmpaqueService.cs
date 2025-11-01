@@ -54,15 +54,19 @@ namespace Proy_back_QBD.Services
         public async Task<List<EmpaqueFindAllRes?>> Obtener(int sedeId)
         {
             List<EmpaqueFindAllRes?> response = await _context.Empaques
+                                            .Include(i => i.Funda)
+                                            .Include(i => i.Caja)
+                                            .Include(i => i.Etiqueta1)
+                                            .Include(i => i.Etiqueta2)
                                             .Where(w => w.SedeId == sedeId)
                                             .Select(s => new EmpaqueFindAllRes
                                             {
                                                 Id = s.Id,
                                                 Descripcion = s.Descripcion,
-                                                Funda = s.Funda,
-                                                Caja = s.Caja,
-                                                Etiqueta1 = s.Etiqueta1,
-                                                Etiqueta2 = s.Etiqueta2,
+                                                Funda = s.Funda.Descripcion,
+                                                Caja = s.Caja.Descripcion,
+                                                Etiqueta1 = s.Etiqueta1.Descripcion,
+                                                Etiqueta2 = s.Etiqueta2.Descripcion,
                                                 Tara = s.Tara
                                             }
                                             ).ToListAsync();
@@ -76,14 +80,16 @@ namespace Proy_back_QBD.Services
         public async Task<EmpaqueFindIdRes?> ObtenerById(int id)
         {
             EmpaqueFindIdRes response = await _context.Empaques
+                                            .Include(i => i.Funda)
+                                            .Include(i => i.Caja)
                                             .Select(s => new EmpaqueFindIdRes
                                             {
                                                 Id = s.Id,
                                                 Descripcion = s.Descripcion,
-                                                Funda = s.Funda,
-                                                Caja = s.Caja,
-                                                Etiqueta1 = s.Etiqueta1,
-                                                Etiqueta2 = s.Etiqueta2,
+                                                Funda = s.Funda.Descripcion,
+                                                Caja = s.Caja.Descripcion,
+                                                Etiqueta1 = s.Etiqueta1.Descripcion,
+                                                Etiqueta2 = s.Etiqueta2.Descripcion,
                                                 Tara = s.Tara
                                             }
                                             ).FirstOrDefaultAsync(fod => fod.Id == id);

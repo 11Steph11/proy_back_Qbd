@@ -29,6 +29,9 @@ namespace Proy_back_QBD.Data
         public DbSet<Empaque> Empaques { get; set; }
         public DbSet<FormulaR> FormulasR { get; set; }
         public DbSet<InsumoR> InsumosR { get; set; }
+        public DbSet<Caja> Cajas { get; set; }
+        public DbSet<Funda> Fundas { get; set; }
+        public DbSet<Etiqueta> Etiquetas { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureAsistencia(modelBuilder);
