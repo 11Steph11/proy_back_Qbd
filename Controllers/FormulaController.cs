@@ -43,7 +43,7 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
-    
+
     [HttpGet("etiqueta/{formulaId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(EtiquetaRes))]
     public async Task<IActionResult> ObtenerEtiqueta(int formulaId)
@@ -62,13 +62,10 @@ public class FormulaController : ControllerBase
     }
 
     [HttpPut("lab/{formulaId}")]
-    [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
+    [SwaggerResponse(200, "Actualizacion exitosa", typeof(Formula))]
     public async Task<IActionResult> ActualizarFormulaLaboratorio(int formulaId, [FromBody] FormulaUpdLabReq request)
     {
-        if (request == null)
-        {
-            return BadRequest("Datos incorrectos");
-        }
+
         Formula? response = await _formulaService.ActualizarLab(formulaId, request);
         if (response == null)
         {
@@ -77,6 +74,7 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
+    
     [HttpPatch("formulaM/{id}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(Formula))]
     public async Task<IActionResult> ActualizarFormulaMagistral(int id, string FormulaMagistral)
