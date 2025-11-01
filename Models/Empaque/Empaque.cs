@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Proy_back_QBD.Migrations;
 
 namespace Proy_back_QBD.Models
 {
