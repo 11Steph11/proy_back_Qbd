@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Proy_back_QBD.Migrations;
 
 namespace Proy_back_QBD.Models
 {
@@ -17,13 +18,15 @@ namespace Proy_back_QBD.Models
         [Column("descripcion")]
         public string? Descripcion { get; set; }
         [Column("fundaId")]
+        [ForeignKey("Funda")]
         public int? FundaId { get; set; }
         [JsonIgnore]
-        public Funda? Funda { get; set; }
+        public Empaque? Funda { get; set; }
         [Column("cajaId")]
+        [ForeignKey("Caja")]
         public int? CajaId { get; set; }
         [JsonIgnore]
-        public Caja? Caja { get; set; }
+        public Empaque? Caja { get; set; }
         [Column("etiqueta_id1")]
         [ForeignKey("Etiqueta1")]
         public int? EtiquetaId1 { get; set; }
