@@ -241,12 +241,6 @@ namespace Proy_back_QBD.Services
                 return null;
             }
 
-            Laboratorio? laboratorio = formula?.Laboratorio;
-            if (laboratorio == null)
-            {
-                return null;
-            }
-
             formula.Costo = request.Costo;
             formula.Cantidad = request.Cantidad;
             formula.FormulaMagistral = request.FormulaMagistral;
