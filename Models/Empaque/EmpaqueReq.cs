@@ -15,7 +15,6 @@ namespace Proy_back_QBD.Dto.Empaque
         public string? Etiqueta2 { get; set; }
         public string? Tara { get; set; }
         public int CreadorId { get; set; }
-        public int SedeId { get; set; }
     }
     public class EmpaqueUpdateReq
     {

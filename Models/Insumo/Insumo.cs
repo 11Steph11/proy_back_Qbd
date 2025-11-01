@@ -36,10 +36,6 @@ namespace Proy_back_QBD.Models
         public Usuario? Modificador { get; set; }
         [JsonIgnore]        
         public List<FormulaCC>? FormulasCC { get; set; }
-        [Column("sedeId")]
-        public int? SedeId { get; set; }  // Puede ser nulo
-        [JsonIgnore]
-        public Sede? Sede { get; set; }  // Puede ser nulo
 
     }
 

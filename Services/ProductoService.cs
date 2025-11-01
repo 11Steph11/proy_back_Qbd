@@ -21,7 +21,6 @@ namespace Proy_back_QBD.Services
         public async Task<List<ProductoRes>?> Obtener(int sedeId)
         {
             List<ProductoRes> response = await _context.Productos
-                                        .Where(w => w.SedeId ==sedeId)
                                         .Select(s => new ProductoRes
                                         {
                                             Id = s.Id,

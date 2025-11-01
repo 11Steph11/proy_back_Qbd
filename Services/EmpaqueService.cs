@@ -58,7 +58,6 @@ namespace Proy_back_QBD.Services
                                             .Include(i => i.Caja)
                                             .Include(i => i.Etiqueta1)
                                             .Include(i => i.Etiqueta2)
-                                            .Where(w => w.SedeId == sedeId)
                                             .Select(s => new EmpaqueFindAllRes
                                             {
                                                 Id = s.Id,

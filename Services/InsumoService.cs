@@ -85,7 +85,6 @@ namespace Proy_back_QBD.Services
         public async Task<List<InsumoFindAllRes?>> Obtener(int sedeId)
         {
             List<InsumoFindAllRes?> response = await _context.Insumos
-                                            .Where(w => w.SedeId == sedeId)
                                             .Select(s => new InsumoFindAllRes
                                             {
                                                 Id = s.Id,
