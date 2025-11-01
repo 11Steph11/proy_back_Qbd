@@ -14,8 +14,6 @@ namespace Proy_back_QBD.Models
         public int Id { get; set; }                          // ID único del pedido
         [Column("descripcion")]
         public string? Descripcion { get; set; }                    // Costo del pedido
-        [Column("lab")]
-        public decimal? Lab { get; set; }                     // Cantidad de unidades solicitadas
         [Column("costo")]
         public decimal? Costo { get; set; }                   // g/ml (gramos por mililitro)
         [Column("fecha_creacion")]
