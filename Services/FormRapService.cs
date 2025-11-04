@@ -140,10 +140,9 @@ namespace Proy_back_QBD.Services
         }
 
 
-        public async Task<List<FormulaRRes>?> Listar(int sedeId)
+        public async Task<List<FormulaRRes>?> Listar()
         {
             List<FormulaRRes> response = await _context.FormulasR
-                                                        .Where(w => w.SedeId == sedeId)
                                                         .Select(s => new FormulaRRes
                                                         {
                                                             Id = s.Id,
