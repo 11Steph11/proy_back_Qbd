@@ -9,6 +9,11 @@ namespace Proy_back_QBD.Dto.Response
         public string? Sede { get; set; }
         public string? Usuario { get; set; }
     }
+    public class AutorizadoEla
+    {
+        public int? Id { get; set; }
+        public string? NombreCompleto { get; set; }
+    }
     public class UsuarioLoginDataRes
     {
         public string? NombreCompleto { get; set; }

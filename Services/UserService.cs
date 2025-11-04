@@ -156,6 +156,23 @@ namespace Proy_back_QBD.Services
             return string.Concat(palabras.Select(p => char.ToUpper(p[0])));
         }
 
+        public async Task<List<AutorizadoEla>?> Lista2(int sedeId)
+        {
+            List<AutorizadoEla>? lista = await _context.Usuarios
+            .Include(i => i.Persona)
+            .Where(w => w.SedeId == sedeId)
+            .Select(s => new AutorizadoEla
+            {
+                Id = s.Id,
+                NombreCompleto = s.Persona.NombreCompleto,
+            })
+            .ToListAsync();
+            if (lista == null)
+            {
+                return null;
+            }
+            return lista;
+        }
     }
 
 }

@@ -75,5 +75,12 @@ public class UsuarioController : ControllerBase
         UsuarioByIdRes? usuario = await _userService.ObtenerById(id);
         return Ok(usuario);
     }
+    [HttpGet("lista/{sedeId}")]
+    [SwaggerResponse(200, "Operación exitosa", typeof(List<AutorizadoEla>))]
+    public async Task<IActionResult> ObtenerUsuarios2(int sedeId)
+    {
+        List<AutorizadoEla>? usuario = await _userService.Lista2(sedeId);
+        return Ok(usuario);
+    }
     
 }
