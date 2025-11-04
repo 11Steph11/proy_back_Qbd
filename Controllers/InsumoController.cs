@@ -58,11 +58,11 @@ public class InsumoController : ControllerBase
         return Ok(insumo);
     }
 
-    [HttpGet("sede/{sedeId}")]
+    [HttpGet()]
     [SwaggerResponse(200, "Operación exitosa", typeof(InsumoFindAllRes))]
-    public async Task<IActionResult> ObtenerInsumos(int sedeId)
+    public async Task<IActionResult> ObtenerInsumos()
     {
-        List<InsumoFindAllRes?> insumo = await _insumoService.Obtener(sedeId);
+        List<InsumoFindAllRes?> insumo = await _insumoService.Obtener();
         if (insumo == null)
         {
             NotFound("No existen");

@@ -82,7 +82,7 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<List<InsumoFindAllRes?>> Obtener(int sedeId)
+        public async Task<List<InsumoFindAllRes?>> Obtener()
         {
             List<InsumoFindAllRes?> response = await _context.Insumos
                                             .Select(s => new InsumoFindAllRes

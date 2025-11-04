@@ -58,11 +58,11 @@ public class EmpaqueController : ControllerBase
         return Ok(empaque);
     }
 
-    [HttpGet("sede/{sedeId}")]
+    [HttpGet()]
     [SwaggerResponse(200, "Operación exitosa", typeof(EmpaqueFindAllRes))]
-    public async Task<IActionResult> ObtenerEmpaques(int sedeId)
+    public async Task<IActionResult> ObtenerEmpaques()
     {
-        List<EmpaqueFindAllRes?> empaque = await _empaqueService.Obtener(sedeId);
+        List<EmpaqueFindAllRes?> empaque = await _empaqueService.Obtener();
         if (empaque == null)
         {
             NotFound("No existen");

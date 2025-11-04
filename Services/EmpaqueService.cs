@@ -51,7 +51,7 @@ namespace Proy_back_QBD.Services
             return empaque;
         }
 
-        public async Task<List<EmpaqueFindAllRes?>> Obtener(int sedeId)
+        public async Task<List<EmpaqueFindAllRes?>> Obtener()
         {
             List<EmpaqueFindAllRes?> response = await _context.Empaques
                                             .Include(i => i.Funda)
