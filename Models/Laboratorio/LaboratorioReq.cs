@@ -18,8 +18,8 @@ namespace Proy_back_QBD.Dto.Productos
         public int? FormulaId { get; set; }
         public DateOnly FechaEmision { get; set; }
         public DateOnly FechaVcto { get; set; }
-        public string? Elaborado { get; set; }
-        public string? Autorizado { get; set; }
+        public int? Elaborado { get; set; }
+        public int? Autorizado { get; set; }
         public string? Procedimiento { get; set; }
         public int? EmpaqueId { get; set; }
         public int? CantiTermo { get; set; }

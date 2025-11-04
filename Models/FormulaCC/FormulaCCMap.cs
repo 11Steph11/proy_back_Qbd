@@ -15,6 +15,8 @@ namespace Proy_back_QBD.Profiles
             // Mapeo entre ApoderadoCreate y Apoderado
             CreateMap<FormulaCCUpdReq, FormulaCC>()
             ;
+            CreateMap<FormulaCreateReq, FormulaCC>()
+            ;
 
         }
     }
