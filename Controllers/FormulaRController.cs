@@ -21,7 +21,7 @@ public class FormulaRController : ControllerBase
         _formulaRService = formulaService;
     }
 
-    [HttpGet("sede")]
+    [HttpGet]
     [SwaggerResponse(200, "Creacion exitosa", typeof(FormulaRRes))]
     public async Task<IActionResult> ListaFormulaR()
     {
