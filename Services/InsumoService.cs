@@ -55,6 +55,7 @@ namespace Proy_back_QBD.Services
         {
             List<InsumoLabRes> response = await _context.InsumosR
                                                         .Where(w => w.FormulaRId == FormulaRId)
+                                                        .OrderBy(obd => obd.FechaCreacion)
                                                         .Select(s => new InsumoLabRes
                                                         {
                                                             Id = s.InsumoId,
@@ -70,6 +71,7 @@ namespace Proy_back_QBD.Services
         {
             List<InsumoLabRes> response = await _context.InsumosR
                                                         .Where(w => w.FormulaRId == FormulaRId)
+                                                        .OrderBy(obd => obd.FechaCreacion)
                                                         .Select(s => new InsumoLabRes
                                                         {
                                                             Id = s.InsumoId,
@@ -85,6 +87,7 @@ namespace Proy_back_QBD.Services
         public async Task<List<InsumoFindAllRes?>> Obtener()
         {
             List<InsumoFindAllRes?> response = await _context.Insumos
+                                            .OrderBy(obd => obd.FechaCreacion)
                                             .Select(s => new InsumoFindAllRes
                                             {
                                                 Id = s.Id,
@@ -104,6 +107,7 @@ namespace Proy_back_QBD.Services
         public async Task<InsumoFindIdRes?> ObtenerById(int id)
         {
             InsumoFindIdRes response = await _context.Insumos
+                                            .OrderBy(obd => obd.FechaCreacion)
                                             .Select(s => new InsumoFindIdRes
                                             {
                                                 Id = s.Id,

@@ -143,6 +143,7 @@ namespace Proy_back_QBD.Services
         public async Task<List<FormulaRRes>?> Listar()
         {
             List<FormulaRRes> response = await _context.FormulasR
+                                                        .OrderBy(obd => obd.FechaCreacion)
                                                         .Select(s => new FormulaRRes
                                                         {
                                                             Id = s.Id,
@@ -153,7 +154,9 @@ namespace Proy_back_QBD.Services
                                                             Color = s.Color,
                                                             Olor = s.Olor,
                                                             Ph = s.Ph,
-                                                            Insumos = s.InsumoR.Select(i => new InsumoFormR
+                                                            Insumos = s.InsumoR
+                                                            .OrderBy(obd => obd.FechaCreacion)
+                                                            .Select(i => new InsumoFormR
                                                             {
                                                                 Id = i.InsumoId,
                                                                 Codigo = "MP-QbD-" + i.InsumoId,
