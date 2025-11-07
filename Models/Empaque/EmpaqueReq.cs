@@ -9,10 +9,10 @@ namespace Proy_back_QBD.Dto.Empaque
     public class EmpaqueCreateReq
     {
         public string? Descripcion { get; set; }
-        public string? Funda { get; set; }
-        public string? Caja { get; set; }
-        public string? Etiqueta1 { get; set; }
-        public string? Etiqueta2 { get; set; }
+        public string? FundaId { get; set; }
+        public string? CajaId { get; set; }
+        public string? EtiquetaId1 { get; set; }
+        public string? EtiquetaId2 { get; set; }
         public string? Tara { get; set; }
         public int CreadorId { get; set; }
     }
