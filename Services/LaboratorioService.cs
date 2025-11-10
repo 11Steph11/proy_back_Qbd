@@ -32,7 +32,7 @@ namespace Proy_back_QBD.Services
                                         .Select(s => new PedidoLab
                                         {
                                             LabId = s.Id,
-                                            Cuo = "BDRP-" + s.Id,
+                                            Cuo = "F" + s.Id,
                                             Fecha = s.FechaCreacion,
                                             DNI = s.Formula.Pedido.Paciente.Persona.Dni ?? s.Formula.Pedido.Paciente.DniApoderado,
                                             Paciente = s.Formula.Pedido.Paciente.Persona.NombreCompleto,

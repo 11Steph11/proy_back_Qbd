@@ -264,7 +264,7 @@ namespace Proy_back_QBD.Services
                 .Select(a => new PedidoFindAllResponse
                 {
                     Id = a.Id,
-                    Cuo = $"P-{a.Id}",
+                    Cuo = $"P{a.Id}",
                     FechaCreacion = ZonaHoraria.AjustarZona(a.FechaCreacion),
                     Dni = a.Paciente.Persona.Dni,
                     Paciente = a.Paciente.Persona.NombreCompleto,
@@ -387,12 +387,13 @@ namespace Proy_back_QBD.Services
         public async Task<List<PedidoLabFindAllRes2?>> ListarLab(int sedeId)
         {
             var response = await _context.Pedidos
+                .Include(i => i.Formulas)
                .OrderByDescending(a => a.FechaCreacion) // Ordenar por fecha (puedes cambiar el criterio)
-               .Where(w => w.SedeId == sedeId)
+               .Where(w => w.SedeId == sedeId && w.Formulas.Count() > 0)
                .Select(a => new PedidoLabFindAllRes2
                {
                    Id = a.Id,
-                   Cuo = $"P-{a.Id}"
+                   Cuo = $"P{a.Id}"
                })
                .ToListAsync();
             if (response == null)
