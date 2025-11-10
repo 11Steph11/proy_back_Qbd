@@ -21,6 +21,11 @@ namespace Proy_back_QBD.Services
 
         public async Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request)
         {
+            bool validacion = await _context.Pedidos.AnyAsync(aa => aa.Recibo == request.Recibo);
+            if (validacion)
+            {
+                return null;
+            }
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
@@ -146,6 +151,11 @@ namespace Proy_back_QBD.Services
 
         public async Task<PedidoCreateRes?> Crear(PedidoCreateReq request)
         {
+            bool validacion = await _context.Pedidos.AnyAsync(aa => aa.Recibo == request.Recibo);
+            if (validacion)
+            {
+                return null;
+            }
             if (request.ProductosTerminados == null && request.Formulas == null)
             {
                 return null;

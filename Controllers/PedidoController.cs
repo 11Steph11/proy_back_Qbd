@@ -32,7 +32,7 @@ public class PedidoController : ControllerBase
         PedidoCreateRes? response = await _pedidoService.Crear(request);
         if (response == null)
         {
-            return BadRequest("No se pudo crear por falta de datos");
+            return BadRequest("No se pudo crear por falta de datos o se repite el recibo");
         }
         return Ok(response);
     }
@@ -45,6 +45,10 @@ public class PedidoController : ControllerBase
             return BadRequest("Datos incorrectos");
         }
         PedidoUpdateResponse? response = await _pedidoService.Actualizar(id, request);
+        if (response == null)
+        {
+            return BadRequest("No se encontro o se repite el recibo");
+        }
 
         return Ok(response);
     }
