@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Models
     public class FormulaCC
     {
         [Column("formula_id")]
-        public int? FormulaId { get; set; }
+        public int FormulaId { get; set; }
         [JsonIgnore]
         public Formula? Formula { get; set; }
         [Column("insumo_id")]

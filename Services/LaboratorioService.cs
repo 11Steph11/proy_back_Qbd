@@ -48,11 +48,10 @@ namespace Proy_back_QBD.Services
         public async Task<LabFindPedIdRes?> ObtenerByCod(string cod)
         {
             int id = 0;
-            var partes = cod.Split('-');
-            if (partes.Length == 2 && int.TryParse(partes[1], out int numero))
-            {
-                id = numero;
-            }
+            var partes = cod.Substring(1);
+
+            id = int.Parse(partes);
+
 
             LabFindPedIdRes? response = await _db.Pedidos
                                         .Include(i => i.Paciente.Persona)
@@ -71,7 +70,7 @@ namespace Proy_back_QBD.Services
                                             {
                                                 Id = f.Id,
                                                 FormulaM = f.FormulaMagistral,
-                                                FormulaF = f.FormaFarmaceutica,
+                                                FormaF = f.FormaFarmaceutica,
                                                 Lote = f.Lote,
                                                 Registro = "REG-" + f.Id,
                                                 Cantidad = f.Cantidad,

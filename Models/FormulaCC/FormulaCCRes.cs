@@ -13,7 +13,9 @@ namespace Proy_back_QBD.Models
         public int EdadPaciente { get; set; }
         public string CMP { get; set; }
         public string NombreCompletoMed { get; set; }
+        public int FormulaId { get; set; }
         public string FormulaMagistral { get; set; }
+        public string FormaFarmaceutica { get; set; }
         public string Lote { get; set; }
         public string NroReg { get; set; }
         public int Cantidad { get; set; }

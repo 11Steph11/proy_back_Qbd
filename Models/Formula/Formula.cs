@@ -11,7 +11,7 @@ namespace Proy_back_QBD.Models
     {
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }                          // ID único del pedido
+        public int Id { get; set; }                          // ID único del pedido
         [Column("costo")]
         public decimal Costo { get; set; }                    // Costo del pedido
         [Column("cantidad")]
