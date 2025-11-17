@@ -33,6 +33,7 @@ namespace Proy_back_QBD.Controllers
 
             return Ok(response);
         }
+
         [HttpGet("{cod}")]
         [SwaggerResponse(200, "Lista exitosa", typeof(LabFindPedIdRes))]
         public async Task<IActionResult> ListarPedidoLab(string cod)
@@ -46,6 +47,7 @@ namespace Proy_back_QBD.Controllers
 
             return Ok(response);
         }
+
         [HttpPost]
         [SwaggerResponse(200, "Registro exitosa", typeof(string))]
         public async Task<IActionResult> CrearLaboratorio(FormLabIns request)
@@ -63,7 +65,6 @@ namespace Proy_back_QBD.Controllers
 
             return Ok(response);
         }
-
         
     }
 }

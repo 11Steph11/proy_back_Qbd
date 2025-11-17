@@ -53,4 +53,12 @@ namespace Proy_back_QBD.Dto.Request
         public string? UnidadMedida { get; set; }
         public int ModificadorId { get; set; }
     }
+    public class FormulaCambiarTipo
+    {
+                 // Cantidad de unidades solicitadas
+        public required string Tipo { get; set; }
+        public required List<int> Lista { get; set; }
+
+
+    }
 }

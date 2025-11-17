@@ -74,7 +74,7 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
-    
+
     [HttpPatch("formulaM/{id}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(Formula))]
     public async Task<IActionResult> ActualizarFormulaMagistral(int id, string FormulaMagistral)
@@ -130,5 +130,15 @@ public class FormulaController : ControllerBase
             return NotFound();
         }
         return Ok(response);
+    }
+    [HttpPatch("tipo")]
+    public async Task<IActionResult> CambiarTipo(FormulaCambiarTipo request)
+    {
+        string? respuesta = await _formulaService.CambiarTipo(request);
+        if (respuesta == null)
+        {
+            return BadRequest();
+        }
+        return Ok("Se registró el cambio");
     }
 }

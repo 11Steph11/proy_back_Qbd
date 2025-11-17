@@ -345,5 +345,27 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
+
+        public async Task<string?> CambiarTipo(FormulaCambiarTipo request)
+        {
+            // Obtener todas las fórmulas que coinciden
+            var formulas = await _context.Formulas
+                .Where(f => request.Lista.Contains(f.Id))
+                .ToListAsync();
+
+            if (formulas == null || !formulas.Any())
+                return "No se encontraron fórmulas";
+
+            // Actualizar la columna Reportado
+            foreach (var formula in formulas)
+            {
+                formula.Reportado = request.Tipo; // o el valor que necesites asignar
+            }
+
+            // Guardar cambios
+            await _context.SaveChangesAsync();
+
+            return "Cambios realizados";
+        }
     }
 }

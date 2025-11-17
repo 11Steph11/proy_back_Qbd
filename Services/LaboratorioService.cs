@@ -126,5 +126,6 @@ namespace Proy_back_QBD.Services
             return response;
 
         }
+        
     }
 }
