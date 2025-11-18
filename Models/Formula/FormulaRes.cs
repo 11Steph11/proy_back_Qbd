@@ -76,6 +76,7 @@ namespace Proy_back_QBD.Dto.Response
     }
     public class RecetaRes
     {
+        public int? FormulasId { get; set; }
         public string? Medico { get; set; }  // Puede ser nulo
         public DateOnly? Fecha { get; set; }
         public string? Prescripcion { get; set; }

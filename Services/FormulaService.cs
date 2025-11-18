@@ -158,6 +158,7 @@ namespace Proy_back_QBD.Services
             .Select(s => new RecetaRes
             {
                 Medico = s.Pedido.Medico.Persona.NombreCompleto,
+                FormulasId = s.Id,
                 Fecha = DateOnly.FromDateTime(s.FechaCreacion),
                 Prescripcion = s.FormulaMagistral,
                 Gram = s.UnidadMedida == "G" ? s.GPorMl.ToString() : null,
