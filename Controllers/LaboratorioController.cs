@@ -25,12 +25,16 @@ namespace Proy_back_QBD.Controllers
             _labService = labService;
         }
 
-        [HttpGet]
+        [HttpGet("lab/{sedeId}")]
         [SwaggerResponse(200, "Lista exitosa", typeof(List<PedidoLab>))]
-        public async Task<IActionResult> ListarPedidosLab(int pageNumber = 1)
+        public async Task<IActionResult> ListarPedidosLab(int sedeId)
         {
-            List<PedidoLab> response = await _labService.ListaLab(pageNumber);
-
+            List<PedidoLab> response = await _labService.ListaLab(sedeId);
+            if (response == null)
+            {
+            return BadRequest();
+                
+            }
             return Ok(response);
         }
 

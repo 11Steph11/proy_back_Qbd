@@ -8,7 +8,7 @@ namespace Proy_back_QBD.Services.Interfaces
 {
     public interface ILaboratorioService
     {
-        Task<List<PedidoLab>> ListaLab(int pageNumber = 1, int pageSize = 30);
+        Task<List<PedidoLab>> ListaLab(int sedeId);
         Task<LabFindPedIdRes?> ObtenerByCod(string cod);
         Task<string?> RegistrarLabIns(FormLabIns request);
     }

@@ -21,18 +21,17 @@ namespace Proy_back_QBD.Services
             _Mappers = Mappers;
         }
 
-        public async Task<List<PedidoLab>> ListaLab(int pageNumber = 1, int pageSize = 30)
-        {
-            var skipCount = (pageNumber - 1) * pageSize;  // Número de elementos a omitir
+        public async Task<List<PedidoLab>> ListaLab(int sedeId)
+        {            
 
             var pedidosLab = await _db.Laboratorios
-                                        .Include(i => i.Formula.Pedido.Paciente.Persona)
-                                        .Skip(skipCount) // Omitir los registros de las páginas anteriores
-                                        .Take(pageSize)  // Limitar a los primeros "pageSize" registros
+                                        .Include(i => i.Formula.Pedido.Paciente.Persona)   
+                                        .Where(w => w.Formula.Pedido.SedeId == sedeId)                                                                             
+                                        .OrderByDescending(w => w.FechaCreacion)    
                                         .Select(s => new PedidoLab
                                         {
                                             LabId = s.Id,
-                                            Cuo = "F" + s.Id,
+                                            Cuo = "P" + s.Formula.PedidoId,
                                             Fecha = s.FechaCreacion,
                                             DNI = s.Formula.Pedido.Paciente.Persona.Dni ?? s.Formula.Pedido.Paciente.DniApoderado,
                                             Paciente = s.Formula.Pedido.Paciente.Persona.NombreCompleto,
