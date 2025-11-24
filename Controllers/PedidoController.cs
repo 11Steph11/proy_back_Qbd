@@ -24,7 +24,7 @@ public class PedidoController : ControllerBase
     [SwaggerResponse(200, "Operación exitosa", typeof(string))]
     public async Task<IActionResult> CrearPedido([FromBody] PedidoCreateReq request)
     {
-        
+
         if (request == null)
         {
             return BadRequest("Request cannot be null");
@@ -36,15 +36,15 @@ public class PedidoController : ControllerBase
         }
         return Ok(response);
     }
-    [HttpPut("{id}")]
+    [HttpPut("{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(PedidoUpdateReq))]
-    public async Task<IActionResult> ActualizarPedido(int id, [FromBody] PedidoUpdateReq request)
+    public async Task<IActionResult> ActualizarPedido(int id, int sedeId, [FromBody] PedidoUpdateReq request)
     {
         if (request == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        PedidoUpdateResponse? response = await _pedidoService.Actualizar(id, request);
+        PedidoUpdateResponse? response = await _pedidoService.Actualizar(id, sedeId, request);
         if (response == null)
         {
             return BadRequest("No se encontro o se repite el recibo");
@@ -52,26 +52,26 @@ public class PedidoController : ControllerBase
 
         return Ok(response);
     }
-    [HttpPatch("comprobante/{id}")]
+    [HttpPatch("comprobante/{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(Pedido))]
-    public async Task<IActionResult> AgregarBoleta(int id, string? comprobante)
+    public async Task<IActionResult> ActComprobante(int id, int sedeId, string? comprobante)
     {
         if (id == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        Pedido? response = await _pedidoService.ActComprobante(id, comprobante);
+        Pedido? response = await _pedidoService.ActComprobante(id, sedeId, comprobante);
 
         return Ok(response);
     }
-    [HttpPatch("estado/{id}")]
-    public async Task<IActionResult> ActualizarEstado(int id, string estado)
+    [HttpPatch("estado/{id}/{sedeId}")]
+    public async Task<IActionResult> ActualizarEstado(int id, int sedeId, string estado)
     {
         if (id == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        string? response = await _pedidoService.ActEstado(id, estado);
+        string? response = await _pedidoService.ActEstado(id, sedeId, estado);
 
         return Ok(response);
     }
@@ -93,11 +93,11 @@ public class PedidoController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(PedidoFindIdResponse))]
-    public async Task<IActionResult> ObtenerPedidosId(int id)
+    public async Task<IActionResult> ObtenerPedidosId(int id, int sedeId)
     {
-        PedidoFindIdResponse? response = await _pedidoService.ObtenerById(id);
+        PedidoFindIdResponse? response = await _pedidoService.ObtenerById(id, sedeId);
         if (response == null)
         {
             return NotFound("No se encontrò");

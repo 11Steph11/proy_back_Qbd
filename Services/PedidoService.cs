@@ -19,7 +19,7 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request)
+        public async Task<PedidoUpdateResponse?> Actualizar(int id, int sedeId, PedidoUpdateReq request)
         {
             bool validacion = await _context.Pedidos.AnyAsync(aa => aa.Recibo == request.Recibo);
             if (validacion)
@@ -30,7 +30,7 @@ namespace Proy_back_QBD.Services
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
             .Include(i => i.ProdTerms)
-            .Where(p => p.Id == id)
+            .Where(p => p.Id == id && p.SedeId == sedeId)
             .FirstOrDefaultAsync();
 
             if (pedido == null)
@@ -98,13 +98,13 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return response;
         }
-        public async Task<string?> ActEstado(int id, string request)
+        public async Task<string?> ActEstado(int id, int sedeId, string request)
         {
             string estado = request.ToUpper().Trim();
             string response;
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id && p.SedeId == sedeId);
 
             if (pedido == null)
             {
@@ -244,12 +244,12 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<Pedido?> ActComprobante(int id, string? comprobante)
+        public async Task<Pedido?> ActComprobante(int id, int sedeId, string? comprobante)
         {
             Pedido? pedido = await _context.Pedidos
             .Include(p => p.Formulas)
             .Include(p => p.ProdTerms)
-           .FirstOrDefaultAsync(a => a.Id == id);
+           .FirstOrDefaultAsync(a => a.Id == id && a.SedeId == sedeId);
             if (pedido == null) return null;
 
             pedido.ComprobanteElectronico = comprobante;
@@ -323,14 +323,14 @@ namespace Proy_back_QBD.Services
         //     return resultado;
         // }
 
-        public async Task<PedidoFindIdResponse?> ObtenerById(int id)
+        public async Task<PedidoFindIdResponse?> ObtenerById(int id, int sedeId)
         {
 
             Pedido? pedido = await _context.Pedidos
             .Include(a => a.Formulas)
             .Include(a => a.ProdTerms)
             .ThenInclude(ti => ti.Producto)
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id && p.SedeId == sedeId);
             if (pedido == null)
             {
                 return null;
@@ -413,5 +413,6 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
+        
     }
 }

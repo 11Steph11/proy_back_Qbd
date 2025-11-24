@@ -8,11 +8,11 @@ namespace Proy_back_QBD.Services
     public interface IPedidoService
     {
         Task<PedidoCreateRes?> Crear(PedidoCreateReq request);
-        Task<PedidoUpdateResponse?> Actualizar(int id, PedidoUpdateReq request);
-        Task<Pedido?> ActComprobante(int id, string? boleta);
-        Task<string?> ActEstado(int id, string estado);
-        Task<List<PedidoFindAllResponse?>> Listar( int sedeId);
-        Task<List<PedidoLabFindAllRes2?>> ListarLab( int sedeId);
-        Task<PedidoFindIdResponse?> ObtenerById(int id);
+        Task<PedidoUpdateResponse?> Actualizar(int id, int sedeId, PedidoUpdateReq request);
+        Task<Pedido?> ActComprobante(int id, int sedeId, string? boleta);
+        Task<string?> ActEstado(int id, int sedeId, string estado);
+        Task<List<PedidoFindAllResponse?>> Listar(int sedeId);
+        Task<List<PedidoLabFindAllRes2?>> ListarLab(int sedeId);
+        Task<PedidoFindIdResponse?> ObtenerById(int id, int sedeId);
     }
 }
