@@ -22,12 +22,12 @@ namespace Proy_back_QBD.Services
         }
 
         public async Task<List<PedidoLab>> ListaLab(int sedeId)
-        {            
+        {
 
             var pedidosLab = await _db.Laboratorios
-                                        .Include(i => i.Formula.Pedido.Paciente.Persona)   
-                                        .Where(w => w.Formula.Pedido.SedeId == sedeId)                                                                             
-                                        .OrderByDescending(w => w.FechaCreacion)    
+                                        .Include(i => i.Formula.Pedido.Paciente.Persona)
+                                        .Where(w => w.Formula.Pedido.SedeId == sedeId)
+                                        .OrderByDescending(w => w.FechaCreacion)
                                         .Select(s => new PedidoLab
                                         {
                                             LabId = s.Id,
@@ -44,7 +44,7 @@ namespace Proy_back_QBD.Services
             return pedidosLab;
         }
 
-        public async Task<LabFindPedIdRes?> ObtenerByCod(string cod)
+        public async Task<LabFindPedIdRes?> ObtenerByCod(string cod, int sedeId)
         {
             int id = 0;
             var partes = cod.Substring(1);
@@ -64,7 +64,7 @@ namespace Proy_back_QBD.Services
                                             CMP = s.Medico.Cmp,
                                             Medico = s.Medico.Persona.NombreCompleto,
                                             Formulas = s.Formulas
-                                            .Where(w => w.PedidoId == id)
+                                            .Where(w => w.PedidoId == id && w.SedeId == sedeId)
                                             .Select(f => new LabForm
                                             {
                                                 Id = f.Id,
@@ -98,7 +98,7 @@ namespace Proy_back_QBD.Services
             bool valor;
 
             valor = await _db.Laboratorios
-            .Where(w => w.Id == request.Lab.FormulaId)
+            .Where(w => w.Id == request.Lab.FormulaId && w.SedeId == request.Lab.SedeId)
             .AnyAsync()
             ;
 
@@ -113,6 +113,7 @@ namespace Proy_back_QBD.Services
             {
                 FormulaCC formulaCC = _Mappers.Map<FormulaCC>(item);
                 formulaCC.FormulaId = request.Lab.FormulaId;
+                formulaCC.SedeId = request.Lab.SedeId;
                 formulaCC.ModificadorId = formulaCC.CreadorId;
                 _db.FormulasCC.Add(formulaCC);
             }
@@ -125,6 +126,6 @@ namespace Proy_back_QBD.Services
             return response;
 
         }
-        
+
     }
 }

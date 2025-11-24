@@ -38,11 +38,11 @@ namespace Proy_back_QBD.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{cod}")]
+        [HttpGet("{cod}/{sedeId}")]
         [SwaggerResponse(200, "Lista exitosa", typeof(LabFindPedIdRes))]
-        public async Task<IActionResult> ListarPedidoLab(string cod)
+        public async Task<IActionResult> ListarPedidoLab(string cod, int sedeId)
         {
-            LabFindPedIdRes? response = await _labService.ObtenerByCod(cod);
+            LabFindPedIdRes? response = await _labService.ObtenerByCod(cod, sedeId);
 
             if (response == null)
             {

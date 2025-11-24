@@ -16,6 +16,7 @@ namespace Proy_back_QBD.Dto.Productos
     public class LabCreReq
     {
         public int FormulaId { get; set; }
+        public int SedeId { get; set; }
         public DateOnly FechaEmision { get; set; }
         public DateOnly FechaVcto { get; set; }
         public int? Elaborado { get; set; }
