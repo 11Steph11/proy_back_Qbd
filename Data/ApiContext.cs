@@ -123,8 +123,12 @@ namespace Proy_back_QBD.Data
         private void ConfigureFormulasCC(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FormulaCC>()
-            .HasKey(fi => new { fi.FormulaId, fi.InsumoId }); // Clave compuesta
-
+            .HasKey(fi => new { fi.FormulaId, fi.InsumoId, fi.SedeId }); // Clave compuesta
+            modelBuilder.Entity<FormulaCC>()
+                .HasOne(e => e.Formula)
+                .WithMany(e2 => e2.FormulaCC)
+                .HasForeignKey(e => new { e.FormulaId, e.SedeId })
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<FormulaCC>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.FormulaCCsCreadas)
@@ -191,9 +195,11 @@ namespace Proy_back_QBD.Data
         private void ConfigureCobros(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cobro>()
+            .HasKey(fi => new { fi.Id, fi.SedeId }); // Clave compuesta
+            modelBuilder.Entity<Cobro>()
                             .HasOne(e => e.Pedido)
                             .WithMany(e2 => e2.Cobros)
-                            .HasForeignKey(e => e.PedidoId)
+                            .HasForeignKey(e => new { e.PedidoId, e.SedeId })
                             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Cobro>()
                             .HasOne(e => e.Creador)
@@ -238,9 +244,11 @@ namespace Proy_back_QBD.Data
         private void ConfigureFormula(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Formula>()
+            .HasKey(fi => new { fi.Id, fi.SedeId }); // Clave compuesta
+            modelBuilder.Entity<Formula>()
                             .HasOne(e => e.Pedido)
                             .WithMany(e2 => e2.Formulas)
-                            .HasForeignKey(e => e.PedidoId)
+                            .HasForeignKey(e => new { e.PedidoId, e.SedeId })
                             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Formula>()
                             .HasOne(e => e.Creador)
@@ -264,9 +272,11 @@ namespace Proy_back_QBD.Data
         private void ConfigureLaboratorio(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Laboratorio>()
+            .HasKey(fi => new { fi.Id, fi.SedeId });
+            modelBuilder.Entity<Laboratorio>()
                 .HasOne(e => e.Formula)
                 .WithOne(e2 => e2.Laboratorio)
-                .HasForeignKey<Laboratorio>(e => e.Id) // Assuming `FormulaId` is the FK
+                .HasForeignKey<Laboratorio>(e => new { e.Id, e.SedeId }) // Assuming `FormulaId` is the FK
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Laboratorio>()
                             .HasOne(e => e.Creador)
@@ -358,6 +368,8 @@ namespace Proy_back_QBD.Data
         private void ConfigurePedido(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Pedido>()
+            .HasKey(fi => new { fi.Id, fi.SedeId });
+            modelBuilder.Entity<Pedido>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.PedidosCreadas)
                             .HasForeignKey(e => e.CreadorId)
@@ -410,9 +422,11 @@ namespace Proy_back_QBD.Data
         private void ConfigureProductosTerminados(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProdTerm>()
+            .HasKey(fi => new { fi.Id, fi.SedeId }); // Clave compuesta
+            modelBuilder.Entity<ProdTerm>()
                             .HasOne(e => e.Pedido)
                             .WithMany(e2 => e2.ProdTerms)
-                            .HasForeignKey(e => e.PedidoId)
+                            .HasForeignKey(e => new { e.PedidoId, e.SedeId })
                             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ProdTerm>()

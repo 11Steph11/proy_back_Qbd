@@ -17,18 +17,14 @@ namespace Proy_back_QBD.Models
         public DateOnly FechaVcto { get; set; }
         [Column("elaborado")]
         public int? Elaborado { get; set; }
-        [JsonIgnore]
-        public Usuario ElaboradoU { get; set; }
         [Column("autorizado")]
         public int? Autorizado { get; set; }
-        [JsonIgnore]
-        public Usuario AutorizadoU { get; set; }
         [Column("procedimiento")]
         public string? Procedimiento { get; set; }
         [Column("empaque_id")]
         public int? EmpaqueId { get; set; }
-        [JsonIgnore]
-        public Empaque? Empaque { get; set; }
+        [Column("sede_id")]
+        public int? SedeId { get; set; }
         [Column("cod_adicional")]
         public string? CodAdicional { get; set; }
         [Column("canti_termo")]
@@ -49,10 +45,16 @@ namespace Proy_back_QBD.Models
         public DateTime FechaModificacion { get; set; }       // Fecha de la última modificación del pedido
         [Column("creador_id")]
         public int CreadorId { get; set; }
-        [JsonIgnore]
-        public Usuario? Creador { get; set; }
         [Column("modificador_id")]
         public int ModificadorId { get; set; }
+        [JsonIgnore]
+        public Usuario ElaboradoU { get; set; }
+        [JsonIgnore]
+        public Usuario AutorizadoU { get; set; }
+        [JsonIgnore]
+        public Empaque? Empaque { get; set; }
+        [JsonIgnore]
+        public Usuario? Creador { get; set; }
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [JsonIgnore]

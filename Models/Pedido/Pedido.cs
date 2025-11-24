@@ -66,7 +66,7 @@ namespace Proy_back_QBD.Models
         public List<ProdTerm>? ProdTerms { get; set; }
         [JsonIgnore]
         public List<Cobro>? Cobros { get; set; }
-        [Column("sedeId")]
+        [Column("sede_id")]
         public int? SedeId { get; set; }  // Puede ser nulo
         [JsonIgnore]
         public Sede? Sede { get; set; }  // Puede ser nulo

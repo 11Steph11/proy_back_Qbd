@@ -16,6 +16,8 @@ namespace Proy_back_QBD.Models
         public string? Modalidad { get; set; }
         [Column("pedido_id")]
         public int? PedidoId { get; set; }
+        [Column("sede_id")]
+        public int? SedeId { get; set; }
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
         [Column("importe")]

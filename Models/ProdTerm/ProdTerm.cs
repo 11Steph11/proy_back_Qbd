@@ -32,14 +32,16 @@ namespace Proy_back_QBD.Models
         public DateTime FechaModificacion { get; set; }       // Fecha de la última modificación del pedido
         [Column("creador_id")]
         public int CreadorId { get; set; }
-        [JsonIgnore]
-        public Usuario? Creador { get; set; }
+        [Column("sede_id")]
+        public int SedeId { get; set; }
         [Column("modificador_id")]
         public int ModificadorId { get; set; }
-        [JsonIgnore]
-        public Usuario? Modificador { get; set; }
         [Column("pedido_id")]
         public int? PedidoId { get; set; }
+        [JsonIgnore]
+        public Usuario? Creador { get; set; }
+        [JsonIgnore]
+        public Usuario? Modificador { get; set; }
         [JsonIgnore]
         public Pedido? Pedido { get; set; }
         [JsonIgnore]

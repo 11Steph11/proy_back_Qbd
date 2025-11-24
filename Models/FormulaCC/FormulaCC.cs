@@ -15,6 +15,8 @@ namespace Proy_back_QBD.Models
         public Formula? Formula { get; set; }
         [Column("insumo_id")]
         public int InsumoId { get; set; }
+        [Column("sede_id")]
+        public int SedeId { get; set; }
         [JsonIgnore]
         public Insumo Insumo { get; set; }
         [Column("porcentaje")]
