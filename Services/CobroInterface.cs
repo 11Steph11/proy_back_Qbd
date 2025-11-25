@@ -9,9 +9,9 @@ namespace Proy_back_QBD.Services
     public interface ICobroService
     {
         Task<CobroCreateRes?> Crear(CobroCreateReq request);
-        Task<CobroCreateRes?> Actualizar(int id, CobroUpdateReq request);
+        Task<CobroCreateRes?> Actualizar(int id, int sedeId, CobroUpdateReq request);
         // Task<Cobro?> Eliminar(int id);
-        Task<List<CobroByPedido?>> Obtener(int PedidoId);
+        Task<List<CobroByPedido?>> Obtener(int PedidoId, int sedeId);
         // Task<CobroFindIdResponse?> ObtenerById(int id);
     }
 }

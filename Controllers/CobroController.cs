@@ -33,27 +33,27 @@ public class CobroController : ControllerBase
         CobroCreateRes? response = await _cobroService.Crear(request);
         return Ok(response);
     }
-    [HttpGet("{pedidoId}")]
+    [HttpGet("{pedidoId}/{sedeId}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(List<CobroByPedido>))]
-    public async Task<IActionResult> ListarCobros(int pedidoId)
+    public async Task<IActionResult> ListarCobros(int pedidoId, int sedeId)
     {
-        List<CobroByPedido>? response = await _cobroService.Obtener(pedidoId);
+        List<CobroByPedido>? response = await _cobroService.Obtener(pedidoId, sedeId);
         if (response == null)
         {
             return NotFound();
         }
         return Ok(response);
     }
-    
-    [HttpPut("{id}")]
+
+    [HttpPut("{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(CobroCreateRes))]
-    public async Task<IActionResult> ActualizarCobro(int id, [FromBody] CobroUpdateReq request)
+    public async Task<IActionResult> ActualizarCobro(int id, int sedeId, [FromBody] CobroUpdateReq request)
     {
         if (request == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        CobroCreateRes? response = await _cobroService.Actualizar(id, request);
+        CobroCreateRes? response = await _cobroService.Actualizar(id, sedeId, request);
 
         return Ok(response);
     }

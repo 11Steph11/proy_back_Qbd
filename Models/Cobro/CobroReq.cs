@@ -7,6 +7,7 @@ namespace Proy_back_QBD.Request
     public class CobroCreateReq
     {
         public int? PedidoId { get; set; }
+        public int? SedeId { get; set; }
         public string? Periodo { get; set; }
         public string? Modalidad { get; set; }
         public string? Turno { get; set; }

@@ -19,13 +19,13 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<CobroCreateRes?> Actualizar(int id, CobroUpdateReq request)
+        public async Task<CobroCreateRes?> Actualizar(int id, int sedeId, CobroUpdateReq request)
         {
             CobroCreateRes cobroCreateRes = new CobroCreateRes();
 
             Cobro? cobro = await _context.Cobros
             .Include(i => i.Pedido.Cobros)
-            .FirstOrDefaultAsync(foda => foda.Id == id);
+            .FirstOrDefaultAsync(foda => foda.Id == id && foda.SedeId == sedeId);
 
             if (cobro == null)
             {
@@ -65,7 +65,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Formulas)
             .Include(i => i.ProdTerms)
             .Include(i => i.Cobros)
-            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId && fod.SedeId == request.SedeId);
 
             if (pedido == null)
             {
@@ -101,10 +101,10 @@ namespace Proy_back_QBD.Services
 
         }
 
-        public async Task<List<CobroByPedido?>> Obtener(int PedidoId)
+        public async Task<List<CobroByPedido?>> Obtener(int PedidoId, int sedeId)
         {
-            List<CobroByPedido?> response = await _context.Cobros
-            .Where(w => w.PedidoId == PedidoId)
+            List<CobroByPedido>? response = await _context.Cobros
+            .Where(w => w.PedidoId == PedidoId && w.SedeId == sedeId)
             .Select(s => new CobroByPedido()
             {
                 Id = s.Id,
