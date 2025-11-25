@@ -20,6 +20,7 @@ namespace Proy_back_QBD.Dto.Request
         public string? Diagnostico { get; set; }               // Diagnóstico relacionado al pedido
         public int CreadorId { get; set; }
         public int PedidoId { get; set; }
+        public int SedeId { get; set; }
     }
     public class ProdTermUpdateReq
     {

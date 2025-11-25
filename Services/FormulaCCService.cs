@@ -18,10 +18,10 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<List<FormulaCC>>? Actualizar(int formulaId, List<FormulaCCUpdReq> request)
+        public async Task<List<FormulaCC>>? Actualizar(int formulaId, int sedeId, List<FormulaCCUpdReq> request)
         {
             List<FormulaCC>? formulasCC = await _context.FormulasCC
-            .Where(w => w.FormulaId == formulaId)
+            .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)
             .ToListAsync();
             if (formulasCC == null)
             {
@@ -36,6 +36,7 @@ namespace Proy_back_QBD.Services
                 {
                     FormulaCC formulaM = _mapper.Map<FormulaCC>(formula);
                     formulaM.FormulaId = formulaId;
+                    formulaM.SedeId = sedeId;
                     _context.FormulasCC.Add(formulaM);
                     auxiliar.Add(formulaM);
                 }
@@ -74,14 +75,14 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<FormulaCCLabRes>? ListarInsumosLab(int formulaId)
+        public async Task<FormulaCCLabRes>? ListarInsumosLab(int formulaId, int sedeId)
         {
             FormulaCCLabRes? response = await _context.FormulasCC
             .Include(i => i.Formula.Pedido.Paciente.Persona)
             .Include(i => i.Formula.Pedido.Medico.Persona)
             .Include(i => i.Formula.Laboratorio)
             .Include(i => i.Insumo)
-            .Where(w => w.FormulaId == formulaId)
+            .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)
             .Select(s => new FormulaCCLabRes
             {
                 CodigoPedido = "P-" + s.Formula.PedidoId,
@@ -109,7 +110,7 @@ namespace Proy_back_QBD.Services
             }
             List<FormulaCCLabSubRes>? response2 = await _context.FormulasCC
             .Include(i => i.Insumo)
-            .Where(w => w.FormulaId == formulaId)
+            .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)
             .OrderBy(ob => ob.Variable)
             .Select(s => new FormulaCCLabSubRes
             {

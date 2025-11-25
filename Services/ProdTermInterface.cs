@@ -7,8 +7,8 @@ namespace Proy_back_QBD.Services
     public interface IProdTermService
     {
         Task<ProdTerm?> Crear(ProdTermCreateReq request);
-        Task<ProdTerm?> Actualizar(int id, ProdTermUpdateReq request);
-        Task<ProdTerm?> Eliminar(int id);
+        Task<ProdTerm?> Actualizar(int id, int sedeId, ProdTermUpdateReq request);
+        Task<ProdTerm?> Eliminar(int id, int sedeId);
         // Task<List<PedidoFindAllResponse?>> Obtener();
         // Task<PedidoFindIdResponse?> ObtenerById(int id);
     }

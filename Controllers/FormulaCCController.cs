@@ -15,27 +15,27 @@ public class FormulaCCController : ControllerBase
     {
         _formulaService = formulaService;
     }
-    
-    [HttpGet("{formulaId}")]
+
+    [HttpGet("{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(FormulaCCLabRes))]
-    public async Task<IActionResult> ObtenerInsumosLab(int formulaId)
+    public async Task<IActionResult> ObtenerInsumosLab(int formulaId, int sedeId)
     {
-        FormulaCCLabRes? response = await _formulaService.ListarInsumosLab(formulaId);
+        FormulaCCLabRes? response = await _formulaService.ListarInsumosLab(formulaId, sedeId);
         if (response == null)
         {
             return NotFound();
         }
         return Ok(response);
     }
-    [HttpPut("{formulaId}")]
+    [HttpPut("{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(List<FormulaCC>))]
-    public async Task<IActionResult> ActualizarFormulas(int formulaId, List<FormulaCCUpdReq> formulas)
+    public async Task<IActionResult> ActualizarFormulas(int formulaId, int sedeId, List<FormulaCCUpdReq> formulas)
     {
         if (formulas == null)
         {
             return BadRequest();
         }
-        List<FormulaCC>? response = await _formulaService.Actualizar(formulaId, formulas);
+        List<FormulaCC>? response = await _formulaService.Actualizar(formulaId, sedeId, formulas);
         if (response == null)
         {
             return NotFound();

@@ -18,10 +18,10 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<ProdTerm?> Actualizar(int id, ProdTermUpdateReq request)
+        public async Task<ProdTerm?> Actualizar(int id, int sedeId, ProdTermUpdateReq request)
         {
             ProdTerm? prodTerm = await _context.ProdTerms
-            .Where(p => p.Id == id)
+            .Where(p => p.Id == id && p.SedeId == sedeId)
             .FirstOrDefaultAsync();
             if (prodTerm == null)
             {
@@ -34,8 +34,8 @@ namespace Proy_back_QBD.Services
 
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.ProdTerms)
-            .FirstOrDefaultAsync(fod => fod.Id == prodTerm.Id);
-            
+            .FirstOrDefaultAsync(fod => fod.Id == prodTerm.PedidoId && fod.SedeId == prodTerm.SedeId);
+
             if (pedido == null)
             {
                 return null;
@@ -82,7 +82,7 @@ namespace Proy_back_QBD.Services
 
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.ProdTerms)
-            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId && fod.SedeId == request.SedeId);
 
             if (pedido == null)
             {
@@ -95,10 +95,10 @@ namespace Proy_back_QBD.Services
             return prodTerm;
         }
 
-        public async Task<ProdTerm?> Eliminar(int id)
+        public async Task<ProdTerm?> Eliminar(int id, int sedeId)
         {
             ProdTerm? prodTerm = await _context.ProdTerms
-           .FirstOrDefaultAsync(a => a.Id == id);
+           .FirstOrDefaultAsync(a => a.Id == id && a.SedeId == sedeId);
             if (prodTerm == null)
             {
                 return null;
@@ -108,7 +108,7 @@ namespace Proy_back_QBD.Services
 
             Pedido? pedido = await _context.Pedidos
                         .Include(i => i.ProdTerms)
-                        .FirstOrDefaultAsync(fod => fod.Id == prodTerm.PedidoId);
+                        .FirstOrDefaultAsync(fod => fod.Id == prodTerm.PedidoId && fod.SedeId == sedeId);
             if (pedido == null)
             {
                 return null;

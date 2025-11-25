@@ -31,28 +31,28 @@ public class ProdTermController : ControllerBase
         ProdTerm? response = await _prodTermService.Crear(request);
         return Ok(response);
     }
-    [HttpPut("{id}")]
+    [HttpPut("{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(ProdTerm))]
-    public async Task<IActionResult> ActualizarProdTerm(int id, [FromBody] ProdTermUpdateReq request)
+    public async Task<IActionResult> ActualizarProdTerm(int id, int sedeId, [FromBody] ProdTermUpdateReq request)
     {
         if (request == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        ProdTerm? response = await _prodTermService.Actualizar(id, request);
+        ProdTerm? response = await _prodTermService.Actualizar(id, sedeId, request);
 
         return Ok(response);
     }
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(ProdTerm))]
-    public async Task<IActionResult> EliminarProdTerm(int id)
+    public async Task<IActionResult> EliminarProdTerm(int id, int sedeId)
     {
-        ProdTerm? response = await _prodTermService.Eliminar(id);
+        ProdTerm? response = await _prodTermService.Eliminar(id, sedeId);
         if (response == null)
         {
             return NotFound("No hay");
         }
         return Ok(response);
     }
-    
+
 }
