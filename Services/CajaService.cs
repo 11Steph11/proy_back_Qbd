@@ -22,7 +22,7 @@ namespace Proy_back_QBD.Services
         }
 
 
-        public async Task<CajaFindAllRes?> Obtener(CajaFindAllReq request)
+        public async Task<CajaFindAllRes?> Obtener(CajaFindAllReq request, int sedeId)
         {
             RecaudacionDelDia recaudDia = new();
             RPagosDelDia pagosDia = new();
@@ -37,7 +37,7 @@ namespace Proy_back_QBD.Services
                     .Include(i => i.Pedido.ProdTerms)
                     .Where(w =>
                         DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
-                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
+                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal && w.SedeId == sedeId
                         )
                     .ToListAsync();
 
@@ -149,7 +149,7 @@ namespace Proy_back_QBD.Services
                    .Include(i => i.Paciente.Persona)
                    .Where(w =>
                        DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
-                       && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal
+                       && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal && w.SedeId == sedeId
                        )
                    .ToListAsync();
 

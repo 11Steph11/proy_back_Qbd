@@ -5,6 +5,6 @@ namespace Proy_back_QBD.Services
 {
     public interface ICajaService
     {
-        Task<CajaFindAllRes?> Obtener(CajaFindAllReq request);
+        Task<CajaFindAllRes?> Obtener(CajaFindAllReq request, int sedeId);
     }
 }

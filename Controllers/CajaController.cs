@@ -22,12 +22,12 @@ public class CajaController : ControllerBase
     {
         _cajaService = cajaService;
     }
-    
-    [HttpPost]
+
+    [HttpPost("{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<CajaFindAllRes?>))]
-    public async Task<IActionResult> ObtenerCajas(CajaFindAllReq request)
+    public async Task<IActionResult> ObtenerCajas(CajaFindAllReq request, int sedeId)
     {
-        CajaFindAllRes? response = await _cajaService.Obtener(request);
+        CajaFindAllRes? response = await _cajaService.Obtener(request, sedeId);
 
         return Ok(response);
     }
