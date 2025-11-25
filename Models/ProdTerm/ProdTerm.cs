@@ -33,7 +33,7 @@ namespace Proy_back_QBD.Models
         [Column("creador_id")]
         public int CreadorId { get; set; }
         [Column("sede_id")]
-        public int SedeId { get; set; }
+        public int? SedeId { get; set; }
         [Column("modificador_id")]
         public int ModificadorId { get; set; }
         [Column("pedido_id")]

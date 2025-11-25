@@ -190,6 +190,7 @@ namespace Proy_back_QBD.Services
 
                     Formula formula = _mapper.Map<Formula>(item);
                     formula.Estado = "PENDIENTE";
+                    formula.SedeId = request.SedeId;
                     formula.Lote = "FM" + codLote + (correlativo + c).ToString();
                     c++;
                     formulaList.Add(formula);
@@ -201,6 +202,7 @@ namespace Proy_back_QBD.Services
                 {
                     ProdTerm prodTerm = _mapper.Map<ProdTerm>(item);
                     prodTerm.Estado = "PT";
+                    prodTerm.SedeId = request.SedeId;
                     prodTermList.Add(prodTerm);
                 }
             }
@@ -228,7 +230,7 @@ namespace Proy_back_QBD.Services
             {
                 item.ModificadorId = item.CreadorId;
                 item.PedidoId = pedido.Id;
-
+                item.SedeId = pedido.SedeId;
                 await _context.ProdTerms.AddAsync(item);
             }
 
@@ -236,6 +238,7 @@ namespace Proy_back_QBD.Services
             {
                 item.ModificadorId = item.CreadorId;
                 item.PedidoId = pedido.Id;
+                item.SedeId = pedido.SedeId;
                 await _context.Formulas.AddAsync(item);
             }
 
@@ -413,6 +416,6 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-        
+
     }
 }
