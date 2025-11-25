@@ -18,6 +18,7 @@ namespace Proy_back_QBD.Dto.Request
         public class FormulaCreateReq
     {
         public int? PedidoId { get; set; }                    // Costo del pedido
+        public int? SedeId { get; set; }                    // Costo del pedido
         public decimal? Costo { get; set; }          
         public int? Cantidad { get; set; }                     // Cantidad de unidades solicitadas
         public string? FormulaMagistral { get; set; }

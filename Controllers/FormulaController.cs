@@ -31,42 +31,42 @@ public class FormulaController : ControllerBase
         FormulaCreateResponse? response = await _formulaService.CrearFormPed(request);
         return Ok(response);
     }
-    [HttpPut("{id}")]
+    [HttpPut("{id}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
-    public async Task<IActionResult> ActualizarFormula(int id, [FromBody] FormulaUpdateReq request)
+    public async Task<IActionResult> ActualizarFormula(int id, int sedeId, [FromBody] FormulaUpdateReq request)
     {
         if (request == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        FormulaUpdateResponse? response = await _formulaService.Actualizar(id, request);
+        FormulaUpdateResponse? response = await _formulaService.Actualizar(id, sedeId, request);
 
         return Ok(response);
     }
 
-    [HttpGet("etiqueta/{formulaId}")]
+    [HttpGet("etiqueta/{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(EtiquetaRes))]
-    public async Task<IActionResult> ObtenerEtiqueta(int formulaId)
+    public async Task<IActionResult> ObtenerEtiqueta(int formulaId, int sedeId)
     {
-        EtiquetaRes? response = await _formulaService.ObtenerEtiqueta(formulaId);
+        EtiquetaRes? response = await _formulaService.ObtenerEtiqueta(formulaId, sedeId);
         if (response == null) return NotFound();
         return Ok(response);
     }
-    [HttpGet("detalles/{formulaId}")]
+    [HttpGet("detalles/{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(DetallesRes))]
-    public async Task<IActionResult> ObtenerDetalles(int formulaId)
+    public async Task<IActionResult> ObtenerDetalles(int formulaId, int sedeId)
     {
-        DetallesRes? response = await _formulaService.ObtenerDetalles(formulaId);
+        DetallesRes? response = await _formulaService.ObtenerDetalles(formulaId, sedeId);
         if (response == null) return NotFound();
         return Ok(response);
     }
 
-    [HttpPut("lab/{formulaId}")]
+    [HttpPut("lab/{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(Formula))]
-    public async Task<IActionResult> ActualizarFormulaLaboratorio(int formulaId, [FromBody] FormulaUpdLabReq request)
+    public async Task<IActionResult> ActualizarFormulaLaboratorio(int formulaId, int sedeId, [FromBody] FormulaUpdLabReq request)
     {
 
-        Formula? response = await _formulaService.ActualizarLab(formulaId, request);
+        Formula? response = await _formulaService.ActualizarLab(formulaId, sedeId, request);
         if (response == null)
         {
             return NotFound();
@@ -75,40 +75,40 @@ public class FormulaController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPatch("formulaM/{id}")]
+    [HttpPatch("formulaM/{id}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(Formula))]
-    public async Task<IActionResult> ActualizarFormulaMagistral(int id, string FormulaMagistral)
+    public async Task<IActionResult> ActualizarFormulaMagistral(int id, int sedeId, string FormulaMagistral)
     {
         if (FormulaMagistral == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        Formula? response = await _formulaService.ActualizarFormulaM(id, FormulaMagistral);
+        Formula? response = await _formulaService.ActualizarFormulaM(id, sedeId, FormulaMagistral);
 
         return Ok(response);
     }
-    [HttpPatch("inserto/{formulaId}")]
+    [HttpPatch("inserto/{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(string))]
-    public async Task<IActionResult> AgregarInserto(int formulaId, string inserto)
+    public async Task<IActionResult> AgregarInserto(int formulaId, int sedeId, string inserto)
     {
         if (inserto == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        string? response = await _formulaService.AgregarInserto(formulaId, inserto);
+        string? response = await _formulaService.AgregarInserto(formulaId, sedeId, inserto);
 
         return Ok(response);
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(Formula))]
-    public async Task<IActionResult> EliminarFormula(int id)
+    public async Task<IActionResult> EliminarFormula(int id, int sedeId)
     {
         if (id == null)
         {
             return BadRequest("Datos incorrectos");
         }
-        Formula? response = await _formulaService.Eliminar(id);
+        Formula? response = await _formulaService.Eliminar(id, sedeId);
 
         return Ok(response);
     }
@@ -120,11 +120,11 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
-    [HttpGet("formulasLab/{pedidoId}")]
+    [HttpGet("formulasLab/{pedidoId}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(FormulasLab))]
-    public async Task<IActionResult> ListarFormulasLab(int pedidoId)
+    public async Task<IActionResult> ListarFormulasLab(int pedidoId, int sedeId)
     {
-        FormulasLab? response = await _formulaService.ListarFormulasLab(pedidoId);
+        FormulasLab? response = await _formulaService.ListarFormulasLab(pedidoId, sedeId);
         if (response == null)
         {
             return NotFound();

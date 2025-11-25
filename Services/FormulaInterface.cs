@@ -7,15 +7,15 @@ namespace Proy_back_QBD.Services
     public interface IFormulaService
     {
         Task<FormulaCreateResponse?> CrearFormPed(FormulaCreateReq request);
-        Task<FormulaUpdateResponse?> Actualizar(int formulaId, FormulaUpdateReq request);
-        Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request);
+        Task<FormulaUpdateResponse?> Actualizar(int formulaId, int sedeId, FormulaUpdateReq request);
+        Task<Formula?> ActualizarLab(int formulaId, int sedeId, FormulaUpdLabReq request);
         Task<List<RecetaRes>?> ListarReceta(int sedeId);
-        Task<Formula?> Eliminar(int id);
-        Task<string?> AgregarInserto(int id, string inserto);
-        Task<Formula> ActualizarFormulaM(int formulaId, string FormulaMagistral);
-        Task<FormulasLab?> ListarFormulasLab(int pedidoId);
-        Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId);
-        Task<DetallesRes?> ObtenerDetalles(int formulaId);
+        Task<Formula?> Eliminar(int id, int sedeId);
+        Task<string?> AgregarInserto(int id, int sedeId, string inserto);
+        Task<Formula> ActualizarFormulaM(int formulaId, int sedeId, string FormulaMagistral);
+        Task<FormulasLab?> ListarFormulasLab(int pedidoId, int sedeId);
+        Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId, int sedeId);
+        Task<DetallesRes?> ObtenerDetalles(int formulaId, int sedeId);
         Task<string?> CambiarTipo(FormulaCambiarTipo request);
     }
 }

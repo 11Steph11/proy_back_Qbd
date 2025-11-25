@@ -18,9 +18,10 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<Formula> ActualizarFormulaM(int formulaId, string FormulaMagistral)
+        public async Task<Formula> ActualizarFormulaM(int formulaId, int sedeId, string FormulaMagistral)
         {
-            Formula? formula = await _context.Formulas.FindAsync(formulaId);
+            Formula? formula = await _context.Formulas
+            .FirstOrDefaultAsync(foda => foda.Id == formulaId && foda.SedeId == sedeId);
             if (formula == null)
             {
                 return null;
@@ -29,14 +30,14 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return formula;
         }
-        public async Task<FormulaUpdateResponse?> Actualizar(int id, FormulaUpdateReq request)
+        public async Task<FormulaUpdateResponse?> Actualizar(int id, int sedeId, FormulaUpdateReq request)
         {
             FormulaUpdateResponse response = new FormulaUpdateResponse();
 
             Formula? formulaFind = await _context.Formulas
             .Include(i => i.Pedido.Formulas)
             .Include(i => i.Pedido.ProdTerms)
-            .FirstOrDefaultAsync(f => f.Id == id);
+            .FirstOrDefaultAsync(f => f.Id == id && f.SedeId == sedeId);
 
             if (formulaFind == null)
             {
@@ -73,11 +74,11 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-        public async Task<string?> AgregarInserto(int id, string inserto)
+        public async Task<string?> AgregarInserto(int id, int sedeId, string inserto)
         {
             string Msg;
             Formula? formula = await _context.Formulas
-            .FirstOrDefaultAsync(f => f.Id == id);
+            .FirstOrDefaultAsync(f => f.Id == id && f.SedeId == sedeId);
             if (formula == null)
             {
                 return null;
@@ -95,7 +96,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Formulas)
             .Include(i => i.ProdTerms)
             .Include(i => i.Cobros)
-            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId);
+            .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId && fod.SedeId == request.SedeId);
             Formula formula = _mapper.Map<Formula>(request);
             if (pedido.Formulas == null && pedido.Formulas.Count == 0)
             {
@@ -139,10 +140,10 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public async Task<Formula?> Eliminar(int id)
+        public async Task<Formula?> Eliminar(int id, int sedeId)
         {
             Formula? formula = await _context.Formulas
-           .FindAsync(id);
+           .FirstOrDefaultAsync(f => f.Id == id && f.SedeId == sedeId);
             _context.Formulas.Remove(formula);
             Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId);
             pedido.Total -= formula.Costo * formula.Cantidad;
@@ -155,6 +156,7 @@ namespace Proy_back_QBD.Services
             List<RecetaRes> response = await _context.Formulas
             .Include(i => i.Pedido.Medico.Persona)
             .Include(i => i.Pedido.Paciente.Persona)
+            .Where(w => w.SedeId == sedeId)
             .Select(s => new RecetaRes
             {
                 Medico = s.Pedido.Medico.Persona.NombreCompleto,
@@ -177,7 +179,7 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-        public async Task<FormulasLab> ListarFormulasLab(int pedidoId)
+        public async Task<FormulasLab> ListarFormulasLab(int pedidoId, int sedeId)
         {
             try
             {
@@ -185,7 +187,7 @@ namespace Proy_back_QBD.Services
                 .Include(i => i.Medico.Persona)
                 .Include(i => i.Paciente.Persona)
                 .Include(i => i.Formulas)
-                .Where(w => w.Id == pedidoId)
+                .Where(w => w.Id == pedidoId && w.SedeId == sedeId)
                 .Select(s => new FormulasLab
                 {
                     Paciente = s.Paciente.Persona.NombreCompleto,
@@ -231,11 +233,11 @@ namespace Proy_back_QBD.Services
 
         }
 
-        public async Task<Formula?> ActualizarLab(int formulaId, FormulaUpdLabReq request)
+        public async Task<Formula?> ActualizarLab(int formulaId, int sedeId, FormulaUpdLabReq request)
         {
 
             Formula? formula = await _context.Formulas
-            .FirstOrDefaultAsync(foda => foda.Id == formulaId);
+            .FirstOrDefaultAsync(foda => foda.Id == formulaId && foda.SedeId == sedeId);
 
             if (formula == null)
             {
@@ -255,14 +257,14 @@ namespace Proy_back_QBD.Services
             return formula;
         }
 
-        public async Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId)
+        public async Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId, int sedeId)
         {
             EtiquetaRes? res = await _context.Formulas
             .Include(i => i.Pedido.Paciente.Persona)
             .Include(i => i.Pedido.Medico.Persona)
             .Include(i => i.Pedido.Sede)
             .Include(i => i.Laboratorio)
-            .Where(w => w.Id == formulaId)
+            .Where(w => w.Id == formulaId && w.SedeId == sedeId)
             .Select(s => new EtiquetaRes
             {
                 NReg = "REG-" + s.Id,
@@ -285,7 +287,7 @@ namespace Proy_back_QBD.Services
             return res;
         }
 
-        public async Task<DetallesRes?> ObtenerDetalles(int formulaId)
+        public async Task<DetallesRes?> ObtenerDetalles(int formulaId, int sedeId)
         {
             DetallesRes? response = await _context.Formulas
             .Include(i => i.Pedido.Paciente.Persona)
