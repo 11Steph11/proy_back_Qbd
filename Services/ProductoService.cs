@@ -18,7 +18,7 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ProductoRes>?> Obtener(int sedeId)
+        public async Task<List<ProductoRes>?> Obtener()
         {
             List<ProductoRes> response = await _context.Productos
             .OrderBy(obd => obd.FechaCreacion)
