@@ -50,6 +50,8 @@ namespace Proy_back_QBD.Models
         public List<Persona>? Personas { get; set; }
         [JsonIgnore]
         public List<Empaque>? Empaques { get; set; }
+        [JsonIgnore]
+        public List<Asistencia>? Asistencias { get; set; }
     }
 
 }

@@ -42,7 +42,7 @@ public class AsistenciaController : ControllerBase
     /// <summary>
     /// Obtiene las asistencias agrupadas por día dentro de una fecha para un usuario específico.
     /// </summary>
-    [HttpPost("{id}")]
+    [HttpPost("{id}/{sedeId}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(AsistenciaByIdRes))]
     public async Task<IActionResult> ObtenerAsistenciaByCodigo(int id, [FromBody] AsistenciaByIdReq request, int sedeId)
     {

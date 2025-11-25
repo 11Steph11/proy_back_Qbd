@@ -9,6 +9,7 @@ namespace Proy_back_QBD.Request
         public string? Tipo { get; set; }  // Puede ser nulo
         public string? Observacion { get; set; }  // Puede ser nulo
         public int? CreadorId { get; set; }  // Puede ser nulo
+        public int? SedeId { get; set; }  // Puede ser nulo
     }
     public class AsistenciaByIdReq
     {

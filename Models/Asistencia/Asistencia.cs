@@ -11,6 +11,8 @@ namespace Proy_back_QBD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
         public int Id { get; set; }  // Puede ser nulo
+        [Column("sede_id")]
+        public int SedeId { get; set; }  // Puede ser nulo
         [Column("tipo")]
         public string? Tipo { get; set; }  // Puede ser nulo
         [Column("hora_asignada")]
@@ -37,6 +39,8 @@ namespace Proy_back_QBD.Models
         public int ModificadorId { get; set; }
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
+        [JsonIgnore]
+        public Sede? Sede { get; set; }
     }
 
 }

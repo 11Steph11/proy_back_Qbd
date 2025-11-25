@@ -174,6 +174,13 @@ namespace Proy_back_QBD.Data
         private void ConfigureAsistencia(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Asistencia>()
+            .HasKey(fi => new { fi.Id, fi.SedeId }); // Clave compuesta
+            modelBuilder.Entity<Asistencia>()
+                .HasOne(e => e.Sede)
+                .WithMany(e2 => e2.Asistencias)
+                .HasForeignKey(e => new { e.SedeId })
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Asistencia>()
                             .HasOne(e => e.Creador)
                             .WithMany(e2 => e2.AsistenciasCreadas)
                             .HasForeignKey(e => e.CreadorId)
