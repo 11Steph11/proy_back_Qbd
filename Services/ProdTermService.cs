@@ -107,7 +107,6 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
 
             Pedido? pedido = await _context.Pedidos
-                        .Include(i => i.ProdTerms)
                         .FirstOrDefaultAsync(fod => fod.Id == prodTerm.PedidoId && fod.SedeId == sedeId);
             if (pedido == null)
             {
