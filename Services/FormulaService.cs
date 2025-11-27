@@ -208,6 +208,7 @@ namespace Proy_back_QBD.Services
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
+                
                 response.Items = response.Formulas.Count;
                 response.CantidadTotal = 0;
                 response.CostoTotal = 0;

@@ -29,7 +29,7 @@ public class FormulaCCController : ControllerBase
     }
     [HttpPut("{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(List<FormulaCC>))]
-    public async Task<IActionResult> ActualizarFormulas(int formulaId, int sedeId, FormulaCCUpdReq formulas)
+    public async Task<IActionResult> ActualizarFormulas(int formulaId, int sedeId, FormulaCCUpdReqP formulas)
     {
         if (formulas == null)
         {
