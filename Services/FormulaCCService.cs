@@ -18,19 +18,19 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<List<FormulaCC>>? Actualizar(int formulaId, int sedeId, List<FormulaCCUpdReq> request)
+        public async Task<List<FormulaCC>>? Actualizar(int formulaId, int sedeId, FormulaCCUpdReq request)
         {
             List<FormulaCC>? formulasCC = await _context.FormulasCC
-            .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)
+            .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)            
             .ToListAsync();
             if (formulasCC == null)
             {
                 return null;
             }
-            IEnumerable<int> InsumosReq = request.Select(s => s.InsumoId);
+            IEnumerable<int> InsumosReq = request.Insumos.Select(s => s.InsumoId);
             IEnumerable<int> InsumosFormulas = formulasCC.Select(s => s.InsumoId);
             List<FormulaCC>? auxiliar = new();
-            foreach (var formula in request)
+            foreach (var formula in request.Insumos)
             {
                 if (!InsumosFormulas.Contains(formula.InsumoId))
                 {
@@ -54,6 +54,8 @@ namespace Proy_back_QBD.Services
                     }
                 }
             }
+            
+
             await _context.SaveChangesAsync();
             return auxiliar;
         }
