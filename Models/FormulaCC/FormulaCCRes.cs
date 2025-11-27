@@ -24,6 +24,7 @@ namespace Proy_back_QBD.Models
         public decimal CostoTotal { get; set; }
         public List<FormulaCCLabSubRes> insumos { get; set; }
         public int? EmpaqueId { get; set; }
+        public string? Procedimiento { get; set; }
     }
     public class FormulaCCLabSubRes
     {
