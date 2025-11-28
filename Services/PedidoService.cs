@@ -21,10 +21,16 @@ namespace Proy_back_QBD.Services
 
         public async Task<PedidoUpdateResponse?> Actualizar(int id, int sedeId, PedidoUpdateReq request)
         {
-            bool validacion = await _context.Pedidos.AnyAsync(aa => aa.Recibo == request.Recibo);
-            if (validacion)
+            string? reciboF = await _context.Pedidos
+            .Where(w => w.Id == id)
+            .Select(s => s.Recibo).FirstOrDefaultAsync();
+            if (reciboF != request.Recibo)
             {
-                return null;
+                bool validacion = await _context.Pedidos.AnyAsync(a => a.Recibo == request.Recibo);
+                if (validacion)
+                {
+                    return null;
+                }
             }
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
