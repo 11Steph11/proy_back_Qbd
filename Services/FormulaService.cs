@@ -264,7 +264,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Pedido.Paciente.Persona)
             .Include(i => i.Pedido.Medico.Persona)
             .Include(i => i.Pedido.Sede)
-            .Include(i => i.Laboratorio)
+            .Include(i => i.Laboratorio.AutorizadoU.Persona)
             .Where(w => w.Id == formulaId && w.SedeId == sedeId)
             .Select(s => new EtiquetaRes
             {
@@ -276,6 +276,7 @@ namespace Proy_back_QBD.Services
                 FechaVencimiento = s.Laboratorio.FechaVcto + "",
                 CMP = s.Pedido.Medico.Cmp,
                 Medico = s.Pedido.Medico.Persona.NombreCompleto,
+                AutorizadoPor = s.Laboratorio.AutorizadoU.Persona.NombreCompleto,
                 Direccion = s.Pedido.Sede.Direccion
             }
             )

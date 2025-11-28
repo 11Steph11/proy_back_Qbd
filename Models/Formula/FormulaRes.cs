@@ -99,6 +99,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? CMP { get; set; }
         public string? Medico { get; set; }
         public string? Direccion { get; set; }
+        public string? AutorizadoPor { get; set; }
     }
     public class DetallesRes
     {
