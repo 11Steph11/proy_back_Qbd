@@ -98,8 +98,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId && fod.SedeId == request.SedeId);
             Formula formula = _mapper.Map<Formula>(request);
-            if (pedido.Formulas == null && pedido.Formulas.Count == 0)
-            {
+
                 DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
                 int correlativo = await _context.Formulas
                                         .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
@@ -111,11 +110,7 @@ namespace Proy_back_QBD.Services
                DateTime.Now.Month.ToString("D2") +
                DateTime.Now.Day.ToString("D2");
                 formula.Lote = "FM" + codLote + correlativo;
-            }
-            else
-            {
-                formula.Lote = pedido.Formulas.First().Lote;
-            }
+
 
 
             formula.ModificadorId = formula.CreadorId;
