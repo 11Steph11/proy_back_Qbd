@@ -77,7 +77,7 @@ namespace Proy_back_QBD.Services
                 .Where(w => idMovsTerm.Contains(w.PedidoId))
                 .Select(s => new Movimientos
                 {
-                    CUO_R = "Z-" + s.PedidoId,
+                    CUO_R = "P-" + s.PedidoId,
                     CUO_C = "BDRC-" + s.Id,
                     FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                     Dni = s.Pedido.Paciente.DniApoderado ?? s.Pedido.Paciente.Persona.Dni,
