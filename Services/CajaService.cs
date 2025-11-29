@@ -48,7 +48,9 @@ namespace Proy_back_QBD.Services
                 CUO_R = "P-" + s.PedidoId,
                 CUO_C = "BDRC-" + s.Id,
                 FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
-                Dni = s.Pedido.Paciente.DniApoderado ?? s.Pedido.Paciente.Persona.Dni,
+                Dni = !string.IsNullOrEmpty(s.Pedido.Paciente.DniApoderado)
+      ? s.Pedido.Paciente.DniApoderado
+      : s.Pedido.Paciente.Persona.Dni,
                 Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
                 FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.Pedido.FechaCreacion)),
                 Modalidad = s.Modalidad,
