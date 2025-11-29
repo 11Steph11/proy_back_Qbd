@@ -204,20 +204,21 @@ namespace Proy_back_QBD.Services
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
-
-                response.Items = response.Formulas.Count;
-                response.CantidadTotal = 0;
-                response.CostoTotal = 0;
-                foreach (var item in response.Formulas)
-                {
-                    response.CantidadTotal += item.Cantidad;
-                    response.CostoTotal += item.Cantidad * item.Costo;
-                }
-
                 if (response == null)
                 {
                     return null;
                 }
+                response.CantidadTotal = 0;
+                response.CostoTotal = 0;
+                if (response.Formulas != null)
+                {
+                    foreach (var item in response.Formulas)
+                    {
+                        response.CantidadTotal += item.Cantidad;
+                        response.CostoTotal += item.Cantidad * item.Costo;
+                    }
+                }
+
 
                 return response;
             }
