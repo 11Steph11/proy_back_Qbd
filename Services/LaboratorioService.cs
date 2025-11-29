@@ -26,6 +26,7 @@ namespace Proy_back_QBD.Services
 
             var pedidosLab = await _db.Laboratorios
                                         .Include(i => i.Formula.Pedido.Paciente.Persona)
+                                        .Include(i => i.Formula.Laboratorio.ElaboradoU.Persona)
                                         .Where(w => w.Formula.Pedido.SedeId == sedeId)
                                         .OrderByDescending(w => w.FechaCreacion)
                                         .Select(s => new PedidoLab
@@ -37,7 +38,7 @@ namespace Proy_back_QBD.Services
                                             Paciente = s.Formula.Pedido.Paciente.Persona.NombreCompleto,
                                             FormulaMagistral = s.Formula.FormulaMagistral,
                                             Registro = "REG-" + s.Id,
-                                            Elaborado = s.Elaborado,
+                                            Elaborado = s.ElaboradoU.Persona.NombreCompleto,
                                         })
                                         .ToListAsync();
 
