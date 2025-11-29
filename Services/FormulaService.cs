@@ -99,11 +99,11 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Cobros)
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId && fod.SedeId == request.SedeId);
             Formula formula = _mapper.Map<Formula>(request);
-
+            var peruOffset = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time").GetUtcOffset(DateTime.UtcNow);
             DateTime Noww = TimeZoneInfo.ConvertTime(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
             DateOnly Noww2 = DateOnly.FromDateTime(Noww);
             int correlativo = await _context.Formulas
-                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Noww2)
+                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Noww2)
                                     .CountAsync() + 1;
 
             var codLote =
