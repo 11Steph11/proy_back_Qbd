@@ -16,6 +16,7 @@ namespace Proy_back_QBD.Services
         Task<FormulasLab?> ListarFormulasLab(int pedidoId, int sedeId);
         Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId, int sedeId);
         Task<DetallesRes?> ObtenerDetalles(int formulaId, int sedeId);
+        Task<InsertoRes?> ObtenerInserto(int formulaId, int sedeId);
         Task<string?> CambiarTipo(FormulaCambiarTipo request);
     }
 }

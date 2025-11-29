@@ -120,6 +120,17 @@ public class FormulaController : ControllerBase
 
         return Ok(response);
     }
+    [HttpGet("inserto/{formulaId}/{sedeId}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(InsertoRes))]
+    public async Task<IActionResult> ObtenerInserto(int formulaId, int sedeId)
+    {
+        InsertoRes? response = await _formulaService.ObtenerInserto(formulaId, sedeId);
+        if (response == null)
+        {
+            return BadRequest();
+        }
+        return Ok(response);
+    }
     [HttpGet("formulasLab/{pedidoId}/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(FormulasLab))]
     public async Task<IActionResult> ListarFormulasLab(int pedidoId, int sedeId)

@@ -63,6 +63,10 @@ namespace Proy_back_QBD.Dto.Response
         public decimal? CantidadTotal { get; set; }
         public decimal? CostoTotal { get; set; }
     }
+    public class InsertoRes
+    {
+        public string? Inserto { get; set; }  // Puede ser nulo
+    }
     public class FormulasLab2
     {
         public decimal? Costo { get; set; }  // Puede ser nulo

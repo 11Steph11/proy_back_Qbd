@@ -371,5 +371,17 @@ namespace Proy_back_QBD.Services
 
             return "Cambios realizados";
         }
+
+        public async Task<InsertoRes?> ObtenerInserto(int formulaId, int sedeId)
+        {
+            InsertoRes? Inserto = await _context.Formulas
+            .Where(w => w.SedeId == sedeId && w.Id == formulaId)
+            .Select(s => new InsertoRes{Inserto = s.Inserto}).FirstOrDefaultAsync();
+            if (Inserto == null)
+            {
+                return null;
+            }
+            return Inserto;
+        }
     }
 }
