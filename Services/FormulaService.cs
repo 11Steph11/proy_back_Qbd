@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
@@ -99,17 +100,17 @@ namespace Proy_back_QBD.Services
             .FirstOrDefaultAsync(fod => fod.Id == request.PedidoId && fod.SedeId == request.SedeId);
             Formula formula = _mapper.Map<Formula>(request);
 
-                DateOnly Hoy = DateOnly.FromDateTime(DateTime.Now);
-                int correlativo = await _context.Formulas
-                                        .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Hoy)
-                                        .CountAsync() + 1;
+            DateTime Noww = TimeZoneInfo.ConvertTime(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
+            DateOnly Noww2 = DateOnly.FromDateTime(Noww);
+            int correlativo = await _context.Formulas
+                                    .Where(w => DateOnly.FromDateTime(w.FechaCreacion) == Noww2)
+                                    .CountAsync() + 1;
 
-
-                var codLote =
-               DateTime.Now.Year.ToString().Substring(2, 2) +
-               DateTime.Now.Month.ToString("D2") +
-               DateTime.Now.Day.ToString("D2");
-                formula.Lote = "FM" + codLote + correlativo;
+            var codLote =
+           Noww.Year.ToString().Substring(2, 2) +
+           Noww.Month.ToString("D2") +
+           Noww.Day.ToString("D2");
+            formula.Lote = "FM" + codLote + correlativo;
 
 
 
@@ -140,7 +141,7 @@ namespace Proy_back_QBD.Services
             Formula? formula = await _context.Formulas
            .FirstOrDefaultAsync(f => f.Id == id && f.SedeId == sedeId);
             _context.Formulas.Remove(formula);
-            Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId,sedeId);
+            Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId, sedeId);
             pedido.Total -= formula.Costo * formula.Cantidad;
             await _context.SaveChangesAsync();
             return formula;
@@ -203,7 +204,7 @@ namespace Proy_back_QBD.Services
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();
-                
+
                 response.Items = response.Formulas.Count;
                 response.CantidadTotal = 0;
                 response.CostoTotal = 0;
