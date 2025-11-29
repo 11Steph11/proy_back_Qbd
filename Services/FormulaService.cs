@@ -321,7 +321,9 @@ namespace Proy_back_QBD.Services
                     UM = s.Insumo.UnidadMedida,
                     CantLot = s.CantidadL,
                     Pract = s.Practica,
-                }).ToList(),
+                })
+                .OrderBy(ob => ob.Variable)
+                .ToList(),
             })
             .FirstOrDefaultAsync();
             if (response == null) return null;
