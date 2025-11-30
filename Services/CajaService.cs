@@ -91,26 +91,13 @@ namespace Proy_back_QBD.Services
                 Importe = s.Importe,
             }).ToListAsync();
 
-            List<int> idMovsTerm = caja
-            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && w.Pedido.Recibo != null)
-            .Select(s => s.PedidoId)
-            .ToList();
 
-            List<UltimosCobros?> UltimosCobros = await _context.Cobros
-            .Where(w => idMovsTerm.Contains(w.PedidoId))
-            .GroupBy(gb => gb.PedidoId)
-            .Select(s => new UltimosCobros
-            {
-                PedidoId = s.Key,
-                CobroId = s.Max(x => x.Id)
-            })
-            .ToListAsync();
 
-            List<int> idUltimosC = UltimosCobros.Select(s => s.CobroId).ToList();
+
 
             List<int> idCajaTerms = caja
             .Where(w => w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
-            .Select(s => s.Id).ToList();
+            .Select(s => s.PedidoId).ToList();
 
             List<MovTerm> movsTerm = new();
             // if (req)
@@ -120,10 +107,10 @@ namespace Proy_back_QBD.Services
             // List<int> resultadoRec = idCajaTerms.Where(w => idUltimosC.Contains(w)).ToList();
 
 
-            if (idMovsTerm.Count > 0)
+            if (idCajaTerms.Count > 0)
             {
                 movsTerm = await _context.Cobros
-               .Where(w => idCajaTerms.Contains(w.Id))
+               .Where(w => idCajaTerms.Contains(w.PedidoId))
                .Select(s => new MovTerm
                {
                    Modalidad = s.Modalidad,
