@@ -44,7 +44,7 @@ namespace Proy_back_QBD.Services
                     .ToListAsync();
 
             List<Movimientos> movsTotal = caja
-            .Where(w => w.Pedido.Estado != "DEVUELTO" && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Hoy)
+            .Where(w => w.Pedido.Estado != "DEVUELTO")
             .OrderByDescending(odb => odb.Id)
             .Select(s => new Movimientos
             {
@@ -64,12 +64,22 @@ namespace Proy_back_QBD.Services
                 BolFac = s.Pedido.ComprobanteElectronico
             })
             .ToList();
+            List<MovTerm> movsHoy = caja
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Hoy)
+            .OrderByDescending(odb => odb.Id)
+            .Select(s => new MovTerm
+            {
+                Modalidad = s.Modalidad,
+                Importe = s.Importe
+
+            })
+            .ToList();
 
             List<int> pedidosId = caja
             .Where(w => w.Pedido.Estado != "DEVUELTO")
             .Select(s => s.PedidoId)
             .ToList();
-            
+
             List<MovTerm> MovsAnt = await _context.Cobros
             .Where(w => pedidosId.Contains(w.PedidoId) && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio)
             .Select(s => new MovTerm
@@ -113,7 +123,7 @@ namespace Proy_back_QBD.Services
             List<Movimientos> movimientos = new List<Movimientos>();
             if (movsTotal != null) movimientos.AddRange(movsTotal);
 
-            foreach (var item in movimientos)
+            foreach (var item in movsHoy)
             {
                 if (item.Modalidad.Trim().ToUpper() == "YAPE"
                 || item.Modalidad.Trim().ToUpper() == "PLIN"
