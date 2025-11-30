@@ -44,6 +44,7 @@ namespace Proy_back_QBD.Services
 
             List<Movimientos> movsTotal = caja
             .Where(w => w.Pedido.Estado != "DEVUELTO")
+            .OrderByDescending(odb => odb.Id)
             .Select(s => new Movimientos
             {
                 CUO_R = "P" + s.PedidoId,
@@ -61,8 +62,19 @@ namespace Proy_back_QBD.Services
                 Turno = s.Turno,
                 BolFac = s.Pedido.ComprobanteElectronico
             })
-            .OrderByDescending(odb => odb.CUO_C)
             .ToList();
+
+            List<int> pedidosId = caja
+            .Where(w => w.Pedido.Estado != "DEVUELTO")
+            .Select(s => s.PedidoId)
+            .ToList();
+            List<MovTerm> MovsAnt = await _context.Cobros
+            .Where(w => pedidosId.Contains(w.PedidoId) && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio)
+            .Select(s => new MovTerm
+            {
+                Modalidad = s.Modalidad,
+                Importe = s.Importe,
+            }).ToListAsync();
 
             List<int> idMovsTerm = caja
             .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && w.Pedido.Recibo != null)
@@ -88,9 +100,6 @@ namespace Proy_back_QBD.Services
             if (idMovsTerm.Count > 0)
             {
                 movsTerm = await _context.Cobros
-               .Include(i => i.Pedido.Paciente.Persona)
-               .Include(i => i.Pedido.Formulas)
-               .Include(i => i.Pedido.ProdTerms)
                .Where(w => resultadoRec.Contains(w.Id))
                .Select(s => new MovTerm
                {
@@ -113,32 +122,14 @@ namespace Proy_back_QBD.Services
                 )
                 {
                     recaudDia.Electronico += item.Importe;
-
-                    if (item.FechaCobro < request.FechaInicio)
-                    {
-                        pagosAnteriores.Electronico += item.Importe;
-                        pagosAnteriores.Total += item.Importe;
-                    }
-                    else
-                    {
-                        pagosDia.Electronico += item.Importe;
-                        pagosDia.Total += item.Importe;
-                    }
+                    pagosDia.Electronico += item.Importe;
                 }
                 else
                 {
-                    if (item.FechaCobro < request.FechaInicio)
-                    {
-                        pagosAnteriores.Efectivo += item.Importe;
-                        pagosAnteriores.Total += item.Importe;
-                    }
-                    else
-                    {
-                        pagosDia.Efectivo += item.Importe;
-                        pagosDia.Total += item.Importe;
-                    }
+                    pagosDia.Efectivo += item.Importe;
                     recaudDia.Efectivo += item.Importe;
                 }
+                pagosDia.Total += item.Importe;
             }
             foreach (var item in movsTerm)
             {
@@ -157,6 +148,25 @@ namespace Proy_back_QBD.Services
                 }
                 bqPagos.Total += item.Importe;
             }
+
+            foreach (var item in MovsAnt)
+            {
+                if (item.Modalidad.Trim().ToUpper() == "YAPE"
+                || item.Modalidad.Trim().ToUpper() == "PLIN"
+                || item.Modalidad.Trim().ToUpper() == "DEPOSITO"
+                || item.Modalidad.Trim().ToUpper() == "TARJETA CREDITO"
+                || item.Modalidad.Trim().ToUpper() == "TARJETA DEBITO"
+                )
+                {
+                    pagosAnteriores.Electronico += item.Importe;
+                }
+                else
+                {
+                    pagosAnteriores.Efectivo += item.Importe;
+                }
+                pagosAnteriores.Total += item.Importe;
+            }
+
             recaudDia.Total = 0;
             recaudDia.Total += pagosDia.Total + pagosAnteriores.Total;
 

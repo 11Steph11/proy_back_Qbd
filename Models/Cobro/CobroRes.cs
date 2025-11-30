@@ -56,6 +56,7 @@ namespace Proy_back_QBD.Response
             public string? Modalidad { get; set; }
             public decimal? Importe { get; set; }
         }
+
         public class DeudasPendientes
         {
             public string? CUO_R { get; set; }
