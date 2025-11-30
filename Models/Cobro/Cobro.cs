@@ -11,11 +11,11 @@ namespace Proy_back_QBD.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [Column("modalidad")]
         public string? Modalidad { get; set; }
         [Column("pedido_id")]
-        public int? PedidoId { get; set; }
+        public int PedidoId { get; set; }
         [Column("sede_id")]
         public int? SedeId { get; set; }
         [JsonIgnore]

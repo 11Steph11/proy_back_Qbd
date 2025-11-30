@@ -63,20 +63,34 @@ namespace Proy_back_QBD.Services
             })
             .ToList();
 
-            List<int?> idMovsTerm = caja
-            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0)
+            List<int> idMovsTerm = caja
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && w.Pedido.Recibo != null)
             .Select(s => s.PedidoId)
             .ToList();
-            List<MovTerm> movsTerm = new();
+            List<UltimosCobros?> UltimosCobros = await _context.Cobros
+            .Where(w => idMovsTerm.Contains(w.PedidoId))
+            .GroupBy(gb => gb.PedidoId)
+            .Select(s => new UltimosCobros
+            {
+                PedidoId = s.Key,
+                CobroId = s.Max(x => x.Id)
+            })
+            .ToListAsync();
 
-            // Console.WriteLine("CODIGOS PEDIDOOOOOOOOOO" + idMovsTerm);
+            List<int> idUltimosC = UltimosCobros.Select(s => s.CobroId).ToList();
+            List<int> idCajaTerms = caja.Where(w => w.Pedido.Saldo == 0 && w.Pedido.Recibo != null).Select(s => s.Id).ToList();
+
+            List<MovTerm> movsTerm = new();
+            List<int> resultadoRec = idCajaTerms.Where(w => idUltimosC.Contains(w)).ToList();
+
+
             if (idMovsTerm.Count > 0)
             {
                 movsTerm = await _context.Cobros
                .Include(i => i.Pedido.Paciente.Persona)
                .Include(i => i.Pedido.Formulas)
                .Include(i => i.Pedido.ProdTerms)
-               .Where(w => idMovsTerm.Contains(w.PedidoId))
+               .Where(w => resultadoRec.Contains(w.Id))
                .Select(s => new MovTerm
                {
                    Modalidad = s.Modalidad,

@@ -34,4 +34,9 @@ namespace Proy_back_QBD.Request
         public DateOnly FechaInicio { get; set; }
         public DateOnly FechaFinal { get; set; }
     }
+    public class UltimosCobros
+    {
+        public int PedidoId { get; set; }
+        public int CobroId { get; set; }
+    }
 }
