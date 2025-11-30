@@ -81,7 +81,10 @@ namespace Proy_back_QBD.Services
             .ToList();
 
             List<MovTerm> MovsAnt = await _context.Cobros
-            .Where(w => pedidosId.Contains(w.PedidoId) && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio)
+            .Where(w => pedidosId.Contains(w.PedidoId) &&
+            DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio &&
+            DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Hoy
+             )
             .Select(s => new MovTerm
             {
                 Modalidad = s.Modalidad,
