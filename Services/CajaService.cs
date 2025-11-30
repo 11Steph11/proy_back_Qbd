@@ -107,16 +107,23 @@ namespace Proy_back_QBD.Services
             .ToListAsync();
 
             List<int> idUltimosC = UltimosCobros.Select(s => s.CobroId).ToList();
-            List<int> idCajaTerms = caja.Where(w => w.Pedido.Saldo == 0 && w.Pedido.Recibo != null).Select(s => s.Id).ToList();
+
+            List<int> idCajaTerms = caja
+            .Where(w => w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
+            .Select(s => s.Id).ToList();
 
             List<MovTerm> movsTerm = new();
-            List<int> resultadoRec = idCajaTerms.Where(w => idUltimosC.Contains(w)).ToList();
+            // if (req)
+            // {
+                
+            // }
+            // List<int> resultadoRec = idCajaTerms.Where(w => idUltimosC.Contains(w)).ToList();
 
 
             if (idMovsTerm.Count > 0)
             {
                 movsTerm = await _context.Cobros
-               .Where(w => resultadoRec.Contains(w.Id))
+               .Where(w => idCajaTerms.Contains(w.Id))
                .Select(s => new MovTerm
                {
                    Modalidad = s.Modalidad,
