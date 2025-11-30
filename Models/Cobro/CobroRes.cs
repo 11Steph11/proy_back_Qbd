@@ -51,6 +51,11 @@ namespace Proy_back_QBD.Response
             public string? Turno { get; set; }
             public string? BolFac { get; set; }
         }
+        public class MovTerm
+        {
+            public string? Modalidad { get; set; }
+            public decimal? Importe { get; set; }
+        }
         public class DeudasPendientes
         {
             public string? CUO_R { get; set; }
