@@ -111,7 +111,7 @@ namespace Proy_back_QBD.Services
                 }
                 else
                 {
-                    if (item.FechaCobro <= request.FechaInicio)
+                    if (item.FechaCobro < request.FechaInicio)
                     {
                         pagosAnteriores.Efectivo += item.Importe;
                         pagosAnteriores.Total += item.Importe;
