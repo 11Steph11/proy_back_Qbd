@@ -95,6 +95,7 @@ namespace Proy_back_QBD.Services
             .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && w.Pedido.Recibo != null)
             .Select(s => s.PedidoId)
             .ToList();
+
             List<UltimosCobros?> UltimosCobros = await _context.Cobros
             .Where(w => idMovsTerm.Contains(w.PedidoId))
             .GroupBy(gb => gb.PedidoId)
@@ -135,8 +136,8 @@ namespace Proy_back_QBD.Services
                 || item.Modalidad.Trim().ToUpper() == "TARJETA DEBITO"
                 )
                 {
-                    recaudDia.Electronico += item.Importe;
                     pagosDia.Electronico += item.Importe;
+                    recaudDia.Electronico += item.Importe;
                 }
                 else
                 {
@@ -172,10 +173,12 @@ namespace Proy_back_QBD.Services
                 || item.Modalidad.Trim().ToUpper() == "TARJETA DEBITO"
                 )
                 {
+                    recaudDia.Electronico += item.Importe;
                     pagosAnteriores.Electronico += item.Importe;
                 }
                 else
                 {
+                    recaudDia.Efectivo += item.Importe;
                     pagosAnteriores.Efectivo += item.Importe;
                 }
                 pagosAnteriores.Total += item.Importe;
