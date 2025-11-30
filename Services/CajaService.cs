@@ -61,6 +61,7 @@ namespace Proy_back_QBD.Services
                 Turno = s.Turno,
                 BolFac = s.Pedido.ComprobanteElectronico
             })
+            .OrderByDescending(odb => odb.CUO_C)
             .ToList();
 
             List<int> idMovsTerm = caja
