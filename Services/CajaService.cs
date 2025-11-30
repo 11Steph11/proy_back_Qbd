@@ -30,6 +30,7 @@ namespace Proy_back_QBD.Services
             BQPagosDelDia bqPagos = new();
             Ventas ventas = new Ventas();
             List<DeudasPendientes> DeudasP = new();
+            DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.UtcNow));
             DateOnly FecFinal = request.FechaFinal.AddDays(1);
             var peruOffset = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time").GetUtcOffset(DateTime.UtcNow);
             List<Cobro> caja = await _context.Cobros
@@ -43,7 +44,7 @@ namespace Proy_back_QBD.Services
                     .ToListAsync();
 
             List<Movimientos> movsTotal = caja
-            .Where(w => w.Pedido.Estado != "DEVUELTO")
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Hoy)
             .OrderByDescending(odb => odb.Id)
             .Select(s => new Movimientos
             {
@@ -68,8 +69,9 @@ namespace Proy_back_QBD.Services
             .Where(w => w.Pedido.Estado != "DEVUELTO")
             .Select(s => s.PedidoId)
             .ToList();
+            
             List<MovTerm> MovsAnt = await _context.Cobros
-            .Where(w => pedidosId.Contains(w.PedidoId) && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio)
+            .Where(w => pedidosId.Contains(w.PedidoId) && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio)
             .Select(s => new MovTerm
             {
                 Modalidad = s.Modalidad,
@@ -111,7 +113,6 @@ namespace Proy_back_QBD.Services
             List<Movimientos> movimientos = new List<Movimientos>();
             if (movsTotal != null) movimientos.AddRange(movsTotal);
 
-            DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
             foreach (var item in movimientos)
             {
                 if (item.Modalidad.Trim().ToUpper() == "YAPE"
