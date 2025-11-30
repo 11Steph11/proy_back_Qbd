@@ -14,7 +14,7 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-ENV TZ=America/Mexico_City
+ENV TZ=America/Lima
 RUN apt-get update && apt-get install -y tzdata && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
