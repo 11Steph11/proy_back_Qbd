@@ -30,14 +30,15 @@ namespace Proy_back_QBD.Services
             BQPagosDelDia bqPagos = new();
             Ventas ventas = new Ventas();
             List<DeudasPendientes> DeudasP = new();
-
+            DateOnly FecFinal = request.FechaFinal.AddDays(1);
+            var peruOffset = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time").GetUtcOffset(DateTime.UtcNow);
             List<Cobro> caja = await _context.Cobros
                     .Include(i => i.Pedido.Paciente.Persona)
                     .Include(i => i.Pedido.Formulas)
                     .Include(i => i.Pedido.ProdTerms)
                     .Where(w =>
-                        DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
-                        && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal && w.SedeId == sedeId
+                        DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) >= request.FechaInicio
+                        && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) <= request.FechaFinal && w.SedeId == sedeId
                         )
                     .ToListAsync();
 
@@ -147,8 +148,8 @@ namespace Proy_back_QBD.Services
             List<Pedido> ventasP = await _context.Pedidos
                    .Include(i => i.Paciente.Persona)
                    .Where(w =>
-                       DateOnly.FromDateTime(w.FechaCreacion) >= request.FechaInicio
-                       && DateOnly.FromDateTime(w.FechaCreacion) <= request.FechaFinal && w.SedeId == sedeId
+                       DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) >= request.FechaInicio
+                       && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < FecFinal && w.SedeId == sedeId
                        )
                    .ToListAsync();
 
