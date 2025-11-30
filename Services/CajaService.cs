@@ -45,8 +45,8 @@ namespace Proy_back_QBD.Services
             .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo != 0)
             .Select(s => new Movimientos
             {
-                CUO_R = "P-" + s.PedidoId,
-                CUO_C = "BDRC-" + s.Id,
+                CUO_R = "P" + s.PedidoId,
+                CUO_C = "C" + s.Id,
                 FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                 Dni = !string.IsNullOrEmpty(s.Pedido.Paciente.DniApoderado)
       ? s.Pedido.Paciente.DniApoderado
@@ -66,9 +66,10 @@ namespace Proy_back_QBD.Services
             .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0)
             .Select(s => s.PedidoId)
             .ToList();
+            
             List<Movimientos> movsTerm = new();
-            Console.WriteLine("CODIGOS PEDIDOOOOOOOOOO" + idMovsTerm);
-            if (idMovsTerm != null)
+            // Console.WriteLine("CODIGOS PEDIDOOOOOOOOOO" + idMovsTerm);
+            if (idMovsTerm.Count > 0)
             {
                 movsTerm = await _context.Cobros
                 .Include(i => i.Pedido.Paciente.Persona)
@@ -77,8 +78,8 @@ namespace Proy_back_QBD.Services
                 .Where(w => idMovsTerm.Contains(w.PedidoId))
                 .Select(s => new Movimientos
                 {
-                    CUO_R = "P-" + s.PedidoId,
-                    CUO_C = "BDRC-" + s.Id,
+                    CUO_R = "P" + s.PedidoId,
+                    CUO_C = "C" + s.Id,
                     FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                     Dni = s.Pedido.Paciente.DniApoderado ?? s.Pedido.Paciente.Persona.Dni,
                     Paciente = s.Pedido.Paciente.Persona.NombreCompleto,

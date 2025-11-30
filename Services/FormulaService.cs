@@ -309,7 +309,7 @@ namespace Proy_back_QBD.Services
                 EmpaqueId = s.Laboratorio.EmpaqueId,
                 Cantidad = s.Cantidad.ToString(),
                 CMP = s.Pedido.Medico.Cmp,
-                Medico = s.Pedido.Paciente.Persona.NombreCompleto,
+                Medico = s.Pedido.Medico.Persona.NombreCompleto,
                 CostoTotal = s.Cantidad * s.Costo,
                 Insumos = s.FormulaCC.Select(s => new DetallesRes2
                 {
