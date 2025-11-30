@@ -104,5 +104,16 @@ public class PedidoController : ControllerBase
         }
         return Ok(response);
     }
+    [HttpGet("conteo/{mes}/{anio}/{sedeId}")]
+    [SwaggerResponse(200, "Creacion exitosa", typeof(int))]
+    public async Task<IActionResult> ObtenerPedidosId(int sedeId, int mes, int anio)
+    {
+        int? response = await _pedidoService.ContFormM(sedeId, mes, anio);
+        if (response == null)
+        {
+            return NotFound("No se encontrò");
+        }
+        return Ok(response);
+    }
 
 }

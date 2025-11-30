@@ -423,5 +423,20 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
+        public async Task<int> ContFormM(int sedeId, int mes, int? anio = null)
+        {
+            int year = anio ?? DateTime.Now.Year;
+            var response = await _context.Pedidos
+                    .Include(i => i.Formulas)
+                    .Where(w => w.SedeId == sedeId && w.Formulas.Count() > 0)
+                    .Where(w => w.FechaCreacion.Month == mes && w.FechaCreacion.Year == year).ToListAsync();
+
+            int totalFormulas = await _context.Pedidos
+.Where(w => w.SedeId == sedeId && w.Formulas.Count() > 0)
+.Where(w => w.FechaCreacion.Month == mes && w.FechaCreacion.Year == year)
+.SumAsync(w => w.Formulas.Count());
+            return totalFormulas;
+
+        }
     }
 }

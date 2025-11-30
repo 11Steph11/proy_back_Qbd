@@ -14,5 +14,6 @@ namespace Proy_back_QBD.Services
         Task<List<PedidoFindAllResponse?>> Listar(int sedeId);
         Task<List<PedidoLabFindAllRes2?>> ListarLab(int sedeId);
         Task<PedidoFindIdResponse?> ObtenerById(int id, int sedeId);
+        Task<int> ContFormM(int sedeId, int mes, int? anio = null);
     }
 }
