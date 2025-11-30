@@ -91,26 +91,51 @@ namespace Proy_back_QBD.Services
                 Importe = s.Importe,
             }).ToListAsync();
 
-
-
-
-
             List<int> idCajaTerms = caja
             .Where(w => w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
             .Select(s => s.PedidoId).ToList();
 
+            List<int> idMovsTerm = caja
+                       .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
+                       .Select(s => s.PedidoId)
+                       .ToList();
+            List<int> idCobroBQ = caja
+                       .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
+                       .Select(s => s.Id)
+                       .ToList();
+
+            List<UltimosCobros?> UltimosCobros = await _context.Cobros
+.Where(w => idMovsTerm.Contains(w.PedidoId))
+.GroupBy(gb => gb.PedidoId)
+.Select(s => new UltimosCobros
+{
+    PedidoId = s.Key,
+    CobroId = s.Max(x => x.Id)
+})
+.ToListAsync();
+
+
+            List<int> pedidoBQ = new();
+
+            foreach (var item in UltimosCobros)
+            {
+                foreach (var item2 in idCobroBQ)
+                {
+                    if (item.CobroId == item2)
+                    {
+                        pedidoBQ.Add(item.PedidoId);
+                    }
+                }
+            }
+
             List<MovTerm> movsTerm = new();
-            // if (req)
-            // {
-                
-            // }
-            // List<int> resultadoRec = idCajaTerms.Where(w => idUltimosC.Contains(w)).ToList();
+
 
 
             if (idCajaTerms.Count > 0)
             {
                 movsTerm = await _context.Cobros
-               .Where(w => idCajaTerms.Contains(w.PedidoId))
+               .Where(w => pedidoBQ.Contains(w.PedidoId))
                .Select(s => new MovTerm
                {
                    Modalidad = s.Modalidad,
