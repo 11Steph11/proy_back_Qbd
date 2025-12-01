@@ -30,7 +30,6 @@ namespace Proy_back_QBD.Services
             BQPagosDelDia bqPagos = new();
             Ventas ventas = new Ventas();
             List<DeudasPendientes> DeudasP = new();
-            DateOnly Hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.UtcNow));
             DateOnly FecFinal = request.FechaFinal.AddDays(1);
             var peruOffset = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time").GetUtcOffset(DateTime.UtcNow);
             List<Cobro> caja = await _context.Cobros
@@ -65,7 +64,7 @@ namespace Proy_back_QBD.Services
             })
             .ToList();
             List<MovTerm> movsHoy = caja
-            .Where(w => w.Pedido.Estado != "DEVUELTO" && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Hoy)
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal)
             .OrderByDescending(odb => odb.Id)
             .Select(s => new MovTerm
             {
@@ -83,7 +82,7 @@ namespace Proy_back_QBD.Services
             List<MovTerm> MovsAnt = await _context.Cobros
             .Where(w => pedidosId.Contains(w.PedidoId) &&
             DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio &&
-            DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == Hoy
+            DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal
              )
             .Select(s => new MovTerm
             {
@@ -132,8 +131,6 @@ namespace Proy_back_QBD.Services
 
 
 
-            if (idCajaTerms.Count > 0)
-            {
                 movsTerm = await _context.Cobros
                .Where(w => pedidoBQ.Contains(w.PedidoId))
                .Select(s => new MovTerm
@@ -142,7 +139,7 @@ namespace Proy_back_QBD.Services
                    Importe = s.Importe
                })
                .ToListAsync();
-            }
+            
             List<Movimientos> movimientos = new List<Movimientos>();
             if (movsTotal != null) movimientos.AddRange(movsTotal);
 
