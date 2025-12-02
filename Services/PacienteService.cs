@@ -73,7 +73,7 @@ namespace Proy_back_QBD.Services
             return paciente;
         }
 
-        public async Task<List<PacienteFindAllResponse?>> Obtener(int sedeId)
+        public async Task<List<PacienteFindAllResponse?>> Obtener()
         {
 
 

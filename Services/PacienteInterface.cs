@@ -9,7 +9,7 @@ namespace Proy_back_QBD.Services
         Task<PacienteCreateResponse?> Crear(PacienteCreateReq request);
         Task<PacienteUpdateResponse?> Actualizar(int id, PacienteUpdateReq request);
         Task<Paciente?> Eliminar(int id);
-        Task<List<PacienteFindAllResponse?>> Obtener( int sedeId);
+        Task<List<PacienteFindAllResponse?>> Obtener();
         Task<PacienteFindIdResponse?> ObtenerById(int id);
     }
 }
