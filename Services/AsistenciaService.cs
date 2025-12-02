@@ -34,7 +34,7 @@ namespace Proy_back_QBD.Services
                 .GroupBy(a => a.FechaCreacion.Date)
                 .Select(g => new FechaConHoras
                 {
-                    Dia = g.Key.ToString("dddd", new CultureInfo("es-ES")),
+                    Dia = g.Key.ToString("dddd", new CultureInfo("es-ES")) + "-"+g.Key.Day,
 
                     HoraEntrada = g.Where(x => x.Tipo.Equals("entrada"))
                        .OrderBy(x => x.HoraMarcada)
