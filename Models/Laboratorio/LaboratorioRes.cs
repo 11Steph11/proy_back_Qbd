@@ -35,7 +35,7 @@ namespace Proy_back_QBD.Dto.Productos
         public string? FormaF { get; set; }
         public string? Lote { get; set; }
         public int? Cantidad { get; set; }
-        public decimal? GPorMl { get; set; }
+        public string? GPorMl { get; set; }
         public string? UnidadMedida { get; set; }
         public string? Registro { get; set; }
         public string? Diagnostico { get; set; }

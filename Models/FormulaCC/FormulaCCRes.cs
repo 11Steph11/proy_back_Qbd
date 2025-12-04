@@ -19,7 +19,7 @@ namespace Proy_back_QBD.Models
         public string Lote { get; set; }
         public string NroReg { get; set; }
         public int Cantidad { get; set; }
-        public decimal GPorMl { get; set; }
+        public string GPorMl { get; set; }
         public string UnidadMedida { get; set; }
         public decimal CostoTotal { get; set; }
         public List<FormulaCCLabSubRes> insumos { get; set; }

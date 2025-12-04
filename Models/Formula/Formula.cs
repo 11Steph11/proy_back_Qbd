@@ -21,7 +21,7 @@ namespace Proy_back_QBD.Models
         [Column("forma_farmaceutica")]
         public string? FormaFarmaceutica { get; set; }           // Descripción de la fórmula de farmacia
         [Column("g/ml")]
-        public decimal GPorMl { get; set; }                   // g/ml (gramos por mililitro)
+        public string GPorMl { get; set; }                   // g/ml (gramos por mililitro)
         [Column("unidad_medida")]
         public string? UnidadMedida { get; set; }              // Unidad de medida (ej. "ml", "mg", "g", etc.)
         [Column("lote")]
