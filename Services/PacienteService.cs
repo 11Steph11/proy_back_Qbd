@@ -120,7 +120,7 @@ namespace Proy_back_QBD.Services
             }
             return response;
         }
-        
+
         public static int CalcularEdad(DateOnly? fechaNacimiento)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Today);

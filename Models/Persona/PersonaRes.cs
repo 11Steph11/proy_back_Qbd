@@ -29,7 +29,6 @@ namespace Proy_back_QBD.Dto.Response
         public DateOnly? FechaNacimiento { get; set; }
         public string? Dni { get; set; }
         public string? Direccion { get; set; }
-        public int? SedeId { get; set; }
         public string? Telefono { get; set; }
     } 
     public class PersMedRes2

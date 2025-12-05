@@ -47,10 +47,6 @@ namespace Proy_back_QBD.Models
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [JsonIgnore]
-        public List<Persona>? Personas { get; set; }
-        [JsonIgnore]
-        public List<Empaque>? Empaques { get; set; }
-        [JsonIgnore]
         public List<Asistencia>? Asistencias { get; set; }
     }
 
