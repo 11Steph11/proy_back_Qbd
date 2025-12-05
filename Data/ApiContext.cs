@@ -123,7 +123,7 @@ namespace Proy_back_QBD.Data
         private void ConfigureFormulasCC(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FormulaCC>()
-            .HasKey(fi => new { fi.FormulaId, fi.InsumoId, fi.SedeId }); // Clave compuesta
+            .HasKey(fi => new { fi.FormulaId, fi.InsumoId, fi.Variable, fi.SedeId }); // Clave compuesta
             modelBuilder.Entity<FormulaCC>()
                 .HasOne(e => e.Formula)
                 .WithMany(e2 => e2.FormulaCC)
