@@ -7,7 +7,6 @@ SELECT
     observacion,
     fecha_creacion AS fecha_modificacion,
     fecha_creacion,
-
     Switch(
         UCase([Usuario])='ADMIN', 1,
         UCase([Usuario])='FJBM', 1,
