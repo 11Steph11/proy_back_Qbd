@@ -21,7 +21,7 @@ namespace Proy_back_QBD.Dto.Productos
     {
         public string? DNI { get; set; }
         public string? Paciente { get; set; }
-        public int? Edad { get; set; }
+        public string? Edad { get; set; }
         public string? CMP { get; set; }
         public string? Medico { get; set; }
         public List<LabForm>? Formulas { get; set; }

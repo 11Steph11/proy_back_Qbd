@@ -119,15 +119,28 @@ namespace Proy_back_QBD.Services
             return response;
         }
 
-        public static int CalcularEdad(DateOnly? fechaNacimiento)
+        public static string CalcularEdad(DateOnly? fechaNacimiento)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Today);
 
-            int edad = hoy.Year - fechaNacimiento.GetValueOrDefault().Year;
+            int num = hoy.Year - fechaNacimiento.GetValueOrDefault().Year;
+            string edad;
 
-            if (fechaNacimiento > hoy.AddYears(-edad))
+            if (fechaNacimiento > hoy.AddYears(-num))
             {
-                edad--;
+                num--;
+
+            }
+            edad = num + " años";
+            if (num == 1)
+            {
+                edad = num + " año";
+            }
+
+            if (num == 0)
+            {
+                num = 12 - fechaNacimiento.GetValueOrDefault().Month;
+                edad = num + " meses";
             }
 
             return edad;

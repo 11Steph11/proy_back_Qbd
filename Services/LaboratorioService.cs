@@ -61,7 +61,7 @@ namespace Proy_back_QBD.Services
                                         {
                                             DNI = s.Paciente.Persona.Dni ?? s.Paciente.DniApoderado,
                                             Paciente = s.Paciente.Persona.NombreCompleto,
-                                            Edad = PacienteService.CalcularEdad(s.Paciente.Persona.FechaNacimiento),
+                                            Edad = PacienteService.CalcularEdad(s.Paciente.Persona.FechaNacimiento).ToString(),
                                             CMP = s.Medico.Cmp,
                                             Medico = s.Medico.Persona.NombreCompleto,
                                             Formulas = s.Formulas

@@ -55,7 +55,7 @@ namespace Proy_back_QBD.Dto.Response
     {
         public string? Paciente { get; set; }  // Puede ser nulo
         public string? DNI { get; set; }
-        public int? Edad { get; set; }
+        public string? Edad { get; set; }
         public string? Medico { get; set; }
         public string? CMP { get; set; }
         public List<FormulasLab2>? Formulas { get; set; }
@@ -108,7 +108,7 @@ namespace Proy_back_QBD.Dto.Response
     public class DetallesRes
     {
         public string? Paciente { get; set; }
-        public int? Edad { get; set; }
+        public string? Edad { get; set; }
         public string? Diagnostico { get; set; }
         public string? QFDT { get; set; }
         public string? QFBD { get; set; }

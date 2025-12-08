@@ -10,7 +10,7 @@ namespace Proy_back_QBD.Models
         public string CodigoPedido { get; set; }
         public string DniPaciente { get; set; }
         public string NombreCompleto { get; set; }
-        public int EdadPaciente { get; set; }
+        public string EdadPaciente { get; set; }
         public string CMP { get; set; }
         public string NombreCompletoMed { get; set; }
         public int FormulaId { get; set; }

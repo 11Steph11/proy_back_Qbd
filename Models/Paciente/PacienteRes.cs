@@ -9,7 +9,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? Apoderado { get; set; }
         public string? DniApoderado { get; set; }
         public string? NombreCompleto { get; set; }
-        public int? Edad { get; set; }
+        public string? Edad { get; set; }
         public string? Direccion { get; set; }
         public string? FechaCumple { get; set; }
         public string? Telefono { get; set; }
