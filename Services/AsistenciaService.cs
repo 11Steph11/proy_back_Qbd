@@ -28,7 +28,7 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            DateTime? fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
             var lista = await _context.Asistencias
                 .Where(a => a.CreadorId == id && a.FechaCreacion >= fechaFiltro && a.SedeId == sedeId)
                 .GroupBy(a => a.FechaCreacion.Date)
@@ -62,6 +62,7 @@ namespace Proy_back_QBD.Services
 
             AsistenciaByIdRes? response = await _context.Usuarios
                 .Include(a => a.Persona)
+                .Where(w => w.Id == id && w.SedeId == sedeId)
                 .Select(a => new AsistenciaByIdRes
                 {
                     NombreCompleto = $"{a.Persona.NombreCompleto}",
