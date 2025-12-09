@@ -30,7 +30,7 @@ namespace Proy_back_QBD.Services
             }
             DateTime fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
             var lista = await _context.Asistencias
-                .Where(a => a.CreadorId == id && a.FechaCreacion >= fechaFiltro && a.SedeId == sedeId)
+                .Where(a => a.CreadorId == id && a.FechaCreacion.Month == fechaFiltro.Month && a.SedeId == sedeId)
                 .GroupBy(a => a.FechaCreacion.Date)
                 .Select(g => new FechaConHoras
                 {
