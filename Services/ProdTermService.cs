@@ -88,6 +88,15 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
+            bool b = await _context.Formulas.AnyAsync(fod => fod.PedidoId == pedido.Id);
+            if (b == true)
+            {
+                pedido.Estado = "PENDIENTE";
+            }
+            else
+            {
+                pedido.Estado = "PT";
+            }
 
             pedido.Total += prodTerm.Costo * prodTerm.Cantidad;
             pedido.Saldo += prodTerm.Costo * prodTerm.Cantidad;
@@ -108,9 +117,23 @@ namespace Proy_back_QBD.Services
 
             Pedido? pedido = await _context.Pedidos
                         .FirstOrDefaultAsync(fod => fod.Id == prodTerm.PedidoId && fod.SedeId == sedeId);
+
             if (pedido == null)
             {
                 return null;
+            }
+
+            bool b = await _context.Formulas.AnyAsync(fod => fod.PedidoId == pedido.Id);
+            bool b2 = await _context.ProdTerms.AnyAsync(fod => fod.PedidoId == pedido.Id);
+
+            if (b == true)
+            {
+                pedido.Estado = "PENDIENTE";
+            }
+            
+            if (b == false && b2 == true)
+            {
+                pedido.Estado = "PT";
             }
 
             pedido.Total -= prodTerm.Costo * prodTerm.Cantidad;

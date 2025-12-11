@@ -112,8 +112,6 @@ namespace Proy_back_QBD.Services
            Noww.Day.ToString("D2");
             formula.Lote = "FM" + codLote + correlativo;
 
-
-
             formula.ModificadorId = formula.CreadorId;
             formula.Estado = "PENDIENTE";
 
@@ -124,6 +122,19 @@ namespace Proy_back_QBD.Services
             if (pedido == null)
             {
                 return null;
+            }
+
+            bool b = await _context.Formulas.AnyAsync(fod => fod.PedidoId == pedido.Id);
+            bool b2 = await _context.ProdTerms.AnyAsync(fod => fod.PedidoId == pedido.Id);
+
+            if (b == true)
+            {
+                pedido.Estado = "PENDIENTE";
+            }
+
+            if (b == false && b2 == true)
+            {
+                pedido.Estado = "PT";
             }
 
             pedido.Total = PedidoService.SumaPedido(pedido.Formulas, pedido.ProdTerms);
@@ -143,6 +154,20 @@ namespace Proy_back_QBD.Services
             _context.Formulas.Remove(formula);
             Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId, sedeId);
             pedido.Total -= formula.Costo * formula.Cantidad;
+
+            bool b = await _context.Formulas.AnyAsync(fod => fod.PedidoId == pedido.Id);
+            bool b2 = await _context.ProdTerms.AnyAsync(fod => fod.PedidoId == pedido.Id);
+
+            if (b == true)
+            {
+                pedido.Estado = "PENDIENTE";
+            }
+
+            if (b == false && b2 == true)
+            {
+                pedido.Estado = "PT";
+            }
+
             await _context.SaveChangesAsync();
             return formula;
         }
@@ -376,7 +401,7 @@ namespace Proy_back_QBD.Services
         {
             InsertoRes? Inserto = await _context.Formulas
             .Where(w => w.SedeId == sedeId && w.Id == formulaId)
-            .Select(s => new InsertoRes{Inserto = s.Inserto}).FirstOrDefaultAsync();
+            .Select(s => new InsertoRes { Inserto = s.Inserto }).FirstOrDefaultAsync();
             if (Inserto == null)
             {
                 return null;
