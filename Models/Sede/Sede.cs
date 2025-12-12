@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Models
         public string? Encargado { get; set; }  // Puede ser nulo                        
         [Column("telefono")]
         public string? Telefono { get; set; }  // Puede ser nulo               
-        [Column("msg_terminado")]
+        [Column("msg_terminado")]   
         public string? MsgTerminado { get; set; }  // Puede ser nulo                        
         [Column("msg_gpt")]
         public string? MsgGpt { get; set; }  // Puede ser nulo               
@@ -28,7 +28,7 @@ namespace Proy_back_QBD.Models
         public string? MsgCumple { get; set; }
         [Column("msg_seguimiento")]
         public string? MsgSeguimiento { get; set; }
-        [Column("msg_EnProceso")]
+        [Column("msg_enproceso")]
         public string? MsgEnProceso { get; set; }
         [Column("meta")]
         public int? Meta { get; set; }  // Puede ser nulo                        

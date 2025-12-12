@@ -12,6 +12,11 @@ namespace Proy_back_QBD.Profiles
         {
             // Mapeo entre ApoderadoCreate y Apoderado
             CreateMap<SedeCreateReq, Sede>();
+            CreateMap<SedeUpdateReq, Sede>()
+            .ForMember(a => a.Id, options => options.Ignore())
+            .ForMember(a => a.FechaCreacion, options => options.Ignore())
+            .ForMember(a => a.CreadorId, options => options.Ignore())
+            ;
             // Otros mapeos si es necesario
         }
     }

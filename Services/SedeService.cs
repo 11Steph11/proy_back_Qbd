@@ -5,21 +5,33 @@ using Proy_back_QBD.Models;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Dto.Response;
 using Microsoft.AspNetCore.Http.HttpResults;
+using AutoMapper;
 
 namespace Proy_back_QBD.Services
 {
     public class SedeService : ISedeService
     {
         private readonly ApiContext _context;
-        public SedeService(ApiContext context)
+        private readonly IMapper _mapper;
+        public SedeService(ApiContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
         public async Task<Sede?> Crear(Sede sede)
         {
             await _context.Sedes.AddAsync(sede);
             await _context.SaveChangesAsync();
             return sede;
+        }
+
+        public async Task<Sede?> Actualizar(int id, SedeUpdateReq request)
+        {
+            Sede? req = await _context.Sedes.FirstOrDefaultAsync(foda => foda.Id == id);
+            _mapper.Map(request, req);
+            await _context.SaveChangesAsync();
+            return req;
         }
 
         public async Task<List<SedeFindAllResponse?>> Obtener()

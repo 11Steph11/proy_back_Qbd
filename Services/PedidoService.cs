@@ -32,6 +32,7 @@ namespace Proy_back_QBD.Services
                     return null;
                 }
             }
+            
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)

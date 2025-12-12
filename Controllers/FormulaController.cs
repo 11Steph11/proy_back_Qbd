@@ -35,10 +35,7 @@ public class FormulaController : ControllerBase
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
     public async Task<IActionResult> ActualizarFormula(int id, int sedeId, [FromBody] FormulaUpdateReq request)
     {
-        if (request == null)
-        {
-            return BadRequest("Datos incorrectos");
-        }
+        Console.Write("w");
         FormulaUpdateResponse? response = await _formulaService.Actualizar(id, sedeId, request);
 
         return Ok(response);

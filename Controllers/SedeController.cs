@@ -31,6 +31,13 @@ public class SedeController : ControllerBase
         Sede? response = await _sedeService.Crear(sede);
         return Ok(response);
     }
+    [HttpPut("{sedeId}")]
+    public async Task<IActionResult> ActualizarSede(int sedeId, [FromBody] SedeUpdateReq request)
+    {
+        Sede? response = await _sedeService.Actualizar(sedeId, request);
+        return Ok(response);
+    }
+
     [HttpGet]
     [SwaggerResponse(200, "Operación exitosa", typeof(SedeFindAllResponse))]
     public async Task<IActionResult> ObtenerSede()
@@ -42,6 +49,7 @@ public class SedeController : ControllerBase
         }
         return Ok(response);
     }
+
     [HttpGet("msgs/{id}")]
     [SwaggerResponse(200, "Operación exitosa", typeof(GeneralRes))]
     public async Task<IActionResult> DatosGenerales(int id)
@@ -64,5 +72,5 @@ public class SedeController : ControllerBase
         }
         return Ok(response);
     }
-    
+
 }
