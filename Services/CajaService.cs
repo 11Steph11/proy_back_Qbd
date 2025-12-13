@@ -168,7 +168,7 @@ namespace Proy_back_QBD.Services
                 || item.Modalidad.Trim().ToUpper() == "PLIN"
                 || item.Modalidad.Trim().ToUpper() == "DEPOSITO"
                 || item.Modalidad.Trim().ToUpper() == "TARJETA CREDITO"
-                || item.Modalidad.Trim().ToUpper() == "TARJETA DEBITO"
+                || item.Modalidad.Trim().ToUpper() == "TARJETA DE DÉBITO"
                 )
                 {
                     bqPagos.Electronico += item.Importe;
@@ -186,7 +186,7 @@ namespace Proy_back_QBD.Services
                 || item.Modalidad.Trim().ToUpper() == "PLIN"
                 || item.Modalidad.Trim().ToUpper() == "DEPOSITO"
                 || item.Modalidad.Trim().ToUpper() == "TARJETA CREDITO"
-                || item.Modalidad.Trim().ToUpper() == "TARJETA DEBITO"
+                || item.Modalidad.Trim().ToUpper() == "TARJETA DE DÉBITO"
                 )
                 {
                     recaudDia.Electronico += item.Importe;
