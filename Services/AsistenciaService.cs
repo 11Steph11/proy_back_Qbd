@@ -28,10 +28,11 @@ namespace Proy_back_QBD.Services
             {
                 return null;
             }
-            DateTime fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime fechaFiltro = new DateTime(año, mes, 1, 0, 0, 0);
+            
             var lista = await _context.Asistencias
-                .Where(a => a.CreadorId == id && a.FechaCreacion.Month == fechaFiltro.Month && a.SedeId == sedeId)
-                .GroupBy(a => a.FechaCreacion.Date)
+                .Where(a => a.CreadorId == id && a.FechaCreacion.AddHours(-5).Year == año  && a.FechaCreacion.AddHours(-5).Month == mes && a.SedeId == sedeId)
+                .GroupBy(a => a.FechaCreacion.AddHours(-5).Date)
                 .Select(g => new FechaConHoras
                 {
                     Dia = g.Key.ToString("dddd", new CultureInfo("es-ES")) + "-" + g.Key.Day,
@@ -55,6 +56,7 @@ namespace Proy_back_QBD.Services
                       .FirstOrDefault(),
                 })
                 .ToListAsync();
+
             if (lista == null || lista.Count == 0)
             {
                 return null;

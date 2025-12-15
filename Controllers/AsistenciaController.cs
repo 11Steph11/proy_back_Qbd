@@ -39,6 +39,7 @@ public class AsistenciaController : ControllerBase
         }
         return Ok(response);
     }
+    
     /// <summary>
     /// Obtiene las asistencias agrupadas por día dentro de una fecha para un usuario específico.
     /// </summary>
