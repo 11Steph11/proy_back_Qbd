@@ -56,7 +56,7 @@ namespace Proy_back_QBD.Services
             LabFindPedIdRes? response = await _db.Pedidos
                                         .Include(i => i.Paciente.Persona)
                                         .Include(i => i.Medico.Persona)
-                                        .Where(w => w.Id == id)
+                                        .Where(w => w.Id == id && w.SedeId == sedeId)
                                         .Select(s => new LabFindPedIdRes
                                         {
                                             DNI = s.Paciente.Persona.Dni ?? s.Paciente.DniApoderado,

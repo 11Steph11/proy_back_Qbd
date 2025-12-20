@@ -34,6 +34,8 @@ builder.Services.AddAutoMapper(cfg =>
 });
 builder.Configuration
     .AddEnvironmentVariables();
+builder.Logging.ClearProviders(); // Limpia los proveedores de logging por defecto
+builder.Logging.AddConsole();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISedeService, SedeService>();
 builder.Services.AddScoped<IAsistenciaService, AsistenciaService>();
@@ -86,6 +88,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Configurar conexión a PostgreSQL
 var configuration = builder.Configuration;
+
 var connectionString = configuration.GetConnectionString("DefaultConnection") ??
     $"Host={configuration["POSTGRES_HOST"]};" +
     $"Port={configuration["POSTGRES_PORT"]};" +
@@ -124,5 +127,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("Swagger disponible en: http://localhost:5051/swagger");
+logger.LogInformation("Swagger disponible en: http://localhost:5051/swagger" + "\n" + "4554654654754");
 app.Run();
