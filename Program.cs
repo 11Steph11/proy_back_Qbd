@@ -127,5 +127,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("Swagger disponible en: http://localhost:5051/swagger" + "\n" + "4554654654754");
+logger.LogInformation("\nSwagger disponible en:".PadRight(30,' ') + " http://localhost:5051/swagger" + "\n" + "API KEY:".PadRight(30, ' ') + "4554654654754");
 app.Run();
