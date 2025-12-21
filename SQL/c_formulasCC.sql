@@ -1,0 +1,16 @@
+SELECT
+    registro AS formula_id,
+    cod_i AS insumo_id,
+    v AS variable,
+    QU AS cantidad_U,
+    QL AS cantidad_L,
+    pract AS practica,
+    csp,
+    fecha_creacion,
+    fecha_creacion AS fecha_modificacion,
+    usuario AS creador_id,
+    usuario AS modificador_id,
+    porcentaje,
+    4 AS sede_id
+FROM
+    formulasCC;

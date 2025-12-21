@@ -1,0 +1,12 @@
+id
+descripcion
+procedimiento
+aspecto
+color
+olor
+ph
+fecha_creacion
+fecha_modificacion
+creador_id
+modificador_id
+empaqueId
