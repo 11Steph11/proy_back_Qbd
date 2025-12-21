@@ -12,6 +12,7 @@ namespace Proy_back_QBD.Dto.Response
     public class AutorizadoEla
     {
         public int? Id { get; set; }
+        public int? Rol { get; set; }
         public string? NombreCompleto { get; set; }
     }
     public class UsuarioLoginDataRes

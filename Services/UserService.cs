@@ -164,6 +164,7 @@ namespace Proy_back_QBD.Services
             .Select(s => new AutorizadoEla
             {
                 Id = s.Id,
+                Rol = s.TipoId,
                 NombreCompleto = s.Persona.NombreCompleto,
             })
             .ToListAsync();
