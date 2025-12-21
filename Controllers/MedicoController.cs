@@ -33,6 +33,7 @@ public class MedicoController : ControllerBase
 
         return Ok(response);
     }
+
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(MedicoUpdateResponse))]
     public async Task<IActionResult> ActualizarMedico(int id, [FromBody] MedicoUpdateReq request)
@@ -45,6 +46,7 @@ public class MedicoController : ControllerBase
 
         return Ok(response);
     }
+
     [HttpDelete("{id}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(Medico))]
     public async Task<IActionResult> EliminarMedico(int id)

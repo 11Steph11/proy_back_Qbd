@@ -101,6 +101,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? FechaEmision { get; set; }
         public string? FechaVencimiento { get; set; }
         public string? CMP { get; set; }
+        public string? CQFP { get; set; }
         public string? Medico { get; set; }
         public string? Direccion { get; set; }
         public string? AutorizadoPor { get; set; }

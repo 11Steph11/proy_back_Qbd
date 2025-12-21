@@ -49,6 +49,7 @@ public class FormulaController : ControllerBase
         if (response == null) return NotFound();
         return Ok(response);
     }
+    
     [HttpGet("detalles/{formulaId}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(DetallesRes))]
     public async Task<IActionResult> ObtenerDetalles(int formulaId, int sedeId)

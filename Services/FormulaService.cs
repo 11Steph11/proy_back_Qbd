@@ -299,6 +299,7 @@ namespace Proy_back_QBD.Services
                 CMP = s.Pedido.Medico.Cmp,
                 Medico = s.Pedido.Medico.Persona.NombreCompleto,
                 AutorizadoPor = s.Laboratorio.AutorizadoU.Persona.NombreCompleto,
+                CQFP = s.Laboratorio.AutorizadoU.CQFP,
                 Direccion = s.Pedido.Sede.Direccion
             }
             )
