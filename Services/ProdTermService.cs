@@ -138,6 +138,7 @@ namespace Proy_back_QBD.Services
 
             pedido.Total -= prodTerm.Costo * prodTerm.Cantidad;
             pedido.Saldo -= prodTerm.Costo * prodTerm.Cantidad;
+            pedido.Adelanto = pedido.Total - pedido.Saldo;
             await _context.SaveChangesAsync();
             return prodTerm;
         }

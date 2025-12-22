@@ -152,9 +152,9 @@ namespace Proy_back_QBD.Services
             Formula? formula = await _context.Formulas
            .FirstOrDefaultAsync(f => f.Id == id && f.SedeId == sedeId);
             _context.Formulas.Remove(formula);
-            await _context.SaveChangesAsync();
             Pedido? pedido = await _context.Pedidos.FindAsync(formula.PedidoId, sedeId);
-            pedido.Total -= formula.Costo * formula.Cantidad;
+            pedido.Total = pedido.Total - (formula.Costo * formula.Cantidad);
+            pedido.Adelanto = pedido.Total - pedido.Saldo;
 
             bool b = await _context.Formulas.AnyAsync(fod => fod.PedidoId == pedido.Id);
             bool b2 = await _context.ProdTerms.AnyAsync(fod => fod.PedidoId == pedido.Id);
