@@ -33,6 +33,7 @@ namespace Proy_back_QBD.Services
         }
         public async Task<FormulaUpdateResponse?> Actualizar(int id, int sedeId, FormulaUpdateReq request)
         {
+            
             FormulaUpdateResponse response = new FormulaUpdateResponse();
 
             Formula? formulaFind = await _context.Formulas

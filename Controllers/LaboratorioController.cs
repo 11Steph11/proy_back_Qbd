@@ -16,6 +16,7 @@ namespace Proy_back_QBD.Controllers
     [Route("api/laboratorio")]
     public class LaboratorioController : Controller
     {
+        
         private readonly ILogger<LaboratorioController> _logger;
         private readonly ILaboratorioService _labService;
 

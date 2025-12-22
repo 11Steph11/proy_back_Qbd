@@ -20,16 +20,20 @@ namespace Proy_back_QBD.Services
 
         public async Task<List<FormulaCC>>? Actualizar(int formulaId, int sedeId, FormulaCCUpdReqP request)
         {
+
             List<FormulaCC>? formulasCC = await _context.FormulasCC
             .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)
             .ToListAsync();
+
             if (formulasCC == null)
             {
                 return null;
             }
+
             IEnumerable<int> InsumosReq = request.FormulaCCs.Select(s => s.InsumoId);
             IEnumerable<int> InsumosFormulas = formulasCC.Select(s => s.InsumoId);
             List<FormulaCC>? auxiliar = new();
+
             foreach (var formula in request.FormulaCCs)
             {
                 if (!InsumosFormulas.Contains(formula.InsumoId))
@@ -54,11 +58,14 @@ namespace Proy_back_QBD.Services
                     }
                 }
             }
+            
             Laboratorio? laboratorio = await _context.Laboratorios.FirstOrDefaultAsync(foda => foda.Id == formulaId && foda.SedeId == sedeId);
             if (laboratorio == null)
                 return null;
-
+            
             laboratorio.Procedimiento = request.Procedimiento;
+            laboratorio.EmpaqueId = request.EmpaqueId;
+            
             await _context.SaveChangesAsync();
             return auxiliar;
         }

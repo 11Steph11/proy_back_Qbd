@@ -30,6 +30,7 @@ public class FormulaRController : ControllerBase
 
         return Ok(response);
     }
+
     [HttpPost]
     [SwaggerResponse(200, "Creacion exitosa", typeof(string))]
     public async Task<IActionResult> CrearFormulaR(FormulaRCreReq request)
@@ -44,6 +45,7 @@ public class FormulaRController : ControllerBase
 
         return Ok(response);
     }
+
     [HttpPut("{id}")]
     [SwaggerResponse(200, "Actualizar exitosa", typeof(string))]
     public async Task<IActionResult> ActualizarFormulaR(int id, FormulaRUpdReq request)
@@ -57,6 +59,7 @@ public class FormulaRController : ControllerBase
 
         return Ok(response);
     }
+    
     [HttpDelete("{id}")]
     [SwaggerResponse(200, "Actualizar exitosa", typeof(string))]
     public async Task<IActionResult> EliminarFormulaR(int id)

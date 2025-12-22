@@ -15,6 +15,7 @@ namespace Proy_back_QBD.Dto.Request
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         public int CreadorId { get; set; }
     }
+    
         public class FormulaCreateReq
     {
         public int? PedidoId { get; set; }                    // Costo del pedido
@@ -30,6 +31,7 @@ namespace Proy_back_QBD.Dto.Request
         public string? Reportado { get; set; }                   // Si ha sido reportado o no (valor booleano)
         public int CreadorId { get; set; }
     }
+
     public class FormulaUpdateReq
     {
         public decimal Costo { get; set; }                    // Costo del pedido

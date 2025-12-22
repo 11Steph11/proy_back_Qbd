@@ -31,6 +31,7 @@ public class FormulaController : ControllerBase
         FormulaCreateResponse? response = await _formulaService.CrearFormPed(request);
         return Ok(response);
     }
+    
     [HttpPut("{id}/{sedeId}")]
     [SwaggerResponse(200, "Actualizacion exitosa", typeof(FormulaUpdateResponse))]
     public async Task<IActionResult> ActualizarFormula(int id, int sedeId, [FromBody] FormulaUpdateReq request)
