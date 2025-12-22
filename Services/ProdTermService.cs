@@ -130,7 +130,7 @@ namespace Proy_back_QBD.Services
             {
                 pedido.Estado = "PENDIENTE";
             }
-            
+
             if (b == false && b2 == true)
             {
                 pedido.Estado = "PT";
@@ -138,7 +138,7 @@ namespace Proy_back_QBD.Services
 
             pedido.Total -= prodTerm.Costo * prodTerm.Cantidad;
             pedido.Saldo -= prodTerm.Costo * prodTerm.Cantidad;
-
+            await _context.SaveChangesAsync();
             return prodTerm;
         }
 

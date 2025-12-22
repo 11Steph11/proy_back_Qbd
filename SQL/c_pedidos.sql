@@ -1,27 +1,35 @@
-SELECT Nz (
+SELECT
+    Nz (
         F.estadox,
         IIf (Nz (PT.costo_productos, 0) > 0, 'PT', 'NINGUNO')
-    ) AS estado, P0.Numero AS paciente_id, P0.img1, P0.img2, P0.img3, P0.comprobante_electronico, P0.fecha_creacion, P0.fecha_modificacion,
-    
-      Switch(
-        UCase([Usuario])='ADMIN', 1,
-        UCase([Usuario])='FJBM', 1,
-        UCase([Usuario])='DMAB', 2,
-        UCase([Usuario])='RVG', 3,
-        UCase([Usuario])='MJRV', 4,
-        UCase([Usuario])='GABJ', 5,
-        UCase([Usuario])='LMV', 6,
-        UCase([Usuario])='LTP', 7,
-        UCase([Usuario])='NUQ', 8,
-        UCase([Usuario])='ECY', 9,
-        UCase([Usuario])='ECE', 9,
-        UCase([Usuario])='AVG', 10
-    ) AS creador_id,
-     
-      creador_id AS modificador_id, Null AS fecha_entrega, P0.medico_id, C.adelanto AS adelanto, (total - adelanto) AS saldo, (
+    ) AS estado,
+    P0.Numero AS paciente_id,
+    P0.img1,
+    P0.img2,
+    P0.img3,
+    P0.comprobante_electronico,
+    P0.fecha_creacion,
+    P0.fecha_modificacion,
+    creador_id,
+    creador_id AS modificador_id,
+    Null AS fecha_entrega,
+    P0.medico_id,
+    C.adelanto AS adelanto,
+    (total - adelanto) AS saldo,
+    (
         Nz (F.costo_formulas, 0) + Nz (PT.costo_productos, 0)
-    ) AS total, '1' AS sede_id, P0.img4, Null AS img5, Null AS img6, P0.recibo, REPLACE(P.CuoP, 'BDRP-', '') AS CuoP
-FROM (((SELECT
+    ) AS total,
+    '4' AS sede_id,
+    P0.img4,
+    Null AS img5,
+    Null AS img6,
+    P0.recibo,
+    REPLACE (P.CuoP, 'BDRP-', '') AS CuoP
+FROM
+    (
+        (
+            (
+                SELECT
                     P.CuoP,
                     P.Numero,
                     P.img_receta_1 AS img1,
@@ -37,7 +45,9 @@ FROM (((SELECT
                     P.boleta AS recibo
                 FROM
                     Pedidos AS P
-            )  AS P0 LEFT JOIN (SELECT
+            ) AS P0
+            LEFT JOIN (
+                SELECT
                     CuoF,
                     SUM(Costo) AS costo_formulas,
                     FIRST (Estado) AS estadox
@@ -45,18 +55,24 @@ FROM (((SELECT
                     Formulas
                 GROUP BY
                     CuoF
-            )  AS F ON P0.CuoP = F.CuoF) LEFT JOIN (SELECT
+            ) AS F ON P0.CuoP = F.CuoF
+        )
+        LEFT JOIN (
+            SELECT
                 Cuo_P,
                 SUM(Importe) AS adelanto
             FROM
                 Cobros
             GROUP BY
                 Cuo_P
-        )  AS C ON P0.CuoP = C.Cuo_P) LEFT JOIN (SELECT
+        ) AS C ON P0.CuoP = C.Cuo_P
+    )
+    LEFT JOIN (
+        SELECT
             CuoT,
             SUM(Costo) AS costo_productos
         FROM
             Productos_Terminados
         GROUP BY
             CuoT
-    )  AS PT ON P0.CuoP = PT.CuoT;
+    ) AS PT ON P0.CuoP = PT.CuoT;
