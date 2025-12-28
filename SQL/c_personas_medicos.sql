@@ -4,8 +4,8 @@ SELECT
     NULL AS dni,
     fecha_creacion,
     fecha_creacion AS fecha_modificacion,
-    Usuario AS creador_id,
-    Usuario AS modificador_id,
+    UCase(Usuario) AS creador_id,
+    creador_id AS modificador_id,
     NULL AS telefono,
     NULL AS direccion
 FROM

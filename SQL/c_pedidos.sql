@@ -10,8 +10,8 @@ SELECT
     P0.comprobante_electronico,
     P0.fecha_creacion,
     P0.fecha_modificacion,
-    creador_id,
-    creador_id AS modificador_id,
+    UCase(creador_id),
+    UCase(creador_id) AS modificador_id,
     Null AS fecha_entrega,
     P0.medico_id,
     C.adelanto AS adelanto,
@@ -24,7 +24,7 @@ SELECT
     Null AS img5,
     Null AS img6,
     P0.recibo,
-    REPLACE (P.CuoP, 'BDRP-', '') AS CuoP
+    P.CuoP AS CuoP
 FROM
     (
         (
@@ -38,8 +38,8 @@ FROM
                     P.comprobante_electronico AS comprobante_electronico,
                     P.fecha_creacion AS fecha_creacion,
                     P.fecha_creacion AS fecha_modificacion,
-                    P.Usuario AS creador_id,
-                    P.Usuario AS modificador_id,
+                    UCase(P.Usuario) AS creador_id,
+                    creador_id AS modificador_id,
                     P.cmp AS medico_id,
                     P.img_receta_4 AS img4,
                     P.boleta AS recibo

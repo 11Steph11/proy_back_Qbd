@@ -4,8 +4,8 @@ SELECT
     Numero AS dni,
     fecha_creacion,
     fecha_creacion AS fecha_modificacion,
-    Usuario AS creador_id,
-    Usuario AS modificador_id,
+    Ucase (Usuario) AS creador_id,
+    creador_id AS modificador_id,
     telefono,
     direccion
 FROM

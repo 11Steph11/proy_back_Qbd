@@ -4,7 +4,8 @@ SELECT
     porcentaje,
     fecha_creacion,
     fecha_creacion AS fecha_modificacion,
-    usuario AS creador_id,
-    usuario AS modificador_id
+    Ucase(usuario) AS creador_id,
+    creador_id AS modificador_id
 FROM
     InsumosR;
+    

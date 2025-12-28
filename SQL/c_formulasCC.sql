@@ -8,8 +8,8 @@ SELECT
     csp,
     fecha_creacion,
     fecha_creacion AS fecha_modificacion,
-    usuario AS creador_id,
-    usuario AS modificador_id,
+    UCASE(usuario) AS creador_id,
+    creador_id AS modificador_id,
     porcentaje,
     4 AS sede_id
 FROM
