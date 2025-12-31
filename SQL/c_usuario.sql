@@ -1,4 +1,5 @@
 SELECT
+    null as id,
     U.Usuario,
     U.Password AS contrasena,
     NULL AS tipo_id,

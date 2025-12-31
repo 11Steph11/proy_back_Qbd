@@ -1,4 +1,5 @@
 SELECT
+    codigo as gancho,
     Datos AS nombreCompleto,
     NULL AS fecha_nacimiento,
     CMP AS dni,

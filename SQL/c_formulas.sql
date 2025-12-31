@@ -12,8 +12,8 @@ formulas.costo AS costo,
         Fecha_Creacion AS fecha_modificacion, 
         Ucase(usuario) AS creador_id,
          creador_id AS modificador_id,
-          Registro AS pedido_id,
+          Registro AS id,
            null AS inserto,
             4 AS sede_id,
-             CuoF AS id
+             CuoF AS pedido_id
 FROM formulas;
