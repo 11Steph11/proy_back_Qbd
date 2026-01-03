@@ -322,7 +322,7 @@ namespace Proy_back_QBD.Services
             .Include(i => i.Laboratorio)
             .Include(i => i.FormulaCC)
             .ThenInclude(i => i.Insumo)
-            .Where(w => w.Id == formulaId)
+            .Where(w => w.Id == formulaId && w.SedeId == sedeId)
             .Select(s => new DetallesRes
             {
                 Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
