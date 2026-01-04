@@ -1,4 +1,5 @@
 SELECT
+    null as id,
     cmp as gancho_cmp,
     Datos AS nombreCompleto,
     NULL AS fecha_nacimiento,

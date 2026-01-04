@@ -1,4 +1,5 @@
 SELECT
+    null as id,
     Nombres_Apellidos AS nombreCompleto,
     Fecha_Ncto AS fecha_nacimiento,
     Numero AS dni,

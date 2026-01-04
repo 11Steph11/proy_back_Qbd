@@ -1,4 +1,5 @@
 SELECT
+    null as id,
     codigo as gancho,
     Datos AS nombreCompleto,
     NULL AS fecha_nacimiento,
@@ -11,4 +12,6 @@ SELECT
     NULL AS telefono,
     NULL AS direccion
 FROM
-    Trabajadores;
+    Trabajadores AS U
+    INNER JOIN Usuarios AS T ON T.Codigo = U.Usuario;
+    ;
