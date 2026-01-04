@@ -10,7 +10,7 @@ SELECT
     creador_id AS modificador_id,
     cuot AS pedido_id,
     codigo AS producto_id,
-    4 AS sede_id,
+    [sede] AS sede_id,
     iden AS id
 FROM
     Productos_Terminados;

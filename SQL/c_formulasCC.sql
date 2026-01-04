@@ -11,6 +11,6 @@ SELECT
     UCASE(usuario) AS creador_id,
     creador_id AS modificador_id,
     porcentaje,
-    4 AS sede_id
+    [sede] AS sede_id
 FROM
     formulasCC;

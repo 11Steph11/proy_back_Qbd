@@ -16,6 +16,6 @@ SELECT
     creador_id AS modificador_id,
     cod_e AS empaque_id,
     registro AS id,
-    4 AS sede_id
+    [sede] AS sede_id
 FROM
     Laboratorio;    
