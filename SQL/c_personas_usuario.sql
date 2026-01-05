@@ -7,8 +7,7 @@ SELECT
     fecha_creacion,
     fecha_creacion AS fecha_modificacion,
     '1' AS creador_id,
-    '1' AS modificador_id,
-    [sede] AS SedeId,
+    '1' AS modificador_id,    
     NULL AS telefono,
     NULL AS direccion
 FROM

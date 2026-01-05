@@ -19,7 +19,7 @@ SELECT
     (
         Nz (F.costo_formulas, 0) + Nz (PT.costo_productos, 0)
     ) AS total,
-    [sede] AS sede_id,
+    3 AS sede_id,
     P0.img4,
     Null AS img5,
     Null AS img6,

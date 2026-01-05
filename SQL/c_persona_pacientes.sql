@@ -1,8 +1,8 @@
 SELECT
+    Numero AS dni,
     null as id,
     Nombres_Apellidos AS nombreCompleto,
-    Fecha_Ncto AS fecha_nacimiento,
-    Numero AS dni,
+    Fecha_Ncto AS fecha_nacimiento,    
     fecha_creacion,
     fecha_creacion AS fecha_modificacion,
     Ucase (Usuario) AS creador_id,

@@ -1,6 +1,5 @@
 SELECT
     null as id,
-    U.Usuario,
     U.Password AS contrasena,
     NULL AS tipo_id,
     T.Fecha_Creacion AS fecha_creacion,
@@ -13,8 +12,8 @@ SELECT
     NULL AS cqfp,
     T.horario_almuerzo,
     T.horario_regreso,
-    NULL AS codigo,
-    [sede] AS sedeId
+    U.Usuario AS codigo,
+    3 AS sedeId
 FROM
     Usuarios AS U
     INNER JOIN Trabajadores AS T ON T.Codigo = U.Usuario;

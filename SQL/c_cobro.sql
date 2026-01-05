@@ -7,7 +7,7 @@ SELECT
     hora AS fecha_modificacion,
     UCase (Usuario) AS creador_id,
     UCase (Usuario) AS modificador_id,
-    [sede] AS sede_id,
+    3 AS sede_id,
     CuoC AS id
 FROM
     Cobros;

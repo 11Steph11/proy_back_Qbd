@@ -14,6 +14,6 @@ formulas.costo AS costo,
          creador_id AS modificador_id,
           Registro AS id,
            null AS inserto,
-            [sede] AS sede_id,
+            3 AS sede_id,
              CuoF AS pedido_id
 FROM formulas;

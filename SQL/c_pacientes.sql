@@ -1,4 +1,5 @@
 SELECT
+    null as id,
     Numero as gancho,
     apoderado,
     DniA AS dni_apoderado,
