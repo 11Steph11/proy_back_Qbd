@@ -9,6 +9,6 @@ SELECT
     fecha_creacion,
     UCase(Usuario) AS creador_id,
     creador_id AS modificador_id,
-    3 AS sede_id
+    2 AS sede_id
 
 FROM Asistencia;

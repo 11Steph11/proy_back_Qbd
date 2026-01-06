@@ -13,7 +13,7 @@ SELECT
     T.horario_almuerzo,
     T.horario_regreso,
     U.Usuario AS codigo,
-    3 AS sedeId
+     AS sedeId
 FROM
     Usuarios AS U
     INNER JOIN Trabajadores AS T ON T.Codigo = U.Usuario;

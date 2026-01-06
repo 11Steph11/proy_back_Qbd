@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Productos;
@@ -13,18 +14,33 @@ namespace Proy_back_QBD.Services
 {
     public class LaboratorioService : ILaboratorioService
     {
-        private readonly ApiContext _db;
+        private readonly ApiContext _context;
         private readonly IMapper _Mappers;
         public LaboratorioService(ApiContext db, IMapper Mappers)
         {
-            _db = db;
+            _context = db;
             _Mappers = Mappers;
+        }
+
+        public async Task<string> EditarElaborado(int labId, int sedeId, int idElaborado)
+        {
+            Laboratorio? lab = await _context.Laboratorios
+            .Where(w => w.Id == labId && w.SedeId == sedeId)
+            .FirstOrDefaultAsync()
+            ;
+            if (lab == null)
+            {
+                return "no encontrado";
+            }
+            lab.Elaborado = idElaborado;
+
+            return "Cambio Exitoso";
         }
 
         public async Task<List<PedidoLab>> ListaLab(int sedeId)
         {
 
-            var pedidosLab = await _db.Laboratorios
+            var pedidosLab = await _context.Laboratorios
                                         .Include(i => i.Formula.Pedido.Paciente.Persona)
                                         .Include(i => i.Formula.Laboratorio.ElaboradoU.Persona)
                                         .Where(w => w.Formula.Pedido.SedeId == sedeId)
@@ -53,7 +69,7 @@ namespace Proy_back_QBD.Services
             id = int.Parse(partes);
 
 
-            LabFindPedIdRes? response = await _db.Pedidos
+            LabFindPedIdRes? response = await _context.Pedidos
                                         .Include(i => i.Paciente.Persona)
                                         .Include(i => i.Medico.Persona)
                                         .Where(w => w.Id == id && w.SedeId == sedeId)
@@ -98,7 +114,7 @@ namespace Proy_back_QBD.Services
             string response;
             bool valor;
 
-            valor = await _db.Laboratorios
+            valor = await _context.Laboratorios
             .Where(w => w.Id == request.Lab.FormulaId && w.SedeId == request.Lab.SedeId)
             .AnyAsync()
             ;
@@ -116,12 +132,12 @@ namespace Proy_back_QBD.Services
                 formulaCC.FormulaId = request.Lab.FormulaId;
                 formulaCC.SedeId = request.Lab.SedeId;
                 formulaCC.ModificadorId = formulaCC.CreadorId;
-                _db.FormulasCC.Add(formulaCC);
+                _context.FormulasCC.Add(formulaCC);
             }
 
-            _db.Laboratorios.Add(laboratorio);
+            _context.Laboratorios.Add(laboratorio);
 
-            await _db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             response = "Registro exitoso";
             return response;

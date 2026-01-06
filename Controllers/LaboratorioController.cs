@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Proy_back_QBD.Dto.Productos;
 using Proy_back_QBD.Dto.Response;
+using Proy_back_QBD.Models;
 using Proy_back_QBD.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -16,7 +17,7 @@ namespace Proy_back_QBD.Controllers
     [Route("api/laboratorio")]
     public class LaboratorioController : Controller
     {
-        
+
         private readonly ILogger<LaboratorioController> _logger;
         private readonly ILaboratorioService _labService;
 
@@ -33,8 +34,8 @@ namespace Proy_back_QBD.Controllers
             List<PedidoLab> response = await _labService.ListaLab(sedeId);
             if (response == null)
             {
-            return BadRequest();
-                
+                return BadRequest();
+
             }
             return Ok(response);
         }
@@ -70,6 +71,14 @@ namespace Proy_back_QBD.Controllers
 
             return Ok(response);
         }
-        
+        [HttpPut("elaborado/{IdLab}/{sedeId}")]
+        [SwaggerResponse(200, "Registro exitosa", typeof(string))]
+        public async Task<IActionResult> ActualizarEntregado(int IdLab, int sedeId, [FromBody] int IdElaborado)
+        {
+            string response = await _labService.EditarElaborado(IdLab, sedeId, IdElaborado);
+            
+            return Ok(response);
+        }
+
     }
 }
