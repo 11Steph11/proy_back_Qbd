@@ -34,6 +34,8 @@ namespace Proy_back_QBD.Services
             }
             lab.Elaborado = idElaborado;
 
+            await _context.SaveChangesAsync();
+
             return "Cambio Exitoso";
         }
 
