@@ -289,6 +289,7 @@ namespace Proy_back_QBD.Services
                     Dni = a.Paciente.Persona.Dni,
                     Paciente = a.Paciente.Persona.NombreCompleto,
                     PacienteId = a.PacienteId,
+                    Edad = PacienteService.CalcularEdad(a.Paciente.Persona.FechaNacimiento),
                     Recibo = a.Recibo,
                     Celular = a.Paciente.Persona.Telefono,
                     Medico = $"{a.Medico.Persona.NombreCompleto}",

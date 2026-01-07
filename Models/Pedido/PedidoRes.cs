@@ -11,6 +11,7 @@ namespace Proy_back_QBD.Dto.Response
         public string? Recibo { get; set; }
         public string? Dni { get; set; }
         public string? Paciente { get; set; }
+        public string? Edad { get; set; }
         public int? PacienteId { get; set; }
         public string? Celular { get; set; }
         public string? Medico { get; set; }
