@@ -54,6 +54,8 @@ namespace Proy_back_QBD.Dto.Request
         public string? FormaFarmaceutica { get; set; }
         public string GPorMl { get; set; }
         public string? UnidadMedida { get; set; }
+        public DateOnly FechaEmision { get; set; }
+        public DateOnly FechaVcto { get; set; }
         public int ModificadorId { get; set; }
     }
     public class FormulaCambiarTipo
