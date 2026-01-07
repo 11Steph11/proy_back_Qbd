@@ -14,6 +14,7 @@ namespace Proy_back_QBD.Dto.Response
         public int? PacienteId { get; set; }
         public string? Celular { get; set; }
         public string? Medico { get; set; }
+        public string? Cmp { get; set; }
         public decimal? Total { get; set; }
         public decimal? Adelanto { get; set; }
         public decimal? Saldo { get; set; }

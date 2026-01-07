@@ -292,6 +292,7 @@ namespace Proy_back_QBD.Services
                     Recibo = a.Recibo,
                     Celular = a.Paciente.Persona.Telefono,
                     Medico = $"{a.Medico.Persona.NombreCompleto}",
+                    Cmp = a.Medico.Cmp,
                     Total = a.Total,
                     Adelanto = a.Adelanto,
                     Saldo = a.Saldo,
