@@ -147,7 +147,6 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-
         public async Task<Formula?> Eliminar(int id, int sedeId)
         {
             Formula? formula = await _context.Formulas
@@ -173,7 +172,6 @@ namespace Proy_back_QBD.Services
             await _context.SaveChangesAsync();
             return formula;
         }
-
         public async Task<List<RecetaRes>?> ListarReceta(int sedeId)
         {
             List<RecetaRes> response = await _context.Formulas
@@ -227,6 +225,8 @@ namespace Proy_back_QBD.Services
                         NReg = "REG-" + s.Id,
                         Lote = s.Lote,
                         Diagnostico = s.Diagnostico,
+                        FechaEmision = s.Laboratorio.FechaEmision,
+                        FechaVcto = s.Laboratorio.FechaVcto,
                         Zona = s.ZonaAplicacion,
                     }).ToList()
                 })
@@ -257,7 +257,6 @@ namespace Proy_back_QBD.Services
 
 
         }
-
         public async Task<Formula?> ActualizarLab(int formulaId, int sedeId, FormulaUpdLabReq request)
         {
 
@@ -284,7 +283,6 @@ namespace Proy_back_QBD.Services
 
             return formula;
         }
-
         public async Task<EtiquetaRes?> ObtenerEtiqueta(int formulaId, int sedeId)
         {
             EtiquetaRes? res = await _context.Formulas

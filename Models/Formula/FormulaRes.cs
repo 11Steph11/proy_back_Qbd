@@ -74,6 +74,8 @@ namespace Proy_back_QBD.Dto.Response
         public string? FormulaMagistral { get; set; }
         public string? GPorMl { get; set; }
         public string? NReg { get; set; }
+        public DateOnly? FechaEmision { get; set; }
+        public DateOnly? FechaVcto { get; set; }
         public string? Lote { get; set; }
         public string? Diagnostico { get; set; }
         public string? Zona { get; set; }
