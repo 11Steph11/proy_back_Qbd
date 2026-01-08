@@ -107,6 +107,8 @@ namespace Proy_back_QBD.Services
                 FormulaMagistral = s.Formula.FormulaMagistral,
                 FormaFarmaceutica = s.Formula.FormaFarmaceutica,
                 Lote = s.Formula.Lote,
+                FechaEmision = s.Formula.Laboratorio.FechaEmision,
+                FechaVcto = s.Formula.Laboratorio.FechaVcto,
                 NroReg = "REG-" + s.Formula.Id,
                 Cantidad = s.Formula.Cantidad,
                 GPorMl = s.Formula.GPorMl,

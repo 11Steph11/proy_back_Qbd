@@ -225,8 +225,6 @@ namespace Proy_back_QBD.Services
                         NReg = "REG-" + s.Id,
                         Lote = s.Lote,
                         Diagnostico = s.Diagnostico,
-                        FechaEmision = s.Laboratorio.FechaEmision,
-                        FechaVcto = s.Laboratorio.FechaVcto,
                         Zona = s.ZonaAplicacion,
                     }).ToList()
                 })

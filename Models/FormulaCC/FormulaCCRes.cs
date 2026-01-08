@@ -18,6 +18,8 @@ namespace Proy_back_QBD.Models
         public string FormaFarmaceutica { get; set; }
         public string Lote { get; set; }
         public string NroReg { get; set; }
+        public DateOnly FechaEmision { get; set; }
+        public DateOnly FechaVcto { get; set; }
         public int Cantidad { get; set; }
         public string GPorMl { get; set; }
         public string UnidadMedida { get; set; }
