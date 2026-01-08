@@ -115,7 +115,9 @@ namespace Proy_back_QBD.Services
                 UnidadMedida = s.Formula.UnidadMedida,
                 CostoTotal = s.Formula.Costo,
                 EmpaqueId = s.Formula.Laboratorio.EmpaqueId,
-                Procedimiento = s.Formula.Laboratorio.Procedimiento                
+                Procedimiento = s.Formula.Laboratorio.Procedimiento,
+                Diagnostico = s.Formula.Diagnostico,
+                ZonaAplicacion = s.Formula.ZonaAplicacion                
             })
             .FirstOrDefaultAsync();
             if (response == null)

@@ -27,6 +27,8 @@ namespace Proy_back_QBD.Models
         public List<FormulaCCLabSubRes> insumos { get; set; }
         public int? EmpaqueId { get; set; }
         public string? Procedimiento { get; set; }
+        public string? Diagnostico { get; set; }
+        public string? ZonaAplicacion { get; set; }
     }
     public class FormulaCCLabSubRes
     {

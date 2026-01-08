@@ -275,6 +275,8 @@ namespace Proy_back_QBD.Services
             formula.Laboratorio.FechaEmision = request.FechaEmision;
             formula.Laboratorio.FechaVcto = request.FechaVcto;
             formula.UnidadMedida = request.UnidadMedida;
+            formula.Diagnostico = request.UnidadMedida;
+            formula.ZonaAplicacion = request.UnidadMedida;
             formula.ModificadorId = request.ModificadorId;
 
             await _context.SaveChangesAsync();
