@@ -275,6 +275,8 @@ namespace Proy_back_QBD.Services
             formula.Laboratorio.FechaEmision = request.FechaEmision;
             formula.Laboratorio.FechaVcto = request.FechaVcto;
             formula.UnidadMedida = request.UnidadMedida;
+            formula.Laboratorio.Autorizado = request.Autorizado;
+            formula.Laboratorio.Elaborado = request.Elaborado;
             formula.Diagnostico = request.UnidadMedida;
             formula.ZonaAplicacion = request.UnidadMedida;
             formula.ModificadorId = request.ModificadorId;
@@ -314,7 +316,6 @@ namespace Proy_back_QBD.Services
             }
             return res;
         }
-
         public async Task<DetallesRes?> ObtenerDetalles(int formulaId, int sedeId)
         {
             DetallesRes? response = await _context.Formulas
@@ -378,7 +379,6 @@ namespace Proy_back_QBD.Services
 
             return response;
         }
-
         public async Task<string?> CambiarTipo(FormulaCambiarTipo request)
         {
             // Obtener todas las fórmulas que coinciden
@@ -400,7 +400,6 @@ namespace Proy_back_QBD.Services
 
             return "Cambios realizados";
         }
-
         public async Task<InsertoRes?> ObtenerInserto(int formulaId, int sedeId)
         {
             InsertoRes? Inserto = await _context.Formulas

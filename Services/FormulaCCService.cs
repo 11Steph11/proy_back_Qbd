@@ -112,12 +112,14 @@ namespace Proy_back_QBD.Services
                 NroReg = "REG-" + s.Formula.Id,
                 Cantidad = s.Formula.Cantidad,
                 GPorMl = s.Formula.GPorMl,
+                Elaborado = s.Formula.Laboratorio.Elaborado,
+                Autorizado = s.Formula.Laboratorio.Autorizado,
                 UnidadMedida = s.Formula.UnidadMedida,
                 CostoTotal = s.Formula.Costo,
                 EmpaqueId = s.Formula.Laboratorio.EmpaqueId,
                 Procedimiento = s.Formula.Laboratorio.Procedimiento,
                 Diagnostico = s.Formula.Diagnostico,
-                ZonaAplicacion = s.Formula.ZonaAplicacion                
+                ZonaAplicacion = s.Formula.ZonaAplicacion
             })
             .FirstOrDefaultAsync();
             if (response == null)

@@ -22,6 +22,8 @@ namespace Proy_back_QBD.Models
         public DateOnly FechaVcto { get; set; }
         public int Cantidad { get; set; }
         public string GPorMl { get; set; }
+        public int? Elaborado { get; set; }
+        public int? Autorizado { get; set; }
         public string UnidadMedida { get; set; }
         public decimal CostoTotal { get; set; }
         public List<FormulaCCLabSubRes> insumos { get; set; }
