@@ -82,7 +82,7 @@ namespace Proy_back_QBD.Services
             List<MovTerm> MovsAnt = await _context.Cobros
             .Where(w => pedidosId.Contains(w.PedidoId) &&
             DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio &&
-            DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal
+            DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal && w.SedeId == sedeId
              )
             .Select(s => new MovTerm
             {
@@ -104,7 +104,7 @@ namespace Proy_back_QBD.Services
                        .ToList();
 
             List<UltimosCobros?> UltimosCobros = await _context.Cobros
-.Where(w => idMovsTerm.Contains(w.PedidoId))
+.Where(w => idMovsTerm.Contains(w.PedidoId) && w.SedeId == sedeId)
 .GroupBy(gb => gb.PedidoId)
 .Select(s => new UltimosCobros
 {
@@ -132,7 +132,7 @@ namespace Proy_back_QBD.Services
 
 
                 movsTerm = await _context.Cobros
-               .Where(w => pedidoBQ.Contains(w.PedidoId))
+               .Where(w => pedidoBQ.Contains(w.PedidoId) && w.SedeId == sedeId)
                .Select(s => new MovTerm
                {
                    Modalidad = s.Modalidad,
