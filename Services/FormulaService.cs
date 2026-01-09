@@ -277,8 +277,8 @@ namespace Proy_back_QBD.Services
             formula.UnidadMedida = request.UnidadMedida;
             formula.Laboratorio.Autorizado = request.Autorizado;
             formula.Laboratorio.Elaborado = request.Elaborado;
-            formula.Diagnostico = request.UnidadMedida;
-            formula.ZonaAplicacion = request.UnidadMedida;
+            formula.Diagnostico = request.Diagnostico;
+            formula.ZonaAplicacion = request.ZonaAplicacion;
             formula.ModificadorId = request.ModificadorId;
 
             await _context.SaveChangesAsync();
