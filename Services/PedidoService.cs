@@ -275,6 +275,7 @@ namespace Proy_back_QBD.Services
             var response = await _context.Pedidos
                 .Include(a => a.Paciente.Persona)
                 .Include(a => a.Medico.Persona)
+                .Include(a => a.Medico.Especialidad)
                 .Include(a => a.Creador)
                 .Include(a => a.Cobros)
                 .Include(a => a.Formulas)
@@ -287,12 +288,14 @@ namespace Proy_back_QBD.Services
                     Cuo = $"P{a.Id}",
                     FechaCreacion = ZonaHoraria.AjustarZona(a.FechaCreacion),
                     Dni = a.Paciente.Persona.Dni,
+                    DniApoderado = a.Paciente.DniApoderado,
                     Paciente = a.Paciente.Persona.NombreCompleto,
                     PacienteId = a.PacienteId,
                     Edad = PacienteService.CalcularEdad(a.Paciente.Persona.FechaNacimiento),
                     Recibo = a.Recibo,
                     Celular = a.Paciente.Persona.Telefono,
                     Medico = $"{a.Medico.Persona.NombreCompleto}",
+                    Especialidad = a.Medico.Especialidad.Nombre,
                     Cmp = a.Medico.Cmp,
                     Total = a.Total,
                     Adelanto = a.Adelanto,
