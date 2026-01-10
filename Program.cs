@@ -99,7 +99,10 @@ var connectionString = configuration.GetConnectionString("DefaultConnection") ??
 Console.WriteLine($"Connection String: {connectionString}");
 
 builder.Services.AddDbContext<ApiContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionString)
+           .EnableSensitiveDataLogging()
+           .EnableDetailedErrors()    
+    );
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
