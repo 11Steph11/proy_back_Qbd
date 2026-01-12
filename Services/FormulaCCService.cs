@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Proy_back_QBD.Data;
 using Proy_back_QBD.Dto.Request;
 using Proy_back_QBD.Dto.Response;
@@ -18,56 +19,52 @@ namespace Proy_back_QBD.Services
             _mapper = mapper;
         }
 
-        public async Task<List<FormulaCC>>? Actualizar(int formulaId, int sedeId, FormulaCCUpdReqP request)
+        public async Task<string>? Actualizar(int formulaId, int sedeId, FormulaCCUpdReqP request)
         {
 
-            List<FormulaCC>? formulasCC = await _context.FormulasCC
+            bool duplicates = request.FormulaCCs
+    .GroupBy(x => x.Variable)
+    .Where(g => g.Count() > 1)
+    .Select(g => new
+    {
+        Variable = g.Key
+    })
+    .Any();
+
+            if (duplicates)
+            {
+                return "Variable Duplicada";
+            }
+
+
+            List<FormulaCC?>? formulasCC = await _context.FormulasCC
             .Where(w => w.FormulaId == formulaId && w.SedeId == sedeId)
             .ToListAsync();
 
-            if (formulasCC == null)
+            if (formulasCC != null || formulasCC.Count() > 0)
             {
-                return null;
+                _context.FormulasCC.RemoveRange(formulasCC);
+                await _context.SaveChangesAsync();
             }
 
-            IEnumerable<int> InsumosReq = request.FormulaCCs.Select(s => s.InsumoId);
-            IEnumerable<int> InsumosFormulas = formulasCC.Select(s => s.InsumoId);
-            List<FormulaCC>? auxiliar = new();
 
             foreach (var formula in request.FormulaCCs)
             {
-                if (!InsumosFormulas.Contains(formula.InsumoId))
-                {
-                    FormulaCC formulaM = _mapper.Map<FormulaCC>(formula);
-                    formulaM.FormulaId = formulaId;
-                    formulaM.SedeId = sedeId;
-                    _context.FormulasCC.Add(formulaM);
-                    auxiliar.Add(formulaM);
-                }
-                foreach (var formula2 in formulasCC)
-                {
-                    if (formula2.InsumoId == formula.InsumoId)
-                    {
-
-                        _mapper.Map(formula, formula2);
-                        auxiliar.Add(formula2);
-                    }
-                    if (!InsumosReq.Contains(formula2.InsumoId))
-                    {
-                        _context.FormulasCC.Remove(formula2);
-                    }
-                }
+                FormulaCC formulaM = _mapper.Map<FormulaCC>(formula);
+                formulaM.FormulaId = formulaId;
+                formulaM.SedeId = sedeId;
+                _context.FormulasCC.Add(formulaM);
             }
-            
+
             Laboratorio? laboratorio = await _context.Laboratorios.FirstOrDefaultAsync(foda => foda.Id == formulaId && foda.SedeId == sedeId);
             if (laboratorio == null)
                 return null;
-            
+
             laboratorio.Procedimiento = request.Procedimiento;
             laboratorio.EmpaqueId = request.EmpaqueId;
-            
+
             await _context.SaveChangesAsync();
-            return auxiliar;
+            return "Cambio Exitoso";
         }
 
         public async Task<List<RecetaRes>?> ListarInsumos(int sedeId)

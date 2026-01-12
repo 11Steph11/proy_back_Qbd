@@ -35,7 +35,7 @@ public class FormulaCCController : ControllerBase
         {
             return BadRequest();
         }
-        List<FormulaCC>? response = await _formulaService.Actualizar(formulaId, sedeId, formulas);
+        string? response = await _formulaService.Actualizar(formulaId, sedeId, formulas);
         if (response == null)
         {
             return NotFound();
