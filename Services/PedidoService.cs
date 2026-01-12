@@ -197,6 +197,7 @@ namespace Proy_back_QBD.Services
 
                     Formula formula = _mapper.Map<Formula>(item);
                     formula.Estado = "PENDIENTE";
+                    formula.Reportado = "PENDIENTE";
                     formula.SedeId = request.SedeId;
                     formula.Lote = "FM" + codLote + (correlativo + c).ToString();
                     c++;

@@ -115,6 +115,7 @@ namespace Proy_back_QBD.Services
 
             formula.ModificadorId = formula.CreadorId;
             formula.Estado = "PENDIENTE";
+            formula.Reportado = "PENDIENTE";
 
             response.FormulaRes = formula;
             response.Msg = "Formula creado exitosamente.";
