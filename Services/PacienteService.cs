@@ -121,29 +121,49 @@ namespace Proy_back_QBD.Services
 
         public static string CalcularEdad(DateOnly? fechaNacimiento)
         {
+            // Validar entrada
+            if (!fechaNacimiento.HasValue)
+                return "Fecha no disponible";
+
             var hoy = DateOnly.FromDateTime(DateTime.Today);
+            var fechaNac = fechaNacimiento.Value;
 
-            int num = hoy.Year - fechaNacimiento.GetValueOrDefault().Year;
-            string edad;
+            // Validar que la fecha de nacimiento no sea futura
+            if (fechaNac > hoy)
+                return "Fecha inválida";
 
-            if (fechaNacimiento > hoy.AddYears(-num))
+            // Calcular años
+            int años = hoy.Year - fechaNac.Year;
+
+            // Ajustar si aún no ha cumplido años este año
+            if (hoy < fechaNac.AddYears(años))
+                años--;
+
+            // Si tiene al menos 1 año, retornar en años
+            if (años >= 1)
+                return años == 1 ? "1 año" : $"{años} años";
+
+            // Calcular meses para menores de 1 año
+            int meses = hoy.Month - fechaNac.Month;
+            if (hoy.Day < fechaNac.Day)
+                meses--;
+
+            if (meses < 0)
+                meses += 12;
+
+            // Si tiene al menos 1 mes, retornar en meses
+            if (meses >= 1)
+                return meses == 1 ? "1 mes" : $"{meses} meses";
+
+            // Calcular días para menores de 1 mes
+            int días = hoy.Day - fechaNac.Day;
+            if (días < 0)
             {
-                num--;
-
-            }
-            edad = num + " años";
-            if (num == 1)
-            {
-                edad = num + " año";
+                var mesAnterior = hoy.AddMonths(-1);
+                días = DateTime.DaysInMonth(mesAnterior.Year, mesAnterior.Month) - fechaNac.Day + hoy.Day;
             }
 
-            if (num == 0)
-            {
-                num = 12 - fechaNacimiento.GetValueOrDefault().Month;
-                edad = num + " meses";
-            }
-
-            return edad;
+            return días == 1 ? "1 día" : $"{días} días";
         }
     }
 }
