@@ -33,7 +33,7 @@ namespace Proy_back_QBD.Services
         }
         public async Task<FormulaUpdateResponse?> Actualizar(int id, int sedeId, FormulaUpdateReq request)
         {
-            
+
             FormulaUpdateResponse response = new FormulaUpdateResponse();
 
             Formula? formulaFind = await _context.Formulas
@@ -260,13 +260,16 @@ namespace Proy_back_QBD.Services
         {
 
             Formula? formula = await _context.Formulas
-            .Include(i => i.Laboratorio)            
+            .Include(i => i.Laboratorio)
+            .Include(i => i.Pedido)
             .FirstOrDefaultAsync(foda => foda.Id == formulaId && foda.SedeId == sedeId);
 
             if (formula == null)
             {
                 return null;
             }
+            Pedido pedido = formula.Pedido;
+            pedido.Total -= formula.Costo * formula.Cantidad;
 
             formula.Costo = request.Costo;
             formula.Cantidad = request.Cantidad;
@@ -282,6 +285,7 @@ namespace Proy_back_QBD.Services
             formula.ZonaAplicacion = request.ZonaAplicacion;
             formula.ModificadorId = request.ModificadorId;
 
+            pedido.Total += formula.Costo * formula.Cantidad;
             await _context.SaveChangesAsync();
 
             return formula;
