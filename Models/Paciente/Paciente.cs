@@ -29,6 +29,11 @@ namespace Proy_back_QBD.Models
         public int ModificadorId { get; set; }
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public Sede? Sede { get; set; }
+        [Column("sede_id")]
+        public int SedeId { get; set; }  // Puede ser nulo
         [Column("persona_id")]
         public int PersonaId { get; set; }  // Puede ser nulo
         [JsonIgnore]

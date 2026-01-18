@@ -337,6 +337,10 @@ namespace Proy_back_QBD.Data
                             .HasForeignKey(e => e.EspecialidadId)
                             .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Medico>()
+                            .HasOne(e => e.Sede)
+                            .WithMany(e2 => e2.Medicos)
+                            .HasForeignKey(e => e.SedeId)                            ;
+            modelBuilder.Entity<Medico>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar
             .ValueGeneratedOnAdd();
@@ -363,6 +367,10 @@ namespace Proy_back_QBD.Data
                             .WithMany(e2 => e2.Pacientes)
                             .HasForeignKey(e => e.PersonaId)
                             .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Paciente>()
+                            .HasOne(e => e.Sede)
+                            .WithMany(e2 => e2.Pacientes)
+                            .HasForeignKey(e => e.SedeId);
             modelBuilder.Entity<Paciente>()
             .Property(p => p.FechaCreacion)
             .HasDefaultValueSql("CURRENT_TIMESTAMP")  // Para asignar el valor al insertar

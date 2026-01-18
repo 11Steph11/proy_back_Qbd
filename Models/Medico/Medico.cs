@@ -33,6 +33,10 @@ namespace Proy_back_QBD.Models
         public Usuario? Creador { get; set; }
         [Column("modificador_id")]
         public int ModificadorId { get; set; }
+        [Column("sede_id")]
+        public int SedeId { get; set; }
+        [NotMapped]
+        public Sede? Sede { get; set; }
         [JsonIgnore]
         public Usuario? Modificador { get; set; }
         [Column("cmp")]

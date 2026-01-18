@@ -70,11 +70,12 @@ namespace Proy_back_QBD.Services
             return medico;
         }
 
-        public async Task<List<MedicoFindAllResponse?>> Obtener()
+        public async Task<List<MedicoFindAllResponse?>> Obtener(int sedeId)
         {
             List<MedicoFindAllResponse>? response = await _context.Medicos
             .Include(a => a.Especialidad)
             .Include(a => a.Persona)
+            .Where(w => w.SedeId == sedeId)
             .Select(a => new MedicoFindAllResponse
             {
                 Id = a.Id,

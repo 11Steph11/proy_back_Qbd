@@ -71,12 +71,12 @@ namespace Proy_back_QBD.Services
             return paciente;
         }
 
-        public async Task<List<PacienteFindAllResponse?>> Obtener()
+        public async Task<List<PacienteFindAllResponse?>> Obtener(int sedeId)
         {
-
 
             var query = _context.Pacientes
                 .Include(a => a.Persona)
+                .Where(w => w.SedeId == sedeId)
                 .Select(a => new PacienteFindAllResponse
                 {
                     Id = a.Id,

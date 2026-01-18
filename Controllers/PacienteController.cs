@@ -55,11 +55,11 @@ public class PacienteController : ControllerBase
 
         return Ok(response);
     }
-    [HttpGet]
+    [HttpGet("{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PacienteFindAllResponse?>))]
-    public async Task<IActionResult> ObtenerPacientes()
+    public async Task<IActionResult> ObtenerPacientes(int sedeId)
     {
-        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener();
+        List<PacienteFindAllResponse?> response = await _pacienteService.Obtener(sedeId);
 
         return Ok(response);
     }
@@ -74,5 +74,5 @@ public class PacienteController : ControllerBase
         }
         return Ok(response);
     }
-    
+
 }

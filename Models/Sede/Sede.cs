@@ -20,7 +20,7 @@ namespace Proy_back_QBD.Models
         public string? Encargado { get; set; }  // Puede ser nulo                        
         [Column("telefono")]
         public string? Telefono { get; set; }  // Puede ser nulo               
-        [Column("msg_terminado")]   
+        [Column("msg_terminado")]
         public string? MsgTerminado { get; set; }  // Puede ser nulo                        
         [Column("msg_gpt")]
         public string? MsgGpt { get; set; }  // Puede ser nulo               
@@ -48,6 +48,10 @@ namespace Proy_back_QBD.Models
         public Usuario? Modificador { get; set; }
         [JsonIgnore]
         public List<Asistencia>? Asistencias { get; set; }
+        [JsonIgnore]
+        public List<Medico>? Medicos { get; set; }
+        [JsonIgnore]
+        public List<Paciente>? Pacientes { get; set; }
     }
 
 }
