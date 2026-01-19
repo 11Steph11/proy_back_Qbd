@@ -22,9 +22,9 @@ namespace Proy_back_QBD.Services
         public async Task<PedidoUpdateResponse?> Actualizar(int id, int sedeId, PedidoUpdateReq request)
         {
             string? reciboF = await _context.Pedidos
-            .Where(w => w.Id == id)
+            .Where(w => w.Id == id && w.SedeId == sedeId)
             .Select(s => s.Recibo).FirstOrDefaultAsync();
-            if (reciboF != request.Recibo)
+            if (reciboF.Trim() != request.Recibo.Trim())
             {
                 bool validacion = await _context.Pedidos.AnyAsync(a => a.Recibo == request.Recibo);
                 if (validacion)
