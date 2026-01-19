@@ -32,7 +32,7 @@ namespace Proy_back_QBD.Services
                     return null;
                 }
             }
-            
+
             PedidoUpdateResponse response = new PedidoUpdateResponse();
             Pedido? pedido = await _context.Pedidos
             .Include(i => i.Formulas)
@@ -194,12 +194,20 @@ namespace Proy_back_QBD.Services
             {
                 foreach (var item in request.Formulas)
                 {
-
+                    string prefijo = request.SedeId switch
+                    {
+                        3 => "P",   // PUNO
+                        2 => "PJ",  // JULIACA
+                        4 => "T",   // TACNA
+                        1 => "L",   // LIMA
+                        12 => "CS",  // SICUANI
+                        _ => "FM"   // por seguridad
+                    };
                     Formula formula = _mapper.Map<Formula>(item);
                     formula.Estado = "PENDIENTE";
                     formula.Reportado = "PENDIENTE";
                     formula.SedeId = request.SedeId;
-                    formula.Lote = "FM" + codLote + (correlativo + c).ToString();
+                    formula.Lote = prefijo + "-" + codLote + (correlativo + c).ToString();
                     c++;
                     formulaList.Add(formula);
                 }
