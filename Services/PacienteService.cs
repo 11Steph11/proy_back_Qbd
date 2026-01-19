@@ -45,7 +45,9 @@ namespace Proy_back_QBD.Services
             persona.ModificadorId = persona.CreadorId;
             Paciente paciente = _mapper.Map<Paciente>(request);
             bool existe = await _context.Pacientes
-                .AnyAsync(p => p.Persona.Dni == request.Persona.Dni);
+                .Include(i => i.Persona)
+                .AnyAsync(p => p.Persona.Dni == request.Persona.Dni && p.SedeId == request.SedeId);
+
             if (existe)
             {
                 response.Msg = "El paciente ya existe.";

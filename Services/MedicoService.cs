@@ -23,16 +23,17 @@ namespace Proy_back_QBD.Services
             MedicoCreateResponse response = new MedicoCreateResponse();
             Persona persona = _mapper.Map<Persona>(request.PersonaCReq);
             persona.ModificadorId = persona.CreadorId;
-            await _context.Personas.AddAsync(persona);
-            await _context.SaveChangesAsync();
-            Medico medico = _mapper.Map<Medico>(request);
             bool existe = await _context.Medicos
-                .AnyAsync(p => p.Cmp == request.Cmp);
+                .AnyAsync(p => p.Cmp == request.Cmp && p.SedeId == request.SedeId);
             if (existe)
             {
                 response.Msg = "Ya existe este CMP";
                 return response;
             }
+            await _context.Personas.AddAsync(persona);
+            await _context.SaveChangesAsync();
+            Medico medico = _mapper.Map<Medico>(request);
+
             medico.PersonaId = persona.Id;
             medico.ModificadorId = medico.CreadorId;
             await _context.Medicos.AddAsync(medico);
