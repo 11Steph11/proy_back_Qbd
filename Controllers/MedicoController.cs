@@ -59,7 +59,7 @@ public class MedicoController : ControllerBase
 
         return Ok(response);
     }
-    [HttpGet("{sedeId}")]
+    [HttpGet("sede/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<MedicoFindAllResponse?>))]
     public async Task<IActionResult> ObtenerMedicos(int sedeId)
     {

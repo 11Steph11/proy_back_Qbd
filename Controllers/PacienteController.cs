@@ -55,7 +55,7 @@ public class PacienteController : ControllerBase
 
         return Ok(response);
     }
-    [HttpGet("{sedeId}")]
+    [HttpGet("sede/{sedeId}")]
     [SwaggerResponse(200, "Creacion exitosa", typeof(List<PacienteFindAllResponse?>))]
     public async Task<IActionResult> ObtenerPacientes(int sedeId)
     {
