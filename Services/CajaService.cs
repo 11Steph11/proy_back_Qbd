@@ -129,17 +129,18 @@ namespace Proy_back_QBD.Services
 
             List<MovTerm> movsTerm = new();
 
+            DateOnly hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
 
+            movsTerm = await _context.Cobros
+            .Include(i => i.Pedido)
+           .Where(w => pedidoBQ.Contains(w.PedidoId) && w.SedeId == sedeId && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == hoy)
+           .Select(s => new MovTerm
+           {
+               Modalidad = s.Modalidad,
+               Importe = s.Importe
+           })
+           .ToListAsync();
 
-                movsTerm = await _context.Cobros
-               .Where(w => pedidoBQ.Contains(w.PedidoId) && w.SedeId == sedeId)
-               .Select(s => new MovTerm
-               {
-                   Modalidad = s.Modalidad,
-                   Importe = s.Importe
-               })
-               .ToListAsync();
-            
             List<Movimientos> movimientos = new List<Movimientos>();
             if (movsTotal != null) movimientos.AddRange(movsTotal);
 

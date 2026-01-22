@@ -7,7 +7,6 @@ namespace Proy_back_QBD.Models
 {
     public class FormulaCCUpdReqP
     {
-
         public required List<FormulaCCUpdReq> FormulaCCs { get; set; }
         public required string Procedimiento { get; set; }
         public required int EmpaqueId { get; set; }
