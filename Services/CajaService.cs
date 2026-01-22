@@ -133,7 +133,7 @@ namespace Proy_back_QBD.Services
 
             movsTerm = await _context.Cobros
             .Include(i => i.Pedido)
-           .Where(w => pedidoBQ.Contains(w.PedidoId) && w.SedeId == sedeId && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal)
+           .Where(w => pedidoBQ.Contains(w.PedidoId) && w.SedeId == sedeId && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal)
            .Select(s => new MovTerm
            {
                Modalidad = s.Modalidad,
