@@ -60,7 +60,66 @@ namespace Proy_back_QBD.Services
                 Importe = s.Importe,
                 Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                 Turno = s.Turno,
-                BolFac = s.Pedido.ComprobanteElectronico
+                BolFac = s.Pedido.ComprobanteElectronico,
+                Lista = s.Pedido.Cobros.Where(w => w.Id != s.Id).Select(
+                    s2 => new Movimientos2
+                    {
+                        CUO_R = "P" + s2.PedidoId,
+                        CUO_C = "C" + s2.Id,
+                        FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
+                        Dni = !string.IsNullOrEmpty(s2.Pedido.Paciente.DniApoderado)
+                            ? s2.Pedido.Paciente.DniApoderado
+                            : s2.Pedido.Paciente.Persona.Dni,
+                        Paciente = s2.Pedido.Paciente.Persona.NombreCompleto,
+                        FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.Pedido.FechaCreacion)),
+                        Modalidad = s2.Modalidad,
+                        Estado = s2.Pedido.Estado,
+                        Importe = s2.Importe,
+                        Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
+                        Turno = s2.Turno,
+                        BolFac = s2.Pedido.ComprobanteElectronico,
+
+                    }).ToList()
+            })
+            .ToList();
+            List<Movimientos> movsTotal2 = caja
+            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.ComprobanteElectronico != null)
+            .OrderByDescending(odb => odb.Id)
+            .Select(s => new Movimientos
+            {
+                CUO_R = "P" + s.PedidoId,
+                CUO_C = "C" + s.Id,
+                FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
+                Dni = !string.IsNullOrEmpty(s.Pedido.Paciente.DniApoderado)
+      ? s.Pedido.Paciente.DniApoderado
+      : s.Pedido.Paciente.Persona.Dni,
+                Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
+                FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.Pedido.FechaCreacion)),
+                Modalidad = s.Modalidad,
+                Estado = s.Pedido.Estado,
+                Importe = s.Importe,
+                Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
+                Turno = s.Turno,
+                BolFac = s.Pedido.ComprobanteElectronico,
+                Lista = s.Pedido.Cobros.Where(w => w.Id != s.Id).Select(
+                    s2 => new Movimientos2
+                    {
+                        CUO_R = "P" + s2.PedidoId,
+                        CUO_C = "C" + s2.Id,
+                        FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
+                        Dni = !string.IsNullOrEmpty(s2.Pedido.Paciente.DniApoderado)
+                            ? s2.Pedido.Paciente.DniApoderado
+                            : s2.Pedido.Paciente.Persona.Dni,
+                        Paciente = s2.Pedido.Paciente.Persona.NombreCompleto,
+                        FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.Pedido.FechaCreacion)),
+                        Modalidad = s2.Modalidad,
+                        Estado = s2.Pedido.Estado,
+                        Importe = s2.Importe,
+                        Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
+                        Turno = s2.Turno,
+                        BolFac = s2.Pedido.ComprobanteElectronico,
+
+                    }).ToList()
             })
             .ToList();
             List<MovTerm> movsHoy = caja
