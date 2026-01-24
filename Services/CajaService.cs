@@ -24,7 +24,6 @@ namespace Proy_back_QBD.Services
 
         public async Task<CajaFindAllRes?> Obtener(CajaFindAllReq request, int sedeId)
         {
-
             RecaudacionDelDia recaudDia = new();
             RPagosDelDia pagosDia = new();
             RPagosAnteriores pagosAnteriores = new();
@@ -37,7 +36,6 @@ namespace Proy_back_QBD.Services
                     .Include(i => i.Pedido.Paciente.Persona)
                     .Include(i => i.Pedido.Formulas)
                     .Include(i => i.Pedido.ProdTerms)
-                    .Include(i => i.Pedido.Cobros)
                     .Where(w =>
                         DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) >= request.FechaInicio
                         && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) <= request.FechaFinal && w.SedeId == sedeId
@@ -62,71 +60,9 @@ namespace Proy_back_QBD.Services
                 Importe = s.Importe,
                 Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
                 Turno = s.Turno,
-                BolFac = s.Pedido.ComprobanteElectronico,
-                Lista = s.Pedido.Cobros.Where(w => w.Id != s.Id).Select(
-                    s2 => new Movimientos2
-                    {
-                        CUO_R = "P" + s2.PedidoId,
-                        CUO_C = "C" + s2.Id,
-                        FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
-                        Dni = !string.IsNullOrEmpty(s2.Pedido.Paciente.DniApoderado)
-                            ? s2.Pedido.Paciente.DniApoderado
-                            : s2.Pedido.Paciente.Persona.Dni,
-                        Paciente = s2.Pedido.Paciente.Persona.NombreCompleto,
-                        FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.Pedido.FechaCreacion)),
-                        Modalidad = s2.Modalidad,
-                        Estado = s2.Pedido.Estado,
-                        Importe = s2.Importe,
-                        Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
-                        Turno = s2.Turno,
-                        BolFac = s2.Pedido.ComprobanteElectronico,
-
-                    }).ToList()
+                BolFac = s.Pedido.ComprobanteElectronico
             })
             .ToList();
-            List<Movimientos> movsTotal2 = caja
-            .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.ComprobanteElectronico != null)
-            .OrderByDescending(odb => odb.Id)
-            .Select(s => new Movimientos
-            {
-                CUO_R = "P" + s.PedidoId,
-                CUO_C = "C" + s.Id,
-                FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
-                Dni = !string.IsNullOrEmpty(s.Pedido.Paciente.DniApoderado)
-      ? s.Pedido.Paciente.DniApoderado
-      : s.Pedido.Paciente.Persona.Dni,
-                Paciente = s.Pedido.Paciente.Persona.NombreCompleto,
-                FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s.Pedido.FechaCreacion)),
-                Modalidad = s.Modalidad,
-                Estado = s.Pedido.Estado,
-                Importe = s.Importe,
-                Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s.FechaCreacion)),
-                Turno = s.Turno,
-                BolFac = s.Pedido.ComprobanteElectronico,
-                Lista = s.Pedido.Cobros.Where(w => w.Id != s.Id).Select(
-                    s2 => new Movimientos2
-                    {
-                        CUO_R = "P" + s2.PedidoId,
-                        CUO_C = "C" + s2.Id,
-                        FechaCobro = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
-                        Dni = !string.IsNullOrEmpty(s2.Pedido.Paciente.DniApoderado)
-                            ? s2.Pedido.Paciente.DniApoderado
-                            : s2.Pedido.Paciente.Persona.Dni,
-                        Paciente = s2.Pedido.Paciente.Persona.NombreCompleto,
-                        FechaPedido = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.Pedido.FechaCreacion)),
-                        Modalidad = s2.Modalidad,
-                        Estado = s2.Pedido.Estado,
-                        Importe = s2.Importe,
-                        Hora = TimeOnly.FromDateTime(ZonaHoraria.AjustarZona(s2.FechaCreacion)),
-                        Turno = s2.Turno,
-                        BolFac = s2.Pedido.ComprobanteElectronico,
-
-                    }).ToList()
-            })
-            .ToList();
-
-            List<Movimientos2> movimiento2 = movsTotal2.SelectMany(s => s.Lista).ToList();
-
             List<MovTerm> movsHoy = caja
             .Where(w => w.Pedido.Estado != "DEVUELTO" && DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal)
             .OrderByDescending(odb => odb.Id)
@@ -138,22 +74,21 @@ namespace Proy_back_QBD.Services
             })
             .ToList();
 
-            List<int> pedidoBQ = new();
-
             List<int> pedidosId = caja
             .Where(w => w.Pedido.Estado != "DEVUELTO")
             .Select(s => s.PedidoId)
             .ToList();
 
-            List<MovTerm> MovsAnt = movimiento2
-            .Where(w => w.FechaPedido < request.FechaInicio &&
-            w.FechaCobro == request.FechaFinal
+            List<MovTerm> MovsAnt = await _context.Cobros
+            .Where(w => pedidosId.Contains(w.PedidoId) &&
+            DateOnly.FromDateTime(w.Pedido.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) < request.FechaInicio &&
+            DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal && w.SedeId == sedeId
              )
             .Select(s => new MovTerm
             {
                 Modalidad = s.Modalidad,
                 Importe = s.Importe,
-            }).ToList();
+            }).ToListAsync();
 
             List<int> idCajaTerms = caja
             .Where(w => w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
@@ -163,22 +98,23 @@ namespace Proy_back_QBD.Services
                        .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
                        .Select(s => s.PedidoId)
                        .ToList();
-
             List<int> idCobroBQ = caja
                        .Where(w => w.Pedido.Estado != "DEVUELTO" && w.Pedido.Saldo == 0 && !string.IsNullOrWhiteSpace(w.Pedido.ComprobanteElectronico))
                        .Select(s => s.Id)
                        .ToList();
 
             List<UltimosCobros?> UltimosCobros = await _context.Cobros
-            .Where(w => idMovsTerm.Contains(w.PedidoId) && w.SedeId == sedeId)
-            .GroupBy(gb => gb.PedidoId)
-            .Select(s => new UltimosCobros
-            {
-                PedidoId = s.Key,
-                CobroId = s.Max(x => x.Id)
-            })
-            .ToListAsync();
+.Where(w => idMovsTerm.Contains(w.PedidoId) && w.SedeId == sedeId)
+.GroupBy(gb => gb.PedidoId)
+.Select(s => new UltimosCobros
+{
+    PedidoId = s.Key,
+    CobroId = s.Max(x => x.Id)
+})
+.ToListAsync();
 
+
+            List<int> pedidoBQ = new();
 
             foreach (var item in UltimosCobros)
             {
@@ -195,24 +131,15 @@ namespace Proy_back_QBD.Services
 
             DateOnly hoy = DateOnly.FromDateTime(ZonaHoraria.AjustarZona(DateTime.Now));
 
-            movsTerm = movimiento2
+            movsTerm = await _context.Cobros
+            .Include(i => i.Pedido)
+           .Where(w => pedidoBQ.Contains(w.PedidoId) && w.SedeId == sedeId && DateOnly.FromDateTime(w.FechaCreacion.AddMinutes(peruOffset.TotalMinutes)) == request.FechaFinal)
            .Select(s => new MovTerm
            {
                Modalidad = s.Modalidad,
                Importe = s.Importe
            })
-           .ToList();
-
-            List<MovTerm> movsTerm2 = new();
-            movsTerm2 = movsTotal2
-           .Select(s => new MovTerm
-           {
-               Modalidad = s.Modalidad,
-               Importe = s.Importe
-           })
-           .ToList();
-
-            movsTerm.AddRange(movsTerm2);
+           .ToListAsync();
 
             List<Movimientos> movimientos = new List<Movimientos>();
             if (movsTotal != null) movimientos.AddRange(movsTotal);
