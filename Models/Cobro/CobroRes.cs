@@ -18,12 +18,12 @@ namespace Proy_back_QBD.Response
         public class CobroByPedido
         {
             public int? Id { get; set; }
-            public string? CUO { get; set; } 
-            public DateTime? FechaCreacion { get; set; } 
-            public string? Turno { get; set; } 
-            public string? Modalidad { get; set; } 
-            public string? NroOperacion { get; set; } 
-            public decimal? Importe { get; set; } 
+            public string? CUO { get; set; }
+            public DateTime? FechaCreacion { get; set; }
+            public string? Turno { get; set; }
+            public string? Modalidad { get; set; }
+            public string? NroOperacion { get; set; }
+            public decimal? Importe { get; set; }
         }
 
         public class CajaFindAllRes
@@ -37,6 +37,22 @@ namespace Proy_back_QBD.Response
             public List<DeudasPendientes>? Deudas { get; set; }
         }
         public class Movimientos
+        {
+            public string? CUO_R { get; set; }
+            public string? CUO_C { get; set; }
+            public DateOnly? FechaCobro { get; set; }
+            public string? Dni { get; set; }
+            public string? Paciente { get; set; }
+            public DateOnly? FechaPedido { get; set; }
+            public string? Estado { get; set; }
+            public string? Modalidad { get; set; }
+            public decimal? Importe { get; set; }
+            public TimeOnly? Hora { get; set; }
+            public string? Turno { get; set; }
+            public string? BolFac { get; set; }
+            public List<Movimientos2>? Lista { get; set; }
+        }
+        public class Movimientos2
         {
             public string? CUO_R { get; set; }
             public string? CUO_C { get; set; }
